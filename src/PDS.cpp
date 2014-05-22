@@ -162,7 +162,7 @@ void PDS::parseVar(string input, int termNum){
  int PDS::evaluate(uchar * state){
    int result = 0;
    
-   // cout << "SPLIT STATE: " <<  (int)state[0] << " , " << (int)state[1]  << " , " << (int)state[2] << endl;
+   //cout << "SPLIT STATE: " <<  (int)state[0] << " , " << (int)state[1]  << " , " << (int)state[2] << endl;
 
    for (int i = 0; i < coefs.size(); i++){
      result  += resolveTerm(state, coefs[i], vars[i], pows[i]);

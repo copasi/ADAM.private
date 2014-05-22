@@ -174,7 +174,7 @@ void Table::makeTable(string values){
 // input is modified to strip these x values from it and is passed
 // back by reference as well as returned
 string Table::parseVars(string & input, vector<string> * varNamesVector){
-  std::cout << "\n*** input 1 = " << input << std::endl;
+  //std::cout << "\n*** input 1 = " << input << std::endl;
   // Erase leading \n's
   while ((!isalpha(input.at(0))) || input.at(0) == '\n'){  
     input = input.substr(1, input.length());
@@ -203,7 +203,7 @@ string Table::parseVars(string & input, vector<string> * varNamesVector){
   
   varOrder->pop_back(); // remove the last variable name (duplicated one at the last)
   num_vars = varOrder->size();
- std::cout << "\n*** input 2 = \n" << input << std::endl;
+  //std::cout << "\n*** input 2 = \n" << input << std::endl;
   return input;
 }
 

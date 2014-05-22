@@ -215,7 +215,7 @@ void Cyclone::initializeUpdateSpeeds(const int * unsortedSpeeds)
 
   for (int i = 0; i < num_vars; i++)
     {
-      std::cout << "i " << i << " unsortedSpeeds " << unsortedSpeeds[i] << " sizeVarsByUpdateSpeed " << sizeVarsByUpdateSpeed[unsortedSpeeds[i]] << std::endl;
+      //std::cout << "i " << i << " unsortedSpeeds " << unsortedSpeeds[i] << " sizeVarsByUpdateSpeed " << sizeVarsByUpdateSpeed[unsortedSpeeds[i]] << std::endl;
       varsByUpdateSpeed[unsortedSpeeds[i]][sizeVarsByUpdateSpeed[unsortedSpeeds[i]]] = i;
       sizeVarsByUpdateSpeed[unsortedSpeeds[i]]++;
     }
@@ -394,15 +394,15 @@ void Cyclone::printState(unlong curState)
       temp[i] = 0;
     }
 
-  cout << "CUR: " << curState << endl;
+  //cout << "CUR: " << curState << endl;
   decimalToTernary(curState, temp, numStates, num_vars);
 
-  cout << "[";
+  //cout << "[";
   for (int i = 0; i < num_vars; i++)
     {
-      cout << " " << (int) temp[i];
+      //cout << " " << (int) temp[i];
     }
-  cout << " ]" << endl;
+  //cout << " ]" << endl;
   delete temp;
 }
 
@@ -450,7 +450,7 @@ void Cyclone::printPDS()
         }
       output << "\n";
     }
-  cout << output.str() << endl;
+  //cout << output.str() << endl;
 }
 
 // PRE: key is defined as valid key for an SHM segment. size is
