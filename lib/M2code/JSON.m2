@@ -474,6 +474,7 @@ Caveat
     Also it does not handle values true, false, null.
 SeeAlso
     toJSON
+    prettyPrintJSON
 ///
 
 TEST ///
@@ -481,6 +482,7 @@ TEST ///
 -- may have as many TEST sections as needed
   H = parseJSON exampleJSON#0
   J = toJSON H  
+  prettyPrintJSON H
   H1 = parseJSON J
   assert(H === H1)
   L1 = fromHashTable H

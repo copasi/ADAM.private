@@ -54,6 +54,8 @@ logicEvaluate(String, MutableHashTable) := (x, env) -> env#x
 logicEvaluate(LogicalOr, HashTable) := (L, env) -> any(L, x -> logicEvaluate(x,env))
 logicEvaluate(LogicalAnd, HashTable) := (L, env) -> all(L, x -> logicEvaluate(x,env))
 logicEvaluate(LogicalNot, HashTable) := (L, env) -> not logicEvaluate(L#0, env)
+logicEvaluate(Boolean, HashTable) := (L, env) -> L
+
 
 support String := s -> {s}
 support LogicalNot :=
@@ -194,7 +196,7 @@ possibleInputs(ZZ,ZZ,ZZ) := (ninputs, loval, hival) -> (
 transitionTable = method()
 transitionTable(List, ZZ) := (inputVariables, val) -> (
     -- this is the case of a constant function, if inputVariables is empty
-    if #inputVariables == 0 then {{},val}
+    if #inputVariables == 0 then {{{},val}}
     else (
         R := ring first inputVariables;
         assert all(inputVariables, x -> ring x === R);
@@ -204,7 +206,7 @@ transitionTable(List, ZZ) := (inputVariables, val) -> (
 transitionTable(List, RingElement) := (inputVariables, F) -> (
     if #inputVariables == 0 then (
         assert(support F === {});
-        {{},F}
+        {{{},F}}
         )
     else (
         R := ring F;
@@ -226,6 +228,7 @@ transitionTable(List, RingElement) := (inputVariables, F) -> (
 transitionTable(List, LogicalAnd) := 
 transitionTable(List, LogicalOr) := 
 transitionTable(List, LogicalNot) := 
+transitionTable(List, Boolean) := 
 transitionTable(List, String) := (inputVariables, F) -> (
     -- now F is a boolean formula
     -- step 1: create the possible input values (of 0, 1 values)
