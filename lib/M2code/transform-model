@@ -25,16 +25,17 @@ helpString = ///usage: transform-model [add/remove] [poly/tt/bool] <json-model-f
   example output:
 ///
 
-if #scriptCommandLine != 2 then (
+print scriptCommandLine;
+if #scriptCommandLine != 3 then (
     stderr << helpString;
     exit(1);
     )
-add = scriptCommandLine#0 == "add"
-if not add then if scriptCommandLine#1 != "remove" then (
+add = scriptCommandLine#1
+if not member(add, {"add", "remove"}) then (
     stderr << "first argument needs to be either 'add' or 'remove'" << endl;
     exit(2);
     )
-type = ScriptCommandLine#1
+type = scriptCommandLine#2
 if type != "poly" and type != "tt" and type != "bool" then (
     stderr << "second argument must be 'poly', 'tt', or 'bool'" << endl;
     exit(3);
@@ -43,13 +44,14 @@ if type != "poly" and type != "tt" and type != "bool" then (
 --------------------------------
 
 M = parseModel get stdio
-M1 = transformModel(M,add,type) -- returns a model or an error json (which is a HashTable)
+M1 = transformModel(add,type,M) -- returns a model or an error json (which is a HashTable)
 print prettyPrintJSON M1
 
 end
 
 restart
 -- example:
+./transform-model add poly <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json
 ./transition2polynomials <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json
 ./transition2polynomials <~/Sites/ADAM/exampleJSON/SimplestVersion1-Model.json
 ./transition2polynomials <~/Sites/ADAM/exampleJSON/ThirdVersion1-Model.json

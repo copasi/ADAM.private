@@ -27,7 +27,7 @@ newPackage(
 
 export {
     "Model", 
-    "model", 
+    "model",
     "polynomials", 
     "findLimitCycles", 
     "parseModel", 
@@ -94,6 +94,26 @@ Model == ErrorPacket := (M,N) -> false
 ErrorPacket == ErrorPacket := (M,N) -> checkEqual(M,N)
 Model == Model := (M,N) -> checkEqual(M,N)
 
+-- whereNotEqual: gives error, with first place where they differ
+whereNotEqual = method()
+whereNotEqual(String,String) := (s,t) -> 
+    if s != t then error("strings: "|s|" and "|t|" differ")
+whereNotEqual(List,List) := (L1,L2) -> (
+    if #L1 != #L2 then error("lists: "|toString L1|" and "|toString L2| " differ in length");
+    for i from 0 to #L1 - 1 do (
+        whereNotEqual(L1#i, L2#i);
+        );
+    )
+whereNotEqual(HashTable,HashTable) := (H1,H2) -> (
+    k1 := sort delete(symbol cache, keys H1);
+    k2 := sort delete(symbol cache, keys H2);
+    if k1 =!= k2 then error("keys: "|toString k1|" and "|toString k2| " differ");
+    for k in k1 do (
+        whereNotEqual(H1#k, H2#k);
+        );
+    )
+whereNotEqual(Thing,Thing) := (a,b) -> if a =!= b then error("differ: \n  "|toString a|"\n  "|toString b);
+    
 checkEqual = method()
 checkEqual(String,String) := (s,t) -> s == t
 checkEqual(List,List) := (L1,L2) -> (
@@ -104,9 +124,10 @@ checkEqual(List,List) := (L1,L2) -> (
     true
     )
 checkEqual(HashTable,HashTable) := (H1,H2) -> (
-    if keys H1 =!= keys H2 then return false;
-    for k in keys H1 do (
-        if k === cache then continue;
+    k1 := sort delete(symbol cache, keys H1);
+    k2 := sort delete(symbol cache, keys H2);
+    if k1 =!= k2 then return false;
+    for k in k1 do (
         if not checkEqual(H1#k, H2#k) then return false;
         );
     true
@@ -221,44 +242,53 @@ polyFromTransitionTable(List, List, Ring) := (inputvars, transitions, R) -> (
     )
 
 transformer = new MutableHashTable;
---transformer#(true,"bool") = notImplemented
+--transformer#("add","bool") = notImplemented
 
-transformer#(true,"poly") = (updatexi, M) -> (
+transformer#("add","poly") = (updatexi, M) -> (
     R := ring M;
     if updatexi#?"polynomialFunction" then (
         updatexi#"polynomialFunction" = toString value updatexi#"polynomialFunction";
-    ) else if updatexi#?"transitionTable" then (
+        ) 
+    else if updatexi#?"transitionTable" then (
         possibles := updatexi#"possibleInputVariables";
         tt := updatexi#"transitionTable";
         updatexi#"polynomialFunction" = 
             toString polyFromTransitionTable(possibles, tt, R);
-    ))
---    else if updatexi#"booleanFunction" then (
---        F := polyFromBooleanFunction(updatexi#"booleanFunction");
---        updatexi#"polynomialFunction" = polyFromTransitionTable(...,F,R);
---      )
-
-transformer#(true,"tt") = (updatexi, M) -> (
-    R := ring M;
-    if updatexi#?"transitionTable" then return;
-    if updatexi#?"polynomialFunction" then (
-        possibles := updatexi#"possibleInputVariables";
-        F := value updatexi#"polynomialFunction";
-        updatexi#"transitionTable" = 
-            transitionTable(possibles/value, F)
+        )
+    else if updatexi#?"booleanFunction" then (
+        P := makeLFParser R;
+        F := P updatexi#"booleanFunction";
+        updatexi#"polynomialFunction" = toString F;
         )
     )
 
-transformer#(false,"poly") = (updatexi,M) -> remove(updatexi,"polynomialFunction")
-transformer#(false,"tt") = (updatexi,M) -> remove(updatexi,"transitionTable")
-transformer#(false,"bool") = (updatexi,M) -> remove(updatexi,"booleanFunction")
+transformer#("add","tt") = (updatexi, M) -> (
+    R := ring M;
+    if updatexi#?"transitionTable" then return;
+    if updatexi#?"booleanFunction" then (
+        possibles := updatexi#"possibleInputVariables";
+        Q := makeBoolParser R;
+        formula := Q updatexi#"booleanFunction";
+        updatexi#"transitionTable" = 
+            transitionTable(possibles, formula);
+        )
+    else if updatexi#?"polynomialFunction" then (
+        possibles = updatexi#"possibleInputVariables";
+        F := value updatexi#"polynomialFunction";
+        updatexi#"transitionTable" = 
+            transitionTable(possibles/value, F);
+        )
+    )
+
+transformer#("remove","poly") = (updatexi,M) -> remove(updatexi,"polynomialFunction")
+transformer#("remove","tt") = (updatexi,M) -> remove(updatexi,"transitionTable")
+transformer#("remove","bool") = (updatexi,M) -> remove(updatexi,"booleanFunction")
 
 transformModel = method()
-transformModel(Boolean, String, ErrorPacket) := (add, type, M) -> M
-transformModel(Boolean, String, Model) := (add, type, M) -> (
+transformModel(String, String, ErrorPacket) := (add, type, M) -> M
+transformModel(String, String, Model) := (add, type, M) -> (
     if not transformer#?(add,type) then (
-        addstr := if add then "add" else "remove";
-        packet := "error: cannot " | addstr | " transition functions of type: "|type;
+        packet := "error: cannot " | add | " transition functions of type: "|type;
         return errorPacket packet
         );
     f := transformer#(add,type);
@@ -374,16 +404,16 @@ TEST ///
   debug needsPackage "ADAMModel"
   M = parseModel sample2
 
-  M1 = transformModel(true, "poly", M)
-  M2 = transformModel(true, "poly", M1)
+  M1 = transformModel("add", "poly", M)
+  M2 = transformModel("add", "poly", M1)
   assert(M1 == M2)
-  M3 = transformModel(false, "tt", M2)
-  M4 = transformModel(true, "tt", M3)
+  M3 = transformModel("remove", "tt", M2)
+  M4 = transformModel("add", "tt", M3)
 
-  N1 = transformModel(false, "poly", M4)  
-  N2 = transformModel(false, "tt", M4)  
-  N3 = transformModel(true, "poly", N1)
-  N4 = transformModel(true, "tt", N2)
+  N1 = transformModel("remove", "poly", M4)  
+  N2 = transformModel("remove", "tt", M4)  
+  N3 = transformModel("add", "poly", N1)
+  N4 = transformModel("add", "tt", N2)
   assert(N3 == N4)
   assert(M3 != M2)
 ///
@@ -397,7 +427,7 @@ TEST ///
   str = get "../../exampleJSON/SecondVersion1-Model.json"
   M = parseModel str
   prettyPrintJSON M
-  M1 = addPolynomials M
+  M1 = transformModel("add","poly",M)
   prettyPrintJSON M1
 
   findLimitCycles(M1,{},{1,2,3})
@@ -427,19 +457,42 @@ TEST ///
   assert(M != M2)
   assert(M1 != M2)
 
-  M1 = transformModel(true,"poly",M)
+  M1 = transformModel("add","poly",M)
   assert(M == M1);
   
 ///
 
 TEST ///
+{*
 restart
+*}
     debug needsPackage "ADAMModel"
-    str = get "../../exampleJSON/BooleanModels/Keratinocyte.json";
+    str = get (currentDirectory()|"../../exampleJSON/BooleanModels/Keratinocyte.json");
     M = parseModel str
-    M1 = transformModel(true,"tt",M)
-    M2 = transformModel(false,"poly",M)
-    M3 = transformModel(true,"tt",M2)
+    -- these have boolean and polys
+    -- test: bool --> poly
+    M1 = transformModel("remove","poly",M)
+    M2 = transformModel("add","poly",M1)
+    whereNotEqual(M,M2)
+    assert(M == M2)
+
+    -- test bool --> transition table
+    --  matches poly --> transition table
+    T1 = transformModel("add","tt",M1);
+    T2 = transformModel("remove","bool",T1)
+
+    T3 = transformModel("remove","bool",M2)
+    T4 = transformModel("add","tt",T3)    
+    T5 = transformModel("remove","poly",T4)
+
+    assert(T2 == T5)
+
+    -- test bool --> poly, and transition --> poly have same value
+    -- This test is messed up MES
+    S1 = transformModel("add","poly",M1) -- bool --> poly
+    S2 = transformModel("remove","bool",S1) -- just tt from bool
+    S3 = transformModel("add","tt",S2)
+    
 ///
 end
 

@@ -1,0 +1,1322 @@
+{
+"model": {
+  "description": "",
+  "name": "Influenza_A_Virus",
+  "parameters": [],
+  "updateRules": {
+    "x1": {
+      "booleanFunction": "x72",
+      "polynomialFunction": "x72",
+      "possibleInputVariables": ["x72"]
+      },
+    "x2": {
+      "booleanFunction": "x53",
+      "polynomialFunction": "x53",
+      "possibleInputVariables": ["x53"]
+      },
+    "x3": {
+      "booleanFunction": "x115 & x16 & x96",
+      "polynomialFunction": "x16*x96*x115",
+      "possibleInputVariables": ["x16","x96","x115"]
+      },
+    "x4": {
+      "booleanFunction": "x104",
+      "polynomialFunction": "x104",
+      "possibleInputVariables": ["x104"]
+      },
+    "x5": {
+      "booleanFunction": " !x128 & (x52 | x81)",
+      "polynomialFunction": "x52*x81*x128+x52*x81+x52*x128+x81*x128+x52+x81",
+      "possibleInputVariables": ["x52","x81","x128"]
+      },
+    "x6": {
+      "booleanFunction": "x98",
+      "polynomialFunction": "x98",
+      "possibleInputVariables": ["x98"]
+      },
+    "x7": {
+      "booleanFunction": "x29",
+      "polynomialFunction": "x29",
+      "possibleInputVariables": ["x29"]
+      },
+    "x8": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x9": {
+      "booleanFunction": "x11 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x11*x25*x35",
+      "possibleInputVariables": ["x2","x11","x25","x35"]
+      },
+    "x10": {
+      "booleanFunction": "x80 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x80",
+      "possibleInputVariables": ["x2","x25","x35","x80"]
+      },
+    "x11": {
+      "booleanFunction": "x2 & x35 & (x65 | x9)",
+      "polynomialFunction": "x2*x9*x35*x65+x2*x9*x35+x2*x35*x65",
+      "possibleInputVariables": ["x2","x9","x35","x65"]
+      },
+    "x12": {
+      "booleanFunction": "x94",
+      "polynomialFunction": "x94",
+      "possibleInputVariables": ["x94"]
+      },
+    "x13": {
+      "booleanFunction": "x32",
+      "polynomialFunction": "x32",
+      "possibleInputVariables": ["x32"]
+      },
+    "x14": {
+      "booleanFunction": "x111",
+      "polynomialFunction": "x111",
+      "possibleInputVariables": ["x111"]
+      },
+    "x15": {
+      "booleanFunction": "x112 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x112",
+      "possibleInputVariables": ["x2","x25","x35","x112"]
+      },
+    "x16": {
+      "booleanFunction": "x109",
+      "polynomialFunction": "x109",
+      "possibleInputVariables": ["x109"]
+      },
+    "x17": {
+      "booleanFunction": "x117 & x25 & x2 & x35 &  !x101",
+      "polynomialFunction": "x2*x25*x35*x101*x117+x2*x25*x35*x117",
+      "possibleInputVariables": ["x2","x25","x35","x101","x117"]
+      },
+    "x18": {
+      "booleanFunction": "x63",
+      "polynomialFunction": "x63",
+      "possibleInputVariables": ["x63"]
+      },
+    "x19": {
+      "booleanFunction": "x8 | (x58 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x8*x25*x35*x58+x2*x25*x35*x58+x8",
+      "possibleInputVariables": ["x2","x8","x25","x35","x58"]
+      },
+    "x20": {
+      "booleanFunction": "x22 & x52 & x90 & x101 & x105 & x27 & x99 & x3 & x120 & x28 & x76",
+      "polynomialFunction": "x3*x22*x27*x28*x52*x76*x90*x99*x101*x105*x120",
+      "possibleInputVariables": ["x3","x22","x27","x28","x52","x76","x90","x99","x101","x105","x120"]
+      },
+    "x21": {
+      "booleanFunction": "x86 & x57",
+      "polynomialFunction": "x57*x86",
+      "possibleInputVariables": ["x57","x86"]
+      },
+    "x22": {
+      "booleanFunction": "x12 & x52 &  !x121 &  !x126",
+      "polynomialFunction": "x12*x52*x121*x126+x12*x52*x121+x12*x52*x126+x12*x52",
+      "possibleInputVariables": ["x12","x52","x121","x126"]
+      },
+    "x23": {
+      "booleanFunction": "x54 & x57",
+      "polynomialFunction": "x54*x57",
+      "possibleInputVariables": ["x54","x57"]
+      },
+    "x24": {
+      "booleanFunction": "x41 | (x108 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x25*x35*x41*x108+x2*x25*x35*x108+x41",
+      "possibleInputVariables": ["x2","x25","x35","x41","x108"]
+      },
+    "x25": {
+      "booleanFunction": "x13",
+      "polynomialFunction": "x13",
+      "possibleInputVariables": ["x13"]
+      },
+    "x26": {
+      "booleanFunction": "x66",
+      "polynomialFunction": "x66",
+      "possibleInputVariables": ["x66"]
+      },
+    "x27": {
+      "booleanFunction": "x37 & x16 & x96",
+      "polynomialFunction": "x16*x37*x96",
+      "possibleInputVariables": ["x16","x37","x96"]
+      },
+    "x28": {
+      "booleanFunction": "x77 & x16 & x96",
+      "polynomialFunction": "x16*x77*x96",
+      "possibleInputVariables": ["x16","x77","x96"]
+      },
+    "x29": {
+      "booleanFunction": "x59 | (x54 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x25*x35*x54*x59+x2*x25*x35*x54+x59",
+      "possibleInputVariables": ["x2","x25","x35","x54","x59"]
+      },
+    "x30": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x31": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x32": {
+      "booleanFunction": "x119",
+      "polynomialFunction": "x119",
+      "possibleInputVariables": ["x119"]
+      },
+    "x33": {
+      "booleanFunction": "x102 & x25 & x2 & x35 &  !x105",
+      "polynomialFunction": "x2*x25*x35*x102*x105+x2*x25*x35*x102",
+      "possibleInputVariables": ["x2","x25","x35","x102","x105"]
+      },
+    "x34": {
+      "booleanFunction": "x1",
+      "polynomialFunction": "x1",
+      "possibleInputVariables": ["x1"]
+      },
+    "x35": {
+      "booleanFunction": "x34",
+      "polynomialFunction": "x34",
+      "possibleInputVariables": ["x34"]
+      },
+    "x36": {
+      "booleanFunction": "x65",
+      "polynomialFunction": "x65",
+      "possibleInputVariables": ["x65"]
+      },
+    "x37": {
+      "booleanFunction": "x21 & x25 & x2 & x35 &  !x27",
+      "polynomialFunction": "x2*x21*x25*x27*x35+x2*x21*x25*x35",
+      "possibleInputVariables": ["x2","x21","x25","x27","x35"]
+      },
+    "x38": {
+      "booleanFunction": "(x19 | x61) & x2 & x35",
+      "polynomialFunction": "x2*x19*x35*x61+x2*x19*x35+x2*x35*x61",
+      "possibleInputVariables": ["x2","x19","x35","x61"]
+      },
+    "x39": {
+      "booleanFunction": "x18",
+      "polynomialFunction": "x18",
+      "possibleInputVariables": ["x18"]
+      },
+    "x40": {
+      "booleanFunction": "x24",
+      "polynomialFunction": "x24",
+      "possibleInputVariables": ["x24"]
+      },
+    "x41": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x42": {
+      "booleanFunction": "(x100 | x73) & x2 & x35",
+      "polynomialFunction": "x2*x35*x73*x100+x2*x35*x73+x2*x35*x100",
+      "possibleInputVariables": ["x2","x35","x73","x100"]
+      },
+    "x43": {
+      "booleanFunction": "x48",
+      "polynomialFunction": "x48",
+      "possibleInputVariables": ["x48"]
+      },
+    "x44": {
+      "booleanFunction": "x36",
+      "polynomialFunction": "x36",
+      "possibleInputVariables": ["x36"]
+      },
+    "x45": {
+      "booleanFunction": "x100",
+      "polynomialFunction": "x100",
+      "possibleInputVariables": ["x100"]
+      },
+    "x46": {
+      "booleanFunction": "x113 & x25 & x2 & x35 &  !x99",
+      "polynomialFunction": "x2*x25*x35*x99*x113+x2*x25*x35*x113",
+      "possibleInputVariables": ["x2","x25","x35","x99","x113"]
+      },
+    "x47": {
+      "booleanFunction": "x43",
+      "polynomialFunction": "x43",
+      "possibleInputVariables": ["x43"]
+      },
+    "x48": {
+      "booleanFunction": "x19",
+      "polynomialFunction": "x19",
+      "possibleInputVariables": ["x19"]
+      },
+    "x49": {
+      "booleanFunction": "x58 & x57",
+      "polynomialFunction": "x57*x58",
+      "possibleInputVariables": ["x57","x58"]
+      },
+    "x50": {
+      "booleanFunction": "x118",
+      "polynomialFunction": "x118",
+      "possibleInputVariables": ["x118"]
+      },
+    "x51": {
+      "booleanFunction": "x7",
+      "polynomialFunction": "x7",
+      "possibleInputVariables": ["x7"]
+      },
+    "x52": {
+      "booleanFunction": "x88 &  !x121",
+      "polynomialFunction": "x88*x121+x88",
+      "possibleInputVariables": ["x88","x121"]
+      },
+    "x53": {
+      "booleanFunction": "x68 & x47 &  !x130",
+      "polynomialFunction": "x47*x68*x130+x47*x68",
+      "possibleInputVariables": ["x47","x68","x130"]
+      },
+    "x54": {
+      "booleanFunction": "x112",
+      "polynomialFunction": "x112",
+      "possibleInputVariables": ["x112"]
+      },
+    "x55": {
+      "booleanFunction": "x108 & x57",
+      "polynomialFunction": "x57*x108",
+      "possibleInputVariables": ["x57","x108"]
+      },
+    "x56": {
+      "booleanFunction": "x5 & x64",
+      "polynomialFunction": "x5*x64",
+      "possibleInputVariables": ["x5","x64"]
+      },
+    "x57": {
+      "booleanFunction": "x70",
+      "polynomialFunction": "x70",
+      "possibleInputVariables": ["x70"]
+      },
+    "x58": {
+      "booleanFunction": "x38",
+      "polynomialFunction": "x38",
+      "possibleInputVariables": ["x38"]
+      },
+    "x59": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x60": {
+      "booleanFunction": "x85 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x85",
+      "possibleInputVariables": ["x2","x25","x35","x85"]
+      },
+    "x61": {
+      "booleanFunction": "x38 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x38",
+      "possibleInputVariables": ["x2","x25","x35","x38"]
+      },
+    "x62": {
+      "booleanFunction": "x97",
+      "polynomialFunction": "x97",
+      "possibleInputVariables": ["x97"]
+      },
+    "x63": {
+      "booleanFunction": "(x50 & x25 & x2 & x35) | x30",
+      "polynomialFunction": "x2*x25*x30*x35*x50+x2*x25*x35*x50+x30",
+      "possibleInputVariables": ["x2","x25","x30","x35","x50"]
+      },
+    "x64": {
+      "booleanFunction": "x71 & x95",
+      "polynomialFunction": "x71*x95",
+      "possibleInputVariables": ["x71","x95"]
+      },
+    "x65": {
+      "booleanFunction": "x103 | (x82 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x25*x35*x82*x103+x2*x25*x35*x82+x103",
+      "possibleInputVariables": ["x2","x25","x35","x82","x103"]
+      },
+    "x66": {
+      "booleanFunction": "x71",
+      "polynomialFunction": "x71",
+      "possibleInputVariables": ["x71"]
+      },
+    "x67": {
+      "booleanFunction": "x40",
+      "polynomialFunction": "x40",
+      "possibleInputVariables": ["x40"]
+      },
+    "x68": {
+      "booleanFunction": "x51 &  !x131",
+      "polynomialFunction": "x51*x131+x51",
+      "possibleInputVariables": ["x51","x131"]
+      },
+    "x69": {
+      "booleanFunction": "x83",
+      "polynomialFunction": "x83",
+      "possibleInputVariables": ["x83"]
+      },
+    "x70": {
+      "booleanFunction": "x44",
+      "polynomialFunction": "x44",
+      "possibleInputVariables": ["x44"]
+      },
+    "x71": {
+      "booleanFunction": "x89 & x122",
+      "polynomialFunction": "x89*x122",
+      "possibleInputVariables": ["x89","x122"]
+      },
+    "x72": {
+      "booleanFunction": "x93",
+      "polynomialFunction": "x93",
+      "possibleInputVariables": ["x93"]
+      },
+    "x73": {
+      "booleanFunction": "x42 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x42",
+      "possibleInputVariables": ["x2","x25","x35","x42"]
+      },
+    "x74": {
+      "booleanFunction": "x69 & x57",
+      "polynomialFunction": "x57*x69",
+      "possibleInputVariables": ["x57","x69"]
+      },
+    "x75": {
+      "booleanFunction": "x71 &  !x121 &  !x124",
+      "polynomialFunction": "x71*x121*x124+x71*x121+x71*x124+x71",
+      "possibleInputVariables": ["x71","x121","x124"]
+      },
+    "x76": {
+      "booleanFunction": "x87 & x16 & x96",
+      "polynomialFunction": "x16*x87*x96",
+      "possibleInputVariables": ["x16","x87","x96"]
+      },
+    "x77": {
+      "booleanFunction": "x23 & x25 & x2 & x35 &  !x28",
+      "polynomialFunction": "x2*x23*x25*x28*x35+x2*x23*x25*x35",
+      "possibleInputVariables": ["x2","x23","x25","x28","x35"]
+      },
+    "x78": {
+      "booleanFunction": "x85",
+      "polynomialFunction": "x85",
+      "possibleInputVariables": ["x85"]
+      },
+    "x79": {
+      "booleanFunction": "x49 & x25 & x2 & x35 &  !x120",
+      "polynomialFunction": "x2*x25*x35*x49*x120+x2*x25*x35*x49",
+      "possibleInputVariables": ["x2","x25","x35","x49","x120"]
+      },
+    "x80": {
+      "booleanFunction": "(x10 | x24) & x2 & x35",
+      "polynomialFunction": "x2*x10*x24*x35+x2*x10*x35+x2*x24*x35",
+      "possibleInputVariables": ["x2","x10","x24","x35"]
+      },
+    "x81": {
+      "booleanFunction": " !x123 & (x6 | x75)",
+      "polynomialFunction": "x6*x75*x123+x6*x75+x6*x123+x75*x123+x6+x75",
+      "possibleInputVariables": ["x6","x75","x123"]
+      },
+    "x82": {
+      "booleanFunction": "x11",
+      "polynomialFunction": "x11",
+      "possibleInputVariables": ["x11"]
+      },
+    "x83": {
+      "booleanFunction": "(x116 | x93) & x2 & x35",
+      "polynomialFunction": "x2*x35*x93*x116+x2*x35*x93+x2*x35*x116",
+      "possibleInputVariables": ["x2","x35","x93","x116"]
+      },
+    "x84": {
+      "booleanFunction": "x70 &  !x117 &  !x102 &  !x21 &  !x113 &  !x55 &  !x49 &  !x23 &  !x74",
+      "polynomialFunction": "x21*x23*x49*x55*x70*x74*x102*x113*x117+x21*x23*x49*x55*x70*x74*x102*x113+x21*x23*x49*x55*x70*x74*x102*x117+x21*x23*x49*x55*x70*x74*x113*x117+x21*x23*x49*x55*x70*x102*x113*x117+x21*x23*x49*x70*x74*x102*x113*x117+x21*x23*x55*x70*x74*x102*x113*x117+x21*x49*x55*x70*x74*x102*x113*x117+x23*x49*x55*x70*x74*x102*x113*x117+x21*x23*x49*x55*x70*x74*x102+x21*x23*x49*x55*x70*x74*x113+x21*x23*x49*x55*x70*x102*x113+x21*x23*x49*x70*x74*x102*x113+x21*x23*x55*x70*x74*x102*x113+x21*x49*x55*x70*x74*x102*x113+x23*x49*x55*x70*x74*x102*x113+x21*x23*x49*x55*x70*x74*x117+x21*x23*x49*x55*x70*x102*x117+x21*x23*x49*x70*x74*x102*x117+x21*x23*x55*x70*x74*x102*x117+x21*x49*x55*x70*x74*x102*x117+x23*x49*x55*x70*x74*x102*x117+x21*x23*x49*x55*x70*x113*x117+x21*x23*x49*x70*x74*x113*x117+x21*x23*x55*x70*x74*x113*x117+x21*x49*x55*x70*x74*x113*x117+x23*x49*x55*x70*x74*x113*x117+x21*x23*x49*x70*x102*x113*x117+x21*x23*x55*x70*x102*x113*x117+x21*x49*x55*x70*x102*x113*x117+x23*x49*x55*x70*x102*x113*x117+x21*x23*x70*x74*x102*x113*x117+x21*x49*x70*x74*x102*x113*x117+x23*x49*x70*x74*x102*x113*x117+x21*x55*x70*x74*x102*x113*x117+x23*x55*x70*x74*x102*x113*x117+x49*x55*x70*x74*x102*x113*x117+x21*x23*x49*x55*x70*x74+x21*x23*x49*x55*x70*x102+x21*x23*x49*x70*x74*x102+x21*x23*x55*x70*x74*x102+x21*x49*x55*x70*x74*x102+x23*x49*x55*x70*x74*x102+x21*x23*x49*x55*x70*x113+x21*x23*x49*x70*x74*x113+x21*x23*x55*x70*x74*x113+x21*x49*x55*x70*x74*x113+x23*x49*x55*x70*x74*x113+x21*x23*x49*x70*x102*x113+x21*x23*x55*x70*x102*x113+x21*x49*x55*x70*x102*x113+x23*x49*x55*x70*x102*x113+x21*x23*x70*x74*x102*x113+x21*x49*x70*x74*x102*x113+x23*x49*x70*x74*x102*x113+x21*x55*x70*x74*x102*x113+x23*x55*x70*x74*x102*x113+x49*x55*x70*x74*x102*x113+x21*x23*x49*x55*x70*x117+x21*x23*x49*x70*x74*x117+x21*x23*x55*x70*x74*x117+x21*x49*x55*x70*x74*x117+x23*x49*x55*x70*x74*x117+x21*x23*x49*x70*x102*x117+x21*x23*x55*x70*x102*x117+x21*x49*x55*x70*x102*x117+x23*x49*x55*x70*x102*x117+x21*x23*x70*x74*x102*x117+x21*x49*x70*x74*x102*x117+x23*x49*x70*x74*x102*x117+x21*x55*x70*x74*x102*x117+x23*x55*x70*x74*x102*x117+x49*x55*x70*x74*x102*x117+x21*x23*x49*x70*x113*x117+x21*x23*x55*x70*x113*x117+x21*x49*x55*x70*x113*x117+x23*x49*x55*x70*x113*x117+x21*x23*x70*x74*x113*x117+x21*x49*x70*x74*x113*x117+x23*x49*x70*x74*x113*x117+x21*x55*x70*x74*x113*x117+x23*x55*x70*x74*x113*x117+x49*x55*x70*x74*x113*x117+x21*x23*x70*x102*x113*x117+x21*x49*x70*x102*x113*x117+x23*x49*x70*x102*x113*x117+x21*x55*x70*x102*x113*x117+x23*x55*x70*x102*x113*x117+x49*x55*x70*x102*x113*x117+x21*x70*x74*x102*x113*x117+x23*x70*x74*x102*x113*x117+x49*x70*x74*x102*x113*x117+x55*x70*x74*x102*x113*x117+x21*x23*x49*x55*x70+x21*x23*x49*x70*x74+x21*x23*x55*x70*x74+x21*x49*x55*x70*x74+x23*x49*x55*x70*x74+x21*x23*x49*x70*x102+x21*x23*x55*x70*x102+x21*x49*x55*x70*x102+x23*x49*x55*x70*x102+x21*x23*x70*x74*x102+x21*x49*x70*x74*x102+x23*x49*x70*x74*x102+x21*x55*x70*x74*x102+x23*x55*x70*x74*x102+x49*x55*x70*x74*x102+x21*x23*x49*x70*x113+x21*x23*x55*x70*x113+x21*x49*x55*x70*x113+x23*x49*x55*x70*x113+x21*x23*x70*x74*x113+x21*x49*x70*x74*x113+x23*x49*x70*x74*x113+x21*x55*x70*x74*x113+x23*x55*x70*x74*x113+x49*x55*x70*x74*x113+x21*x23*x70*x102*x113+x21*x49*x70*x102*x113+x23*x49*x70*x102*x113+x21*x55*x70*x102*x113+x23*x55*x70*x102*x113+x49*x55*x70*x102*x113+x21*x70*x74*x102*x113+x23*x70*x74*x102*x113+x49*x70*x74*x102*x113+x55*x70*x74*x102*x113+x21*x23*x49*x70*x117+x21*x23*x55*x70*x117+x21*x49*x55*x70*x117+x23*x49*x55*x70*x117+x21*x23*x70*x74*x117+x21*x49*x70*x74*x117+x23*x49*x70*x74*x117+x21*x55*x70*x74*x117+x23*x55*x70*x74*x117+x49*x55*x70*x74*x117+x21*x23*x70*x102*x117+x21*x49*x70*x102*x117+x23*x49*x70*x102*x117+x21*x55*x70*x102*x117+x23*x55*x70*x102*x117+x49*x55*x70*x102*x117+x21*x70*x74*x102*x117+x23*x70*x74*x102*x117+x49*x70*x74*x102*x117+x55*x70*x74*x102*x117+x21*x23*x70*x113*x117+x21*x49*x70*x113*x117+x23*x49*x70*x113*x117+x21*x55*x70*x113*x117+x23*x55*x70*x113*x117+x49*x55*x70*x113*x117+x21*x70*x74*x113*x117+x23*x70*x74*x113*x117+x49*x70*x74*x113*x117+x55*x70*x74*x113*x117+x21*x70*x102*x113*x117+x23*x70*x102*x113*x117+x49*x70*x102*x113*x117+x55*x70*x102*x113*x117+x70*x74*x102*x113*x117+x21*x23*x49*x70+x21*x23*x55*x70+x21*x49*x55*x70+x23*x49*x55*x70+x21*x23*x70*x74+x21*x49*x70*x74+x23*x49*x70*x74+x21*x55*x70*x74+x23*x55*x70*x74+x49*x55*x70*x74+x21*x23*x70*x102+x21*x49*x70*x102+x23*x49*x70*x102+x21*x55*x70*x102+x23*x55*x70*x102+x49*x55*x70*x102+x21*x70*x74*x102+x23*x70*x74*x102+x49*x70*x74*x102+x55*x70*x74*x102+x21*x23*x70*x113+x21*x49*x70*x113+x23*x49*x70*x113+x21*x55*x70*x113+x23*x55*x70*x113+x49*x55*x70*x113+x21*x70*x74*x113+x23*x70*x74*x113+x49*x70*x74*x113+x55*x70*x74*x113+x21*x70*x102*x113+x23*x70*x102*x113+x49*x70*x102*x113+x55*x70*x102*x113+x70*x74*x102*x113+x21*x23*x70*x117+x21*x49*x70*x117+x23*x49*x70*x117+x21*x55*x70*x117+x23*x55*x70*x117+x49*x55*x70*x117+x21*x70*x74*x117+x23*x70*x74*x117+x49*x70*x74*x117+x55*x70*x74*x117+x21*x70*x102*x117+x23*x70*x102*x117+x49*x70*x102*x117+x55*x70*x102*x117+x70*x74*x102*x117+x21*x70*x113*x117+x23*x70*x113*x117+x49*x70*x113*x117+x55*x70*x113*x117+x70*x74*x113*x117+x70*x102*x113*x117+x21*x23*x70+x21*x49*x70+x23*x49*x70+x21*x55*x70+x23*x55*x70+x49*x55*x70+x21*x70*x74+x23*x70*x74+x49*x70*x74+x55*x70*x74+x21*x70*x102+x23*x70*x102+x49*x70*x102+x55*x70*x102+x70*x74*x102+x21*x70*x113+x23*x70*x113+x49*x70*x113+x55*x70*x113+x70*x74*x113+x70*x102*x113+x21*x70*x117+x23*x70*x117+x49*x70*x117+x55*x70*x117+x70*x74*x117+x70*x102*x117+x70*x113*x117+x21*x70+x23*x70+x49*x70+x55*x70+x70*x74+x70*x102+x70*x113+x70*x117+x70",
+      "possibleInputVariables": ["x21","x23","x49","x55","x70","x74","x102","x113","x117"]
+      },
+    "x85": {
+      "booleanFunction": "(x114 | x60) & x2 & x35",
+      "polynomialFunction": "x2*x35*x60*x114+x2*x35*x60+x2*x35*x114",
+      "possibleInputVariables": ["x2","x35","x60","x114"]
+      },
+    "x86": {
+      "booleanFunction": "x42",
+      "polynomialFunction": "x42",
+      "possibleInputVariables": ["x42"]
+      },
+    "x87": {
+      "booleanFunction": "x74 & x25 & x2 & x35 &  !x76",
+      "polynomialFunction": "x2*x25*x35*x74*x76+x2*x25*x35*x74",
+      "possibleInputVariables": ["x2","x25","x35","x74","x76"]
+      },
+    "x88": {
+      "booleanFunction": "x39",
+      "polynomialFunction": "x39",
+      "possibleInputVariables": ["x39"]
+      },
+    "x89": {
+      "booleanFunction": "x127",
+      "polynomialFunction": "x127",
+      "possibleInputVariables": ["x127"]
+      },
+    "x90": {
+      "booleanFunction": "x62",
+      "polynomialFunction": "x62",
+      "possibleInputVariables": ["x62"]
+      },
+    "x91": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x92": {
+      "booleanFunction": "x56 &  !x125",
+      "polynomialFunction": "x56*x125+x56",
+      "possibleInputVariables": ["x56","x125"]
+      },
+    "x93": {
+      "booleanFunction": "x91 | (x69 & (x25 | x2 | x35))",
+      "polynomialFunction": "x2*x25*x35*x69*x91+x2*x25*x35*x69+x2*x25*x69*x91+x2*x35*x69*x91+x25*x35*x69*x91+x2*x25*x69+x2*x35*x69+x25*x35*x69+x2*x69*x91+x25*x69*x91+x35*x69*x91+x2*x69+x25*x69+x35*x69+x91",
+      "possibleInputVariables": ["x2","x25","x35","x69","x91"]
+      },
+    "x94": {
+      "booleanFunction": "x45",
+      "polynomialFunction": "x45",
+      "possibleInputVariables": ["x45"]
+      },
+    "x95": {
+      "booleanFunction": "x118 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x118",
+      "possibleInputVariables": ["x2","x25","x35","x118"]
+      },
+    "x96": {
+      "booleanFunction": "x67",
+      "polynomialFunction": "x67",
+      "possibleInputVariables": ["x67"]
+      },
+    "x97": {
+      "booleanFunction": "x65",
+      "polynomialFunction": "x65",
+      "possibleInputVariables": ["x65"]
+      },
+    "x98": {
+      "booleanFunction": "x110",
+      "polynomialFunction": "x110",
+      "possibleInputVariables": ["x110"]
+      },
+    "x99": {
+      "booleanFunction": "x46 & x16 & x96",
+      "polynomialFunction": "x16*x46*x96",
+      "possibleInputVariables": ["x16","x46","x96"]
+      },
+    "x100": {
+      "booleanFunction": "x107 | (x86 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x25*x35*x86*x107+x2*x25*x35*x86+x107",
+      "possibleInputVariables": ["x2","x25","x35","x86","x107"]
+      },
+    "x101": {
+      "booleanFunction": "x17 & x16 & x96",
+      "polynomialFunction": "x16*x17*x96",
+      "possibleInputVariables": ["x16","x17","x96"]
+      },
+    "x102": {
+      "booleanFunction": "x82 & x57",
+      "polynomialFunction": "x57*x82",
+      "possibleInputVariables": ["x57","x82"]
+      },
+    "x103": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x104": {
+      "booleanFunction": "x81",
+      "polynomialFunction": "x81",
+      "possibleInputVariables": ["x81"]
+      },
+    "x105": {
+      "booleanFunction": "x33 & x16 & x96",
+      "polynomialFunction": "x16*x33*x96",
+      "possibleInputVariables": ["x16","x33","x96"]
+      },
+    "x106": {
+      "booleanFunction": "x14 & x5 &  !x129",
+      "polynomialFunction": "x5*x14*x129+x5*x14",
+      "possibleInputVariables": ["x5","x14","x129"]
+      },
+    "x107": {
+      "booleanFunction": "x106",
+      "polynomialFunction": "x106",
+      "possibleInputVariables": ["x106"]
+      },
+    "x108": {
+      "booleanFunction": "x80",
+      "polynomialFunction": "x80",
+      "possibleInputVariables": ["x80"]
+      },
+    "x109": {
+      "booleanFunction": "x92",
+      "polynomialFunction": "x92",
+      "possibleInputVariables": ["x92"]
+      },
+    "x110": {
+      "booleanFunction": "x24",
+      "polynomialFunction": "x24",
+      "possibleInputVariables": ["x24"]
+      },
+    "x111": {
+      "booleanFunction": "x26 & x4",
+      "polynomialFunction": "x4*x26",
+      "possibleInputVariables": ["x4","x26"]
+      },
+    "x112": {
+      "booleanFunction": "(x15 | x29) & x2 & x35",
+      "polynomialFunction": "x2*x15*x29*x35+x2*x15*x35+x2*x29*x35",
+      "possibleInputVariables": ["x2","x15","x29","x35"]
+      },
+    "x113": {
+      "booleanFunction": "x78 & x57",
+      "polynomialFunction": "x57*x78",
+      "possibleInputVariables": ["x57","x78"]
+      },
+    "x114": {
+      "booleanFunction": "x31 | (x78 & x25 & x2 & x35)",
+      "polynomialFunction": "x2*x25*x31*x35*x78+x2*x25*x35*x78+x31",
+      "possibleInputVariables": ["x2","x25","x31","x35","x78"]
+      },
+    "x115": {
+      "booleanFunction": "x55 & x25 & x2 & x35 &  !x3",
+      "polynomialFunction": "x2*x3*x25*x35*x55+x2*x25*x35*x55",
+      "possibleInputVariables": ["x2","x3","x25","x35","x55"]
+      },
+    "x116": {
+      "booleanFunction": "x83 & x25 & x2 & x35",
+      "polynomialFunction": "x2*x25*x35*x83",
+      "possibleInputVariables": ["x2","x25","x35","x83"]
+      },
+    "x117": {
+      "booleanFunction": "x50 & x57",
+      "polynomialFunction": "x50*x57",
+      "possibleInputVariables": ["x50","x57"]
+      },
+    "x118": {
+      "booleanFunction": "x2 & x35 & (x63 | x95)",
+      "polynomialFunction": "x2*x35*x63*x95+x2*x35*x63+x2*x35*x95",
+      "possibleInputVariables": ["x2","x35","x63","x95"]
+      },
+    "x119": {
+      "booleanFunction": "x114",
+      "polynomialFunction": "x114",
+      "possibleInputVariables": ["x114"]
+      },
+    "x120": {
+      "booleanFunction": "x79 & x16 & x96",
+      "polynomialFunction": "x16*x79*x96",
+      "possibleInputVariables": ["x16","x79","x96"]
+      },
+    "x121": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x122": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x123": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x124": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x125": {
+      "booleanFunction": "0",
+      "polynomialFunction": "0",
+      "possibleInputVariables": []
+      },
+    "x126": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x127": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x128": {
+      "booleanFunction": "0",
+      "polynomialFunction": "0",
+      "possibleInputVariables": []
+      },
+    "x129": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x130": {
+      "booleanFunction": "1",
+      "polynomialFunction": "1",
+      "possibleInputVariables": []
+      },
+    "x131": {
+      "booleanFunction": "0",
+      "polynomialFunction": "0",
+      "possibleInputVariables": []
+      }
+    },
+  "variables": [
+      {
+      "id": "x1",
+      "name": "x1",
+      "states": [0,1]
+      },
+      {
+      "id": "x2",
+      "name": "x2",
+      "states": [0,1]
+      },
+      {
+      "id": "x3",
+      "name": "x3",
+      "states": [0,1]
+      },
+      {
+      "id": "x4",
+      "name": "x4",
+      "states": [0,1]
+      },
+      {
+      "id": "x5",
+      "name": "x5",
+      "states": [0,1]
+      },
+      {
+      "id": "x6",
+      "name": "x6",
+      "states": [0,1]
+      },
+      {
+      "id": "x7",
+      "name": "x7",
+      "states": [0,1]
+      },
+      {
+      "id": "x8",
+      "name": "x8",
+      "states": [0,1]
+      },
+      {
+      "id": "x9",
+      "name": "x9",
+      "states": [0,1]
+      },
+      {
+      "id": "x10",
+      "name": "x10",
+      "states": [0,1]
+      },
+      {
+      "id": "x11",
+      "name": "x11",
+      "states": [0,1]
+      },
+      {
+      "id": "x12",
+      "name": "x12",
+      "states": [0,1]
+      },
+      {
+      "id": "x13",
+      "name": "x13",
+      "states": [0,1]
+      },
+      {
+      "id": "x14",
+      "name": "x14",
+      "states": [0,1]
+      },
+      {
+      "id": "x15",
+      "name": "x15",
+      "states": [0,1]
+      },
+      {
+      "id": "x16",
+      "name": "x16",
+      "states": [0,1]
+      },
+      {
+      "id": "x17",
+      "name": "x17",
+      "states": [0,1]
+      },
+      {
+      "id": "x18",
+      "name": "x18",
+      "states": [0,1]
+      },
+      {
+      "id": "x19",
+      "name": "x19",
+      "states": [0,1]
+      },
+      {
+      "id": "x20",
+      "name": "x20",
+      "states": [0,1]
+      },
+      {
+      "id": "x21",
+      "name": "x21",
+      "states": [0,1]
+      },
+      {
+      "id": "x22",
+      "name": "x22",
+      "states": [0,1]
+      },
+      {
+      "id": "x23",
+      "name": "x23",
+      "states": [0,1]
+      },
+      {
+      "id": "x24",
+      "name": "x24",
+      "states": [0,1]
+      },
+      {
+      "id": "x25",
+      "name": "x25",
+      "states": [0,1]
+      },
+      {
+      "id": "x26",
+      "name": "x26",
+      "states": [0,1]
+      },
+      {
+      "id": "x27",
+      "name": "x27",
+      "states": [0,1]
+      },
+      {
+      "id": "x28",
+      "name": "x28",
+      "states": [0,1]
+      },
+      {
+      "id": "x29",
+      "name": "x29",
+      "states": [0,1]
+      },
+      {
+      "id": "x30",
+      "name": "x30",
+      "states": [0,1]
+      },
+      {
+      "id": "x31",
+      "name": "x31",
+      "states": [0,1]
+      },
+      {
+      "id": "x32",
+      "name": "x32",
+      "states": [0,1]
+      },
+      {
+      "id": "x33",
+      "name": "x33",
+      "states": [0,1]
+      },
+      {
+      "id": "x34",
+      "name": "x34",
+      "states": [0,1]
+      },
+      {
+      "id": "x35",
+      "name": "x35",
+      "states": [0,1]
+      },
+      {
+      "id": "x36",
+      "name": "x36",
+      "states": [0,1]
+      },
+      {
+      "id": "x37",
+      "name": "x37",
+      "states": [0,1]
+      },
+      {
+      "id": "x38",
+      "name": "x38",
+      "states": [0,1]
+      },
+      {
+      "id": "x39",
+      "name": "x39",
+      "states": [0,1]
+      },
+      {
+      "id": "x40",
+      "name": "x40",
+      "states": [0,1]
+      },
+      {
+      "id": "x41",
+      "name": "x41",
+      "states": [0,1]
+      },
+      {
+      "id": "x42",
+      "name": "x42",
+      "states": [0,1]
+      },
+      {
+      "id": "x43",
+      "name": "x43",
+      "states": [0,1]
+      },
+      {
+      "id": "x44",
+      "name": "x44",
+      "states": [0,1]
+      },
+      {
+      "id": "x45",
+      "name": "x45",
+      "states": [0,1]
+      },
+      {
+      "id": "x46",
+      "name": "x46",
+      "states": [0,1]
+      },
+      {
+      "id": "x47",
+      "name": "x47",
+      "states": [0,1]
+      },
+      {
+      "id": "x48",
+      "name": "x48",
+      "states": [0,1]
+      },
+      {
+      "id": "x49",
+      "name": "x49",
+      "states": [0,1]
+      },
+      {
+      "id": "x50",
+      "name": "x50",
+      "states": [0,1]
+      },
+      {
+      "id": "x51",
+      "name": "x51",
+      "states": [0,1]
+      },
+      {
+      "id": "x52",
+      "name": "x52",
+      "states": [0,1]
+      },
+      {
+      "id": "x53",
+      "name": "x53",
+      "states": [0,1]
+      },
+      {
+      "id": "x54",
+      "name": "x54",
+      "states": [0,1]
+      },
+      {
+      "id": "x55",
+      "name": "x55",
+      "states": [0,1]
+      },
+      {
+      "id": "x56",
+      "name": "x56",
+      "states": [0,1]
+      },
+      {
+      "id": "x57",
+      "name": "x57",
+      "states": [0,1]
+      },
+      {
+      "id": "x58",
+      "name": "x58",
+      "states": [0,1]
+      },
+      {
+      "id": "x59",
+      "name": "x59",
+      "states": [0,1]
+      },
+      {
+      "id": "x60",
+      "name": "x60",
+      "states": [0,1]
+      },
+      {
+      "id": "x61",
+      "name": "x61",
+      "states": [0,1]
+      },
+      {
+      "id": "x62",
+      "name": "x62",
+      "states": [0,1]
+      },
+      {
+      "id": "x63",
+      "name": "x63",
+      "states": [0,1]
+      },
+      {
+      "id": "x64",
+      "name": "x64",
+      "states": [0,1]
+      },
+      {
+      "id": "x65",
+      "name": "x65",
+      "states": [0,1]
+      },
+      {
+      "id": "x66",
+      "name": "x66",
+      "states": [0,1]
+      },
+      {
+      "id": "x67",
+      "name": "x67",
+      "states": [0,1]
+      },
+      {
+      "id": "x68",
+      "name": "x68",
+      "states": [0,1]
+      },
+      {
+      "id": "x69",
+      "name": "x69",
+      "states": [0,1]
+      },
+      {
+      "id": "x70",
+      "name": "x70",
+      "states": [0,1]
+      },
+      {
+      "id": "x71",
+      "name": "x71",
+      "states": [0,1]
+      },
+      {
+      "id": "x72",
+      "name": "x72",
+      "states": [0,1]
+      },
+      {
+      "id": "x73",
+      "name": "x73",
+      "states": [0,1]
+      },
+      {
+      "id": "x74",
+      "name": "x74",
+      "states": [0,1]
+      },
+      {
+      "id": "x75",
+      "name": "x75",
+      "states": [0,1]
+      },
+      {
+      "id": "x76",
+      "name": "x76",
+      "states": [0,1]
+      },
+      {
+      "id": "x77",
+      "name": "x77",
+      "states": [0,1]
+      },
+      {
+      "id": "x78",
+      "name": "x78",
+      "states": [0,1]
+      },
+      {
+      "id": "x79",
+      "name": "x79",
+      "states": [0,1]
+      },
+      {
+      "id": "x80",
+      "name": "x80",
+      "states": [0,1]
+      },
+      {
+      "id": "x81",
+      "name": "x81",
+      "states": [0,1]
+      },
+      {
+      "id": "x82",
+      "name": "x82",
+      "states": [0,1]
+      },
+      {
+      "id": "x83",
+      "name": "x83",
+      "states": [0,1]
+      },
+      {
+      "id": "x84",
+      "name": "x84",
+      "states": [0,1]
+      },
+      {
+      "id": "x85",
+      "name": "x85",
+      "states": [0,1]
+      },
+      {
+      "id": "x86",
+      "name": "x86",
+      "states": [0,1]
+      },
+      {
+      "id": "x87",
+      "name": "x87",
+      "states": [0,1]
+      },
+      {
+      "id": "x88",
+      "name": "x88",
+      "states": [0,1]
+      },
+      {
+      "id": "x89",
+      "name": "x89",
+      "states": [0,1]
+      },
+      {
+      "id": "x90",
+      "name": "x90",
+      "states": [0,1]
+      },
+      {
+      "id": "x91",
+      "name": "x91",
+      "states": [0,1]
+      },
+      {
+      "id": "x92",
+      "name": "x92",
+      "states": [0,1]
+      },
+      {
+      "id": "x93",
+      "name": "x93",
+      "states": [0,1]
+      },
+      {
+      "id": "x94",
+      "name": "x94",
+      "states": [0,1]
+      },
+      {
+      "id": "x95",
+      "name": "x95",
+      "states": [0,1]
+      },
+      {
+      "id": "x96",
+      "name": "x96",
+      "states": [0,1]
+      },
+      {
+      "id": "x97",
+      "name": "x97",
+      "states": [0,1]
+      },
+      {
+      "id": "x98",
+      "name": "x98",
+      "states": [0,1]
+      },
+      {
+      "id": "x99",
+      "name": "x99",
+      "states": [0,1]
+      },
+      {
+      "id": "x100",
+      "name": "x100",
+      "states": [0,1]
+      },
+      {
+      "id": "x101",
+      "name": "x101",
+      "states": [0,1]
+      },
+      {
+      "id": "x102",
+      "name": "x102",
+      "states": [0,1]
+      },
+      {
+      "id": "x103",
+      "name": "x103",
+      "states": [0,1]
+      },
+      {
+      "id": "x104",
+      "name": "x104",
+      "states": [0,1]
+      },
+      {
+      "id": "x105",
+      "name": "x105",
+      "states": [0,1]
+      },
+      {
+      "id": "x106",
+      "name": "x106",
+      "states": [0,1]
+      },
+      {
+      "id": "x107",
+      "name": "x107",
+      "states": [0,1]
+      },
+      {
+      "id": "x108",
+      "name": "x108",
+      "states": [0,1]
+      },
+      {
+      "id": "x109",
+      "name": "x109",
+      "states": [0,1]
+      },
+      {
+      "id": "x110",
+      "name": "x110",
+      "states": [0,1]
+      },
+      {
+      "id": "x111",
+      "name": "x111",
+      "states": [0,1]
+      },
+      {
+      "id": "x112",
+      "name": "x112",
+      "states": [0,1]
+      },
+      {
+      "id": "x113",
+      "name": "x113",
+      "states": [0,1]
+      },
+      {
+      "id": "x114",
+      "name": "x114",
+      "states": [0,1]
+      },
+      {
+      "id": "x115",
+      "name": "x115",
+      "states": [0,1]
+      },
+      {
+      "id": "x116",
+      "name": "x116",
+      "states": [0,1]
+      },
+      {
+      "id": "x117",
+      "name": "x117",
+      "states": [0,1]
+      },
+      {
+      "id": "x118",
+      "name": "x118",
+      "states": [0,1]
+      },
+      {
+      "id": "x119",
+      "name": "x119",
+      "states": [0,1]
+      },
+      {
+      "id": "x120",
+      "name": "x120",
+      "states": [0,1]
+      },
+      {
+      "id": "x121",
+      "name": "x121",
+      "states": [0,1]
+      },
+      {
+      "id": "x122",
+      "name": "x122",
+      "states": [0,1]
+      },
+      {
+      "id": "x123",
+      "name": "x123",
+      "states": [0,1]
+      },
+      {
+      "id": "x124",
+      "name": "x124",
+      "states": [0,1]
+      },
+      {
+      "id": "x125",
+      "name": "x125",
+      "states": [0,1]
+      },
+      {
+      "id": "x126",
+      "name": "x126",
+      "states": [0,1]
+      },
+      {
+      "id": "x127",
+      "name": "x127",
+      "states": [0,1]
+      },
+      {
+      "id": "x128",
+      "name": "x128",
+      "states": [0,1]
+      },
+      {
+      "id": "x129",
+      "name": "x129",
+      "states": [0,1]
+      },
+      {
+      "id": "x130",
+      "name": "x130",
+      "states": [0,1]
+      },
+      {
+      "id": "x131",
+      "name": "x131",
+      "states": [0,1]
+      }
+    ],
+  "version": "1.0"
+  }
+}
