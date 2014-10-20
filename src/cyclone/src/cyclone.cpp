@@ -6,7 +6,6 @@
 #include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fstream>
 #include <streambuf>
 #include "constants.h"
 #include <iostream>
@@ -26,6 +25,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <algorithm>
+#include <fstream>
 #include <iterator>
 #include <sstream>
 // #include <boost/shared_ptr.hpp>
@@ -331,27 +331,30 @@ string Cyclone::parseHeader(string& input)
 // the PDSs constructed
 void Cyclone::readInput(string filename)
 {
-
   ifstream inputStream(filename.c_str());
   string input = "";
 
   if (inputStream.is_open())
     {
+      char * temp = new char[LINESIZE];
 
-      char temp;
-
+      // Read each line into the input string variable one line at a time
       while (inputStream)
         {
-          inputStream >> temp;
+          inputStream.getline(temp, LINESIZE);
+          input += "\n";
           input += temp;
         }
       input[input.length() - 1] = '\0';
       parseInput(input);
+
+      delete temp;
     }
   else
     {
       cout << "Input File Not Found" << endl;
     }
+
   num_vars = pds->size();
 }
 
@@ -360,9 +363,12 @@ void Cyclone::readInput(string filename)
 // string
 void Cyclone::parseInput(string input)
 {
+  input = parseHeader(input);
+
   pds = new vector<PDS>();
   vector<int> breakPoints;
   PDS * temp;
+
 
   // Generate break points for each 'f'
   for (int i = 0; i < input.length(); i++)
@@ -378,7 +384,7 @@ void Cyclone::parseInput(string input)
     {
       string function = removeSpaces(
           input.substr(breakPoints[i], breakPoints[i + 1] - breakPoints[i]));
-      temp = new PDS(function, numStates[0]);
+      temp = new PDS(function, numStates[i]);
       pds->push_back(*temp);
     }
   delete temp;
