@@ -63,13 +63,13 @@ endif()
 set(CMAKE_MODULE_PATH "${CYCLONE_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}")
 
 IF(DEFINED CMAKE_BUILD_TYPE)
-   SET(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING 
-   "Choose the type of build, options are: Debug or Release."
-   FORCE)
+  SET(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING 
+      "Choose the type of build, options are: Debug or Release."
+      FORCE)
 ELSE()
-   SET(CMAKE_BUILD_TYPE Release CACHE STRING 
-   "Choose the type of build, options are: Debug or Release."
-   FORCE)
+  SET(CMAKE_BUILD_TYPE Release CACHE STRING 
+      "Choose the type of build, options are: Debug or Release."
+      FORCE)
 ENDIF()
 
 #platform specific defines
@@ -160,11 +160,11 @@ get_directory_property(DirDefs COMPILE_DEFINITIONS)
 message(STATUS "-----------------------------------------------------------
  Building cyclone (${CMAKE_BUILD_TYPE})
 
-   Source Dir        = ${CMAKE_SOURCE_DIR}
-   Binary Dir        = ${CMAKE_BINARY_DIR}
-   Install Prefix    = ${CMAKE_INSTALL_PREFIX}
+   Source Dir          = ${CMAKE_SOURCE_DIR}
+   Binary Dir          = ${CMAKE_BINARY_DIR}
+   Install Prefix      = ${CMAKE_INSTALL_PREFIX}
 
-   Additional Defines       = ${DirDefs}
+   Additional Defines  = ${DirDefs}
 
 -----------------------------------------------------------
 ")

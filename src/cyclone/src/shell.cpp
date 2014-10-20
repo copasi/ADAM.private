@@ -79,9 +79,15 @@ int main(int argc, char * argcv[])
   int numTraj = 0;
   int numRandomSteps = 0;
   int numRandomRuns = 0;
-  bool tables = true, pds = false, writeFile = false, edges = false, verbose =
-      false, traj = false, multitraj = false, randomUpdate = false,
-      includeTables = false;
+  bool tables = true;
+  bool pds = false;
+  bool writeFile = false;
+  bool edges = false;
+  bool verbose = false;
+  bool traj = false;
+  bool multitraj = false;
+  bool randomUpdate = false;
+  bool includeTables = false;
   int state_check;
   char ** multitrajFiles;
   char ** multitrajOutfiles;
@@ -110,11 +116,14 @@ int main(int argc, char * argcv[])
             {
               verbose = true;
             }
+          else if (temp.compare("-PDS") == 0) {
+              pds = true;
+              tables = false;
+          }
           // Check for -edges argument
           else if (temp.compare("-edges") == 0) {
               edges = true;
           }
-
           // Check for -traj argument
           else if (temp.compare("-traj") == 0)
             {
@@ -122,7 +131,6 @@ int main(int argc, char * argcv[])
               trajFile = argcv[i + 1];
               i++;
             }
-
           // Check for -random argument
           else if (temp.compare("-random") == 0 || temp.compare("-r") == 0)
             {
@@ -131,7 +139,6 @@ int main(int argc, char * argcv[])
               numRandomSteps = atoi(argcv[i + 2]);
               i += 2;
             }
-
           else if (temp.compare("-multitraj") == 0)
             {
               multitraj = true;
@@ -144,14 +151,12 @@ int main(int argc, char * argcv[])
                   i++;
                 }
             }
-
           // Check for -c argument
           else if (temp.compare("-c") == 0)
             {
               cores = atoi(argcv[i + 1]);
               i++;
             }
-
           // Check for a file write arguments
           else if (temp.compare("-f") == 0)
             {
@@ -171,7 +176,6 @@ int main(int argc, char * argcv[])
                   i++;
                 }
             }
-
           // Check for write-table with results argument
           else if (temp.compare("-it") == 0)
             {
