@@ -1,0 +1,28 @@
+#!/usr/bin/env M2 --script
+
+path = prepend(currentDirectory()|"lib/M2code", path)
+debug needsPackage "ADAMModel"
+needsPackage "JSON"
+
+helpString = ///usage: verify-model <json-model-file >output-model
+  If the model passes the verification suite, then the same model is passed to std output
+  Otherwise an error json is passed.
+///
+
+if #scriptCommandLine != 1 then (
+    stderr << helpString;
+    exit(1);
+    )
+
+----------------------------
+contents = get stdio
+M = parseModel contents
+if instance(M, ErrorPacket) then (
+    << toJSON M << endl
+) else (
+    << contents
+)
+    
+end
+    
+./verify-model <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json
