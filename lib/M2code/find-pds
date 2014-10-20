@@ -1,0 +1,25 @@
+#!/usr/bin/env M2 --script
+
+path = prepend(currentDirectory()|"lib/M2code", path)
+needsPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
+needsPackage "JSON"
+
+helpString = ///usage: find-pds <json-rev-eng-input-data >json-rev-eng-output-model
+///
+
+if #scriptCommandLine != 1 then (
+    stderr << helpString;
+    exit(1);
+    )
+
+--------------------------------
+PDS = findPDS get stdio
+outputJSON = prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
+<< outputJSON << endl;
+
+end
+
+restart
+-- example:
+./find-pds <./ReverseEngineering/Gepasi.json
+./find-pds help

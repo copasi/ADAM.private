@@ -7,13 +7,14 @@ newPackage(
          {Name => "Mike Stillman", Email => "mike@math.cornell.edu", HomePage => "http://www.math.cornell.edu/~mike"}
          },
         Headline => "Utilities for polynomial dynamical systems",
+        PackageExports => {"Points", "JSON"},
         DebuggingMode => true
         )
 
-needs "Points.m2"
-
-export(getVars,
-       makeVars,
+export{"findPDS",
+    "createRevEngJSONOutputModel",
+    getVars,
+    makeVars,
        TimeSeriesData, 
        FunctionData, 
        readTSData,
@@ -23,7 +24,7 @@ export(getVars,
        findFunction,
        checkFunction,
        WildType
-      )
+      }
 
 ---------------------------------------------------------------------------------------------------
 -- Declaration of new data types
@@ -81,6 +82,71 @@ see(List) := (fs) -> scan(fs, (g -> (print g; print "")))
 ---------------------------------------------------------------------------------------------------
 -- Utilities for data processing
 ---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+-- Given a list of wildtype and a list of knockout time series data files, as well as a coefficient ring,
+-- readTSData returns a TimeSeriesData hashtable of the data.
+-- Uses "readMat"
+
+{*
+readTSDataFromJSON = method(TypicalValue => TimeSeriesData)
+readTSDataFromJSON(String) := (jsonData) -> (
+    -- see the file reverse-engineering-input-data.json
+    --  for the format of jsonData
+    -- output: TimeSeriesData
+    wtmats := apply(wtfiles, s -> readMat(s,R));
+    H := new MutableHashTable;
+    scan(knockouts, x -> (
+            m := readMat(x#1,R);
+            i := x#0;
+            if H#?i then H#i = append(H#i,m)
+            else H#i = {m}));
+    H.WildType = wtmats;
+    new TimeSeriesData from H
+)
+*}
+
+createRevEngJSONOutputModel = method()
+createRevEngJSONOutputModel List := (L) -> (
+    -- Better have at least one variable
+    assert(#L > 0);
+    R := ring L#0;
+    {"reverseEngineeringOutputModel" => {
+            "numberOfVariables" => numgens R,
+            "fieldCardinality" => char R,
+            "updateRules" => for i from 0 to numgens R - 1 list (
+                toString R_i => [{"inputVariables"=>apply(new Array from support L#i, toString),
+                                  "polynomialFunction"=>toString L#i}]
+                )
+    }})
+
+findPDS = method(TypicalValue=>String)
+ -- input argument follows description in reverse-engineering-input-data.json
+ -- output follows reverse-engineering-output-model.json
+findPDS String := (jsonInput) -> (
+    -- XXXXXX
+    H := parseJSON jsonInput;
+    data := H#"task"#"input"#"reverseEngineeringInputData";
+    n := data#"numberVariables";
+    p := data#"fieldCardinality";
+    kk := ZZ/p;
+    R := kk[makeVars n];
+    -- Now create the TimeSeriesData from the wildtype and knockout data
+    ts := data#"timeSeriesData"; -- list of hashtables, each has a matrix, and index (knockout list)
+    matrices := new MutableHashTable;
+    for experiment in ts do (
+        ind := experiment#"index";
+        typ := if #ind == 0 then WildType else ind#0;
+        mat := matrix(kk, experiment#"matrix");
+        if matrices#?typ then 
+            matrices#typ = append(matrices#typ, mat)
+        else
+            matrices#typ = {mat};
+        );
+    T := new TimeSeriesData from matrices;
+    FD := apply(n, i->functionData(T,i+1));
+    Fs := apply(n, i -> findFunction(FD_i,gens R));
+    Fs
+    )
 
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
@@ -265,17 +331,17 @@ document { Key => PolynomialDynamicalSystems,
      Headline => "Utilities for polynomial dynamical systems",
      EM "PolynomialDynamicalSystems", " is a package for the algebraic 
      manipulation of polynomial dynamical systems.",
-     PARA,
-     "The following example describes the basic usage of this package.",
-     PARA,
+     PARA{
+     "The following example describes the basic usage of this package."},
+     PARA{
      "In this example, the file 'wt1.dat' contains 7 time series data points for 5 nodes.
      The format of this file is: each row contains the (integer) data levels for a single node,
      separated by white space (spaces, tabs, but all on the same line).  Each row should contain 
      the same number of data points.  The knockout files have the same format.  The only difference
-     is that knockout's for the i th node won't be used to determine functions for that node.",
-     PARA,
+     is that knockout's for the i th node won't be used to determine functions for that node."},
+     PARA{
      "First, we read the time series and knockout data using ", TO readTSData, ".  This produces
-     a TimeSeriesData object, which is just a Macaulay2 hash table.",
+     a TimeSeriesData object, which is just a Macaulay2 hash table."},
      EXAMPLE {
 	  ///T = readTSData({"wt1.dat"}, {(1,"ko1.dat")}, ZZ/5)///,
 	  },
@@ -286,9 +352,9 @@ document { Key => PolynomialDynamicalSystems,
 	  },
      "In this example, there are only seven constaints on the function.  Consequently, there are
      many functions which will satisfy these constraints.",
-     PARA,
+     PARA{
      "Next, we create a monomial ideal which encodes all of the possible sparsity patterns
-     of all such functions satisfying these constraints.",
+     of all such functions satisfying these constraints."},
      EXAMPLE {
 	  "R = ZZ/5[makeVars 7];",
 	  "I = minRep(fT,R)",
@@ -297,8 +363,8 @@ document { Key => PolynomialDynamicalSystems,
      variables x_i1, ..., x_ir if and only if I is contained in the ideal (x_i1, ..., x_ir).
      For example, each generator of I is divisible by either x2 or x4, so there is a function 
      involving just x2 and x4 which satisfies the data.",
-     PARA,
-     "In order to find all minimal such sets, we use the Macaulay2 built-in function ",
+     PARA{
+     "In order to find all minimal such sets, we use the Macaulay2 built-in function "},
      TO minimalPrimes, ".  Each monomial generator of the result encodes a minimal set.",
      EXAMPLE {
 	  "minimalPrimes I"
@@ -386,3 +452,24 @@ document {
      Caveat => {},
      SeeAlso => {}
      }
+
+end
+restart
+loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
+--installPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
+p = 5;
+n = 5;
+kk = ZZ/p;
+R = kk[makeVars n];
+T = readTSData({"./ReverseEngineering/Gepasi_WT1.st"},{(5, "./ReverseEngineering/Gepasi_ko5.st")},kk)
+FD = apply(n, i->functionData(T,i+1));
+Fs = apply(n, i -> findFunction(FD_i,gens R))
+netList Fs
+
+restart
+loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
+PDS = findPDS get "./ReverseEngineering/Gepasi.json"
+netList oo
+toHashTable createRevEngJSONOutputModel PDS
+prettyPrintJSON oo
+toHashTable oo
