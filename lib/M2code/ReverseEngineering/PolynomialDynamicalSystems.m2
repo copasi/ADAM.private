@@ -119,7 +119,7 @@ createRevEngJSONOutputModel List := (L) -> (
     assert(#L > 0);
     R := ring L#0;
     {"reverseEngineeringOutputModel" => {
-            "numberOfVariables" => numgens R,
+            "numberVariables" => numgens R,
             "fieldCardinality" => char R,
             "updateRules" => for i from 0 to numgens R - 1 list (
                 toString R_i => [{"inputVariables"=>apply(new Array from support L#i, toString),
