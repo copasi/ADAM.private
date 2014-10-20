@@ -110,7 +110,7 @@ parseJSONNumber(String, ZZ) := (str, startLoc) -> (
     if str#startLoc == "-" then (neg = true; startLoc = startLoc+1);
     if not match("[[:digit:]]", str#startLoc) then error "internal error: expected digit";
     i := startLoc; -- this points to the first char of the number
-    while i < #str and match("[[:digit:]]", str#i) do i=i+1;
+    while i < #str and match("[\\.[:digit:]]", str#i) do i=i+1;
     num := value substring(str, startLoc, i-startLoc);
     (if neg then -num else num, noError, i)
     )
