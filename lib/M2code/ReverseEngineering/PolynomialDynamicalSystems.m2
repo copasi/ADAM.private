@@ -11,10 +11,11 @@ newPackage(
         DebuggingMode => true
         )
 
-export{"findPDS",
+export{"readTSDataFromJSON",
+    "findPDS",
     "createRevEngJSONOutputModel",
-    getVars,
-    makeVars,
+    "getVars",
+    "makeVars",
        TimeSeriesData, 
        FunctionData, 
        readTSData,
@@ -40,6 +41,13 @@ export{"findPDS",
 
 TimeSeriesData = new Type of HashTable
  
+ring(TimeSeriesData) :=  (T) -> (
+    ring first flatten values T
+)
+
+numColumns(TimeSeriesData) := (T) -> (
+    numColumns first flatten values T
+)
 ---------------------------------------------------------------------------------------------------
 -- FunctionData: This hashtable defines a function f:k^n->k, where k is a finite field.
 -- keys   = points in k^n (in domain of f)
@@ -119,17 +127,15 @@ createRevEngJSONOutputModel List := (L) -> (
                 )
     }})
 
-findPDS = method(TypicalValue=>String)
+readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
  -- input argument follows description in reverse-engineering-input-data.json
- -- output follows reverse-engineering-output-model.json
-findPDS String := (jsonInput) -> (
+readTSDataFromJSON String := (jsonInput) -> (
     -- XXXXXX
     H := parseJSON jsonInput;
     data := H#"task"#"input"#"reverseEngineeringInputData";
     n := data#"numberVariables";
     p := data#"fieldCardinality";
     kk := ZZ/p;
-    R := kk[makeVars n];
     -- Now create the TimeSeriesData from the wildtype and knockout data
     ts := data#"timeSeriesData"; -- list of hashtables, each has a matrix, and index (knockout list)
     matrices := new MutableHashTable;
@@ -142,11 +148,18 @@ findPDS String := (jsonInput) -> (
         else
             matrices#typ = {mat};
         );
-    T := new TimeSeriesData from matrices;
+    new TimeSeriesData from matrices
+)
+
+findPDS = method(TypicalValue=>List)
+findPDS(TimeSeriesData) := (T) -> (
+    kk := ring T;
+    n := numColumns T;
+    R := kk[makeVars n];
     FD := apply(n, i->functionData(T,i+1));
     Fs := apply(n, i -> findFunction(FD_i,gens R));
     Fs
-    )
+)
 
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
