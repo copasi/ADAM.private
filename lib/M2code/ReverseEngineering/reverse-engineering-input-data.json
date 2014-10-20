@@ -59,8 +59,8 @@
     },
   "method": {
     "id": "REACT",
-    "name": "evolutionary algorithm",
-    "parameter": ["your parameter 1","your parameter 2"]
+    "description": "evolutionary algorithm",
+    "parameters": ["your parameter 1","your parameter 2"]
     },
   "type": "reverseEngineering"
   }
