@@ -13,7 +13,8 @@ if #scriptCommandLine != 1 then (
     )
 
 --------------------------------
-PDS = findPDS get stdio
+TS = readTSDataFromJSON get stdio
+PDS = findPDS TS
 outputJSON = prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
 << outputJSON << endl;
 

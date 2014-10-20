@@ -481,8 +481,8 @@ netList Fs
 
 restart
 loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
-PDS = findPDS get "./ReverseEngineering/Gepasi.json"
-netList oo
-toHashTable createRevEngJSONOutputModel PDS
-prettyPrintJSON oo
-toHashTable oo
+TS = readTSDataFromJSON get "./ReverseEngineering/Gepasi.json"
+PDS = findPDS TS
+netList PDS
+prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
+
