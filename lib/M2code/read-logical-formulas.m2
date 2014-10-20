@@ -18,14 +18,15 @@ createModelFromLogicalFormulas(String,String) := (filename,name) -> (
     L := select(lines get filename, s -> #s > 0);
     R := makeBooleanRing (#L);
     P := makeLFParser R;
-    polys := for f in L list P f;
     varlist := for x in gens R list hashTable {
         "id" => toString x, 
         "name" => toString x, 
         "states" => {0,1}};
     updateRules := hashTable for i from 0 to numgens R - 1 list (
+        << "starting i=" << i << " " << L#i << endl;
         f := P (L#i);
         (toString R_i) => hashTable {
+            "booleanFunction" => L#i,
             "polynomialFunction" => toString f,
             "possibleInputVariables" => (rsort support f)/toString
             }
@@ -43,7 +44,7 @@ createModelFromLogicalFormulas(String,String) := (filename,name) -> (
 end
 
 restart
-load "read-logical-formulae.m2"
+load "read-logical-formulas.m2"
 filename = "~/Google Drive/ADAM_redesign/BOOLEAN_MODELS_Bformat/Influenza_A_Virus.model"
 M = createModelFromLogicalFormulas(filename, "Influenza_A_Virus.model")
 checkModel M
@@ -57,8 +58,9 @@ fileprefixes = for f in files list (
     if not match(".model$", f) then continue;
     substring(f, 0, #f-6)
     )
-for f in drop(fileprefixes,2) do (
-    M = createModelFromLogicalFormulas(prefix|f|".model", f);
+for f in drop(fileprefixes,2) do ()
+for f in fileprefixes do (
+    time M = createModelFromLogicalFormulas(prefix|f|".model", f);
     << "creating " << (outfix|f|".json") << endl;
     (outfix|f|".json") << prettyPrintJSON M << endl << close
     )

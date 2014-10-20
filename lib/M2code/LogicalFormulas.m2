@@ -192,20 +192,35 @@ possibleInputs(ZZ,ZZ,ZZ) := (ninputs, loval, hival) -> (
     )
 
 transitionTable = method()
+transitionTable(List, ZZ) := (inputVariables, val) -> (
+    -- this is the case of a constant function, if inputVariables is empty
+    if #inputVariables == 0 then {{},val}
+    else (
+        R := ring first inputVariables;
+        assert all(inputVariables, x -> ring x === R);
+        transitionTable(inputVariables, val_R)
+        )
+    )
 transitionTable(List, RingElement) := (inputVariables, F) -> (
-    R := ring F;
-    kk := coefficientRing ring F;
-    ninputs := #inputVariables;
-    inputs := possibleInputs(ninputs, 0, char kk - 1);
-    locs := inputVariables/index;
-    pt := new MutableList from for i from 0 to numgens R - 1 list 0_kk;
-    for inp in inputs list (
-        subs := for v from 0 to ninputs-1 do pt#(locs#v) = inp#v;
-        sub1 := new List from pt;
-        phi := map(kk,R,matrix(kk,{sub1}));
-        val := lift(phi F,ZZ);
-        if val < 0 then val = val + char kk;
-        {inp, val}
+    if #inputVariables == 0 then (
+        assert(support F === {});
+        {{},F}
+        )
+    else (
+        R := ring F;
+        kk := coefficientRing ring F;
+        ninputs := #inputVariables;
+        inputs := possibleInputs(ninputs, 0, char kk - 1);
+        locs := inputVariables/index;
+        pt := new MutableList from for i from 0 to numgens R - 1 list 0_kk;
+        for inp in inputs list (
+            subs := for v from 0 to ninputs-1 do pt#(locs#v) = inp#v;
+            sub1 := new List from pt;
+            phi := map(kk,R,matrix(kk,{sub1}));
+            val := lift(phi F,ZZ);
+            if val < 0 then val = val + char kk;
+            {inp, val}
+            )
         )
     )
 transitionTable(List, LogicalAnd) := 

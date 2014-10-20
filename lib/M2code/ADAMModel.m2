@@ -21,7 +21,7 @@ newPackage(
             HomePage => ""}
         },
     Headline => "ADAM Model management",
-    PackageExports => {"solvebyGB", "JSON"},
+    PackageExports => {"solvebyGB", "JSON", "LogicalFormulas"},
     DebuggingMode => true
     )
 
@@ -33,7 +33,10 @@ export {
     "parseModel", 
     "checkModel",
     "addPolynomials",
-    "polyFromTransitionTable"
+    "polyFromTransitionTable",
+    "transformModel",
+    "toMutable",
+    "toImmutableModel"
     }
 
 Model = new Type of HashTable
@@ -84,6 +87,33 @@ ring Model := (M) -> (
         R1/I1);
     M.cache.ring
     )
+
+-- The following is used for testing purposes
+ErrorPacket == Model := (M,N) -> false
+Model == ErrorPacket := (M,N) -> false
+ErrorPacket == ErrorPacket := (M,N) -> checkEqual(M,N)
+Model == Model := (M,N) -> checkEqual(M,N)
+
+checkEqual = method()
+checkEqual(String,String) := (s,t) -> s == t
+checkEqual(List,List) := (L1,L2) -> (
+    if #L1 != #L2 then return false;
+    for i from 0 to #L1 - 1 do (
+        if not checkEqual(L1#i, L2#i) then return false;
+        );
+    true
+    )
+checkEqual(HashTable,HashTable) := (H1,H2) -> (
+    if keys H1 =!= keys H2 then return false;
+    for k in keys H1 do (
+        if k === cache then continue;
+        if not checkEqual(H1#k, H2#k) then return false;
+        );
+    true
+    )
+checkEqual(Thing,Thing) := (a,b) -> a === b
+
+    
 
 checkModel = method()
 checkModel Model := (M) -> (
@@ -190,6 +220,91 @@ polyFromTransitionTable(List, List, Ring) := (inputvars, transitions, R) -> (
     if result == 0 then 0_R else result -- this is just being careful...
     )
 
+transformer = new MutableHashTable;
+--transformer#(true,"bool") = notImplemented
+
+transformer#(true,"poly") = (updatexi, M) -> (
+    R := ring M;
+    if updatexi#?"polynomialFunction" then (
+        updatexi#"polynomialFunction" = toString value updatexi#"polynomialFunction";
+    ) else if updatexi#?"transitionTable" then (
+        possibles := updatexi#"possibleInputVariables";
+        tt := updatexi#"transitionTable";
+        updatexi#"polynomialFunction" = 
+            toString polyFromTransitionTable(possibles, tt, R);
+    ))
+--    else if updatexi#"booleanFunction" then (
+--        F := polyFromBooleanFunction(updatexi#"booleanFunction");
+--        updatexi#"polynomialFunction" = polyFromTransitionTable(...,F,R);
+--      )
+
+transformer#(true,"tt") = (updatexi, M) -> (
+    R := ring M;
+    if updatexi#?"transitionTable" then return;
+    if updatexi#?"polynomialFunction" then (
+        possibles := updatexi#"possibleInputVariables";
+        F := value updatexi#"polynomialFunction";
+        updatexi#"transitionTable" = 
+            transitionTable(possibles/value, F)
+        )
+    )
+
+transformer#(false,"poly") = (updatexi,M) -> remove(updatexi,"polynomialFunction")
+transformer#(false,"tt") = (updatexi,M) -> remove(updatexi,"transitionTable")
+transformer#(false,"bool") = (updatexi,M) -> remove(updatexi,"booleanFunction")
+
+transformModel = method()
+transformModel(Boolean, String, ErrorPacket) := (add, type, M) -> M
+transformModel(Boolean, String, Model) := (add, type, M) -> (
+    if not transformer#?(add,type) then (
+        addstr := if add then "add" else "remove";
+        packet := "error: cannot " | addstr | " transition functions of type: "|type;
+        return errorPacket packet
+        );
+    f := transformer#(add,type);
+    M1 := toMutable M;
+    -- At this point, we loop through and run the function
+    update := M1#"updateRules";
+    for k in keys update do f(update#k, M);
+    -- Finally, we return the new model
+    toImmutableModel M1
+    )
+
+toMutable = method()
+toMutable HashTable := (H) -> new MutableHashTable from (
+    for k in keys H list k => toMutable H#k
+    )
+toMutable BasicList := (L) -> apply(L, toMutable)
+toMutable CacheTable := (F) -> F
+toMutable RingElement := (F) -> F
+toMutable Ring := (F) -> F
+toMutable String := (F) -> F
+toMutable Thing := (x) -> x
+
+toImmutable = method()
+toImmutable HashTable := (H) -> new HashTable from (
+    for k in keys H list k => toImmutable H#k
+    )
+toImmutable BasicList := (L) -> apply(L, toImmutable)
+toImmutable CacheTable := (F) -> F
+toImmutable RingElement := (F) -> F
+toImmutable Ring := (F) -> F
+toImmutable String := (F) -> F
+toImmutable Thing := (x) -> x
+
+toImmutableModel = method()
+toImmutableModel HashTable := (H) -> new Model from toImmutable H
+
+-----------------------------------------------------------------------
+
+removeFromModel = method()
+removeFromModel(String, Model) := (keyname, M) -> (
+    M1 := toMutable M;
+    update := M1#"updateRules";
+    for k in keys update do (k, remove(update#k, keyname));
+    toImmutableModel M1
+    )
+
 changeUpdate = method()
 changeUpdate(Model, HashTable) := (M, newUpdateRules) -> (
     Mnew := model(M#"name", 
@@ -217,6 +332,7 @@ attachToUpdate(Model, Function) := (M, fcn) -> (
         );
     changeUpdate(M, newUpdateRules)
     )
+
 
 addPolynomials = method()
 addPolynomials ErrorPacket := (M) -> M
@@ -251,6 +367,7 @@ transitionTableFromPolynomial(Model, String) := (M, var) -> (
     
     -- Now make a list of all input values
     )
+{*
 removePolynomials = method()
 removePolynomials ErrorPacket := (M) -> M
 removePolynomials Model := (M) -> (
@@ -274,6 +391,26 @@ removeUpdate(Model, String) := (M,str) -> (
         r => new HashTable from H
         );
     changeUpdate(M, newrules)
+    )
+*}
+
+
+addPolys = method()
+addPolys Model := (M) -> (
+    -- for each update rule:
+    --   if there is a polynomialFunction, use it
+    --   else if there is a transition table, use that to compute poly.
+    --   else if there is a boolean function, use that to compute poly.
+    -- MES
+    )
+
+addTT = method()
+addTT Model := (M) -> (
+    -- for each update rule:
+    --   if there is a transition table, use that.
+    --   otherwise, if there is a poly, use that
+    --   else if there is a bool fcn: make a poly, use that.
+    -- MES
     )
 
 {*
@@ -299,6 +436,21 @@ interpolate (List, ZZ, List) := (L, p, vals) -> (
 )
 *}
 
+addPolynomials Model := (M) -> (
+    fcn := (M,xi,H) -> (
+        if H#?"polynomialFunction" then return null; -- already exists
+        g := polyFromTransitionTable(  
+            H#"possibleInputVariables",
+            H#"transitionTable",
+            ring M);
+        "polynomialFunction" => toString g
+        );
+    attachToUpdate(M, fcn)
+    )
+
+
+-------------------------------------------------------------------------    
+
 TEST ///
 {*
   restart
@@ -309,7 +461,7 @@ TEST ///
   str = exampleJSON#0
 
   M = parseModel str
-  result = findLimitCycles(M,{1,2,3})
+  result = findLimitCycles(M,{},{1,2,3})
   ans = new HashTable from {1 => [[[0,1,1]]], 2 => [], 3 => []}
   assert(result === ans)
 ///
@@ -377,16 +529,26 @@ TEST ///
 *}
   debug needsPackage "ADAMModel"
   M = parseModel sample2
-  M = addPolynomials M
-  M = removeUpdate(M, "transitionTable")
-  FM = (ideal polynomials M)_*
-  R = ring FM_0
-  FM
-  makeTT(FM_0, {{"x2", {0,1}}, {"x3", {0,1}}, {"x1", {0,1}}})
+
+  M1 = transformModel(true, "poly", M)
+  M2 = transformModel(true, "poly", M1)
+  assert(M1 == M2)
+  M3 = transformModel(false, "tt", M2)
+  M4 = transformModel(true, "tt", M3)
+
+  N1 = transformModel(false, "poly", M4)  
+  N2 = transformModel(false, "tt", M4)  
+  N3 = transformModel(true, "poly", N1)
+  N4 = transformModel(true, "tt", N2)
+  assert(N3 == N4)
+  assert(M3 != M2)
 ///
 
 ///
+{*
   restart
+*}
+
   debug needsPackage "ADAMModel"
   str = get "../../exampleJSON/SecondVersion1-Model.json"
   M = parseModel str
@@ -394,12 +556,46 @@ TEST ///
   M1 = addPolynomials M
   prettyPrintJSON M1
 
-  findLimitCycles(M1, {1,2,3})
+  findLimitCycles(M1,{},{1,2,3})
   toJSON M1
   polynomials M1
   R = ring M
   R === ring M
 
+///
+
+TEST ///
+  -- Test transformModel
+{*
+  restart
+*}
+  needsPackage "ADAMModel"
+  needsPackage "JSON"
+
+  str = exampleJSON#0
+  M = parseModel str
+  mM = toMutable M
+  peek mM
+  M1 = toImmutableModel mM
+  mM#"updateRules"#"x1"#"polynomialFunction" = "x1+x2"
+  M2 = toImmutableModel mM
+  assert(M == M1)
+  assert(M != M2)
+  assert(M1 != M2)
+
+  M1 = transformModel(true,"poly",M)
+  assert(M == M1);
+  
+///
+
+TEST ///
+restart
+    debug needsPackage "ADAMModel"
+    str = get "../../exampleJSON/BooleanModels/Keratinocyte.json";
+    M = parseModel str
+    M1 = transformModel(true,"tt",M)
+    M2 = transformModel(false,"poly",M)
+    M3 = transformModel(true,"tt",M2)
 ///
 end
 
