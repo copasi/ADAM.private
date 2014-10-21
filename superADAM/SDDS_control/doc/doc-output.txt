@@ -1,1 +1,6 @@
-dhjd
+The output json file should contain:
+1. This will be an input for the SDDS for simulation. 
+2. A SDDS:  a transition table with propensity parameters. This is the
+same as the model for the input json file.
+3. Control Policy: a list of control actions.
+

@@ -1,1 +1,4 @@
-This module compute an optimal policy for a SDDS.
+This module computes an optimal policy for a SDDS.
+This will be an input for the SDDS for simulation. SDDS will generate
+two trajectories: one without control and another with the control
+policy. The control policy is given 
