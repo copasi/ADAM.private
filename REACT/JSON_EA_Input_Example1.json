@@ -129,11 +129,11 @@
 },
 
 "advancedparams":{ 
-"GenePoolSize": 2000,
-"NumCandidates": 1000,
-"NumParentsToPreserve": 100,
-"MaxGenerations": 500,
-"StableGenerationLimit": 200,
+"GenePoolSize": 200,
+"NumCandidates": 100,
+"NumParentsToPreserve": 5,
+"MaxGenerations": 200,
+"StableGenerationLimit": 50,
 "MutateProbability":50
 }
 
