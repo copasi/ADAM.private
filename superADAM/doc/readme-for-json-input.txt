@@ -4,13 +4,13 @@ Date: October 21, 2014
 
 {"task":
 	{
-		"type": <problemType>
-		"input": 
-		"method":
+		"type": <problemType>,
+		"input": ,
+		"method":,
 			{
-				"id": <moduleName>
-				"description": <string>
-				"parameters": [parameters]
+				"id": <moduleName>,
+				"description": <string>,
+				"parameters": [parameters],
 			}			
 	}
 }

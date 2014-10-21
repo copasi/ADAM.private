@@ -1,0 +1,20 @@
+// json format for graph information
+
+"graph" :
+  {
+    "size":  ,
+    "vertices": [
+      {
+        "label": ,
+        "state": []
+      },
+      ... ],
+    "edges": [
+      {
+        "label": ,
+        "source": <vertex:index>,
+        "target": <vertex:index>,
+        "weight":
+      },
+      ... ]
+   }             
