@@ -135,7 +135,7 @@
 "NumParentsToPreserve": 5,
 "MaxGenerations": 100,
 "StableGenerationLimit": 50,
-"MutateProbability”: 0.50
+"MutateProbability": 0.50
 }
 
 }
