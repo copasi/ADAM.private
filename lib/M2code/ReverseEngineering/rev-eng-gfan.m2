@@ -2,7 +2,7 @@
 --File Name: rev-eng-gfan.m2
 --Author: Elena S. Dimitrova
 --Original Date: 10/21/2014
---Descritpion: Generates file sample-output-gfan.txt that contains for each local polynomial all distinct normal forms and the corresponding proportion wrt all normal forms. Takes multiple time series data and generates 10*(number of variables) PDS models normalized wrt G. bases under monomial orderings defined by weight vectors that are randomly selected from the G. fan of the ideal of data points.
+--Descritpion: Generates file sample-output-gfan.txt that contains for each local polynomial all distinct normal forms and the corresponding proportion wrt all normal forms. Takes multiple time series data and generates k*(number of variables) PDS models normalized wrt G. bases under monomial orderings defined by weight vectors that are randomly selected from the G. fan of the ideal of data points.
 --Input: Field characteristic; number of variables; time series files
 --Output: File sample-output-gfan.txt that contains for each local polynomial all distinct normal forms and the corresponding proportion wrt all normal forms.
 --********************* 
@@ -18,6 +18,8 @@ pp = char ring TS; --Field characteristic (MUST come as input)
 kk = ring TS; --Field
 nn = numColumns TS; --Number of variables (MUST come as input)
 
+k=10; --k*(number of variables) is the number of PDS models normalized wrt G. bases
+
 --FD is a list of hashtables, where each contains the input-vectors/output pairs for each node
 FD = apply(nn, II->functionData(TS, II+1));
 
@@ -30,8 +32,8 @@ allFuncts={};
 
 --Sample randomly from the G. fan
 setRandomSeed processID();
-apply(10*nn, J -> (
-m=10*nn;
+apply(k*nn, J -> (
+m=k*nn;
 w={};
 w={random(0,m)};
 apply(nn-2, II->(w=append(w,random(0,m=m-w#II));
@@ -70,7 +72,7 @@ allCounts={};
 FF={};
 apply(nn, JJ->(
 s={};
-apply(10*nn, II->(
+apply(k*nn, II->(
 s=append(s,toString (allNFs#II#JJ));
 --s=append(s,allNFs#II#JJ); --leave functions in the ring
 ));
@@ -82,8 +84,8 @@ fns={};
 c=1;
 el=toString ssort#0;
 apply(#ssort-1, II->(
-if el==toString ssort#(II+1) then c=c+1 else (fns=append(fns,{value el,c/(10.0*nn)}), el=toString ssort#(II+1), c=1); ));
-fns=append(fns,{value el,c/(10.0*nn)});
+if el==toString ssort#(II+1) then c=c+1 else (fns=append(fns,{value el,c/(k*nn*1.0)}), el=toString ssort#(II+1), c=1); ));
+fns=append(fns,{value el,c/(k*nn*1.0)});
 FF=append(FF,fns);
 ));
 
