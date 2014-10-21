@@ -121,20 +121,21 @@
 
 "EAparams" : {
 "basicparams": {
-"HammingPolyWeight": 0.7,
-"RevEngWeight": 0.4,
-"BioProbWeight": 0.3,
-"HammingModelWeight": 0.5,
-"PolyScoreWeight": 0.4
+"HammingPolyWeight": 0.5,
+"ComplexityWeight":0.2,
+"RevEngWeight": 0.2,
+"BioProbWeight": 0.1,
+"HammingModelWeight": 0.35,
+"PolyScoreWeight": 0.65
 },
 
 "advancedparams":{ 
-"GenePoolSize": 200,
-"NumCandidates": 100,
+"GenePoolSize": 100,
+"NumCandidates": 55,
 "NumParentsToPreserve": 5,
-"MaxGenerations": 200,
+"MaxGenerations": 100,
 "StableGenerationLimit": 50,
-"MutateProbability":50
+"MutateProbability”: 0.50
 }
 
 }
