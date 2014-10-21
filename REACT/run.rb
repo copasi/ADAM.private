@@ -26,5 +26,5 @@ case param
 		task=Task.new(json,'./React')
 		task.run()
 		puts task.render_output()
-		task.clean_temp_files()
+		#task.clean_temp_files()
 end

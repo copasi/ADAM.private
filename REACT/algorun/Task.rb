@@ -150,17 +150,18 @@ class Task
 	def get_parameters()
 		basic=@method['parameters']['EAparams']['basicparams']
 		advanced=@method['parameters']['EAparams']['advancedparams']
-		res="HammingPolyWeight\t"+basic['HammingPolyWeight'].to_s
-		res+="\nRevEngWeight\t"+basic['RevEnvWeight'].to_s
-		res+="\nBioProbWeight\t"+basic['BioProbWeight'].to_s
-		res+="\nHammingModelWeight\t"+basic['HammingModelWeight'].to_s
-		res+="\nPolyScoreWeight\t"+basic['PolyScoreWeight'].to_s
-		res+="\nGenePoolSize\t"+advanced['GenePoolSize'].to_s
-		res+="\nNumCandidates\t"+advanced['NumCandidates'].to_s
-		res+="\nNumParentsToPreserve\t"+advanced['NumParentsToPreserve'].to_s
-		res+="\nMaxGenerations\t"+advanced['MaxGenerations'].to_s
-		res+="\nStableGenerationLimit\t"+advanced['StableGenerationLimit'].to_s
-		res+="\nMutateProbability\t"+advanced['MutateProbability'].to_s
+		if !basic['HammingPolyWeight'].nil? then res="\nHammingPolyWeight\t"+basic['HammingPolyWeight'].to_s end
+		if !basic['ComplexityWeight'].nil? then res="\nComplexityWeight\t"+basic['ComplexityWeight'].to_s end
+		if !basic['RevEnvWeight'].nil? then res+="\nRevEngWeight\t"+basic['RevEnvWeight'].to_s end
+		if !basic['BioProbWeight'].nil? then res+="\nBioProbWeight\t"+basic['BioProbWeight'].to_s end
+		if !basic['HammingModelWeight'].nil? then res+="\nHammingModelWeight\t"+basic['HammingModelWeight'].to_s end
+		if !basic['PolyScoreWeight'].nil? then res+="\nPolyScoreWeight\t"+basic['PolyScoreWeight'].to_s end
+		if !advanced['GenePoolSize'].nil? then res+="\nGenePoolSize\t"+advanced['GenePoolSize'].to_s end
+		if !advanced['NumCandidates'].nil? then res+="\nNumCandidates\t"+advanced['NumCandidates'].to_s end
+		if !advanced['NumParentsToPreserve'].nil? then res+="\nNumParentsToPreserve\t"+advanced['NumParentsToPreserve'].to_s end
+		if !advanced['MaxGenerations'].nil? then res+="\nMaxGenerations\t"+advanced['MaxGenerations'].to_s end
+		if !advanced['StableGenerationLimit'].nil? then res+="\nStableGenerationLimit\t"+advanced['StableGenerationLimit'].to_s end
+		if !advanced['MutateProbability'].nil? then res+="\nMutateProbability\t"+advanced['MutateProbability'].to_s end
 		res+="\n"
 		File.open("params.txt",'w') { |f| f.write(res) }
 		@tmp_files.push("params.txt")
