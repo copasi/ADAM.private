@@ -1,0 +1,83 @@
+1. model
+{"model": {
+  "description": "Gene Regulation of Mammalian Cortical Area Development Published in: Giacomantonio CE, Goodhill GJ (2010) A Boolean Model of the Gene Regulatory Network Underlying Mammalian Cortical Area Development. PLoS Comput Biol 6(9): e1000936",
+  "name": "Cortical_Area_Development",
+  "version": "1.0",
+  "parameters": [
+      {
+      "id": "k1",
+      "name": "param1",
+      "states": [0,1]
+      }
+      ],
+  "updateRules": <updateRules>, as defined below,
+  "variables": [
+      {
+      "id": "x1",
+      "name": "Coup_fti",
+      "states": ["off", "on"]
+      },
+      {
+      "id": "x2",
+      "name": "Emx2",
+      "states": [0,1]
+      }
+    ],
+  }
+  
+}
+}
+}
+
+2. updateRules: is an array of the following, in order from x1, x2, ...
+      {"target":"x1",
+       "functions": [
+          {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "booleanFunction": "x1 & (!x2 | x1)",
+            "transitionTable": [
+                      [[0,0],1],
+                      [[0,1],0],
+                      [[1,0],0],
+                      [[1,1],0]],
+            "score": 1.0
+          },
+          {
+            "inputVariables": ["x3","x5"],
+            "transitionTable": [
+                      [[0,0],1],
+                      [[0,1],0],
+                      [[1,0],0],
+                      [[1,1],0]]
+          }
+        ]
+      ]},
+
+facts about this:
+  each "function" can contain polynomialFunction, booleanFunction (only in 2 state case), 
+    transitionTable.  They MUST represent the same abstract function.
+  a model will usually contain exactly one function per target, but more are often allowed.
+
+3. task
+{"task":
+	{
+ 		"method":
+			{
+          		"type": <problemType>,
+				"id": <moduleName>,
+				"description": <string>,
+				"parameters": [parameters]
+			},
+		"input": [
+            {
+                "type": <input type>,
+                ... other fields for this type of input
+            },
+            ... <more inputs>
+        ]
+	}
+}
+
+The intent is that "parameters" includes the parameters that are special to the given <moduleName>
+and the "input" fields are constant across all <problemType>s.
