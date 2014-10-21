@@ -11,8 +11,7 @@ Date: October 21, 2014
 				"id": <moduleName>
 				"description": <string>
 				"parameters": [parameters]
-			}
-			
+			}			
 	}
 }
 
