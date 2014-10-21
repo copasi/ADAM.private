@@ -4,7 +4,7 @@
     "reverseEngineeringInputData": {
       "description": "optional place to put comments - data matrices for wildtype and knockout experiments",
       "fieldCardinality": 2,
-      "numberVariables": 4,
+      "numberVariables": 8,
       "timeSeriesData": [
           {
           "index": [],
