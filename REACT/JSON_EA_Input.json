@@ -22,27 +22,27 @@
               [0,0,0,1],
               [1,0,0,0]
             ],
-          "name": "wildtype experiment 2"
+          "name": " wildtype experiment 2”
           },
           {
-          "index": [1,3],
+          "index": [1],
           "matrix": [
               [0,0,0,0],
               [0,0,0,1],
               [0,1,0,0],
               [0,0,0,1]
             ],
-          "name": "double knockout experiment 1"
+          "name": "knockout experiment 1”
           },
           {
-          "index": [1,3],
+          "index": [3],
           "matrix": [
               [0,1,0,0],
               [0,1,0,1],
               [0,1,0,1],
               [0,0,0,0]
             ],
-          "name": "double knockout experiment 2"
+          "name": "knockout experiment 2”
           },
           {
           "index": [2],
@@ -52,7 +52,7 @@
               [1,0,0,1],
               [0,0,0,0]
             ],
-          "name": "knockout experiment 1"
+          "name": "knockout experiment 3”
           }
         ]
       }
