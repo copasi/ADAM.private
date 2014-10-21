@@ -1,9 +1,9 @@
 JSON format output file: reverseEngineeringOutputData
 
-•	It starts with one field that allow us to introduce comments regarding the file. The first field is  “description” to describe the file.
-•	Number of variables “numberVariables”. This is a non-zero positive integer number.
-•	The cardinality of the field for the PDSs. This is indicated as “fieldCardinality”. At the moment this has to be a prime number.
-•	The PDS will be described as a hash table of update rules indicated by object “updateRules”. The update rule for the ith variable is represented as “x” followed the index of the variable. For instance “xi”, where i>0. 
-•	For each ith variable “xi” its corresponding update rule will be an array of hashtables  [{…}, {…},…, {…}], where each hashtable has three objects:
-o	The support variables. Designated as “InputVariables”. This is an array of variables written between quotes [“x1”, “x2”]. It is encouraged to write this array in ascending index order.
+	•	It starts with one field that allow us to introduce comments regarding the file. The first field is  “description” to describe the file.
+	•	Number of variables “numberVariables”. This is a non-zero positive integer number.
+	•	The cardinality of the field for the PDSs. This is indicated as “fieldCardinality”. At the moment this has to be a prime number.
+	•	The PDS will be described as a hash table of update rules indicated by object “updateRules”. The update rule for the ith variable is represented as “x” followed the index of the variable. For instance “xi”, where i>0. 
+	•	For each ith variable “xi” its corresponding update rule will be an array of hashtables  [{…}, {…},…, {…}], where each hashtable has three objects:
+		o	The support variables. Designated as “InputVariables”. This is an array of variables written between quotes [“x1”, “x2”]. It is encouraged to write this array in ascending index order.
 
