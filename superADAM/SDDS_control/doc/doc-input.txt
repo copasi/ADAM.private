@@ -1,0 +1,2 @@
+The input jason file should contain:
+1. A SDDS: (
