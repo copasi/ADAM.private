@@ -9,7 +9,7 @@
           {
           "index": [],
           "matrix": [
-              [1,2,2,2],
+              [1,0,0,0],
               [0,1,0,1],
               [1,1,0,0]
             ],
@@ -18,8 +18,8 @@
           {
           "index": [],
           "matrix": [
-              [1,1,2,2],
-              [0,2,0,1],
+              [1,1,0,0],
+              [0,0,0,1],
               [1,0,0,0]
             ],
           "name": "wildtype experiment 2"
@@ -27,30 +27,30 @@
           {
           "index": [1,3],
           "matrix": [
-              [0,2,0,2],
-              [0,2,0,1],
-              [0,1,0,2],
-              [0,2,0,1]
+              [0,0,0,0],
+              [0,0,0,1],
+              [0,1,0,0],
+              [0,0,0,1]
             ],
           "name": "double knockout experiment 1"
           },
           {
           "index": [1,3],
           "matrix": [
-              [0,1,0,2],
+              [0,1,0,0],
               [0,1,0,1],
               [0,1,0,1],
-              [0,2,0,2]
+              [0,0,0,0]
             ],
           "name": "double knockout experiment 2"
           },
           {
           "index": [2],
           "matrix": [
-              [1,0,0,2],
-              [0,0,2,1],
-              [1,0,2,1],
-              [0,0,0,2]
+              [1,0,0,0],
+              [0,0,0,1],
+              [1,0,0,1],
+              [0,0,0,0]
             ],
           "name": "knockout experiment 1"
           }
@@ -61,31 +61,31 @@
     "id": "REACT",
     "description": "this is the reverse engineering method that uses an evolutionary algorithm as optimization method",
     "parameters": 
-[
-“rev”: [
+{
+"priorReverseEngineeringNetwork": [
               [1,2,2,2],
               [0,1,0,1],
               [1,1,0,0]
             ],
 
-“cmplx”: [
+"complexity": [
               [1,2,2,2],
               [0,1,0,1],
               [1,1,0,0]
             ],
 
-“bio”: [
+"priorBiologicalNetwork": [
               [1,2,2,2],
               [0,1,0,1], 
               [1,1,0,0]
             ],
 
-“updateRules”: {
+"updateRules": {
       "x1": [
           {
             "inputVariables": ["x1","x2"],
             "polynomialFunction": "x1*x2",
-            “score”: 1.0
+            "score": 1.0
           }
       ],
       "x2": [
@@ -109,27 +109,27 @@
       ]
     },
 
-“EAparams” : {
-“basicparams”: [
-“HammingPolyWeight”: 0.7,
-“RevEngWeight”: 0.4,
-“BioProbWeight”: 0.3,
-“HammingModelWeight”: 0.5,
-“PolyScoreWeight”: 0.4
-],
+"EAparams" : {
+"basicparams": {
+"HammingPolyWeight": 0.7,
+"RevEngWeight": 0.4,
+"BioProbWeight": 0.3,
+"HammingModelWeight": 0.5,
+"PolyScoreWeight": 0.4
+},
 
-“advancedparams”:[ 
-“GenePoolSize”: 2000,
-“NumCandidates”: 1000,
-“NumParentsToPreserve”: 100,
-“MaxGenerations”: 500,
-“StableGenerationLimit”: 200,
-“MutateProbability”:50
-]
+"advancedparams":{ 
+"GenePoolSize": 2000,
+"NumCandidates": 1000,
+"NumParentsToPreserve": 100,
+"MaxGenerations": 500,
+"StableGenerationLimit": 200,
+"MutateProbability":50
+}
 
 }
 
-]
+}
     },
   "type": "reverseEngineering"
   }

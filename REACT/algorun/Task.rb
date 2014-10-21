@@ -1,5 +1,6 @@
 require 'json'
 require 'matrix'
+require 'pp'
 
 class Task
 	def initialize(json,exec_file)
@@ -69,7 +70,7 @@ class Task
 				end
 			end
 			File.open("K%i.txt" % i,'w') { |f| f.write(tmp) }
-			ko_array.push("(%i, \"K%i.txt\")" % [ko[i][0], i])
+			ko_array.push("(%i,\"K%i.txt\")" % [ko[i][0], i])
 			@tmp_files.push("K%i.txt" % i)
 		end
 		res+=ko_array.join(',').to_s
@@ -77,19 +78,93 @@ class Task
 		return res
 	end
 
-	def get_reverseEngineering()
+	def get_priorReverseEngineeringNetwork()
+		if !@method['parameters']['priorReverseEngineeringNetwork'].empty? then
+			res=""
+			@method['parameters']['priorReverseEngineeringNetwork'].each_with_index do |r,i|
+				idx=i+1
+				res+="F%i " % idx
+				res+=r.join(' ')+"\n"
+			end
+			File.open('RevMat.txt','w') { |f| f.write(res) }
+			@tmp_files.push("RevMat.txt")
+			return "REV={\"RevMat.txt\"};\n"
+		else
+			return "REV={};\n"
+		end
 	end
 
 	def get_complexity()
+		# not supported by REACT at this time
+		return "CMPLX={};\n"
 	end
 
-	def get_priorBioInfo()
+	def get_priorBiologicalNetwork()
+		if !@method['parameters']['priorBiologicalNetwork'].empty? then
+			res=""
+			@method['parameters']['priorBiologicalNetwork'].each_with_index do |r,i|
+				idx=i+1
+				res+="F%i " % idx
+				res+=r.join(' ')+"\n"
+			end
+			File.open("Bio.txt",'w') { |f| f.write(res) }
+			@tmp_files.push("Bio.txt")
+			return "BIO={\"Bio.txt\"};\n"
+		else
+			return "BIO={};\n"
+		end
 	end
 
 	def get_priorModel()
+		res="MODEL={"
+		if !@method['parameters']['updateRules'].empty? then
+			functions=[]
+			combinations=1
+			@method['parameters']['updateRules'].each do |k,v|
+				var=[]
+				v.each { |f| var.push(f['polynomialFunction']) }
+				functions.push(var)
+				combinations*=var.length
+			end
+			mx=[]
+			functions.each do |f|
+				mx.push(f*(combinations/f.length))
+			end
+			models=Matrix.rows(mx).t().to_a()
+			models.each_with_index do |m,i|
+				tmp=""
+				m.each_with_index { |f,j| tmp+="f%i=%s\n" % [j+1,f] }
+				File.open("Model%i.txt" % i,'w') { |f| f.write(tmp) }
+				@tmp_files.push("Model%i.txt" % i)
+			end
+			str=[]
+			combinations.times do |i|
+				str.push("\"Model%i.txt\"" % i)
+			end
+			res+=str.join(',')
+		end
+		res+="};\n"
+		return res
 	end
 
 	def get_parameters()
+		basic=@method['parameters']['EAparams']['basicparams']
+		advanced=@method['parameters']['EAparams']['advancedparams']
+		res="HammingPolyWeight\t"+basic['HammingPolyWeight'].to_s
+		res+="\nRevEngWeight\t"+basic['RevEnvWeight'].to_s
+		res+="\nBioProbWeight\t"+basic['BioProbWeight'].to_s
+		res+="\nHammingModelWeight\t"+basic['HammingModelWeight'].to_s
+		res+="\nPolyScoreWeight\t"+basic['PolyScoreWeight'].to_s
+		res+="\nGenePoolSize\t"+advanced['GenePoolSize'].to_s
+		res+="\nNumCandidates\t"+advanced['NumCandidates'].to_s
+		res+="\nNumParentsToPreserve\t"+advanced['NumParentsToPreserve'].to_s
+		res+="\nMaxGenerations\t"+advanced['MaxGenerations'].to_s
+		res+="\nStableGenerationLimit\t"+advanced['StableGenerationLimit'].to_s
+		res+="\nMutateProbability\t"+advanced['MutateProbability'].to_s
+		res+="\n"
+		File.open("params.txt",'w') { |f| f.write(res) }
+		@tmp_files.push("params.txt")
+		return "PARAMS={\"params.txt\"};\n"
 	end
 
 	def create_fileManager(file_manager)
@@ -99,6 +174,10 @@ class Task
 			out+=self.get_numberOfVariables()
 			out+=self.get_wildType()
 			out+=self.get_knockOut()
+			out+=self.get_priorReverseEngineeringNetwork()
+			out+=self.get_priorBiologicalNetwork()
+			out+=self.get_priorModel()
+			out+=self.get_parameters()
 		rescue StandardError=>err
 			STDERR.puts err
 			return false
@@ -112,12 +191,13 @@ class Task
 	def run()
 		if self.create_fileManager("fileman.txt") then
 			system(@exec_file+' '+@file_manager+' output.txt')
-			if $?.exitstatus>0 then
-				puts "Error: Cannot run algorithm"
+			if $?.exitstatus>0 or !File.exists?('output.txt') then
+				puts "Error: error occured while trying to run algorithm"
+				return 1
 			else
-				File.open('output.txt') { |f| @raw_output=f.read() }
+				File.open('output.txt','r') { |f| @raw_output=f.read() }
 			end
-			return $?.exitstatus
+			return 0
 		end
 	end
 
