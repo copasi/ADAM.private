@@ -117,13 +117,15 @@ createRevEngJSONOutputModel = method()
 createRevEngJSONOutputModel List := (L) -> (
     -- Better have at least one variable
     assert(#L > 0);
-    R := ring L#0;
+    R := ring L#0#0#0;
     {"reverseEngineeringOutputModel" => {
             "numberVariables" => numgens R,
             "fieldCardinality" => char R,
             "updateRules" => for i from 0 to numgens R - 1 list (
-                toString R_i => [{"inputVariables"=>apply(new Array from support L#i, toString),
-                                  "polynomialFunction"=>toString L#i}]
+                toString R_i => new Array from for j from 0 to #L_i-1 list 
+				[{"inputVariables"=>apply(new Array from support L#i#j#0, toString),
+                                  "polynomialFunction"=>toString L#i#j#0,
+				  "score"=>L#i#j#1}]
                 )
     }})
 
@@ -481,8 +483,8 @@ netList Fs
 
 restart
 loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
-TS = readTSDataFromJSON get "./ReverseEngineering/Gepasi.json"
-PDS = findPDS TS
-netList PDS
-prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
-
+PDS = findPDS get "./ReverseEngineering/Gepasi.json"
+netList oo
+toHashTable createRevEngJSONOutputModel PDS
+prettyPrintJSON oo
+toHashTable oo

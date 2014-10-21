@@ -6,6 +6,7 @@ if git push fails, it's probably because of conflicts from someone else making c
 then do
 git fetch
 git rebase
+(or git pull --rebase)
 if successful, do
 git push
 
