@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require './algorun/Model.rb'
 input = File.read(ARGV[0])
 json = JSON.parse(input)

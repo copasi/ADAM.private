@@ -9,6 +9,7 @@ class Model
 		@version = @model['version']
 		@raw_output=nil
 		@json_output=nil
+		@tmp_files=[]
 		@exec_file=exec_file
 	end
 
@@ -107,7 +108,9 @@ class Model
 		File.open('cnodes.txt','w') { |f| f.write(self.get_controlNodes()) }
 		File.open('cedges.txt','w') { |f| f.write(self.get_controlEdges()) }
 		File.open('cost.txt','w') { |f| f.write(self.get_nodeWeight()) }
+		@tmp_files.push('tt.txt','nv.txt','varf.txt','prop.txt','cnodes.txt','cedges.txt','cost.txt')
 		system(@exec_file+' -tt tt.txt -nv nv.txt -varf varf.txt -prop prop.txt -cnodes cnodes.txt -cedges cedges.txt -cost cost.txt > output.txt')
+		@tmp_files.push('output.txt')
 		if $?.exitstatus>0 then
 			puts "Error: Cannot run algorithm"
 		else
@@ -134,6 +137,6 @@ class Model
 	end
 
 	def clean_temp_files()
-		system('rm *.txt')
+		@tmp_files.each { |f| File.delete(f) }
 	end
 end
