@@ -1,10 +1,11 @@
 #!/usr/bin/env M2 --script
 
-path = prepend(currentDirectory()|"lib/M2code", path)
+adamRoot = getenv("ADAM_ROOT")
+path = prepend(adamRoot | "/superADAM/share/", path)
 needsPackage "ADAMModel"
 needsPackage "JSON"
 
-helpString = ///usage: limitCycles <json model file> <cycleLength1> <cycleLength2> ...
+helpString = ///usage: limit-cycles-via-gb <json model file> <cycleLength1> <cycleLength2> ...
 where
   json model file: a model file which includes polynomials 
       (not just transition tables)
@@ -21,7 +22,7 @@ output: a JSON description of the limit cycles found,
         }
   }    
 example call:
-  ./limitCycles ~/Sites/ADAM/sampleJSON/sampleModel.json 1 2 3
+  ./limit-cycles-via-gb ~/Sites/ADAM/sampleJSON/sampleModel.json 1 2 3
 example input file:
     {"model": {
         "name": "Sample for testing",
@@ -90,5 +91,5 @@ end
 
 restart
 -- example:
-./limitCycles ~/Sites/ADAM/sampleJSON/sampleModel.json 1 2 3
+./limit-cycles-via-gb ~/Sites/ADAM/sampleJSON/sampleModel.json 1 2 3
 
