@@ -1,5 +1,6 @@
 require 'json'
 require 'matrix'
+require 'pp'
 
 class Model
 	def initialize(json,exec_file)
@@ -50,7 +51,7 @@ class Model
 				if l[i].nil? then l.push("-1") end
 			end
 		end
-		mx = Matrix.rows(mx).t().to_a()
+		mx = Matrix.rows(mx).to_a()
 		mx.each { |r| res+=r.join(' ')+"\n" }
 		@model["varf"]=mx
 		return res
@@ -132,6 +133,7 @@ class Model
 			tmp=l.split(' ')
 			res['control policy'][tmp[0]]=[tmp[1].to_i,tmp[2].to_i]
 		end
+		pp res
 		@json_output= JSON.generate(res)
 		return @json_output
 	end
