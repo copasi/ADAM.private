@@ -1,9 +1,20 @@
 Directory Structure for Super ADAM
 Date: October 21, 2014
------------------------------------
+-----------------------------------------------------------------
+Below is the directory structure for superADAM, including the structure for subfolders.
+Strings in < > or with spaces are open to any naming convention.   
+Other folder and filenames (in format string.ext) are fixed. 
+-----------------------------------------------------------------
 
 superadam/
-	<module1>/
+	share/
+		<code to be shared between modules>
+	bin/
+		<executables>
+	lib/
+		<only stefan will can put files here see example below>
+		install files
+	<moduleName>/
 		doc/
 			sample-input.json
 			sample-output.json
@@ -17,20 +28,9 @@ superadam/
 			<test2>-output.json
 			...
 		src/
-			source code
+			<source code - see examples below>
 			m2 code
 			c++ code
 			perl code
 			ruby code
 			makefiles
-
-	share/
-		code to be shared between modules
-	bin/
-		executables
-	lib/
-		only stefan will can put files here
-		install files
-
-elena:	lib/M2Code/ReverseEngineering
-
