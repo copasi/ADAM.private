@@ -1,6 +1,5 @@
 require 'json'
 require 'matrix'
-require 'pp'
 
 class Model
 	def initialize(json,exec_file)
@@ -133,7 +132,6 @@ class Model
 			tmp=l.split(' ')
 			res['control policy'][tmp[0]]=[tmp[1].to_i,tmp[2].to_i]
 		end
-		pp res
 		@json_output= JSON.generate(res)
 		return @json_output
 	end
