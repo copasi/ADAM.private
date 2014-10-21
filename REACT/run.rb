@@ -10,12 +10,15 @@ case param
 		puts ""
 		puts "* help: shows this help message"
 		puts "* make: compile REACT"
+		puts "* clean: remove temporary and compiled files"
 		puts "* check: run tests file against REACT"
 		puts "* <input_file.json>: run REACT with the input JSON file"
 	when "make"
 		system("make")
 	when "check"
 		# run tests here
+	when "clean"
+		system("make clean")
 	else
 		if !File.exists?(param)	then puts "JSON input file not found" end
 		input = File.read(param)
