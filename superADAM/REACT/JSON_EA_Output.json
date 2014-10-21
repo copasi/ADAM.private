@@ -6,27 +6,44 @@
     "updateRules": {
       "x1": [
           {
-            "inputVariables": ["x1","x2"],
-            "polynomialFunction": "x1*x2",
+            "inputVariables": ["x1","x2","x3","x4"],
+            "polynomialFunction": "x1*x2 + x1 + x2 + x3*x4 + 1",
+            "score": 1.0
+          },
+	  {
+            "inputVariables": ["x1","x2","x3","x4"],
+            "polynomialFunction": "x1*x3 + x1*x4 + x2*x3 + x4 + 0",
             "score": 1.0
           }
       ],
       "x2": [
           {
-            "inputVariables": ["x1"],
-            "polynomialFunction": "x1+1",
+            "inputVariables": ["x2","x4"],
+            "polynomialFunction": "x2*x4 + x4 + 0",
             "score": 0.25
           },
           {
-            "inputVariables": ["x1","x2"],
-            "polynomialFunction": "x1*x2",
+            "inputVariables": ["x2","x4"],
+            "polynomialFunction": "x2 + x4 + 1",
             "score": 0.75
           }
       ],
-      "x3": [
+       "x3": [
           {
-            "inputVariables": ["x1","x2","x3"],
-            "polynomialFunction": "x3^2+x1+x2",
+            "inputVariables": ["x1"],
+            "polynomialFunction": "x1",
+            "score": 1.0
+          }
+      ],
+	"x4": [
+          {
+            "inputVariables": ["x3"],
+            "polynomialFunction": "x3 + 1",
+            "score": 1.0
+          },
+          {
+            "inputVariables": ["x3","x4"],
+            "polynomialFunction": "x3 + x4 + 1",
             "score": 1.0
           }
       ]
@@ -34,7 +51,7 @@
     "variableScores": {
         "x1": {"x1": 1.0, "x2": 0.45, "x3": 0.56}, 
         "x2": {"x1": 0.2, "x2": 0.45}, 
-        "x3": {"x2": 0.45, "x3": 0.56},  
+        "x3": {"x2": 0.45, "x3": 0.56}  
     }
   }
 }
