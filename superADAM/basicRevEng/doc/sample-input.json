@@ -1,7 +1,14 @@
 {
 "task": {
-  "input": {
-    "reverseEngineeringInputData": {
+  "method": {
+      "type": "reverseEngineering",
+      "id": "basicRevEng",
+      "description": "basic reverse engineering",
+      "arguments": ["your argument 1","your argument 2"]
+    },
+  "input": [
+    {
+      "type": "reverseEngineeringInputData",
       "description": "optional place to put comments - data matrices for wildtype and knockout experiments",
       "fieldCardinality": 5,
       "numberVariables": 4,
@@ -56,12 +63,6 @@
           }
         ]
       }
-    },
-  "method": {
-    "id": "basicRevEng",
-    "description": "basic reverse engineering",
-    "parameters": ["your parameter 1","your parameter 2"]
-    },
-  "type": "reverseEngineering"
+    ]
   }
 }
