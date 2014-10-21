@@ -1,0 +1,63 @@
+{"description"=>"",
+ "name"=>"small_example_control",
+ "updateRules"=>
+  {"x1"=>
+    {"possibleInputVariables"=>["x1", "x2", "x3"],
+     "transitionTable"=>
+      [[[0, 0, 0], 0],
+       [[0, 0, 1], 1],
+       [[0, 1, 0], 1],
+       [[0, 1, 1], 1],
+       [[1, 0, 0], 0],
+       [[1, 0, 1], 1],
+       [[1, 1, 0], 1],
+       [[1, 1, 1], 1]]},
+   "x2"=>
+    {"possibleInputVariables"=>["x1", "x2", "x3"],
+     "transitionTable"=>
+      [[[0, 0, 0], 0],
+       [[0, 0, 1], 1],
+       [[0, 1, 0], 1],
+       [[0, 1, 1], 0],
+       [[1, 0, 0], 1],
+       [[1, 0, 1], 1],
+       [[1, 1, 0], 0],
+       [[1, 1, 1], 1]]},
+   "x3"=>
+    {"possibleInputVariables"=>["x1", "x2", "x3"],
+     "transitionTable"=>
+      [[[0, 0, 0], 0],
+       [[0, 0, 1], 0],
+       [[0, 1, 0], 0],
+       [[0, 1, 1], 1],
+       [[1, 0, 0], 0],
+       [[1, 0, 1], 1],
+       [[1, 1, 0], 1],
+       [[1, 1, 1], 1]]}},
+ "variables"=>
+  [{"id"=>"x1", "name"=>"1", "states"=>["low", "high"]},
+   {"id"=>"x2", "name"=>"1", "states"=>["low", "high"]},
+   {"id"=>"x3", "name"=>"3", "states"=>["low", "high"]}],
+ "propensities"=>
+  {"x1"=>{"activation"=>0.9, "degradation"=>0.9},
+   "x2"=>{"activation"=>0.9, "degradation"=>0.9},
+   "x3"=>{"activation"=>0.9, "degradation"=>0.9}},
+ "controlNodes"=>{"n1"=>{"nodeIndex"=>1, "nodeValue"=>0}},
+ "controlEdges"=>{"e1"=>{"edgeTail"=>2, "edgeHead"=>3, "edgeValue"=>0}},
+ "costFunction"=>
+  {"desiredState"=>
+    {"x1"=>{"nodeIndex"=>1, "nodeValue"=>0, "nodeWeight"=>1},
+     "x2"=>{"nodeIndex"=>2, "nodeValue"=>0, "nodeWeight"=>1},
+     "x3"=>{"nodeIndex"=>3, "nodeValue"=>0, "nodeWeight"=>1}}},
+ "version"=>"1.0",
+ "nv"=>["3", "3", "3"],
+ "varf"=>[["1", "2", "3"], ["1", "2", "3"], ["1", "2", "3"]],
+ "control policy"=>
+  {"0"=>[0, 0],
+   "1"=>[0, 0],
+   "2"=>[0, 0],
+   "3"=>[0, 0],
+   "4"=>[0, 0],
+   "5"=>[0, 0],
+   "6"=>[0, 0],
+   "7"=>[0, 0]}}
