@@ -1,0 +1,7 @@
+// Any object can be compressed
+// 
+
+"object":
+  {
+    compressed: <base 64 zip compressed object>
+  } 

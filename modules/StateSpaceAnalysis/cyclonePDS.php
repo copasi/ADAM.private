@@ -67,5 +67,5 @@ fclose($OUT);
 
 $Ignored = exec("bin/cyclone " . $cycIn . " -PDS -edges -f " . $dotfile . ' 2>/dev/null');
 
-// unlink($cycIn);
+unlink($cycIn);
 ?>
