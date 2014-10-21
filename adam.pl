@@ -726,10 +726,9 @@ elsif ( $anaysis_method eq "Simulation" ) {
       );
 
     # print($output);
-    $output =
-      system(
-     "php ./modules/StateSpaceAnalysis/createHtml.php ${clientip}.functionfile"
-      );
+    $output = `php ./modules/StateSpaceAnalysis/createHtml.php ${clientip}.functionfile`;
+
+    print($output);
     print("</pre>");
     print("Done.<br>");
    }
