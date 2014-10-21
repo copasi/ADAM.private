@@ -36,7 +36,7 @@
        [[1, 1, 1], 1]]}},
  "variables"=>
   [{"id"=>"x1", "name"=>"1", "states"=>["low", "high"]},
-   {"id"=>"x2", "name"=>"1", "states"=>["low", "high"]},
+   {"id"=>"x2", "name"=>"2", "states"=>["low", "high"]},
    {"id"=>"x3", "name"=>"3", "states"=>["low", "high"]}],
  "propensities"=>
   {"x1"=>{"activation"=>0.9, "degradation"=>0.9},
