@@ -12,6 +12,8 @@ superadam/
 			doc-module.txt
 		test/
 			<test1>-input.json
+			<test1>-output.json
+			<test2>-input.json
 			<test2>-output.json
 			...
 		src/
@@ -30,9 +32,5 @@ superadam/
 		only stefan will can put files here
 		install files
 
-seda: 	randomsampling
-	SDDS
-david:	SDDS-control
 elena:	lib/M2Code/ReverseEngineering
-paola: 	REACT
 

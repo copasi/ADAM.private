@@ -58,8 +58,8 @@
       }
     },
   "method": {
-    "id": "REACT",
-    "description": "evolutionary algorithm",
+    "id": "basicRevEng",
+    "description": "basic reverse engineering",
     "parameters": ["your parameter 1","your parameter 2"]
     },
   "type": "reverseEngineering"
