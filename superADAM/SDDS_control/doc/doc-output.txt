@@ -1,6 +1,8 @@
-The output json file should contain:
-1. This will be an input for the SDDS for simulation. 
-2. A SDDS:  a transition table with propensity parameters. This is the
-same as the model for the input json file.
-3. Control Policy: a list of control actions.
+This will be an input for the SDDS for simulation. The output json file should contain: 
+1. A SDDS:  a transition table with propensity parameters. This is the
+same as the model given the input json file.
+2. Control Policy: a list of control actions as binary vectors. The control policy is given as binary vectors where a "0" entry
+means no control and an entry of "1" means control. For instance, if there
+are 2 control nodes and 3 control edges, then a control action is a
+binary vector of size 5, e.g. (0,1,0,1,1), (1,1,0,0,1), etc.
 

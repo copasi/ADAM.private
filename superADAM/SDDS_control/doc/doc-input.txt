@@ -1,6 +1,7 @@
 The input jason file should contain:
 1. A SDDS:  a transition table with propensity parameters.
 2. Control nodes: a subset of the nodes.
-3. Control edges: a list of edges writen as j->i, the begining and end.
-4. Cost function: a desired vector state and a vector of weights (this
-could be any number greather or equal to zero)
+3. Control edges: a list of edges writen as [j i], the begining "j" and end
+of the edge "i".
+4. Cost function: a desired vector state and a vector of weights (the
+entries of this vector could be any number greather or equal to zero)
