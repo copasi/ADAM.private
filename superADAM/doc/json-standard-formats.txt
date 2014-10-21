@@ -7,7 +7,7 @@
       {
       "id": "k1",
       "name": "param1",
-      "states": [0,1]
+      "states": ["low", "high"]
       }
       ],
   "updateRules": <updateRules>, as defined below,
@@ -15,19 +15,23 @@
       {
       "id": "x1",
       "name": "Coup_fti",
-      "states": ["off", "on"]
+      "states": ["low", "high"]
       },
       {
       "id": "x2",
       "name": "Emx2",
-      "states": [0,1]
+      "states": ["off", "on"]
       }
     ],
-  }
-  
-}
-}
-}
+   "simlab": <arbitrary structure for use in front end, treat as private information>
+  }}
+
+description, name, version are free form documentation, version should go up in some
+form if the model is saved for the user, and is modified.
+
+variables must have update rules, in order.
+parameters are essentially variables which do not change value
+
 
 2. updateRules: is an array of the following, in order from x1, x2, ...
       {"target":"x1",
@@ -67,7 +71,7 @@ facts about this:
           		"type": <problemType>,
 				"id": <moduleName>,
 				"description": <string>,
-				"parameters": [parameters]
+				"arguments": [arguments]
 			},
 		"input": [
             {
