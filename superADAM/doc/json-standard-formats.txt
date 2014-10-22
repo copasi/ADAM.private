@@ -160,7 +160,7 @@ and the "input" fields are constant across all <problemType>.
 
 2. output
 
-The json output consists in an array of your output objects. Please note that if you used a model as an input, you should strongly consider returning the modified/enriched model as an output.
+The json output consists of an array of your output objects. Please note that if you used a model as input, you should strongly consider returning the modified/enriched model as an output.
 {"output": [
 	{
 	"type":"model"
