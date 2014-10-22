@@ -3,19 +3,36 @@
     "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
     "numberVariables": 4,
     "fieldCardinality": 2,
-    "updateRules": {
-      "x1": [
+    "updateRules": {[
+	{
+	"target":"x1",
+        "functions": [
           {
             "inputVariables": ["x1","x2","x3","x4"],
             "polynomialFunction": "x1*x2 + x1 + x2 + x3*x4 + 1",
             "score": 1.0
           },
-	  {
+          {
             "inputVariables": ["x1","x2","x3","x4"],
             "polynomialFunction": "x1*x3 + x1*x4 + x2*x3 + x4 + 0",
             "score": 1.0
           }
-      ],
+        ]},
+	{
+	"target":"x2",
+        "functions": [
+          {
+            "inputVariables": ["x1","x2","x3","x4"],
+            "polynomialFunction": "x1*x2 + x1 + x2 + x3*x4 + 1",
+            "score": 1.0
+          },
+          {
+            "inputVariables": ["x1","x2","x3","x4"],
+            "polynomialFunction": "x1*x3 + x1*x4 + x2*x3 + x4 + 0",
+            "score": 1.0
+          }
+        ]},
+      ]},
       "x2": [
           {
             "inputVariables": ["x2","x4"],
@@ -48,10 +65,76 @@
           }
       ]
     },
-    "variableScores": {
-        "x1": {"x1": 1.0, "x2": 0.45, "x3": 0.56}, 
-        "x2": {"x1": 0.2, "x2": 0.45}, 
-        "x3": {"x2": 0.45, "x3": 0.56}  
-    }
+    "variableScores": [
+        {
+        "target": "x1",
+        "sources": [
+            { "score": 1, "source": "x1" },
+            { "score": .45, "source": "x2" },
+            { "score": .56, "source": "x3" }
+          ]
+        },
+        {
+        "target": "x2",
+        "sources": [
+            { "score": .2, "source": "x1" },
+            { "score": .45, "source": "x2" }
+          ]
+        },
+        {
+        "target": "x3",
+        "sources": [
+            { "score": .45, "source": "x2" },
+            { "score": .56, "source": "x3" }
+          ]
+        }
+      ]
   }
+}
+
+{ "output": [
+    {
+    "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
+    "fieldCardinality": 5,
+    "numberVariables": 4,
+    "type": "reverseEngineeringOutputModel",
+    "updateRules": [
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": 1
+            }
+          ],
+        "target": "x1"
+        },
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1"],
+            "polynomialFunction": "x1+1",
+            "score": .25
+            },
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": .75
+            }
+          ],
+        "target": "x2"
+        },
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1","x2","x3"],
+            "polynomialFunction": "x3^2+x1+x2",
+            "score": 1
+            }
+          ],
+        "target": "x3"
+        }
+      ],
+    }
+  ]
 }

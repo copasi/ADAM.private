@@ -1,87 +1,202 @@
-1. model
-{"model": {
-  "description": "Gene Regulation of Mammalian Cortical Area Development Published in: Giacomantonio CE, Goodhill GJ (2010) A Boolean Model of the Gene Regulatory Network Underlying Mammalian Cortical Area Development. PLoS Comput Biol 6(9): e1000936",
-  "name": "Cortical_Area_Development",
-  "version": "1.0",
-  "parameters": [
-      {
-      "id": "k1",
-      "name": "param1",
-      "states": ["low", "high"]
-      }
-      ],
-  "updateRules": <updateRules>, as defined below,
-  "variables": [
-      {
-      "id": "x1",
-      "name": "Coup_fti",
-      "states": ["low", "high"]
-      },
-      {
-      "id": "x2",
-      "name": "Emx2",
-      "states": ["off", "on"]
-      }
-    ],
-   "simlab": <arbitrary structure for use in front end, treat as private information>
-  }}
+1. Input
+{"task": {
+	"method": {
+       		"type": <problemType>,
+		"id": <moduleName>,
+		"description": <string>,
+		"arguments": [{
+			"name":"priorVer",
+			"value":[
+		              [1, 2, 2, 2, 2],
+		              [0, 1, 0, 1, 1],
+		              [1, 1, 0, 0, 2],
+		              [0, 1, 2, 0, 3]
+		            ]
+			},
+			{
+			"name":"hamming",
+			"value":1.0
+			}]
+		},
+	"input": [{
+		  "type":"model",
+		  "description": "Gene Regulation of Mammalian Cortical Area Development Published in: Giacomantonio CE, Goodhill GJ (2010) A Boolean Model of the Gene Regulatory Network Underlying Mammalian Cortical Area Development. PLoS Comput Biol 6(9): e1000936",
+		  "name": "Cortical_Area_Development",
+		  "version": "1.0",
+		  "parameters": [{
+		      "id": "k1",
+		      "name": "param1",
+		      "states": ["low", "high"]
+		      }],
+		  "updateRules": [{
+			"target":"x1",
+		        "functions": [
+		          {
+		            "inputVariables": ["x1","x2"],
+		            "polynomialFunction": "x1*x2",
+		            "booleanFunction": "x1 & (!x2 | x1)",
+		            "transitionTable": [
+		                      [[0,0],1],
+		                      [[0,1],0],
+		                      [[1,0],0],
+		                      [[1,1],0]],
+		            "score": 1.0
+		          },
+		          {
+		            "inputVariables": ["x3","x5"],
+		            "transitionTable": [
+		                      [[0,0],1],
+		                      [[0,1],0],
+		                      [[1,0],0],
+		                      [[1,1],0]]
+		          }]
+			}],
+		  "variables": [{
+		      "id": "x1",
+		      "name": "Coup_fti",
+		      "states": ["low", "high"]
+		      },
+		      {
+		      "id": "x2",
+		      "name": "Emx2",
+		      "states": ["off", "on"]
+		      }],
+		   "simlab": <arbitrary structure for use in front end, treat as private information>
+		},
+       		{
+		   "type": "timeSeries",
+	           "timeSeriesData": [{
+		          "name": "wildtype experiment 1",
+		          "index": [],
+		          "matrix": [
+		              [1,0,0,0],
+		              [0,1,0,1],
+		              [1,1,0,0]
+		            ]
+		          },
+		          {
+		          "name": "wildtype experiment 2",
+		          "index": [],
+		          "matrix": [
+		              [1,1,0,0],
+		              [0,0,0,1],
+		              [1,0,0,0]
+		            ]
+		          },
+		          {
+		          "name": "knockout experiment 1",
+		          "index": [1],
+		          "matrix": [
+		              [0,0,0,0],
+		              [0,0,0,1],
+		              [0,1,0,0],
+		              [0,0,0,1]
+		            ]
+		          },
+		          {
+		          "name": "knockout experiment 2",
+		          "index": [3],
+		          "matrix": [
+		              [0,1,0,0],
+		              [0,1,0,1],
+		              [0,1,0,1],
+		              [0,0,0,0]
+		            ]
+		          },
+		          {
+		          "name": "knockout experiment 3",
+		          "index": [2],
+		          "matrix": [
+		              [1,0,0,0],
+		              [0,0,0,1],
+		              [1,0,0,1],
+		              [0,0,0,0]
+		            ]
+		          }
+		        ]
+		},
+	        {... <more inputs>
+		}]
+	}
+}
 
+=== About model ===
 description, name, version are free form documentation, version should go up in some
 form if the model is saved for the user, and is modified.
 
 variables must have update rules, in order.
 parameters are essentially variables which do not change value
 
-
-2. updateRules: is an array of the following, in order from x1, x2, ...
-      {"target":"x1",
-       "functions": [
-          {
-            "inputVariables": ["x1","x2"],
-            "polynomialFunction": "x1*x2",
-            "booleanFunction": "x1 & (!x2 | x1)",
-            "transitionTable": [
-                      [[0,0],1],
-                      [[0,1],0],
-                      [[1,0],0],
-                      [[1,1],0]],
-            "score": 1.0
-          },
-          {
-            "inputVariables": ["x3","x5"],
-            "transitionTable": [
-                      [[0,0],1],
-                      [[0,1],0],
-                      [[1,0],0],
-                      [[1,1],0]]
-          }
-        ]
-      ]},
-
+=== About updateRules ===
 facts about this:
   each "function" can contain polynomialFunction, booleanFunction (only in 2 state case), 
     transitionTable.  They MUST represent the same abstract function.
   a model will usually contain exactly one function per target, but more are often allowed.
 
-3. task
-{"task":
-	{
- 		"method":
-			{
-          		"type": <problemType>,
-				"id": <moduleName>,
-				"description": <string>,
-				"arguments": [arguments]
-			},
-		"input": [
-            {
-                "type": <input type>,
-                ... other fields for this type of input
-            },
-            ... <more inputs>
-        ]
-	}
-}
-
 The intent is that "parameters" includes the parameters that are special to the given <moduleName>
-and the "input" fields are constant across all <problemType>s.
+and the "input" fields are constant across all <problemType>.
+
+2. output
+
+The following example gives is a reverse engineering output example:
+{"output": [{
+    "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
+    "fieldCardinality": 5,
+    "numberVariables": 4,
+    "type": "reverseEngineeringOutputModel",
+    "updateRules": [{
+        "target": "x1",
+        "functions": [
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": 1
+            }]
+        },
+        {
+        "target": "x2",
+        "functions": [
+            {
+            "inputVariables": ["x1"],
+            "polynomialFunction": "x1+1",
+            "score": .25
+            },
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": .75
+            }]
+        },
+        {
+        "target": "x3",
+        "functions": [
+            {
+            "inputVariables": ["x1","x2","x3"],
+            "polynomialFunction": "x3^2+x1+x2",
+            "score": 1
+            }]
+        }],
+    "variableScores": [{
+        "target": "x1",
+        "sources": [
+		{ "source": "x1", "score": 1 },
+            	{ "source": "x2", "score": .45 },
+            	{ "source": "x3", "score": .56 }
+          	]
+        },
+        {
+        "target": "x2",
+        "sources": [
+		{ "source": "x1", "score": .2 },
+		{ "source": "x2", "score": .45 }
+		]
+        },
+        {
+        "target": "x3",
+        "sources": [
+		{ "source": "x2", "score": .45 },
+		{ "source": "x3", "score": .56 }
+		]
+        }]
+    }]
+}
