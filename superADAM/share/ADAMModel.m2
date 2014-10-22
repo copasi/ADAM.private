@@ -150,10 +150,7 @@ checkModel Model := (M) -> (
         );
     if not M#?"updateRules" then return false;
     -- also to check:
-    ---- updateRules has one key for each variable.
-    ---- that updateRule#xi should be a hash table, with "possibleInputVariables" as key
-    ----   which should be a list of some id's of the variables
-    ----   and should have either: polynomialFunction, transitionTable, or ...
+    ---- updateRules matches the description in doc/
     result
     )
 
@@ -187,7 +184,13 @@ prettyPrintJSON Model := (M) -> (
     )
 
 polynomials = method()
-polynomials(Model,Ring) := (M, R) -> (
+polynomials Model := (M) -> (
+    -- Returns a list of lists of polynomials.
+    -- For a well-defined model, each list of polynomials has length 1.
+    M = transformModel("add","poly",M);
+    if instance(M, ErrorPacket) then error "cannot determine all polynomials";
+    R := ring M;
+    use R;
     -- first: make sure that polynomial functions are present
     -- then: returns a list of list of polynomials
     for x in M#"updateRules" list (
@@ -197,20 +200,14 @@ polynomials(Model,Ring) := (M, R) -> (
             else (
                 g := value f#"polynomialFunction";
                 if ring g =!= R then promote(g,R) else g
+                )
             )
         )
     )
-polynomials(Model) := (M) -> (
-    R := ring M;
-    varnames := vars M;
-    use R;
-    matrix(R, {for x in varnames list value M#"updateRules"#x#"polynomialFunction"})
-    )
+
 polynomials(Model,List) := (M,parameterValues) -> (
+    polys := polynomials M;
     R := ring M;
-    varnames := vars M;
-    use R;
-    m := matrix(R, {for x in varnames list value M#"updateRules"#x#"polynomialFunction"});
     kk := coefficientRing R;
     base := ring ideal kk;
     if base =!= ZZ then (
@@ -219,9 +216,9 @@ polynomials(Model,List) := (M,parameterValues) -> (
         I1' := ideal for x in gens R1' list x^p-x;
         R1 := R1'/I1';
         phi := map(R1, R, (generators R1) | parameterValues);
-        m = phi m;
+        polys = for f in polys list for g in f list phi g
         );
-    m
+    polys
     )
 
 toArray = method()
@@ -233,6 +230,9 @@ findLimitCycles(Model, List, ZZ) := (M, parameterValues, limitCycleLength) ->
     findLimitCycles(M, parameterValues, {limitCycleLength})
 findLimitCycles(Model, List, List) := (M, parameterValues, limitCycleLengths) -> (
     PDS := polynomials(M, parameterValues);
+    if not all(PDS, f -> length f === 1)
+    then return errorPacket "expected model with only one function per node";
+    mat := matrix{flatten PDS};
     H := for len in limitCycleLengths list (
         limitcycles := gbSolver(PDS, len);
         len => toArray limitcycles
@@ -242,12 +242,12 @@ findLimitCycles(Model, List, List) := (M, parameterValues, limitCycleLengths) ->
 
 polyFromTransitionTable = method()
 polyFromTransitionTable(List, List, Ring) := (inputvars, transitions, R) -> (
-    << "starting interpolation: " << #inputvars << endl;
+    --<< "starting interpolation: " << #inputvars << endl;
     p := char R;
     n := #inputvars;
     X := set (0..p-1);
     inputs := sort toList X^**n;
-    time result := sum for t in transitions list (
+    result := sum for t in transitions list (
         input := t#0; -- a list
         output := t#1; -- a value
         if output == 0 then continue else
@@ -267,7 +267,7 @@ transformer#("add","poly") = (updatexi, M) -> (
         updatexi#"polynomialFunction" = toString value updatexi#"polynomialFunction";
         ) 
     else if updatexi#?"transitionTable" then (
-        possibles := updatexi#"possibleInputVariables";
+        possibles := updatexi#"inputVariables";
         tt := updatexi#"transitionTable";
         updatexi#"polynomialFunction" = 
             toString polyFromTransitionTable(possibles, tt, R);
@@ -283,14 +283,14 @@ transformer#("add","tt") = (updatexi, M) -> (
     R := ring M;
     if updatexi#?"transitionTable" then return;
     if updatexi#?"booleanFunction" then (
-        possibles := updatexi#"possibleInputVariables";
+        possibles := updatexi#"inputVariables";
         Q := makeBoolParser R;
         formula := Q updatexi#"booleanFunction";
         updatexi#"transitionTable" = 
             transitionTable(possibles, formula);
         )
     else if updatexi#?"polynomialFunction" then (
-        possibles = updatexi#"possibleInputVariables";
+        possibles = updatexi#"inputVariables";
         F := value updatexi#"polynomialFunction";
         updatexi#"transitionTable" = 
             transitionTable(possibles/value, F);
@@ -312,7 +312,11 @@ transformModel(String, String, Model) := (add, type, M) -> (
     M1 := toMutable M;
     -- At this point, we loop through and run the function
     update := M1#"updateRules";
-    for k in keys update do f(update#k, M);
+    -- update is a list of lists of functions
+    for k in update do (
+        fcns := k#"functions";
+        for fcn in fcns do f(fcn, M);
+        );
     -- Finally, we return the new model
     toImmutableModel M1
     )
@@ -332,6 +336,10 @@ toImmutable = method()
 toImmutable HashTable := (H) -> new HashTable from (
     for k in keys H list k => toImmutable H#k
     )
+toImmutable(HashTable,Ring) := (H,R) -> new HashTable from (
+    prepend(symbol cache => new CacheTable from {symbol ring => R},
+        for k in keys H list k => toImmutable H#k)
+    )
 toImmutable BasicList := (L) -> apply(L, toImmutable)
 toImmutable CacheTable := (F) -> F
 toImmutable RingElement := (F) -> F
@@ -341,6 +349,8 @@ toImmutable Thing := (x) -> x
 
 toImmutableModel = method()
 toImmutableModel HashTable := (H) -> new Model from toImmutable H
+toImmutableModel(HashTable,Ring) := (H,R) -> new Model from
+    toImmutable(H,R)
 
 TEST ///
 {*
@@ -460,8 +470,8 @@ TEST ///
 
   ring M
   vars M
-  polynomials(M, ring M)
-
+  flatten polynomials M
+ 
 
   M1 = transformModel("add", "poly", M)
   M2 = transformModel("add", "poly", M1)
@@ -475,6 +485,7 @@ TEST ///
   N4 = transformModel("add", "tt", N2)
   assert(N3 == N4)
   assert(M3 != M2)
+  assert(ring N4 === ring M)
 ///
 
 ///
