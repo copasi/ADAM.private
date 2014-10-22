@@ -28,11 +28,11 @@ newPackage(
 export {
     "Model", 
     "model",
+    "modelFromJSONHashTable",
+    "checkModel",
+    "parseModel", 
     "polynomials", 
     "findLimitCycles", 
-    "parseModel", 
-    "checkModel",
-    "addPolynomials",
     "polyFromTransitionTable",
     "transformModel",
     "toMutable",
@@ -46,18 +46,21 @@ model = method(Options => {
         "version" => "0.0",
         "variables" => null,
         "parameters" => {},
-        "updateRules" => null
+        "updateRules" => null,
+        "simlab" => null
         })
 model String := opts -> (name) -> (
-    model := new Model from {
-        {"name", name},
+    parts := {{"name", name},
         {"description", opts#"description"},
         {"version", opts#"version"},
         {"variables", opts#"variables"},
         {"parameters", opts#"parameters"},
         {"updateRules", opts#"updateRules"},
+        {"simlab", opts#"simlab"},
         symbol cache => new CacheTable
         };
+    parts = select(parts, x -> x#1 =!= null);
+    model := new Model from parts;
     checkModel model;
     model.cache.ring = ring model;
     model
@@ -154,11 +157,8 @@ checkModel Model := (M) -> (
     result
     )
 
--- parseModel: takes a string (usually the contents of a file), and returns
--- a "Model", if everything works, or an ErrorPacket
-parseModel = method()
-parseModel String := (str) -> (
-    M := parseJSON str;
+modelFromJSONHashTable = method()
+modelFromJSONHashTable HashTable := (M) -> (
     if instance(M, ErrorPacket) then return M;
     if not M#?"model" then return errorPacket "internal error: input is not a Model ot ErrorPacket";
     mod := M#"model";
@@ -167,10 +167,18 @@ parseModel String := (str) -> (
         "version" => mod#"version",
         "variables" => mod#"variables",
         "parameters" => if mod#?"parameters" then mod#"parameters" else {},
-        "updateRules" => mod#"updateRules"
+        "updateRules" => mod#"updateRules",
+        "simlab" => if mod#?"simlab" then mod#"simlab" else null
         )
     )
 
+-- parseModel: takes a string (usually the contents of a file), and returns
+-- a "Model", if everything works, or an ErrorPacket
+parseModel = method()
+parseModel String := (str) -> (
+    M := parseJSON str;
+    modelFromJSONHashTable M
+    )
 
 toJSON Model := (M) -> toJSON new HashTable from {("model", new HashTable from M)}
 
@@ -180,8 +188,17 @@ prettyPrintJSON Model := (M) -> (
 
 polynomials = method()
 polynomials(Model,Ring) := (M, R) -> (
-    varnames := vars M;
-    for x in varnames list value M#"updateRules"#x#"polynomialFunction"
+    -- first: make sure that polynomial functions are present
+    -- then: returns a list of list of polynomials
+    for x in M#"updateRules" list (
+        for f in x#"functions" list (
+            if not f#?"polynomialFunction"
+            then error "internal error: polynomial not found"
+            else (
+                g := value f#"polynomialFunction";
+                if ring g =!= R then promote(g,R) else g
+            )
+        )
     )
 polynomials(Model) := (M) -> (
     R := ring M;
@@ -340,62 +357,99 @@ TEST ///
   assert(result === ans)
 ///
 
-   sample2 = ///{"model": {
-         "name": "Sample2 for testing",
-         "description": "",
-         "version": "1.0",
-         "variables": [
-             {
-                 "name": "variable1",
-                 "id": "x1",
-                 "states": ["0", "1"]
-             },
-             {
-                 "name": "variable2",
-                 "id": "x2",
-                 "states": ["0", "1"]
-             },
-             {
-                 "name": "variable3",
-                 "id": "x3",
-                 "states": ["0", "1"]
-             },
-             {
-                 "name": "variable4",
-                 "id": "x4",
-                 "states": ["0", "1"]
-             },
-             {
-                 "name": "variable5",
-                 "id": "x5",
-                 "states": ["0", "1"]
-             }
-         ],
-         "updateRules": {
-             "x1": { 
-                 "possibleInputVariables": ["x2","x3", "x1"],
-                 "transitionTable": [[[0, 0, 0], 1], [[0, 0, 1], 0], [[0, 1, 0], 0], [[0, 1, 1], 0], 
-                 [[1, 0, 0], 1], [[1, 0, 1], 1], [[1, 1, 0], 0], [[1, 1, 1], 0]]
-             },
-             "x2": { 
-                 "possibleInputVariables": ["x1","x2"],
-                 "polynomialFunction": "x1+1"
-             },
-             "x3": { 
-                 "possibleInputVariables": ["x1","x2"],
-                 "polynomialFunction": "x1+x2"
-             },
-             "x4": { 
-                 "possibleInputVariables": ["x1","x4"],
-                 "polynomialFunction": "x1+x4"
-             },
-             "x5": { 
-                 "possibleInputVariables": ["x2","x5"],
-                 "polynomialFunction": "x2+x2*x5+x5"
-             }
-         }
-     }}
-    ///
+   sample2 = ///{
+"model": {
+  "description": "",
+  "name": "Sample2 for testing",
+  "version": "1.0",
+  "parameters": [],
+  "variables": [
+      {
+      "id": "x1",
+      "name": "variable1",
+      "states": ["0","1"]
+      },
+      {
+      "id": "x2",
+      "name": "variable2",
+      "states": ["0","1"]
+      },
+      {
+      "id": "x3",
+      "name": "variable3",
+      "states": ["0","1"]
+      },
+      {
+      "id": "x4",
+      "name": "variable4",
+      "states": ["0","1"]
+      },
+      {
+      "id": "x5",
+      "name": "variable5",
+      "states": ["0","1"]
+      }
+    ],
+  "updateRules": [
+      {
+      "functions": [
+          {
+          "inputVariables": ["x2","x3","x1"],
+          "transitionTable": [
+              [[0,0,0],1],
+              [[0,0,1],0],
+              [[0,1,0],0],
+              [[0,1,1],0],
+              [[1,0,0],1],
+              [[1,0,1],1],
+              [[1,1,0],0],
+              [[1,1,1],0]           
+            ],
+           "polynomialFunction": "x1+x2+x3"
+          }
+        ],
+      "target": "x1"
+      },
+      {
+      "functions": [
+          {
+          "inputVariables": ["x1","x2"],
+          "polynomialFunction": "x1+1"
+          }
+        ],
+      "target": "x2"
+      },
+      {
+      "functions": [
+          {
+          "inputVariables": ["x1","x2"],
+          "polynomialFunction": "x1+x2"
+          }
+        ],
+      "target": "x3"
+      },
+      {
+      "functions": [
+          {
+          "inputVariables": ["x1","x4"],
+          "polynomialFunction": "x1+x4"
+          }
+        ],
+      "target": "x4"
+      },
+      {
+      "functions": [
+          {
+          "inputVariables": ["x2","x5"],
+          "polynomialFunction": "x2+x2*x5+x5"
+          }
+        ],
+      "target": "x5"
+      }
+    ]
+  }
+}
+///
    
 TEST ///
 {*
@@ -403,6 +457,11 @@ TEST ///
 *}
   debug needsPackage "ADAMModel"
   M = parseModel sample2
+
+  ring M
+  vars M
+  polynomials(M, ring M)
+
 
   M1 = transformModel("add", "poly", M)
   M2 = transformModel("add", "poly", M1)
