@@ -30,8 +30,7 @@
 		      }],
 		  "updateRules": [{
 			"target":"x1",
-		        "functions": [
-		          {
+		        "functions": [{
 		            "inputVariables": ["x1","x2"],
 		            "polynomialFunction": "x1*x2",
 		            "booleanFunction": "x1 & (!x2 | x1)",
@@ -61,7 +60,30 @@
 		      "name": "Emx2",
 		      "states": ["off", "on"]
 		      }],
-		   "simlab": <arbitrary structure for use in front end, treat as private information>
+	          "variableScores": [{
+		      "target": "x1",
+	              "sources": [
+				{ "source": "x1", "score": 1 },
+		            	{ "source": "x2", "score": .45 },
+		            	{ "source": "x3", "score": .56 }
+        	  		]
+		          },
+          	  	  {
+		      "target": "x2",
+		      "sources": [
+				{ "source": "x1", "score": .2 },
+				{ "source": "x2", "score": .45 }
+				]
+		          },
+		          {
+		      "target": "x3",
+		      "sources": [
+				{ "source": "x2", "score": .45 },
+				{ "source": "x3", "score": .56 }
+				]
+ 		      }],
+
+		  "simlab": <arbitrary structure for use in front end, treat as private information>
 		},
        		{
 		   "type": "timeSeries",
@@ -138,65 +160,15 @@ and the "input" fields are constant across all <problemType>.
 
 2. output
 
-The following example gives is a reverse engineering output example:
-{"output": [{
-    "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
-    "fieldCardinality": 5,
-    "numberVariables": 4,
-    "type": "reverseEngineeringOutputModel",
-    "updateRules": [{
-        "target": "x1",
-        "functions": [
-            {
-            "inputVariables": ["x1","x2"],
-            "polynomialFunction": "x1*x2",
-            "score": 1
-            }]
-        },
-        {
-        "target": "x2",
-        "functions": [
-            {
-            "inputVariables": ["x1"],
-            "polynomialFunction": "x1+1",
-            "score": .25
-            },
-            {
-            "inputVariables": ["x1","x2"],
-            "polynomialFunction": "x1*x2",
-            "score": .75
-            }]
-        },
-        {
-        "target": "x3",
-        "functions": [
-            {
-            "inputVariables": ["x1","x2","x3"],
-            "polynomialFunction": "x3^2+x1+x2",
-            "score": 1
-            }]
-        }],
-    "variableScores": [{
-        "target": "x1",
-        "sources": [
-		{ "source": "x1", "score": 1 },
-            	{ "source": "x2", "score": .45 },
-            	{ "source": "x3", "score": .56 }
-          	]
-        },
-        {
-        "target": "x2",
-        "sources": [
-		{ "source": "x1", "score": .2 },
-		{ "source": "x2", "score": .45 }
-		]
-        },
-        {
-        "target": "x3",
-        "sources": [
-		{ "source": "x2", "score": .45 },
-		{ "source": "x3", "score": .56 }
-		]
-        }]
-    }]
+The json output consists in an array of your output objects. Please note that if you used a model as an input, you should strongly consider returning the modified/enriched model as an output.
+{"output": [
+	{
+	"type":"model"
+	<your input model enriched...>
+	},
+	{
+	"type":"<some other type of output>"
+	....
+	}
+    ]
 }
