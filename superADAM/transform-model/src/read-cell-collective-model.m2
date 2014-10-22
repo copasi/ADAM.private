@@ -71,9 +71,9 @@ readCellCollective(String, String, String) := (modelname, dirname, description) 
         "name" => f,
         "states" => [0, 1]
         };
-    updateRules = hashTable for f in varnamesA list (
+    updateRules = for f in varnamesA list (
         xi := varhash#f;
-        -- read the first line of the file, this tells us the possibleInputVariables
+        -- read the first line of the file, this tells us the inputVariables
         << "reading " << f << endl;
         contents := lines get(dirname|f|".csv");
         --<< "contents = " << contents#0 << endl;
@@ -89,9 +89,14 @@ readCellCollective(String, String, String) := (modelname, dirname, description) 
               then paramhash#g 
               else error "internal error: variables should have occurred";
         if f =!= lastInLine then << "warning: inconsistent tt file:." << f << "." << lastInLine << "." << endl;
-        xi => new HashTable from {
-            "possibleInputVariables" => possiblevarIDS,
-            "transitionTable" => makeTransitions(contents)
+        new HashTable from {
+            "target" => xi,
+            "functions" => {
+                new HashTable from {
+                    "inputVariables" => possiblevarIDS,
+                    "transitionTable" => makeTransitions(contents)
+                    }
+                }
             }
         );
     print params;
@@ -143,7 +148,7 @@ descriptions#"Yeast_Cell_Cycle_2004" = "Yeast cell-cycle network published in: h
 end
 
 restart
-path = prepend("~/src/reinhard/ADAM/lib/M2code", path)
+path = prepend("~/src/reinhard/ADAM/superADAM/transform-model/src", path)
 load "read-cell-collective-model.m2"
 
 -- Step 0.  These three variables are needed
@@ -174,7 +179,7 @@ for f in drop(zipfiles,1) do (
 -- now we create the models.  This requires the description from each one.
 -- as well as some manual tweaking for some problems which arise.
 jsonModels = "/Users/mike/src/reinhard/cell-collective-json/"
-for nm in names do (
+for nm in {names_3} do (
     if nm == names_12 then continue; -- this one isn't in the right format
     M = readCellCollective(
         nm,
