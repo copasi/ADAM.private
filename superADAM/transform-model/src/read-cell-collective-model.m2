@@ -179,7 +179,7 @@ for f in drop(zipfiles,1) do (
 -- now we create the models.  This requires the description from each one.
 -- as well as some manual tweaking for some problems which arise.
 jsonModels = "/Users/mike/src/reinhard/cell-collective-json/"
-for nm in {names_3} do (
+for nm in names do (
     if nm == names_12 then continue; -- this one isn't in the right format
     M = readCellCollective(
         nm,

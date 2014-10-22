@@ -157,15 +157,15 @@ checkModel Model := (M) -> (
 modelFromJSONHashTable = method()
 modelFromJSONHashTable HashTable := (M) -> (
     if instance(M, ErrorPacket) then return M;
-    if not M#?"model" then return errorPacket "internal error: input is not a Model ot ErrorPacket";
-    mod := M#"model";
-    model(mod#"name", 
-        "description" => mod#"description",
-        "version" => mod#"version",
-        "variables" => mod#"variables",
-        "parameters" => if mod#?"parameters" then mod#"parameters" else {},
-        "updateRules" => mod#"updateRules",
-        "simlab" => if mod#?"simlab" then mod#"simlab" else null
+    if not M#"type" === "model" then 
+      return errorPacket "internal error: input is not a Model ot ErrorPacket";
+    model(M#"name", 
+        "description" => M#"description",
+        "version" => M#"version",
+        "variables" => M#"variables",
+        "parameters" => if M#?"parameters" then M#"parameters" else {},
+        "updateRules" => M#"updateRules",
+        "simlab" => if M#?"simlab" then M#"simlab" else null
         )
     )
 
@@ -177,10 +177,16 @@ parseModel String := (str) -> (
     modelFromJSONHashTable M
     )
 
-toJSON Model := (M) -> toJSON new HashTable from {("model", new HashTable from M)}
+toJSONHashTable = method()
+toJSONHashTable Model := (M) -> (
+    ks := select(pairs M, x -> instance(x#0, String));
+    new HashTable from prepend("type"=>"model", ks)
+    )
+
+toJSON Model := (M) -> toJSON toJSONHashTable M
 
 prettyPrintJSON Model := (M) -> (
-    prettyPrintJSON new HashTable from {"model" => M}
+    prettyPrintJSON toJSONHashTable M
     )
 
 polynomials = method()
@@ -368,7 +374,7 @@ TEST ///
 ///
 
    sample2 = ///{
-"model": {
+  "type": "model",
   "description": "",
   "name": "Sample2 for testing",
   "version": "1.0",
@@ -458,7 +464,6 @@ TEST ///
       }
     ]
   }
-}
 ///
    
 TEST ///
