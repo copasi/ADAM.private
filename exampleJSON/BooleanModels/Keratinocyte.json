@@ -1,692 +1,1031 @@
 {
-"model": {
-  "description": "",
-  "name": "Keratinocyte",
-  "parameters": [],
-  "updateRules": {
-    "x1": {
-      "booleanFunction": "x68 | x31 | x16",
-      "polynomialFunction": "x16*x31*x68+x16*x31+x16*x68+x31*x68+x16+x31+x68",
-      "possibleInputVariables": ["x16","x31","x68"]
-      },
-    "x2": {
-      "booleanFunction": "x58 & x41 &  !x63",
-      "polynomialFunction": "x41*x58*x63+x41*x58",
-      "possibleInputVariables": ["x41","x58","x63"]
-      },
-    "x3": {
-      "booleanFunction": "x35",
-      "polynomialFunction": "x35",
-      "possibleInputVariables": ["x35"]
-      },
-    "x4": {
-      "booleanFunction": "x18",
-      "polynomialFunction": "x18",
-      "possibleInputVariables": ["x18"]
-      },
-    "x5": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x6": {
-      "booleanFunction": "x52 & x38",
-      "polynomialFunction": "x38*x52",
-      "possibleInputVariables": ["x38","x52"]
-      },
-    "x7": {
-      "booleanFunction": "x28 | x11",
-      "polynomialFunction": "x11*x28+x11+x28",
-      "possibleInputVariables": ["x11","x28"]
-      },
-    "x8": {
-      "booleanFunction": "x15 | x56 | x35",
-      "polynomialFunction": "x15*x35*x56+x15*x35+x15*x56+x35*x56+x15+x35+x56",
-      "possibleInputVariables": ["x15","x35","x56"]
-      },
-    "x9": {
-      "booleanFunction": "x20 | x39",
-      "polynomialFunction": "x20*x39+x20+x39",
-      "possibleInputVariables": ["x20","x39"]
-      },
-    "x10": {
-      "booleanFunction": "x12",
-      "polynomialFunction": "x12",
-      "possibleInputVariables": ["x12"]
-      },
-    "x11": {
-      "booleanFunction": "x46",
-      "polynomialFunction": "x46",
-      "possibleInputVariables": ["x46"]
-      },
-    "x12": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x13": {
-      "booleanFunction": "x60",
-      "polynomialFunction": "x60",
-      "possibleInputVariables": ["x60"]
-      },
-    "x14": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x15": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x16": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x17": {
-      "booleanFunction": "x28 | x11",
-      "polynomialFunction": "x11*x28+x11+x28",
-      "possibleInputVariables": ["x11","x28"]
-      },
-    "x18": {
-      "booleanFunction": "x13",
-      "polynomialFunction": "x13",
-      "possibleInputVariables": ["x13"]
-      },
-    "x19": {
-      "booleanFunction": "x7 & x27 & x17 & x1",
-      "polynomialFunction": "x1*x7*x17*x27",
-      "possibleInputVariables": ["x1","x7","x17","x27"]
-      },
-    "x20": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x21": {
-      "booleanFunction": "x53",
-      "polynomialFunction": "x53",
-      "possibleInputVariables": ["x53"]
-      },
-    "x22": {
-      "booleanFunction": "x39 | x23",
-      "polynomialFunction": "x23*x39+x23+x39",
-      "possibleInputVariables": ["x23","x39"]
-      },
-    "x23": {
-      "booleanFunction": "x57 & x28",
-      "polynomialFunction": "x28*x57",
-      "possibleInputVariables": ["x28","x57"]
-      },
-    "x24": {
-      "booleanFunction": "x28 | x11",
-      "polynomialFunction": "x11*x28+x11+x28",
-      "possibleInputVariables": ["x11","x28"]
-      },
-    "x25": {
-      "booleanFunction": "x49",
-      "polynomialFunction": "x49",
-      "possibleInputVariables": ["x49"]
-      },
-    "x26": {
-      "booleanFunction": "x42",
-      "polynomialFunction": "x42",
-      "possibleInputVariables": ["x42"]
-      },
-    "x27": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x28": {
-      "booleanFunction": " !x67 & ((x3 & x36) | x59)",
-      "polynomialFunction": "x3*x36*x59*x67+x3*x36*x59+x3*x36*x67+x3*x36+x59*x67+x59",
-      "possibleInputVariables": ["x3","x36","x59","x67"]
-      },
-    "x29": {
-      "booleanFunction": "x44",
-      "polynomialFunction": "x44",
-      "possibleInputVariables": ["x44"]
-      },
-    "x30": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x31": {
-      "booleanFunction": "x57 & x28",
-      "polynomialFunction": "x28*x57",
-      "possibleInputVariables": ["x28","x57"]
-      },
-    "x32": {
-      "booleanFunction": "x16 & x31",
-      "polynomialFunction": "x16*x31",
-      "possibleInputVariables": ["x16","x31"]
-      },
-    "x33": {
-      "booleanFunction": "x34",
-      "polynomialFunction": "x34",
-      "possibleInputVariables": ["x34"]
-      },
-    "x34": {
-      "booleanFunction": "x50 | x62",
-      "polynomialFunction": "x50*x62+x50+x62",
-      "possibleInputVariables": ["x50","x62"]
-      },
-    "x35": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x36": {
-      "booleanFunction": "x35",
-      "polynomialFunction": "x35",
-      "possibleInputVariables": ["x35"]
-      },
-    "x37": {
-      "booleanFunction": "x61 & x22",
-      "polynomialFunction": "x22*x61",
-      "possibleInputVariables": ["x22","x61"]
-      },
-    "x38": {
-      "booleanFunction": "x33",
-      "polynomialFunction": "x33",
-      "possibleInputVariables": ["x33"]
-      },
-    "x39": {
-      "booleanFunction": "x57 | x11",
-      "polynomialFunction": "x11*x57+x11+x57",
-      "possibleInputVariables": ["x11","x57"]
-      },
-    "x40": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x41": {
-      "booleanFunction": "x4",
-      "polynomialFunction": "x4",
-      "possibleInputVariables": ["x4"]
-      },
-    "x42": {
-      "booleanFunction": "x13",
-      "polynomialFunction": "x13",
-      "possibleInputVariables": ["x13"]
-      },
-    "x43": {
-      "booleanFunction": "x51 & x54 & x26",
-      "polynomialFunction": "x26*x51*x54",
-      "possibleInputVariables": ["x26","x51","x54"]
-      },
-    "x44": {
-      "booleanFunction": "x11",
-      "polynomialFunction": "x11",
-      "possibleInputVariables": ["x11"]
-      },
-    "x45": {
-      "booleanFunction": "x26 & x5 & x6",
-      "polynomialFunction": "x5*x6*x26",
-      "possibleInputVariables": ["x5","x6","x26"]
-      },
-    "x46": {
-      "booleanFunction": "x45 | x56",
-      "polynomialFunction": "x45*x56+x45+x56",
-      "possibleInputVariables": ["x45","x56"]
-      },
-    "x47": {
-      "booleanFunction": "(x50 & x2) | x62",
-      "polynomialFunction": "x2*x50*x62+x2*x50+x62",
-      "possibleInputVariables": ["x2","x50","x62"]
-      },
-    "x48": {
-      "booleanFunction": "x56",
-      "polynomialFunction": "x56",
-      "possibleInputVariables": ["x56"]
-      },
-    "x49": {
-      "booleanFunction": "x21 & x65",
-      "polynomialFunction": "x21*x65",
-      "possibleInputVariables": ["x21","x65"]
-      },
-    "x50": {
-      "booleanFunction": "x24 | x64",
-      "polynomialFunction": "x24*x64+x24+x64",
-      "possibleInputVariables": ["x24","x64"]
-      },
-    "x51": {
-      "booleanFunction": "x47 &  !x63",
-      "polynomialFunction": "x47*x63+x47",
-      "possibleInputVariables": ["x47","x63"]
-      },
-    "x52": {
-      "booleanFunction": "x34",
-      "polynomialFunction": "x34",
-      "possibleInputVariables": ["x34"]
-      },
-    "x53": {
-      "booleanFunction": "x32",
-      "polynomialFunction": "x32",
-      "possibleInputVariables": ["x32"]
-      },
-    "x54": {
-      "booleanFunction": "x18",
-      "polynomialFunction": "x18",
-      "possibleInputVariables": ["x18"]
-      },
-    "x55": {
-      "booleanFunction": "x25",
-      "polynomialFunction": "x25",
-      "possibleInputVariables": ["x25"]
-      },
-    "x56": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x57": {
-      "booleanFunction": "(x48 & x8) | x30",
-      "polynomialFunction": "x8*x30*x48+x8*x48+x30",
-      "possibleInputVariables": ["x8","x30","x48"]
-      },
-    "x58": {
-      "booleanFunction": "x55",
-      "polynomialFunction": "x55",
-      "possibleInputVariables": ["x55"]
-      },
-    "x59": {
-      "booleanFunction": "x43",
-      "polynomialFunction": "x43",
-      "possibleInputVariables": ["x43"]
-      },
-    "x60": {
-      "booleanFunction": "x50 | x62 | x2",
-      "polynomialFunction": "x2*x50*x62+x2*x50+x2*x62+x50*x62+x2+x50+x62",
-      "possibleInputVariables": ["x2","x50","x62"]
-      },
-    "x61": {
-      "booleanFunction": " !x29 &  !x9",
-      "polynomialFunction": "x9*x29+x9+x29+1",
-      "possibleInputVariables": ["x9","x29"]
-      },
-    "x62": {
-      "booleanFunction": "x66",
-      "polynomialFunction": "x66",
-      "possibleInputVariables": ["x66"]
-      },
-    "x63": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      },
-    "x64": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x65": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x66": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      },
-    "x67": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      },
-    "x68": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      }
+"description": "",
+"name": "Keratinocyte",
+"parameters": [],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "booleanFunction": "x68 | x31 | x16",
+        "inputVariables": ["x16","x31","x68"],
+        "polynomialFunction": "x16*x31*x68+x16*x31+x16*x68+x31*x68+x16+x31+x68",
+        "target": "x1"
+        }
+      ]
     },
-  "variables": [
-      {
-      "id": "x1",
-      "name": "x1",
-      "states": [0,1]
-      },
-      {
-      "id": "x2",
-      "name": "x2",
-      "states": [0,1]
-      },
-      {
-      "id": "x3",
-      "name": "x3",
-      "states": [0,1]
-      },
-      {
-      "id": "x4",
-      "name": "x4",
-      "states": [0,1]
-      },
-      {
-      "id": "x5",
-      "name": "x5",
-      "states": [0,1]
-      },
-      {
-      "id": "x6",
-      "name": "x6",
-      "states": [0,1]
-      },
-      {
-      "id": "x7",
-      "name": "x7",
-      "states": [0,1]
-      },
-      {
-      "id": "x8",
-      "name": "x8",
-      "states": [0,1]
-      },
-      {
-      "id": "x9",
-      "name": "x9",
-      "states": [0,1]
-      },
-      {
-      "id": "x10",
-      "name": "x10",
-      "states": [0,1]
-      },
-      {
-      "id": "x11",
-      "name": "x11",
-      "states": [0,1]
-      },
-      {
-      "id": "x12",
-      "name": "x12",
-      "states": [0,1]
-      },
-      {
-      "id": "x13",
-      "name": "x13",
-      "states": [0,1]
-      },
-      {
-      "id": "x14",
-      "name": "x14",
-      "states": [0,1]
-      },
-      {
-      "id": "x15",
-      "name": "x15",
-      "states": [0,1]
-      },
-      {
-      "id": "x16",
-      "name": "x16",
-      "states": [0,1]
-      },
-      {
-      "id": "x17",
-      "name": "x17",
-      "states": [0,1]
-      },
-      {
-      "id": "x18",
-      "name": "x18",
-      "states": [0,1]
-      },
-      {
-      "id": "x19",
-      "name": "x19",
-      "states": [0,1]
-      },
-      {
-      "id": "x20",
-      "name": "x20",
-      "states": [0,1]
-      },
-      {
-      "id": "x21",
-      "name": "x21",
-      "states": [0,1]
-      },
-      {
-      "id": "x22",
-      "name": "x22",
-      "states": [0,1]
-      },
-      {
-      "id": "x23",
-      "name": "x23",
-      "states": [0,1]
-      },
-      {
-      "id": "x24",
-      "name": "x24",
-      "states": [0,1]
-      },
-      {
-      "id": "x25",
-      "name": "x25",
-      "states": [0,1]
-      },
-      {
-      "id": "x26",
-      "name": "x26",
-      "states": [0,1]
-      },
-      {
-      "id": "x27",
-      "name": "x27",
-      "states": [0,1]
-      },
-      {
-      "id": "x28",
-      "name": "x28",
-      "states": [0,1]
-      },
-      {
-      "id": "x29",
-      "name": "x29",
-      "states": [0,1]
-      },
-      {
-      "id": "x30",
-      "name": "x30",
-      "states": [0,1]
-      },
-      {
-      "id": "x31",
-      "name": "x31",
-      "states": [0,1]
-      },
-      {
-      "id": "x32",
-      "name": "x32",
-      "states": [0,1]
-      },
-      {
-      "id": "x33",
-      "name": "x33",
-      "states": [0,1]
-      },
-      {
-      "id": "x34",
-      "name": "x34",
-      "states": [0,1]
-      },
-      {
-      "id": "x35",
-      "name": "x35",
-      "states": [0,1]
-      },
-      {
-      "id": "x36",
-      "name": "x36",
-      "states": [0,1]
-      },
-      {
-      "id": "x37",
-      "name": "x37",
-      "states": [0,1]
-      },
-      {
-      "id": "x38",
-      "name": "x38",
-      "states": [0,1]
-      },
-      {
-      "id": "x39",
-      "name": "x39",
-      "states": [0,1]
-      },
-      {
-      "id": "x40",
-      "name": "x40",
-      "states": [0,1]
-      },
-      {
-      "id": "x41",
-      "name": "x41",
-      "states": [0,1]
-      },
-      {
-      "id": "x42",
-      "name": "x42",
-      "states": [0,1]
-      },
-      {
-      "id": "x43",
-      "name": "x43",
-      "states": [0,1]
-      },
-      {
-      "id": "x44",
-      "name": "x44",
-      "states": [0,1]
-      },
-      {
-      "id": "x45",
-      "name": "x45",
-      "states": [0,1]
-      },
-      {
-      "id": "x46",
-      "name": "x46",
-      "states": [0,1]
-      },
-      {
-      "id": "x47",
-      "name": "x47",
-      "states": [0,1]
-      },
-      {
-      "id": "x48",
-      "name": "x48",
-      "states": [0,1]
-      },
-      {
-      "id": "x49",
-      "name": "x49",
-      "states": [0,1]
-      },
-      {
-      "id": "x50",
-      "name": "x50",
-      "states": [0,1]
-      },
-      {
-      "id": "x51",
-      "name": "x51",
-      "states": [0,1]
-      },
-      {
-      "id": "x52",
-      "name": "x52",
-      "states": [0,1]
-      },
-      {
-      "id": "x53",
-      "name": "x53",
-      "states": [0,1]
-      },
-      {
-      "id": "x54",
-      "name": "x54",
-      "states": [0,1]
-      },
-      {
-      "id": "x55",
-      "name": "x55",
-      "states": [0,1]
-      },
-      {
-      "id": "x56",
-      "name": "x56",
-      "states": [0,1]
-      },
-      {
-      "id": "x57",
-      "name": "x57",
-      "states": [0,1]
-      },
-      {
-      "id": "x58",
-      "name": "x58",
-      "states": [0,1]
-      },
-      {
-      "id": "x59",
-      "name": "x59",
-      "states": [0,1]
-      },
-      {
-      "id": "x60",
-      "name": "x60",
-      "states": [0,1]
-      },
-      {
-      "id": "x61",
-      "name": "x61",
-      "states": [0,1]
-      },
-      {
-      "id": "x62",
-      "name": "x62",
-      "states": [0,1]
-      },
-      {
-      "id": "x63",
-      "name": "x63",
-      "states": [0,1]
-      },
-      {
-      "id": "x64",
-      "name": "x64",
-      "states": [0,1]
-      },
-      {
-      "id": "x65",
-      "name": "x65",
-      "states": [0,1]
-      },
-      {
-      "id": "x66",
-      "name": "x66",
-      "states": [0,1]
-      },
-      {
-      "id": "x67",
-      "name": "x67",
-      "states": [0,1]
-      },
-      {
-      "id": "x68",
-      "name": "x68",
-      "states": [0,1]
-      }
-    ],
-  "version": "1.0"
-  }
+    {
+    "functions": [
+        {
+        "booleanFunction": "x58 & x41 &  !x63",
+        "inputVariables": ["x41","x58","x63"],
+        "polynomialFunction": "x41*x58*x63+x41*x58",
+        "target": "x2"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x35",
+        "inputVariables": ["x35"],
+        "polynomialFunction": "x35",
+        "target": "x3"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x18",
+        "inputVariables": ["x18"],
+        "polynomialFunction": "x18",
+        "target": "x4"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x5"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x52 & x38",
+        "inputVariables": ["x38","x52"],
+        "polynomialFunction": "x38*x52",
+        "target": "x6"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x28 | x11",
+        "inputVariables": ["x11","x28"],
+        "polynomialFunction": "x11*x28+x11+x28",
+        "target": "x7"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x15 | x56 | x35",
+        "inputVariables": ["x15","x35","x56"],
+        "polynomialFunction": "x15*x35*x56+x15*x35+x15*x56+x35*x56+x15+x35+x56",
+        "target": "x8"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x20 | x39",
+        "inputVariables": ["x20","x39"],
+        "polynomialFunction": "x20*x39+x20+x39",
+        "target": "x9"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x12",
+        "inputVariables": ["x12"],
+        "polynomialFunction": "x12",
+        "target": "x10"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x46",
+        "inputVariables": ["x46"],
+        "polynomialFunction": "x46",
+        "target": "x11"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x12"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x60",
+        "inputVariables": ["x60"],
+        "polynomialFunction": "x60",
+        "target": "x13"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x14"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x15"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x16"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x28 | x11",
+        "inputVariables": ["x11","x28"],
+        "polynomialFunction": "x11*x28+x11+x28",
+        "target": "x17"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x13",
+        "inputVariables": ["x13"],
+        "polynomialFunction": "x13",
+        "target": "x18"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x7 & x27 & x17 & x1",
+        "inputVariables": ["x1","x7","x17","x27"],
+        "polynomialFunction": "x1*x7*x17*x27",
+        "target": "x19"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x20"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x53",
+        "inputVariables": ["x53"],
+        "polynomialFunction": "x53",
+        "target": "x21"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x39 | x23",
+        "inputVariables": ["x23","x39"],
+        "polynomialFunction": "x23*x39+x23+x39",
+        "target": "x22"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x57 & x28",
+        "inputVariables": ["x28","x57"],
+        "polynomialFunction": "x28*x57",
+        "target": "x23"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x28 | x11",
+        "inputVariables": ["x11","x28"],
+        "polynomialFunction": "x11*x28+x11+x28",
+        "target": "x24"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x49",
+        "inputVariables": ["x49"],
+        "polynomialFunction": "x49",
+        "target": "x25"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x42",
+        "inputVariables": ["x42"],
+        "polynomialFunction": "x42",
+        "target": "x26"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x27"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x67 & ((x3 & x36) | x59)",
+        "inputVariables": ["x3","x36","x59","x67"],
+        "polynomialFunction": "x3*x36*x59*x67+x3*x36*x59+x3*x36*x67+x3*x36+x59*x67+x59",
+        "target": "x28"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x44",
+        "inputVariables": ["x44"],
+        "polynomialFunction": "x44",
+        "target": "x29"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x30"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x57 & x28",
+        "inputVariables": ["x28","x57"],
+        "polynomialFunction": "x28*x57",
+        "target": "x31"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x16 & x31",
+        "inputVariables": ["x16","x31"],
+        "polynomialFunction": "x16*x31",
+        "target": "x32"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x34",
+        "inputVariables": ["x34"],
+        "polynomialFunction": "x34",
+        "target": "x33"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x50 | x62",
+        "inputVariables": ["x50","x62"],
+        "polynomialFunction": "x50*x62+x50+x62",
+        "target": "x34"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x35"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x35",
+        "inputVariables": ["x35"],
+        "polynomialFunction": "x35",
+        "target": "x36"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x61 & x22",
+        "inputVariables": ["x22","x61"],
+        "polynomialFunction": "x22*x61",
+        "target": "x37"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x33",
+        "inputVariables": ["x33"],
+        "polynomialFunction": "x33",
+        "target": "x38"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x57 | x11",
+        "inputVariables": ["x11","x57"],
+        "polynomialFunction": "x11*x57+x11+x57",
+        "target": "x39"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x40"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x4",
+        "inputVariables": ["x4"],
+        "polynomialFunction": "x4",
+        "target": "x41"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x13",
+        "inputVariables": ["x13"],
+        "polynomialFunction": "x13",
+        "target": "x42"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x51 & x54 & x26",
+        "inputVariables": ["x26","x51","x54"],
+        "polynomialFunction": "x26*x51*x54",
+        "target": "x43"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11",
+        "inputVariables": ["x11"],
+        "polynomialFunction": "x11",
+        "target": "x44"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x26 & x5 & x6",
+        "inputVariables": ["x5","x6","x26"],
+        "polynomialFunction": "x5*x6*x26",
+        "target": "x45"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x45 | x56",
+        "inputVariables": ["x45","x56"],
+        "polynomialFunction": "x45*x56+x45+x56",
+        "target": "x46"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x50 & x2) | x62",
+        "inputVariables": ["x2","x50","x62"],
+        "polynomialFunction": "x2*x50*x62+x2*x50+x62",
+        "target": "x47"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x56",
+        "inputVariables": ["x56"],
+        "polynomialFunction": "x56",
+        "target": "x48"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x21 & x65",
+        "inputVariables": ["x21","x65"],
+        "polynomialFunction": "x21*x65",
+        "target": "x49"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x24 | x64",
+        "inputVariables": ["x24","x64"],
+        "polynomialFunction": "x24*x64+x24+x64",
+        "target": "x50"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x47 &  !x63",
+        "inputVariables": ["x47","x63"],
+        "polynomialFunction": "x47*x63+x47",
+        "target": "x51"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x34",
+        "inputVariables": ["x34"],
+        "polynomialFunction": "x34",
+        "target": "x52"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x32",
+        "inputVariables": ["x32"],
+        "polynomialFunction": "x32",
+        "target": "x53"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x18",
+        "inputVariables": ["x18"],
+        "polynomialFunction": "x18",
+        "target": "x54"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x25",
+        "inputVariables": ["x25"],
+        "polynomialFunction": "x25",
+        "target": "x55"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x56"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x48 & x8) | x30",
+        "inputVariables": ["x8","x30","x48"],
+        "polynomialFunction": "x8*x30*x48+x8*x48+x30",
+        "target": "x57"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x55",
+        "inputVariables": ["x55"],
+        "polynomialFunction": "x55",
+        "target": "x58"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x43",
+        "inputVariables": ["x43"],
+        "polynomialFunction": "x43",
+        "target": "x59"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x50 | x62 | x2",
+        "inputVariables": ["x2","x50","x62"],
+        "polynomialFunction": "x2*x50*x62+x2*x50+x2*x62+x50*x62+x2+x50+x62",
+        "target": "x60"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x29 &  !x9",
+        "inputVariables": ["x9","x29"],
+        "polynomialFunction": "x9*x29+x9+x29+1",
+        "target": "x61"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x66",
+        "inputVariables": ["x66"],
+        "polynomialFunction": "x66",
+        "target": "x62"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x63"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x64"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x65"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x66"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x67"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x68"
+        }
+      ]
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "x1",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "x2",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "x3",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "x4",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "x5",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "x6",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "x7",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "x8",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "x9",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "x10",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "x11",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "x12",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "x13",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "x14",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "x15",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "x16",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "x17",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "x18",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "x19",
+    "states": [0,1]
+    },
+    {
+    "id": "x20",
+    "name": "x20",
+    "states": [0,1]
+    },
+    {
+    "id": "x21",
+    "name": "x21",
+    "states": [0,1]
+    },
+    {
+    "id": "x22",
+    "name": "x22",
+    "states": [0,1]
+    },
+    {
+    "id": "x23",
+    "name": "x23",
+    "states": [0,1]
+    },
+    {
+    "id": "x24",
+    "name": "x24",
+    "states": [0,1]
+    },
+    {
+    "id": "x25",
+    "name": "x25",
+    "states": [0,1]
+    },
+    {
+    "id": "x26",
+    "name": "x26",
+    "states": [0,1]
+    },
+    {
+    "id": "x27",
+    "name": "x27",
+    "states": [0,1]
+    },
+    {
+    "id": "x28",
+    "name": "x28",
+    "states": [0,1]
+    },
+    {
+    "id": "x29",
+    "name": "x29",
+    "states": [0,1]
+    },
+    {
+    "id": "x30",
+    "name": "x30",
+    "states": [0,1]
+    },
+    {
+    "id": "x31",
+    "name": "x31",
+    "states": [0,1]
+    },
+    {
+    "id": "x32",
+    "name": "x32",
+    "states": [0,1]
+    },
+    {
+    "id": "x33",
+    "name": "x33",
+    "states": [0,1]
+    },
+    {
+    "id": "x34",
+    "name": "x34",
+    "states": [0,1]
+    },
+    {
+    "id": "x35",
+    "name": "x35",
+    "states": [0,1]
+    },
+    {
+    "id": "x36",
+    "name": "x36",
+    "states": [0,1]
+    },
+    {
+    "id": "x37",
+    "name": "x37",
+    "states": [0,1]
+    },
+    {
+    "id": "x38",
+    "name": "x38",
+    "states": [0,1]
+    },
+    {
+    "id": "x39",
+    "name": "x39",
+    "states": [0,1]
+    },
+    {
+    "id": "x40",
+    "name": "x40",
+    "states": [0,1]
+    },
+    {
+    "id": "x41",
+    "name": "x41",
+    "states": [0,1]
+    },
+    {
+    "id": "x42",
+    "name": "x42",
+    "states": [0,1]
+    },
+    {
+    "id": "x43",
+    "name": "x43",
+    "states": [0,1]
+    },
+    {
+    "id": "x44",
+    "name": "x44",
+    "states": [0,1]
+    },
+    {
+    "id": "x45",
+    "name": "x45",
+    "states": [0,1]
+    },
+    {
+    "id": "x46",
+    "name": "x46",
+    "states": [0,1]
+    },
+    {
+    "id": "x47",
+    "name": "x47",
+    "states": [0,1]
+    },
+    {
+    "id": "x48",
+    "name": "x48",
+    "states": [0,1]
+    },
+    {
+    "id": "x49",
+    "name": "x49",
+    "states": [0,1]
+    },
+    {
+    "id": "x50",
+    "name": "x50",
+    "states": [0,1]
+    },
+    {
+    "id": "x51",
+    "name": "x51",
+    "states": [0,1]
+    },
+    {
+    "id": "x52",
+    "name": "x52",
+    "states": [0,1]
+    },
+    {
+    "id": "x53",
+    "name": "x53",
+    "states": [0,1]
+    },
+    {
+    "id": "x54",
+    "name": "x54",
+    "states": [0,1]
+    },
+    {
+    "id": "x55",
+    "name": "x55",
+    "states": [0,1]
+    },
+    {
+    "id": "x56",
+    "name": "x56",
+    "states": [0,1]
+    },
+    {
+    "id": "x57",
+    "name": "x57",
+    "states": [0,1]
+    },
+    {
+    "id": "x58",
+    "name": "x58",
+    "states": [0,1]
+    },
+    {
+    "id": "x59",
+    "name": "x59",
+    "states": [0,1]
+    },
+    {
+    "id": "x60",
+    "name": "x60",
+    "states": [0,1]
+    },
+    {
+    "id": "x61",
+    "name": "x61",
+    "states": [0,1]
+    },
+    {
+    "id": "x62",
+    "name": "x62",
+    "states": [0,1]
+    },
+    {
+    "id": "x63",
+    "name": "x63",
+    "states": [0,1]
+    },
+    {
+    "id": "x64",
+    "name": "x64",
+    "states": [0,1]
+    },
+    {
+    "id": "x65",
+    "name": "x65",
+    "states": [0,1]
+    },
+    {
+    "id": "x66",
+    "name": "x66",
+    "states": [0,1]
+    },
+    {
+    "id": "x67",
+    "name": "x67",
+    "states": [0,1]
+    },
+    {
+    "id": "x68",
+    "name": "x68",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
 }

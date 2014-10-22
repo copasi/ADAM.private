@@ -1,622 +1,926 @@
 {
-"model": {
-  "description": "",
-  "name": "T-LGL_Survival_Network_2008",
-  "parameters": [],
-  "updateRules": {
-    "x1": {
-      "booleanFunction": " !x21 & (x51 | x56)",
-      "polynomialFunction": "x21*x51*x56+x21*x51+x21*x56+x51*x56+x51+x56",
-      "possibleInputVariables": ["x21","x51","x56"]
-      },
-    "x2": {
-      "booleanFunction": "x2 & (x61 | x39) &  !x21",
-      "polynomialFunction": "x2*x21*x39*x61+x2*x21*x39+x2*x21*x61+x2*x39*x61+x2*x39+x2*x61",
-      "possibleInputVariables": ["x2","x21","x39","x61"]
-      },
-    "x3": {
-      "booleanFunction": " !x21 & (x30 | x37)",
-      "polynomialFunction": "x21*x30*x37+x21*x30+x21*x37+x30*x37+x30+x37",
-      "possibleInputVariables": ["x21","x30","x37"]
-      },
-    "x4": {
-      "booleanFunction": "(x17 | x24 | x36 | x46) &  !x21",
-      "polynomialFunction": "x17*x21*x24*x36*x46+x17*x21*x24*x36+x17*x21*x24*x46+x17*x21*x36*x46+x17*x24*x36*x46+x21*x24*x36*x46+x17*x21*x24+x17*x21*x36+x17*x24*x36+x21*x24*x36+x17*x21*x46+x17*x24*x46+x21*x24*x46+x17*x36*x46+x21*x36*x46+x24*x36*x46+x17*x21+x17*x24+x21*x24+x17*x36+x21*x36+x24*x36+x17*x46+x21*x46+x24*x46+x36*x46+x17+x24+x36+x46",
-      "possibleInputVariables": ["x17","x21","x24","x36","x46"]
-      },
-    "x5": {
-      "booleanFunction": "x24 &  !x21 &  !x27",
-      "polynomialFunction": "x21*x24*x27+x21*x24+x24*x27+x24",
-      "possibleInputVariables": ["x21","x24","x27"]
-      },
-    "x6": {
-      "booleanFunction": "x36 &  !x21",
-      "polynomialFunction": "x21*x36+x36",
-      "possibleInputVariables": ["x21","x36"]
-      },
-    "x7": {
-      "booleanFunction": " !x21 & ((x18 & x6) | x59)",
-      "polynomialFunction": "x6*x18*x21*x59+x6*x18*x21+x6*x18*x59+x6*x18+x21*x59+x59",
-      "possibleInputVariables": ["x6","x18","x21","x59"]
-      },
-    "x8": {
-      "booleanFunction": "x36 &  !x21",
-      "polynomialFunction": "x21*x36+x36",
-      "possibleInputVariables": ["x21","x36"]
-      },
-    "x9": {
-      "booleanFunction": " !x21 &  !x26 & ((x22 & x41) | x36)",
-      "polynomialFunction": "x21*x22*x26*x36*x41+x21*x22*x26*x41+x21*x22*x36*x41+x22*x26*x36*x41+x21*x26*x36+x21*x22*x41+x22*x26*x41+x22*x36*x41+x21*x36+x26*x36+x22*x41+x36",
-      "possibleInputVariables": ["x21","x22","x26","x36","x41"]
-      },
-    "x10": {
-      "booleanFunction": "x45 &  !x21",
-      "polynomialFunction": "x21*x45+x45",
-      "possibleInputVariables": ["x21","x45"]
-      },
-    "x11": {
-      "booleanFunction": "x60 &  !x21 &  !x14",
-      "polynomialFunction": "x14*x21*x60+x14*x60+x21*x60+x60",
-      "possibleInputVariables": ["x14","x21","x60"]
-      },
-    "x12": {
-      "booleanFunction": "x35 &  !x21 &  !x51",
-      "polynomialFunction": "x21*x35*x51+x21*x35+x35*x51+x35",
-      "possibleInputVariables": ["x21","x35","x51"]
-      },
-    "x13": {
-      "booleanFunction": " !x21 &  !x39 &  !x61 & ((x1 & x13) | x3)",
-      "polynomialFunction": "x1*x3*x13*x21*x39*x61+x1*x3*x13*x21*x39+x1*x3*x13*x21*x61+x1*x3*x13*x39*x61+x1*x13*x21*x39*x61+x1*x3*x13*x21+x1*x3*x13*x39+x1*x13*x21*x39+x1*x3*x13*x61+x1*x13*x21*x61+x1*x13*x39*x61+x3*x21*x39*x61+x1*x3*x13+x1*x13*x21+x1*x13*x39+x3*x21*x39+x1*x13*x61+x3*x21*x61+x3*x39*x61+x1*x13+x3*x21+x3*x39+x3*x61+x3",
-      "possibleInputVariables": ["x1","x3","x13","x21","x39","x61"]
-      },
-    "x14": {
-      "booleanFunction": "x11 &  !x21",
-      "polynomialFunction": "x11*x21+x11",
-      "possibleInputVariables": ["x11","x21"]
-      },
-    "x15": {
-      "booleanFunction": "x48 &  !x21 &  !x61 &  !x39",
-      "polynomialFunction": "x21*x39*x48*x61+x21*x39*x48+x21*x48*x61+x39*x48*x61+x21*x48+x39*x48+x48*x61+x48",
-      "possibleInputVariables": ["x21","x39","x48","x61"]
-      },
-    "x16": {
-      "booleanFunction": "(x11 | x2) &  !x21",
-      "polynomialFunction": "x2*x11*x21+x2*x11+x2*x21+x11*x21+x2+x11",
-      "possibleInputVariables": ["x2","x11","x21"]
-      },
-    "x17": {
-      "booleanFunction": "x19 & x18 &  !x21",
-      "polynomialFunction": "x18*x19*x21+x18*x19",
-      "possibleInputVariables": ["x18","x19","x21"]
-      },
-    "x18": {
-      "booleanFunction": "(x1 | x3) &  !x21",
-      "polynomialFunction": "x1*x3*x21+x1*x3+x1*x21+x3*x21+x1+x3",
-      "possibleInputVariables": ["x1","x3","x21"]
-      },
-    "x19": {
-      "booleanFunction": "x3 &  !x21",
-      "polynomialFunction": "x3*x21+x3",
-      "possibleInputVariables": ["x3","x21"]
-      },
-    "x20": {
-      "booleanFunction": " !x21 & (x26 | x29 | x42) & (x26 |  !x33) & (x26 | x40)",
-      "polynomialFunction": "x21*x26*x29*x33*x40*x42+x21*x26*x29*x33*x40+x21*x26*x29*x40*x42+x21*x26*x33*x40*x42+x21*x29*x33*x40*x42+x26*x29*x33*x40*x42+x21*x26*x29*x40+x21*x29*x33*x40+x26*x29*x33*x40+x21*x26*x40*x42+x21*x29*x40*x42+x26*x29*x40*x42+x21*x33*x40*x42+x26*x33*x40*x42+x29*x33*x40*x42+x21*x29*x40+x26*x29*x40+x29*x33*x40+x21*x40*x42+x26*x40*x42+x29*x40*x42+x33*x40*x42+x21*x26+x29*x40+x40*x42+x26",
-      "possibleInputVariables": ["x21","x26","x29","x33","x40","x42"]
-      },
-    "x21": {
-      "booleanFunction": "x21 | x20",
-      "polynomialFunction": "x20*x21+x20+x21",
-      "possibleInputVariables": ["x20","x21"]
-      },
-    "x22": {
-      "booleanFunction": " !x21 & x31 &  !x38 & (x39 | x60 | x61) &  !x53",
-      "polynomialFunction": "x21*x31*x38*x39*x53*x60*x61+x21*x31*x38*x39*x53*x60+x21*x31*x38*x39*x53*x61+x21*x31*x38*x39*x60*x61+x21*x31*x38*x53*x60*x61+x21*x31*x39*x53*x60*x61+x31*x38*x39*x53*x60*x61+x21*x31*x38*x39*x53+x21*x31*x38*x39*x60+x21*x31*x38*x53*x60+x21*x31*x39*x53*x60+x31*x38*x39*x53*x60+x21*x31*x38*x39*x61+x21*x31*x38*x53*x61+x21*x31*x39*x53*x61+x31*x38*x39*x53*x61+x21*x31*x38*x60*x61+x21*x31*x39*x60*x61+x31*x38*x39*x60*x61+x21*x31*x53*x60*x61+x31*x38*x53*x60*x61+x31*x39*x53*x60*x61+x21*x31*x38*x39+x21*x31*x39*x53+x31*x38*x39*x53+x21*x31*x38*x60+x21*x31*x39*x60+x31*x38*x39*x60+x21*x31*x53*x60+x31*x38*x53*x60+x31*x39*x53*x60+x21*x31*x38*x61+x21*x31*x39*x61+x31*x38*x39*x61+x21*x31*x53*x61+x31*x38*x53*x61+x31*x39*x53*x61+x21*x31*x60*x61+x31*x38*x60*x61+x31*x39*x60*x61+x31*x53*x60*x61+x21*x31*x39+x31*x38*x39+x31*x39*x53+x21*x31*x60+x31*x38*x60+x31*x39*x60+x31*x53*x60+x21*x31*x61+x31*x38*x61+x31*x39*x61+x31*x53*x61+x31*x60*x61+x31*x39+x31*x60+x31*x61",
-      "possibleInputVariables": ["x21","x31","x38","x39","x53","x60","x61"]
-      },
-    "x23": {
-      "booleanFunction": " !x21 & (x23 | x48)",
-      "polynomialFunction": "x21*x23*x48+x21*x23+x21*x48+x23*x48+x23+x48",
-      "possibleInputVariables": ["x21","x23","x48"]
-      },
-    "x24": {
-      "booleanFunction": "x48 &  !x21",
-      "polynomialFunction": "x21*x48+x48",
-      "possibleInputVariables": ["x21","x48"]
-      },
-    "x25": {
-      "booleanFunction": "(x18 | x2 | x24 | x36) &  !x21",
-      "polynomialFunction": "x2*x18*x21*x24*x36+x2*x18*x21*x24+x2*x18*x21*x36+x2*x18*x24*x36+x2*x21*x24*x36+x18*x21*x24*x36+x2*x18*x21+x2*x18*x24+x2*x21*x24+x18*x21*x24+x2*x18*x36+x2*x21*x36+x18*x21*x36+x2*x24*x36+x18*x24*x36+x21*x24*x36+x2*x18+x2*x21+x18*x21+x2*x24+x18*x24+x21*x24+x2*x36+x18*x36+x21*x36+x24*x36+x2+x18+x24+x36",
-      "possibleInputVariables": ["x2","x18","x21","x24","x36"]
-      },
-    "x26": {
-      "booleanFunction": "(x12 | x35) & (x12 | x39 |  !x9) &  !x21 & x45",
-      "polynomialFunction": "x9*x12*x21*x35*x39*x45+x9*x12*x21*x35*x45+x9*x12*x35*x39*x45+x9*x21*x35*x39*x45+x9*x12*x35*x45+x9*x21*x35*x45+x12*x21*x35*x45+x9*x35*x39*x45+x12*x21*x45+x9*x35*x45+x12*x35*x45+x21*x35*x45+x12*x45+x35*x45",
-      "possibleInputVariables": ["x9","x12","x21","x35","x39","x45"]
-      },
-    "x27": {
-      "booleanFunction": "x24 &  !x21",
-      "polynomialFunction": "x21*x24+x24",
-      "possibleInputVariables": ["x21","x24"]
-      },
-    "x28": {
-      "booleanFunction": "x51 &  !x21",
-      "polynomialFunction": "x21*x51+x51",
-      "possibleInputVariables": ["x21","x51"]
-      },
-    "x29": {
-      "booleanFunction": "x6 &  !x44 &  !x21 &  !x33",
-      "polynomialFunction": "x6*x21*x33*x44+x6*x21*x33+x6*x21*x44+x6*x33*x44+x6*x21+x6*x33+x6*x44+x6",
-      "possibleInputVariables": ["x6","x21","x33","x44"]
-      },
-    "x30": {
-      "booleanFunction": "(x1 | x37) &  !x21",
-      "polynomialFunction": "x1*x21*x37+x1*x21+x1*x37+x21*x37+x1+x37",
-      "possibleInputVariables": ["x1","x21","x37"]
-      },
-    "x31": {
-      "booleanFunction": " !x21 & (x23 | x24 | x46)",
-      "polynomialFunction": "x21*x23*x24*x46+x21*x23*x24+x21*x23*x46+x21*x24*x46+x23*x24*x46+x21*x23+x21*x24+x23*x24+x21*x46+x23*x46+x24*x46+x23+x24+x46",
-      "possibleInputVariables": ["x21","x23","x24","x46"]
-      },
-    "x32": {
-      "booleanFunction": "x34 &  !x21 &  !x16",
-      "polynomialFunction": "x16*x21*x34+x16*x34+x21*x34+x34",
-      "possibleInputVariables": ["x16","x21","x34"]
-      },
-    "x33": {
-      "booleanFunction": "x36 &  !x21 &  !x40",
-      "polynomialFunction": "x21*x36*x40+x21*x36+x36*x40+x36",
-      "possibleInputVariables": ["x21","x36","x40"]
-      },
-    "x34": {
-      "booleanFunction": "(x11 | x2 | x55) &  !x21 & ( !x32 | x55)",
-      "polynomialFunction": "x2*x11*x21*x32*x55+x2*x11*x21*x32+x2*x11*x21*x55+x2*x11*x32*x55+x2*x21*x32*x55+x11*x21*x32*x55+x2*x11*x21+x2*x11*x32+x2*x21*x32+x11*x21*x32+x2*x11*x55+x2*x21*x55+x11*x21*x55+x2*x32*x55+x11*x32*x55+x2*x11+x2*x21+x11*x21+x2*x32+x11*x32+x2*x55+x11*x55+x21*x55+x2+x11+x55",
-      "possibleInputVariables": ["x2","x11","x21","x32","x55"]
-      },
-    "x35": {
-      "booleanFunction": "x45 & x4 &  !x21 &  !x10",
-      "polynomialFunction": "x4*x10*x21*x45+x4*x10*x45+x4*x21*x45+x4*x45",
-      "possibleInputVariables": ["x4","x10","x21","x45"]
-      },
-    "x36": {
-      "booleanFunction": " !x21 & (x18 | (x29 & x33 & x9) | x7)",
-      "polynomialFunction": "x7*x9*x18*x21*x29*x33+x7*x9*x18*x29*x33+x7*x9*x21*x29*x33+x9*x18*x21*x29*x33+x7*x9*x29*x33+x9*x18*x29*x33+x9*x21*x29*x33+x7*x18*x21+x9*x29*x33+x7*x18+x7*x21+x18*x21+x7+x18",
-      "possibleInputVariables": ["x7","x9","x18","x21","x29","x33"]
-      },
-    "x37": {
-      "booleanFunction": "(x2 | x32) &  !x21",
-      "polynomialFunction": "x2*x21*x32+x2*x21+x2*x32+x21*x32+x2+x32",
-      "possibleInputVariables": ["x2","x21","x32"]
-      },
-    "x38": {
-      "booleanFunction": " !x21 & (x22 | x38) &  !x57",
-      "polynomialFunction": "x21*x22*x38*x57+x21*x22*x38+x21*x22*x57+x21*x38*x57+x22*x38*x57+x21*x22+x21*x38+x22*x38+x22*x57+x38*x57+x22+x38",
-      "possibleInputVariables": ["x21","x22","x38","x57"]
-      },
-    "x39": {
-      "booleanFunction": " !x21 &  !x23 & (x24 | x36 | x46)",
-      "polynomialFunction": "x21*x23*x24*x36*x46+x21*x23*x24*x36+x21*x23*x24*x46+x21*x23*x36*x46+x21*x24*x36*x46+x23*x24*x36*x46+x21*x23*x24+x21*x23*x36+x21*x24*x36+x23*x24*x36+x21*x23*x46+x21*x24*x46+x23*x24*x46+x21*x36*x46+x23*x36*x46+x24*x36*x46+x21*x24+x23*x24+x21*x36+x23*x36+x24*x36+x21*x46+x23*x46+x24*x46+x36*x46+x24+x36+x46",
-      "possibleInputVariables": ["x21","x23","x24","x36","x46"]
-      },
-    "x40": {
-      "booleanFunction": "(x20 | x42) &  !x21 &  !x25 &  !x54",
-      "polynomialFunction": "x20*x21*x25*x42*x54+x20*x21*x25*x42+x20*x21*x25*x54+x20*x21*x42*x54+x20*x25*x42*x54+x21*x25*x42*x54+x20*x21*x25+x20*x21*x42+x20*x25*x42+x21*x25*x42+x20*x21*x54+x20*x25*x54+x20*x42*x54+x21*x42*x54+x25*x42*x54+x20*x21+x20*x25+x20*x42+x21*x42+x25*x42+x20*x54+x42*x54+x20+x42",
-      "possibleInputVariables": ["x20","x21","x25","x42","x54"]
-      },
-    "x41": {
-      "booleanFunction": "x17 & x58 &  !x21",
-      "polynomialFunction": "x17*x21*x58+x17*x58",
-      "possibleInputVariables": ["x17","x21","x58"]
-      },
-    "x42": {
-      "booleanFunction": " !x21 & ((x22 & x41) | x23)",
-      "polynomialFunction": "x21*x22*x23*x41+x21*x22*x41+x22*x23*x41+x21*x23+x22*x41+x23",
-      "possibleInputVariables": ["x21","x22","x23","x41"]
-      },
-    "x43": {
-      "booleanFunction": "x39 & x50 &  !x21 &  !x43",
-      "polynomialFunction": "x21*x39*x43*x50+x21*x39*x50+x39*x43*x50+x39*x50",
-      "possibleInputVariables": ["x21","x39","x43","x50"]
-      },
-    "x44": {
-      "booleanFunction": "x36 &  !x21",
-      "polynomialFunction": "x21*x36+x36",
-      "possibleInputVariables": ["x21","x36"]
-      },
-    "x45": {
-      "booleanFunction": "x36 &  !x21",
-      "polynomialFunction": "x21*x36+x36",
-      "possibleInputVariables": ["x21","x36"]
-      },
-    "x46": {
-      "booleanFunction": "x18 &  !x21",
-      "polynomialFunction": "x18*x21+x18",
-      "possibleInputVariables": ["x18","x21"]
-      },
-    "x47": {
-      "booleanFunction": "x16 &  !x21",
-      "polynomialFunction": "x16*x21+x16",
-      "possibleInputVariables": ["x16","x21"]
-      },
-    "x48": {
-      "booleanFunction": " !x15 & (x2 | x22 | x43 | x8) &  !x21 &  !x55",
-      "polynomialFunction": "x2*x8*x15*x21*x22*x43*x55+x2*x8*x15*x21*x22*x43+x2*x8*x15*x21*x22*x55+x2*x8*x15*x21*x43*x55+x2*x8*x15*x22*x43*x55+x2*x8*x21*x22*x43*x55+x2*x15*x21*x22*x43*x55+x8*x15*x21*x22*x43*x55+x2*x8*x15*x21*x22+x2*x8*x15*x21*x43+x2*x8*x15*x22*x43+x2*x8*x21*x22*x43+x2*x15*x21*x22*x43+x8*x15*x21*x22*x43+x2*x8*x15*x21*x55+x2*x8*x15*x22*x55+x2*x8*x21*x22*x55+x2*x15*x21*x22*x55+x8*x15*x21*x22*x55+x2*x8*x15*x43*x55+x2*x8*x21*x43*x55+x2*x15*x21*x43*x55+x8*x15*x21*x43*x55+x2*x8*x22*x43*x55+x2*x15*x22*x43*x55+x8*x15*x22*x43*x55+x2*x21*x22*x43*x55+x8*x21*x22*x43*x55+x15*x21*x22*x43*x55+x2*x8*x15*x21+x2*x8*x15*x22+x2*x8*x21*x22+x2*x15*x21*x22+x8*x15*x21*x22+x2*x8*x15*x43+x2*x8*x21*x43+x2*x15*x21*x43+x8*x15*x21*x43+x2*x8*x22*x43+x2*x15*x22*x43+x8*x15*x22*x43+x2*x21*x22*x43+x8*x21*x22*x43+x15*x21*x22*x43+x2*x8*x15*x55+x2*x8*x21*x55+x2*x15*x21*x55+x8*x15*x21*x55+x2*x8*x22*x55+x2*x15*x22*x55+x8*x15*x22*x55+x2*x21*x22*x55+x8*x21*x22*x55+x15*x21*x22*x55+x2*x8*x43*x55+x2*x15*x43*x55+x8*x15*x43*x55+x2*x21*x43*x55+x8*x21*x43*x55+x15*x21*x43*x55+x2*x22*x43*x55+x8*x22*x43*x55+x15*x22*x43*x55+x21*x22*x43*x55+x2*x8*x15+x2*x8*x21+x2*x15*x21+x8*x15*x21+x2*x8*x22+x2*x15*x22+x8*x15*x22+x2*x21*x22+x8*x21*x22+x15*x21*x22+x2*x8*x43+x2*x15*x43+x8*x15*x43+x2*x21*x43+x8*x21*x43+x15*x21*x43+x2*x22*x43+x8*x22*x43+x15*x22*x43+x21*x22*x43+x2*x8*x55+x2*x15*x55+x8*x15*x55+x2*x21*x55+x8*x21*x55+x2*x22*x55+x8*x22*x55+x15*x22*x55+x21*x22*x55+x2*x43*x55+x8*x43*x55+x15*x43*x55+x21*x43*x55+x22*x43*x55+x2*x8+x2*x15+x8*x15+x2*x21+x8*x21+x2*x22+x8*x22+x15*x22+x21*x22+x2*x43+x8*x43+x15*x43+x21*x43+x22*x43+x2*x55+x8*x55+x22*x55+x43*x55+x2+x8+x22+x43",
-      "possibleInputVariables": ["x2","x8","x15","x21","x22","x43","x55"]
-      },
-    "x49": {
-      "booleanFunction": "(x17 | x23) &  !x21",
-      "polynomialFunction": "x17*x21*x23+x17*x21+x17*x23+x21*x23+x17+x23",
-      "possibleInputVariables": ["x17","x21","x23"]
-      },
-    "x50": {
-      "booleanFunction": "x39 & (x36 | x24) &  !x21",
-      "polynomialFunction": "x21*x24*x36*x39+x21*x24*x39+x21*x36*x39+x24*x36*x39+x24*x39+x36*x39",
-      "possibleInputVariables": ["x21","x24","x36","x39"]
-      },
-    "x51": {
-      "booleanFunction": "x52 &  !x21 &  !x12",
-      "polynomialFunction": "x12*x21*x52+x12*x52+x21*x52+x52",
-      "possibleInputVariables": ["x12","x21","x52"]
-      },
-    "x52": {
-      "booleanFunction": "x1 &  !x21",
-      "polynomialFunction": "x1*x21+x1",
-      "possibleInputVariables": ["x1","x21"]
-      },
-    "x53": {
-      "booleanFunction": "x28 &  !x21",
-      "polynomialFunction": "x21*x28+x28",
-      "possibleInputVariables": ["x21","x28"]
-      },
-    "x54": {
-      "booleanFunction": " !x21 & (x24 | x36) &  !x26 &  !x40 &  !x42",
-      "polynomialFunction": "x21*x24*x26*x36*x40*x42+x21*x24*x26*x36*x40+x21*x24*x26*x36*x42+x21*x24*x26*x40*x42+x21*x24*x36*x40*x42+x21*x26*x36*x40*x42+x24*x26*x36*x40*x42+x21*x24*x26*x36+x21*x24*x26*x40+x21*x24*x36*x40+x21*x26*x36*x40+x24*x26*x36*x40+x21*x24*x26*x42+x21*x24*x36*x42+x21*x26*x36*x42+x24*x26*x36*x42+x21*x24*x40*x42+x24*x26*x40*x42+x21*x36*x40*x42+x24*x36*x40*x42+x26*x36*x40*x42+x21*x24*x26+x21*x24*x36+x21*x26*x36+x24*x26*x36+x21*x24*x40+x24*x26*x40+x21*x36*x40+x24*x36*x40+x26*x36*x40+x21*x24*x42+x24*x26*x42+x21*x36*x42+x24*x36*x42+x26*x36*x42+x24*x40*x42+x36*x40*x42+x21*x24+x24*x26+x21*x36+x24*x36+x26*x36+x24*x40+x36*x40+x24*x42+x36*x42+x24+x36",
-      "possibleInputVariables": ["x21","x24","x26","x36","x40","x42"]
-      },
-    "x55": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x56": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x57": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x58": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      },
-    "x59": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      },
-    "x60": {
-      "booleanFunction": "0",
-      "polynomialFunction": "0",
-      "possibleInputVariables": []
-      },
-    "x61": {
-      "booleanFunction": "1",
-      "polynomialFunction": "1",
-      "possibleInputVariables": []
-      }
+"description": "",
+"name": "T-LGL_Survival_Network_2008",
+"parameters": [],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x51 | x56)",
+        "inputVariables": ["x21","x51","x56"],
+        "polynomialFunction": "x21*x51*x56+x21*x51+x21*x56+x51*x56+x51+x56",
+        "target": "x1"
+        }
+      ]
     },
-  "variables": [
-      {
-      "id": "x1",
-      "name": "x1",
-      "states": [0,1]
-      },
-      {
-      "id": "x2",
-      "name": "x2",
-      "states": [0,1]
-      },
-      {
-      "id": "x3",
-      "name": "x3",
-      "states": [0,1]
-      },
-      {
-      "id": "x4",
-      "name": "x4",
-      "states": [0,1]
-      },
-      {
-      "id": "x5",
-      "name": "x5",
-      "states": [0,1]
-      },
-      {
-      "id": "x6",
-      "name": "x6",
-      "states": [0,1]
-      },
-      {
-      "id": "x7",
-      "name": "x7",
-      "states": [0,1]
-      },
-      {
-      "id": "x8",
-      "name": "x8",
-      "states": [0,1]
-      },
-      {
-      "id": "x9",
-      "name": "x9",
-      "states": [0,1]
-      },
-      {
-      "id": "x10",
-      "name": "x10",
-      "states": [0,1]
-      },
-      {
-      "id": "x11",
-      "name": "x11",
-      "states": [0,1]
-      },
-      {
-      "id": "x12",
-      "name": "x12",
-      "states": [0,1]
-      },
-      {
-      "id": "x13",
-      "name": "x13",
-      "states": [0,1]
-      },
-      {
-      "id": "x14",
-      "name": "x14",
-      "states": [0,1]
-      },
-      {
-      "id": "x15",
-      "name": "x15",
-      "states": [0,1]
-      },
-      {
-      "id": "x16",
-      "name": "x16",
-      "states": [0,1]
-      },
-      {
-      "id": "x17",
-      "name": "x17",
-      "states": [0,1]
-      },
-      {
-      "id": "x18",
-      "name": "x18",
-      "states": [0,1]
-      },
-      {
-      "id": "x19",
-      "name": "x19",
-      "states": [0,1]
-      },
-      {
-      "id": "x20",
-      "name": "x20",
-      "states": [0,1]
-      },
-      {
-      "id": "x21",
-      "name": "x21",
-      "states": [0,1]
-      },
-      {
-      "id": "x22",
-      "name": "x22",
-      "states": [0,1]
-      },
-      {
-      "id": "x23",
-      "name": "x23",
-      "states": [0,1]
-      },
-      {
-      "id": "x24",
-      "name": "x24",
-      "states": [0,1]
-      },
-      {
-      "id": "x25",
-      "name": "x25",
-      "states": [0,1]
-      },
-      {
-      "id": "x26",
-      "name": "x26",
-      "states": [0,1]
-      },
-      {
-      "id": "x27",
-      "name": "x27",
-      "states": [0,1]
-      },
-      {
-      "id": "x28",
-      "name": "x28",
-      "states": [0,1]
-      },
-      {
-      "id": "x29",
-      "name": "x29",
-      "states": [0,1]
-      },
-      {
-      "id": "x30",
-      "name": "x30",
-      "states": [0,1]
-      },
-      {
-      "id": "x31",
-      "name": "x31",
-      "states": [0,1]
-      },
-      {
-      "id": "x32",
-      "name": "x32",
-      "states": [0,1]
-      },
-      {
-      "id": "x33",
-      "name": "x33",
-      "states": [0,1]
-      },
-      {
-      "id": "x34",
-      "name": "x34",
-      "states": [0,1]
-      },
-      {
-      "id": "x35",
-      "name": "x35",
-      "states": [0,1]
-      },
-      {
-      "id": "x36",
-      "name": "x36",
-      "states": [0,1]
-      },
-      {
-      "id": "x37",
-      "name": "x37",
-      "states": [0,1]
-      },
-      {
-      "id": "x38",
-      "name": "x38",
-      "states": [0,1]
-      },
-      {
-      "id": "x39",
-      "name": "x39",
-      "states": [0,1]
-      },
-      {
-      "id": "x40",
-      "name": "x40",
-      "states": [0,1]
-      },
-      {
-      "id": "x41",
-      "name": "x41",
-      "states": [0,1]
-      },
-      {
-      "id": "x42",
-      "name": "x42",
-      "states": [0,1]
-      },
-      {
-      "id": "x43",
-      "name": "x43",
-      "states": [0,1]
-      },
-      {
-      "id": "x44",
-      "name": "x44",
-      "states": [0,1]
-      },
-      {
-      "id": "x45",
-      "name": "x45",
-      "states": [0,1]
-      },
-      {
-      "id": "x46",
-      "name": "x46",
-      "states": [0,1]
-      },
-      {
-      "id": "x47",
-      "name": "x47",
-      "states": [0,1]
-      },
-      {
-      "id": "x48",
-      "name": "x48",
-      "states": [0,1]
-      },
-      {
-      "id": "x49",
-      "name": "x49",
-      "states": [0,1]
-      },
-      {
-      "id": "x50",
-      "name": "x50",
-      "states": [0,1]
-      },
-      {
-      "id": "x51",
-      "name": "x51",
-      "states": [0,1]
-      },
-      {
-      "id": "x52",
-      "name": "x52",
-      "states": [0,1]
-      },
-      {
-      "id": "x53",
-      "name": "x53",
-      "states": [0,1]
-      },
-      {
-      "id": "x54",
-      "name": "x54",
-      "states": [0,1]
-      },
-      {
-      "id": "x55",
-      "name": "x55",
-      "states": [0,1]
-      },
-      {
-      "id": "x56",
-      "name": "x56",
-      "states": [0,1]
-      },
-      {
-      "id": "x57",
-      "name": "x57",
-      "states": [0,1]
-      },
-      {
-      "id": "x58",
-      "name": "x58",
-      "states": [0,1]
-      },
-      {
-      "id": "x59",
-      "name": "x59",
-      "states": [0,1]
-      },
-      {
-      "id": "x60",
-      "name": "x60",
-      "states": [0,1]
-      },
-      {
-      "id": "x61",
-      "name": "x61",
-      "states": [0,1]
-      }
-    ],
-  "version": "1.0"
-  }
+    {
+    "functions": [
+        {
+        "booleanFunction": "x2 & (x61 | x39) &  !x21",
+        "inputVariables": ["x2","x21","x39","x61"],
+        "polynomialFunction": "x2*x21*x39*x61+x2*x21*x39+x2*x21*x61+x2*x39*x61+x2*x39+x2*x61",
+        "target": "x2"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x30 | x37)",
+        "inputVariables": ["x21","x30","x37"],
+        "polynomialFunction": "x21*x30*x37+x21*x30+x21*x37+x30*x37+x30+x37",
+        "target": "x3"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x17 | x24 | x36 | x46) &  !x21",
+        "inputVariables": ["x17","x21","x24","x36","x46"],
+        "polynomialFunction": "x17*x21*x24*x36*x46+x17*x21*x24*x36+x17*x21*x24*x46+x17*x21*x36*x46+x17*x24*x36*x46+x21*x24*x36*x46+x17*x21*x24+x17*x21*x36+x17*x24*x36+x21*x24*x36+x17*x21*x46+x17*x24*x46+x21*x24*x46+x17*x36*x46+x21*x36*x46+x24*x36*x46+x17*x21+x17*x24+x21*x24+x17*x36+x21*x36+x24*x36+x17*x46+x21*x46+x24*x46+x36*x46+x17+x24+x36+x46",
+        "target": "x4"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x24 &  !x21 &  !x27",
+        "inputVariables": ["x21","x24","x27"],
+        "polynomialFunction": "x21*x24*x27+x21*x24+x24*x27+x24",
+        "target": "x5"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x36 &  !x21",
+        "inputVariables": ["x21","x36"],
+        "polynomialFunction": "x21*x36+x36",
+        "target": "x6"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & ((x18 & x6) | x59)",
+        "inputVariables": ["x6","x18","x21","x59"],
+        "polynomialFunction": "x6*x18*x21*x59+x6*x18*x21+x6*x18*x59+x6*x18+x21*x59+x59",
+        "target": "x7"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x36 &  !x21",
+        "inputVariables": ["x21","x36"],
+        "polynomialFunction": "x21*x36+x36",
+        "target": "x8"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 &  !x26 & ((x22 & x41) | x36)",
+        "inputVariables": ["x21","x22","x26","x36","x41"],
+        "polynomialFunction": "x21*x22*x26*x36*x41+x21*x22*x26*x41+x21*x22*x36*x41+x22*x26*x36*x41+x21*x26*x36+x21*x22*x41+x22*x26*x41+x22*x36*x41+x21*x36+x26*x36+x22*x41+x36",
+        "target": "x9"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x45 &  !x21",
+        "inputVariables": ["x21","x45"],
+        "polynomialFunction": "x21*x45+x45",
+        "target": "x10"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x60 &  !x21 &  !x14",
+        "inputVariables": ["x14","x21","x60"],
+        "polynomialFunction": "x14*x21*x60+x14*x60+x21*x60+x60",
+        "target": "x11"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x35 &  !x21 &  !x51",
+        "inputVariables": ["x21","x35","x51"],
+        "polynomialFunction": "x21*x35*x51+x21*x35+x35*x51+x35",
+        "target": "x12"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 &  !x39 &  !x61 & ((x1 & x13) | x3)",
+        "inputVariables": ["x1","x3","x13","x21","x39","x61"],
+        "polynomialFunction": "x1*x3*x13*x21*x39*x61+x1*x3*x13*x21*x39+x1*x3*x13*x21*x61+x1*x3*x13*x39*x61+x1*x13*x21*x39*x61+x1*x3*x13*x21+x1*x3*x13*x39+x1*x13*x21*x39+x1*x3*x13*x61+x1*x13*x21*x61+x1*x13*x39*x61+x3*x21*x39*x61+x1*x3*x13+x1*x13*x21+x1*x13*x39+x3*x21*x39+x1*x13*x61+x3*x21*x61+x3*x39*x61+x1*x13+x3*x21+x3*x39+x3*x61+x3",
+        "target": "x13"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x11 &  !x21",
+        "inputVariables": ["x11","x21"],
+        "polynomialFunction": "x11*x21+x11",
+        "target": "x14"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x48 &  !x21 &  !x61 &  !x39",
+        "inputVariables": ["x21","x39","x48","x61"],
+        "polynomialFunction": "x21*x39*x48*x61+x21*x39*x48+x21*x48*x61+x39*x48*x61+x21*x48+x39*x48+x48*x61+x48",
+        "target": "x15"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x11 | x2) &  !x21",
+        "inputVariables": ["x2","x11","x21"],
+        "polynomialFunction": "x2*x11*x21+x2*x11+x2*x21+x11*x21+x2+x11",
+        "target": "x16"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x19 & x18 &  !x21",
+        "inputVariables": ["x18","x19","x21"],
+        "polynomialFunction": "x18*x19*x21+x18*x19",
+        "target": "x17"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x1 | x3) &  !x21",
+        "inputVariables": ["x1","x3","x21"],
+        "polynomialFunction": "x1*x3*x21+x1*x3+x1*x21+x3*x21+x1+x3",
+        "target": "x18"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x3 &  !x21",
+        "inputVariables": ["x3","x21"],
+        "polynomialFunction": "x3*x21+x3",
+        "target": "x19"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x26 | x29 | x42) & (x26 |  !x33) & (x26 | x40)",
+        "inputVariables": ["x21","x26","x29","x33","x40","x42"],
+        "polynomialFunction": "x21*x26*x29*x33*x40*x42+x21*x26*x29*x33*x40+x21*x26*x29*x40*x42+x21*x26*x33*x40*x42+x21*x29*x33*x40*x42+x26*x29*x33*x40*x42+x21*x26*x29*x40+x21*x29*x33*x40+x26*x29*x33*x40+x21*x26*x40*x42+x21*x29*x40*x42+x26*x29*x40*x42+x21*x33*x40*x42+x26*x33*x40*x42+x29*x33*x40*x42+x21*x29*x40+x26*x29*x40+x29*x33*x40+x21*x40*x42+x26*x40*x42+x29*x40*x42+x33*x40*x42+x21*x26+x29*x40+x40*x42+x26",
+        "target": "x20"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x21 | x20",
+        "inputVariables": ["x20","x21"],
+        "polynomialFunction": "x20*x21+x20+x21",
+        "target": "x21"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & x31 &  !x38 & (x39 | x60 | x61) &  !x53",
+        "inputVariables": ["x21","x31","x38","x39","x53","x60","x61"],
+        "polynomialFunction": "x21*x31*x38*x39*x53*x60*x61+x21*x31*x38*x39*x53*x60+x21*x31*x38*x39*x53*x61+x21*x31*x38*x39*x60*x61+x21*x31*x38*x53*x60*x61+x21*x31*x39*x53*x60*x61+x31*x38*x39*x53*x60*x61+x21*x31*x38*x39*x53+x21*x31*x38*x39*x60+x21*x31*x38*x53*x60+x21*x31*x39*x53*x60+x31*x38*x39*x53*x60+x21*x31*x38*x39*x61+x21*x31*x38*x53*x61+x21*x31*x39*x53*x61+x31*x38*x39*x53*x61+x21*x31*x38*x60*x61+x21*x31*x39*x60*x61+x31*x38*x39*x60*x61+x21*x31*x53*x60*x61+x31*x38*x53*x60*x61+x31*x39*x53*x60*x61+x21*x31*x38*x39+x21*x31*x39*x53+x31*x38*x39*x53+x21*x31*x38*x60+x21*x31*x39*x60+x31*x38*x39*x60+x21*x31*x53*x60+x31*x38*x53*x60+x31*x39*x53*x60+x21*x31*x38*x61+x21*x31*x39*x61+x31*x38*x39*x61+x21*x31*x53*x61+x31*x38*x53*x61+x31*x39*x53*x61+x21*x31*x60*x61+x31*x38*x60*x61+x31*x39*x60*x61+x31*x53*x60*x61+x21*x31*x39+x31*x38*x39+x31*x39*x53+x21*x31*x60+x31*x38*x60+x31*x39*x60+x31*x53*x60+x21*x31*x61+x31*x38*x61+x31*x39*x61+x31*x53*x61+x31*x60*x61+x31*x39+x31*x60+x31*x61",
+        "target": "x22"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x23 | x48)",
+        "inputVariables": ["x21","x23","x48"],
+        "polynomialFunction": "x21*x23*x48+x21*x23+x21*x48+x23*x48+x23+x48",
+        "target": "x23"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x48 &  !x21",
+        "inputVariables": ["x21","x48"],
+        "polynomialFunction": "x21*x48+x48",
+        "target": "x24"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x18 | x2 | x24 | x36) &  !x21",
+        "inputVariables": ["x2","x18","x21","x24","x36"],
+        "polynomialFunction": "x2*x18*x21*x24*x36+x2*x18*x21*x24+x2*x18*x21*x36+x2*x18*x24*x36+x2*x21*x24*x36+x18*x21*x24*x36+x2*x18*x21+x2*x18*x24+x2*x21*x24+x18*x21*x24+x2*x18*x36+x2*x21*x36+x18*x21*x36+x2*x24*x36+x18*x24*x36+x21*x24*x36+x2*x18+x2*x21+x18*x21+x2*x24+x18*x24+x21*x24+x2*x36+x18*x36+x21*x36+x24*x36+x2+x18+x24+x36",
+        "target": "x25"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x12 | x35) & (x12 | x39 |  !x9) &  !x21 & x45",
+        "inputVariables": ["x9","x12","x21","x35","x39","x45"],
+        "polynomialFunction": "x9*x12*x21*x35*x39*x45+x9*x12*x21*x35*x45+x9*x12*x35*x39*x45+x9*x21*x35*x39*x45+x9*x12*x35*x45+x9*x21*x35*x45+x12*x21*x35*x45+x9*x35*x39*x45+x12*x21*x45+x9*x35*x45+x12*x35*x45+x21*x35*x45+x12*x45+x35*x45",
+        "target": "x26"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x24 &  !x21",
+        "inputVariables": ["x21","x24"],
+        "polynomialFunction": "x21*x24+x24",
+        "target": "x27"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x51 &  !x21",
+        "inputVariables": ["x21","x51"],
+        "polynomialFunction": "x21*x51+x51",
+        "target": "x28"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x6 &  !x44 &  !x21 &  !x33",
+        "inputVariables": ["x6","x21","x33","x44"],
+        "polynomialFunction": "x6*x21*x33*x44+x6*x21*x33+x6*x21*x44+x6*x33*x44+x6*x21+x6*x33+x6*x44+x6",
+        "target": "x29"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x1 | x37) &  !x21",
+        "inputVariables": ["x1","x21","x37"],
+        "polynomialFunction": "x1*x21*x37+x1*x21+x1*x37+x21*x37+x1+x37",
+        "target": "x30"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x23 | x24 | x46)",
+        "inputVariables": ["x21","x23","x24","x46"],
+        "polynomialFunction": "x21*x23*x24*x46+x21*x23*x24+x21*x23*x46+x21*x24*x46+x23*x24*x46+x21*x23+x21*x24+x23*x24+x21*x46+x23*x46+x24*x46+x23+x24+x46",
+        "target": "x31"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x34 &  !x21 &  !x16",
+        "inputVariables": ["x16","x21","x34"],
+        "polynomialFunction": "x16*x21*x34+x16*x34+x21*x34+x34",
+        "target": "x32"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x36 &  !x21 &  !x40",
+        "inputVariables": ["x21","x36","x40"],
+        "polynomialFunction": "x21*x36*x40+x21*x36+x36*x40+x36",
+        "target": "x33"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x11 | x2 | x55) &  !x21 & ( !x32 | x55)",
+        "inputVariables": ["x2","x11","x21","x32","x55"],
+        "polynomialFunction": "x2*x11*x21*x32*x55+x2*x11*x21*x32+x2*x11*x21*x55+x2*x11*x32*x55+x2*x21*x32*x55+x11*x21*x32*x55+x2*x11*x21+x2*x11*x32+x2*x21*x32+x11*x21*x32+x2*x11*x55+x2*x21*x55+x11*x21*x55+x2*x32*x55+x11*x32*x55+x2*x11+x2*x21+x11*x21+x2*x32+x11*x32+x2*x55+x11*x55+x21*x55+x2+x11+x55",
+        "target": "x34"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x45 & x4 &  !x21 &  !x10",
+        "inputVariables": ["x4","x10","x21","x45"],
+        "polynomialFunction": "x4*x10*x21*x45+x4*x10*x45+x4*x21*x45+x4*x45",
+        "target": "x35"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x18 | (x29 & x33 & x9) | x7)",
+        "inputVariables": ["x7","x9","x18","x21","x29","x33"],
+        "polynomialFunction": "x7*x9*x18*x21*x29*x33+x7*x9*x18*x29*x33+x7*x9*x21*x29*x33+x9*x18*x21*x29*x33+x7*x9*x29*x33+x9*x18*x29*x33+x9*x21*x29*x33+x7*x18*x21+x9*x29*x33+x7*x18+x7*x21+x18*x21+x7+x18",
+        "target": "x36"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x2 | x32) &  !x21",
+        "inputVariables": ["x2","x21","x32"],
+        "polynomialFunction": "x2*x21*x32+x2*x21+x2*x32+x21*x32+x2+x32",
+        "target": "x37"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x22 | x38) &  !x57",
+        "inputVariables": ["x21","x22","x38","x57"],
+        "polynomialFunction": "x21*x22*x38*x57+x21*x22*x38+x21*x22*x57+x21*x38*x57+x22*x38*x57+x21*x22+x21*x38+x22*x38+x22*x57+x38*x57+x22+x38",
+        "target": "x38"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 &  !x23 & (x24 | x36 | x46)",
+        "inputVariables": ["x21","x23","x24","x36","x46"],
+        "polynomialFunction": "x21*x23*x24*x36*x46+x21*x23*x24*x36+x21*x23*x24*x46+x21*x23*x36*x46+x21*x24*x36*x46+x23*x24*x36*x46+x21*x23*x24+x21*x23*x36+x21*x24*x36+x23*x24*x36+x21*x23*x46+x21*x24*x46+x23*x24*x46+x21*x36*x46+x23*x36*x46+x24*x36*x46+x21*x24+x23*x24+x21*x36+x23*x36+x24*x36+x21*x46+x23*x46+x24*x46+x36*x46+x24+x36+x46",
+        "target": "x39"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x20 | x42) &  !x21 &  !x25 &  !x54",
+        "inputVariables": ["x20","x21","x25","x42","x54"],
+        "polynomialFunction": "x20*x21*x25*x42*x54+x20*x21*x25*x42+x20*x21*x25*x54+x20*x21*x42*x54+x20*x25*x42*x54+x21*x25*x42*x54+x20*x21*x25+x20*x21*x42+x20*x25*x42+x21*x25*x42+x20*x21*x54+x20*x25*x54+x20*x42*x54+x21*x42*x54+x25*x42*x54+x20*x21+x20*x25+x20*x42+x21*x42+x25*x42+x20*x54+x42*x54+x20+x42",
+        "target": "x40"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x17 & x58 &  !x21",
+        "inputVariables": ["x17","x21","x58"],
+        "polynomialFunction": "x17*x21*x58+x17*x58",
+        "target": "x41"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & ((x22 & x41) | x23)",
+        "inputVariables": ["x21","x22","x23","x41"],
+        "polynomialFunction": "x21*x22*x23*x41+x21*x22*x41+x22*x23*x41+x21*x23+x22*x41+x23",
+        "target": "x42"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x39 & x50 &  !x21 &  !x43",
+        "inputVariables": ["x21","x39","x43","x50"],
+        "polynomialFunction": "x21*x39*x43*x50+x21*x39*x50+x39*x43*x50+x39*x50",
+        "target": "x43"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x36 &  !x21",
+        "inputVariables": ["x21","x36"],
+        "polynomialFunction": "x21*x36+x36",
+        "target": "x44"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x36 &  !x21",
+        "inputVariables": ["x21","x36"],
+        "polynomialFunction": "x21*x36+x36",
+        "target": "x45"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x18 &  !x21",
+        "inputVariables": ["x18","x21"],
+        "polynomialFunction": "x18*x21+x18",
+        "target": "x46"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x16 &  !x21",
+        "inputVariables": ["x16","x21"],
+        "polynomialFunction": "x16*x21+x16",
+        "target": "x47"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x15 & (x2 | x22 | x43 | x8) &  !x21 &  !x55",
+        "inputVariables": ["x2","x8","x15","x21","x22","x43","x55"],
+        "polynomialFunction": "x2*x8*x15*x21*x22*x43*x55+x2*x8*x15*x21*x22*x43+x2*x8*x15*x21*x22*x55+x2*x8*x15*x21*x43*x55+x2*x8*x15*x22*x43*x55+x2*x8*x21*x22*x43*x55+x2*x15*x21*x22*x43*x55+x8*x15*x21*x22*x43*x55+x2*x8*x15*x21*x22+x2*x8*x15*x21*x43+x2*x8*x15*x22*x43+x2*x8*x21*x22*x43+x2*x15*x21*x22*x43+x8*x15*x21*x22*x43+x2*x8*x15*x21*x55+x2*x8*x15*x22*x55+x2*x8*x21*x22*x55+x2*x15*x21*x22*x55+x8*x15*x21*x22*x55+x2*x8*x15*x43*x55+x2*x8*x21*x43*x55+x2*x15*x21*x43*x55+x8*x15*x21*x43*x55+x2*x8*x22*x43*x55+x2*x15*x22*x43*x55+x8*x15*x22*x43*x55+x2*x21*x22*x43*x55+x8*x21*x22*x43*x55+x15*x21*x22*x43*x55+x2*x8*x15*x21+x2*x8*x15*x22+x2*x8*x21*x22+x2*x15*x21*x22+x8*x15*x21*x22+x2*x8*x15*x43+x2*x8*x21*x43+x2*x15*x21*x43+x8*x15*x21*x43+x2*x8*x22*x43+x2*x15*x22*x43+x8*x15*x22*x43+x2*x21*x22*x43+x8*x21*x22*x43+x15*x21*x22*x43+x2*x8*x15*x55+x2*x8*x21*x55+x2*x15*x21*x55+x8*x15*x21*x55+x2*x8*x22*x55+x2*x15*x22*x55+x8*x15*x22*x55+x2*x21*x22*x55+x8*x21*x22*x55+x15*x21*x22*x55+x2*x8*x43*x55+x2*x15*x43*x55+x8*x15*x43*x55+x2*x21*x43*x55+x8*x21*x43*x55+x15*x21*x43*x55+x2*x22*x43*x55+x8*x22*x43*x55+x15*x22*x43*x55+x21*x22*x43*x55+x2*x8*x15+x2*x8*x21+x2*x15*x21+x8*x15*x21+x2*x8*x22+x2*x15*x22+x8*x15*x22+x2*x21*x22+x8*x21*x22+x15*x21*x22+x2*x8*x43+x2*x15*x43+x8*x15*x43+x2*x21*x43+x8*x21*x43+x15*x21*x43+x2*x22*x43+x8*x22*x43+x15*x22*x43+x21*x22*x43+x2*x8*x55+x2*x15*x55+x8*x15*x55+x2*x21*x55+x8*x21*x55+x2*x22*x55+x8*x22*x55+x15*x22*x55+x21*x22*x55+x2*x43*x55+x8*x43*x55+x15*x43*x55+x21*x43*x55+x22*x43*x55+x2*x8+x2*x15+x8*x15+x2*x21+x8*x21+x2*x22+x8*x22+x15*x22+x21*x22+x2*x43+x8*x43+x15*x43+x21*x43+x22*x43+x2*x55+x8*x55+x22*x55+x43*x55+x2+x8+x22+x43",
+        "target": "x48"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "(x17 | x23) &  !x21",
+        "inputVariables": ["x17","x21","x23"],
+        "polynomialFunction": "x17*x21*x23+x17*x21+x17*x23+x21*x23+x17+x23",
+        "target": "x49"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x39 & (x36 | x24) &  !x21",
+        "inputVariables": ["x21","x24","x36","x39"],
+        "polynomialFunction": "x21*x24*x36*x39+x21*x24*x39+x21*x36*x39+x24*x36*x39+x24*x39+x36*x39",
+        "target": "x50"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x52 &  !x21 &  !x12",
+        "inputVariables": ["x12","x21","x52"],
+        "polynomialFunction": "x12*x21*x52+x12*x52+x21*x52+x52",
+        "target": "x51"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x1 &  !x21",
+        "inputVariables": ["x1","x21"],
+        "polynomialFunction": "x1*x21+x1",
+        "target": "x52"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "x28 &  !x21",
+        "inputVariables": ["x21","x28"],
+        "polynomialFunction": "x21*x28+x28",
+        "target": "x53"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": " !x21 & (x24 | x36) &  !x26 &  !x40 &  !x42",
+        "inputVariables": ["x21","x24","x26","x36","x40","x42"],
+        "polynomialFunction": "x21*x24*x26*x36*x40*x42+x21*x24*x26*x36*x40+x21*x24*x26*x36*x42+x21*x24*x26*x40*x42+x21*x24*x36*x40*x42+x21*x26*x36*x40*x42+x24*x26*x36*x40*x42+x21*x24*x26*x36+x21*x24*x26*x40+x21*x24*x36*x40+x21*x26*x36*x40+x24*x26*x36*x40+x21*x24*x26*x42+x21*x24*x36*x42+x21*x26*x36*x42+x24*x26*x36*x42+x21*x24*x40*x42+x24*x26*x40*x42+x21*x36*x40*x42+x24*x36*x40*x42+x26*x36*x40*x42+x21*x24*x26+x21*x24*x36+x21*x26*x36+x24*x26*x36+x21*x24*x40+x24*x26*x40+x21*x36*x40+x24*x36*x40+x26*x36*x40+x21*x24*x42+x24*x26*x42+x21*x36*x42+x24*x36*x42+x26*x36*x42+x24*x40*x42+x36*x40*x42+x21*x24+x24*x26+x21*x36+x24*x36+x26*x36+x24*x40+x36*x40+x24*x42+x36*x42+x24+x36",
+        "target": "x54"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x55"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x56"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x57"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x58"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x59"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "0",
+        "inputVariables": [],
+        "polynomialFunction": "0",
+        "target": "x60"
+        }
+      ]
+    },
+    {
+    "functions": [
+        {
+        "booleanFunction": "1",
+        "inputVariables": [],
+        "polynomialFunction": "1",
+        "target": "x61"
+        }
+      ]
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "x1",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "x2",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "x3",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "x4",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "x5",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "x6",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "x7",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "x8",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "x9",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "x10",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "x11",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "x12",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "x13",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "x14",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "x15",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "x16",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "x17",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "x18",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "x19",
+    "states": [0,1]
+    },
+    {
+    "id": "x20",
+    "name": "x20",
+    "states": [0,1]
+    },
+    {
+    "id": "x21",
+    "name": "x21",
+    "states": [0,1]
+    },
+    {
+    "id": "x22",
+    "name": "x22",
+    "states": [0,1]
+    },
+    {
+    "id": "x23",
+    "name": "x23",
+    "states": [0,1]
+    },
+    {
+    "id": "x24",
+    "name": "x24",
+    "states": [0,1]
+    },
+    {
+    "id": "x25",
+    "name": "x25",
+    "states": [0,1]
+    },
+    {
+    "id": "x26",
+    "name": "x26",
+    "states": [0,1]
+    },
+    {
+    "id": "x27",
+    "name": "x27",
+    "states": [0,1]
+    },
+    {
+    "id": "x28",
+    "name": "x28",
+    "states": [0,1]
+    },
+    {
+    "id": "x29",
+    "name": "x29",
+    "states": [0,1]
+    },
+    {
+    "id": "x30",
+    "name": "x30",
+    "states": [0,1]
+    },
+    {
+    "id": "x31",
+    "name": "x31",
+    "states": [0,1]
+    },
+    {
+    "id": "x32",
+    "name": "x32",
+    "states": [0,1]
+    },
+    {
+    "id": "x33",
+    "name": "x33",
+    "states": [0,1]
+    },
+    {
+    "id": "x34",
+    "name": "x34",
+    "states": [0,1]
+    },
+    {
+    "id": "x35",
+    "name": "x35",
+    "states": [0,1]
+    },
+    {
+    "id": "x36",
+    "name": "x36",
+    "states": [0,1]
+    },
+    {
+    "id": "x37",
+    "name": "x37",
+    "states": [0,1]
+    },
+    {
+    "id": "x38",
+    "name": "x38",
+    "states": [0,1]
+    },
+    {
+    "id": "x39",
+    "name": "x39",
+    "states": [0,1]
+    },
+    {
+    "id": "x40",
+    "name": "x40",
+    "states": [0,1]
+    },
+    {
+    "id": "x41",
+    "name": "x41",
+    "states": [0,1]
+    },
+    {
+    "id": "x42",
+    "name": "x42",
+    "states": [0,1]
+    },
+    {
+    "id": "x43",
+    "name": "x43",
+    "states": [0,1]
+    },
+    {
+    "id": "x44",
+    "name": "x44",
+    "states": [0,1]
+    },
+    {
+    "id": "x45",
+    "name": "x45",
+    "states": [0,1]
+    },
+    {
+    "id": "x46",
+    "name": "x46",
+    "states": [0,1]
+    },
+    {
+    "id": "x47",
+    "name": "x47",
+    "states": [0,1]
+    },
+    {
+    "id": "x48",
+    "name": "x48",
+    "states": [0,1]
+    },
+    {
+    "id": "x49",
+    "name": "x49",
+    "states": [0,1]
+    },
+    {
+    "id": "x50",
+    "name": "x50",
+    "states": [0,1]
+    },
+    {
+    "id": "x51",
+    "name": "x51",
+    "states": [0,1]
+    },
+    {
+    "id": "x52",
+    "name": "x52",
+    "states": [0,1]
+    },
+    {
+    "id": "x53",
+    "name": "x53",
+    "states": [0,1]
+    },
+    {
+    "id": "x54",
+    "name": "x54",
+    "states": [0,1]
+    },
+    {
+    "id": "x55",
+    "name": "x55",
+    "states": [0,1]
+    },
+    {
+    "id": "x56",
+    "name": "x56",
+    "states": [0,1]
+    },
+    {
+    "id": "x57",
+    "name": "x57",
+    "states": [0,1]
+    },
+    {
+    "id": "x58",
+    "name": "x58",
+    "states": [0,1]
+    },
+    {
+    "id": "x59",
+    "name": "x59",
+    "states": [0,1]
+    },
+    {
+    "id": "x60",
+    "name": "x60",
+    "states": [0,1]
+    },
+    {
+    "id": "x61",
+    "name": "x61",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
 }
