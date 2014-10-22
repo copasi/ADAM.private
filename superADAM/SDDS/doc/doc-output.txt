@@ -1,1 +1,18 @@
-dhjd
+********************************************************************************
+Name: Documentation for  JSON output of simulation using SDDS
+Author: Seda Arat
+Date: October 22, 2014
+********************************************************************************
+description: average trajectory of each variable in the system is obtained by simulation using SDDS
+
+type: simulationOutput
+
+simulationType: stochastic or deterministic depending on the user's preference on propensities.
+
+averageTrajectories: an array of hash tables including the average trajectory of each variable at each time step. For example, the program generates numberofSimulation trajectories of each variable and then average them to find what the average expression of each variable is at each time step (0,, 1, 2, ..., numberofTimeSteps).
+
+The following information is provided for "in-case-we-will-need-them"
+purposes: numberVariables, numberofSimulation, fieldCardinality,
+initialState, numberofTimeSteps.
+
+

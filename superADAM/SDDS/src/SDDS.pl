@@ -1,6 +1,6 @@
 # Authors: Seda Arat & David Murrugarra
 # Name: Script for Stochastic Discrete Dynamical Systems (SDDS)
-# Revision Date: August 19, 2014
+# Revision Date: October 22, 2014
 
 #!/usr/bin/perl
 
@@ -18,37 +18,33 @@ use JSON;
 
 ############################################################
 
+ # TO_DO: use the transition table information if available
+
+############################################################
+
 =head1 NAME
 
-perl SDDS.pl - Simulate a stochastic model from a possible initialization.
+perl SDDS.pl - Simulate a model from a possible initialization.
 
 =head1 USAGE
 
-perl SDDS.pl -m <model-file> -s <simulation-file> -o <output-file>
+perl SDDS.pl -i <input-file> -o <output-file>
 
 =head1 SYNOPSIS
 
-perl SDDS.pl -m <model-file> -s <simulation-file> -o <output-file>
+perl SDDS.pl -i <input-file> -o <output-file>
 
 =head1 DESCRIPTION
 
-SDDS.pl - Simulate a stochastic model from a possible initialization.
+SDDS.pl - Simulate a model from a possible initialization.
 
 =head1 REQUIRED ARGUMENTS
 
 =over
 
-=item -m[odel-file] <model-file>
+=item -i[nput-file] <input-file>
 
-The JSON file containing the model information (.json). 
-
-=for Euclid:
-
-network-file.type: readable
-
-=item -s[imulation-file] <simulation-file>
-
-The JSON file containing the simulation information that the user has been specified (.json). 
+The JSON file containing the input information (.json). 
 
 =for Euclid:
 
@@ -56,7 +52,7 @@ network-file.type: readable
 
 =item -o[utput-file] <output-file>
 
-The JSON file containing the average trajectories of all variables.
+The JSON file containing the average trajectories of variables of interest.
 
 =for Euclid:
 
@@ -73,66 +69,62 @@ Seda Arat
 # it is for random number generator
 srand ();
 
-# inputs
-my $modelFile = $ARGV{'-m'};
-my $simulationFile = $ARGV{'-s'};
+# input
+my $inputFile = $ARGV{'-i'};
 
-# output(s)
+# output
 my $outputFile = $ARGV{'-o'};
 
 # upper limits
 my $max_num_simulations = 10**6;
-my $max_num_interestingVariables = 10;
 my $max_num_steps = 100;
 
-# converts Model.json to Perl format
-my $model = JSON::Parse::json_file_to_perl ($modelFile);
+# converts input.json to Perl format
+my $task = JSON::Parse::json_file_to_perl ($inputFile);
+my $input = $task->{'task'}->{'input'}->[0];
+my $arguments = $task->{'task'}->{'method'}->{'arguments'}->[0];
 
-# converts Simulation.json to Perl format
-my $simulation = JSON::Parse::json_file_to_perl ($simulationFile);
-
-# sets the update rules/functions (hash)
-my $updateFunctions = $model->{'model'}->{'updateRules'};
-my $num_functions = scalar values %$updateFunctions;
+# sets the update rules/functions (array)
+my $updateRules = $input->{'updateRules'};
+my $num_rules = scalar @$updateRules;
 
 # sets the number of variables in the model (array)
-my $variables = $model->{'model'}->{'variables'};
+my $variables = $input->{'variables'};
 my $num_variables = scalar @$variables;
 
 # sets the unified (maximum prime) number that each state can take values up to (scalar)
-my $num_states = $simulation->{'simulation'}->{'numberofStates'};
+my $num_states = $input->{'fieldCardinality'};
 
 # sets the number of simulations that the user has specified (scalar)
-my $num_simulations = $simulation->{'simulation'}->{'numberofSimulations'};
+my $num_simulations = $arguments->{'numberofSimulations'};
 
 # sets the number of steps that the user has specified (scalar)
-my $num_steps = $simulation->{'simulation'}->{'numberofTimeSteps'};
+my $num_steps = $arguments->{'numberofTimeSteps'};
 
 # sets the initial states that the user has specified for simulations (array)
-my $initialState = $simulation->{'simulation'}->{'initialState'};
+my $initialState = $arguments->{'initialState'};
 
-# sets the variables of interest that the user has specified for plots (array)
-my $interestingVariables = $simulation->{'simulation'}->{'variablesofInterest'};
-my $num_interestingVariables = scalar @$interestingVariables;
+# sets the propensities (array);
+my $propensities = $arguments->{'propensities'};
+my $num_propensities = scalar @$propensities;
 
-# sets the propensities (hash);
-my $propensities = $simulation->{'simulation'}->{'propensities'};
-my $num_propensities = scalar values %$propensities;
+my $stochFlag = 0;
 
-error_checking ();
-
+errorCheck ();
+my ($polyFuncs, $tranTables) = get_updateRules ();
+my $propensitiesTable = get_propensities ();
 my $allTrajectories = get_allTrajectories ();
 my $averageTrajectories = get_averageTrajectories ();
+my $output = format_output ();
+
+my $json = JSON->new->indent ();
+open (OUT," > $outputFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
+print OUT $json->encode ($output);
+close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
 
 # print Dumper ($allTrajectories);
 # print ("\n*********************************\n");
 # print Dumper ($averageTrajectories);
-
-my $json = JSON->new->indent ();
-
-open (OUT," > $outputFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
-print OUT $json->encode ($averageTrajectories);
-close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
 
 exit;
 
@@ -144,22 +136,22 @@ exit;
 
 =pod
 
-error_checking ();
+errorCheck ();
 
-Checks if the user enters the options/parameters correctly
+Checks if the user enters the options/parameters correctly and there is any interna errors
 
 =cut
 
-sub error_checking {
+sub errorCheck {
   
-  # num_functions, num_variables and num_propensities
-  unless ($num_functions == $num_variables) {
-    print ("<br>INTERNAL ERROR: The number of variables, $num_variables, must be equal to the number of update rules, $num_functions. <br>");
+  # num_rules, num_variables and num_propensities
+  unless (($input->{"numberVariables"} == $num_variables) || ($num_rules == $num_variables)) {
+    print ("<br>INTERNAL ERROR: There is inconsistency betwen the number of variables ($num_variables) and numberVariables (", $input->{"numberVariables"}, ") OR the number of update rules ($num_rules). <br>");
     exit;
   }
 
   unless ($num_variables == $num_propensities) {
-    print ("<br>ERROR: There must be propensity entries for $num_variables variables. It seems there are propensity entries for $num_propensities variables. <br>");
+    print ("<br>ERROR: There must be propensity entries for all $num_variables variables. It seems there are propensity entries for only $num_propensities variables. <br>");
     exit;
   }
 
@@ -181,15 +173,25 @@ sub error_checking {
   }
 
   # propensities
-  foreach my $v (values %$propensities) {
-    unless (($v->{"activation"} >= 0) && ($v->{"activation"} <= 1)) {
+  foreach my $p (@$propensities) {
+    my $actProp = $p->{"activation"};
+    unless (($actProp >= 0) && ($actProp <= 1)) {
       print ("<br>ERROR: The activation propensities for stochastic simulations must be a number between 0 and 1. <br>");
       exit;
     }
-    unless (($v->{"degradation"} >= 0) && ($v->{"degradation"} <= 1)) {
+    if ($actProp != 1) {
+      $stochFlag = 1;
+    }
+
+    my $degProp = $p->{"degradation"};
+    unless (($degProp >= 0) && ($degProp <= 1)) {
       print ("<br>ERROR: The degradation propensities for stochastic simulations must be a number between 0 and 1. <br>");
       exit;
     }
+    if ($actProp != 1) {
+      $stochFlag = 1;
+    }
+
   }
 
 }
@@ -198,21 +200,57 @@ sub error_checking {
 
 =pod
 
-isnot_number ($n);
+get_updateRules ();
 
-Returns true if the input is not a number, false otherwise
+Returns 2 hash tables one of which is for polynomial functions and another is for transition tables
 
 =cut
 
-sub isnot_number {
-  my $n = shift;
+sub get_updateRules {
+  my $polyFuncs = {};
+  my $tranTables = {};
 
-  if ($n =~ m/\D/) {
-    return 1;
+  foreach my $i (@$updateRules) {
+    my $key = $i->{"target"};
+    $polyFuncs->{$key} = $i->{"functions"}->[0]->{"polynomialFunction"};
+
+    my $value_tt = {};
+    foreach my $j (@{$i->{"functions"}->[0]->{"transitionTable"}}) {
+      my $k = join (' ', $j->[0]);
+      $value_tt->{$k} = $j->[1];
+    }
+    
+    $tranTables->{$key} = $value_tt;
   }
-  else {
-    return 0;
+  
+  return ($polyFuncs, $tranTables);
+}
+
+############################################################
+
+=pod
+
+get_propensities ();
+
+Returns a hash table whose keys are the ids and values are a hash table containing activation and degradation propensities
+
+=cut
+
+sub get_propensities {
+  my $propensitiesTable = {};
+
+  foreach my $i (@$propensities) {
+    my $key = $i->{"id"};
+
+    my $value = {
+		 "activation" => $i->{"activation"}, 
+		 "degradation" => $i->{"degradation"}
+		};
+    
+    $propensitiesTable->{$key} = $value;
   }
+  
+  return $propensitiesTable;
 }
 
 ############################################################
@@ -240,7 +278,7 @@ sub get_allTrajectories {
     }
     
     for (my $j = 1; $j <= $num_steps; $j++) {
-      my @ns = @{get_nextstate_stoch (\@is)};
+      my @ns = @{get_nextstate (\@is)};
       
       for (my $r = 1; $r <= $num_variables; $r++) {
 	push (@{$table{"x$r"}}, $ns[$r - 1]);
@@ -250,6 +288,121 @@ sub get_allTrajectories {
     $alltrajectories{$i} = \%table;
   }
   return \%alltrajectories;
+}
+
+############################################################
+
+=pod
+
+get_averageTrajectories ();
+
+Stores average trajectories of all variables into a hash.
+Returns a reference of average trajectory hash.
+
+=cut
+
+sub get_averageTrajectories {
+  my @averageTrajectories;
+
+  for (my $v = 1; $v <= $num_variables; $v++) {
+    my @aveTraj;
+    for (my $t = 0; $t <= $num_steps; $t++) {
+      my $sum = 0;
+      
+      for (my $s = 1; $s <= $num_simulations; $s++) {
+	$sum += $allTrajectories->{$s}->{"x$v"}->[$t];
+      }
+      
+      $aveTraj[$t] = $sum / $num_simulations;
+    }
+    my %hash = (
+		"id" => "x$v",
+		"aveTraj" => \@aveTraj
+	       );
+    push (@averageTrajectories, \%hash);
+  }
+  
+  return \@averageTrajectories;
+}
+
+############################################################
+
+=pod
+
+format_output ();
+
+Returns a hash table containing proper output for this code.
+
+=cut
+
+sub format_output {
+  my $simType = "";
+  if ($stochFlag) {
+    $simType = "stochastic";
+  }
+  else {
+    $simType = "deterministic";
+  }
+
+  my $output = {"output" => [{
+			      "type" => "simulationOutput",
+			      "description" => "average trajectory of each variable in the sytem is obtained by simulation using SDDS",
+			      "fieldCardinality" => $num_states,
+			      "numberVariables" => $num_variables,
+			      "numberofTimeSteps" => $num_steps,
+			      "numberofSimulations" => $num_simulations,
+			      "initialState" => $initialState,
+			      "simulationType" => $simType,
+			      "averageTrajectories" => $averageTrajectories
+			     }]
+	       };
+  
+  return $output;
+}
+
+############################################################
+
+=pod
+
+isnot_number ($n);
+
+Returns true if the input is not a number, false otherwise
+
+=cut
+
+sub isnot_number {
+  my $n = shift;
+
+  if ($n =~ m/\D/) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+############################################################
+
+=pod
+
+get_nextstate ($state);
+
+Returns the next state (as a reference of an array) of a given state 
+(as a reference of an array) using update functions and propensity parameters.
+
+=cut
+
+sub get_nextstate {
+  my $currentState = shift;
+  my $nextState;
+  if ($stochFlag) {
+    $nextState = get_nextstate_stoch ($currentState);
+  }
+  else {
+    $nextState = get_nextstate_det ($currentState);
+  }
+
+  return $nextState;
 }
 
 ############################################################
@@ -272,7 +425,7 @@ sub get_nextstate_stoch {
   for (my $j = 0; $j < $num_variables; $j++) {
     my $r = rand ();
     my $i = $j + 1;
-    my $prop = $propensities->{"x$i"};
+    my $prop = $propensitiesTable->{"x$i"};
     
     if ($state->[$j] < $z->[$j]) {
       if ($r < $prop->{"activation"}) {
@@ -310,48 +463,32 @@ update functions.
 =cut
 
 sub get_nextstate_det {
-  my $state = shift;
+  my $currState = shift;
   my @nextState;
   
-  for (my $i = 1; $i <= @$state; $i++) {
-    my $func = $updateFunctions->{"x$i"}->{"polynomialFunction"};
+  for (my $i = 1; $i <= @$currState; $i++) {
+    my $func = $polyFuncs->{"x$i"};
+    my $tt = $tranTables->{"x$i"};
 
-    for (my $j = 1; $j <= @$state; $j++) {
-      $func =~ s/x[$j]/\($state->[$j - 1]\)/g;
-    }
-    
-    $nextState[$i - 1] = eval ($func) % $num_states;
-   }
-  
-  return \@nextState;
-}
-
-############################################################
-
-=pod
-
-get_averageTrajectories ();
-
-Stores average trajectories of all variables into a hash.
-Returns a reference of average trajectory hash.
-
-=cut
-
-sub get_averageTrajectories {
-  my %averagetrajectories = ();
-
-  for (my $v = 1; $v <= $num_variables; $v++) {
-    for (my $t = 0; $t <= $num_steps; $t++) {
-      my $sum = 0;
-      
-      for (my $s = 1; $s <= $num_simulations; $s++) {
-	$sum += $allTrajectories->{$s}->{"x$v"}->[$t];
+    if ($func) {
+      for (my $j = 1; $j <= @$currState; $j++) {
+	$func =~ s/x[$j]/\($currState->[$j - 1]\)/g;
       }
-      $averagetrajectories{"x$v"}[$t] = $sum / $num_simulations;
+      
+      $nextState[$i - 1] = eval ($func) % $num_states;
+    }
+    elsif ($tt) {
+
+      # TO_DO: use the transition table information if available
+
+    }
+    else {
+      print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. <br>");
+      exit;
     }
   }
   
-  return \%averagetrajectories;
+  return \@nextState;
 }
 
 ############################################################

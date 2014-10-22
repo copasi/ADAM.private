@@ -1,2 +1,24 @@
-The input jason file should contain:
-1. A SDDS: (
+********************************************************************************
+Name: Documentation for  JSON input of simulation using SDDS
+Author: Seda Arat
+Date: October 22, 2014
+********************************************************************************
+SDDS needs a model as an input which includes the following
+information: fieldCardinality, numberVariables, variables and
+updateRules.
+
+(input) type: model
+
+(input) description: input for each variable can be polynomial function or transition table
+
+SDDS also needs some arguments to be specified by the user such as
+numberofSimulations, numberofTimeSteps, initialState and propensities.
+
+(method) type: simulation
+
+(method) description:simulations using Stochastic Discrete Dynamical
+System (SDDS)
+
+(method) id: SDDS
+
+

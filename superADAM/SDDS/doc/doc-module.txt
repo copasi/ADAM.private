@@ -1,1 +1,6 @@
-This module compute an optimal policy for a SDDS.
+********************************************************************************
+Name: Documentation for  JSON output of simulation using SDDS
+Author: Seda Arat
+Date: October 22, 2014
+********************************************************************************
+SDDS module simulates the average trajectory for each variable out of numberofSimulations trajectories deterministically or stochastically.
