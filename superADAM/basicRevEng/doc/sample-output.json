@@ -1,89 +1,92 @@
 {
-  "output": [{
-    "type": "reverseEngineeringOutputModel",
+"output": [
+    {
     "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
-    "numberVariables": 4,
     "fieldCardinality": 5,
+    "numberVariables": 4,
+    "type": "reverseEngineeringOutputModel",
     "updateRules": [
-      {
-          "target": "x1",
-          "functions": [
-              {
-                  "inputVariables": ["x1","x2"],
-                  "polynomialFunction": "x1*x2",
-                  "score": 1.0
-              }
-          ]},
-      {
-          "target": "x2",
-          "functions": [
-              {
-                  "inputVariables": ["x1"],
-                  "polynomialFunction": "x1+1",
-                  "score": 0.25
-              },
-              {
-                  "inputVariables": ["x1","x2"],
-                  "polynomialFunction": "x1*x2",
-                  "score": 0.75
-              }
-          ]
-      },
-      {
-          "target": "x3",
-          "functions": [
-              {
-                  "inputVariables": ["x1","x2","x3"],
-                  "polynomialFunction": "x3^2+x1+x2",
-                  "score": 1.0
-              }
-          ]
-      }
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": 1
+            }
+          ],
+        "target": "x1"
+        },
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1"],
+            "polynomialFunction": "x1+1",
+            "score": .25
+            },
+            {
+            "inputVariables": ["x1","x2"],
+            "polynomialFunction": "x1*x2",
+            "score": .75
+            }
+          ],
+        "target": "x2"
+        },
+        {
+        "functions": [
+            {
+            "inputVariables": ["x1","x2","x3"],
+            "polynomialFunction": "x3^2+x1+x2",
+            "score": 1
+            }
+          ],
+        "target": "x3"
+        }
       ],
     "variableScores": [
         {
-            "target":"x1", 
-            "sources": [
-                {
-                    "source":"x1", 
-                    "score": 1.0
-                }, 
-                {
-                    "source":"x2", 
-                    "score": 0.45
-                }, 
-                {
-                    "source":"x3", 
-                    "score": 0.56
-                }]
+        "sources": [
+            {
+            "score": 1,
+            "source": "x1"
+            },
+            {
+            "score": .45,
+            "source": "x2"
+            },
+            {
+            "score": .56,
+            "source": "x3"
+            }
+          ],
+        "target": "x1"
         },
         {
-            "target":"x2", 
-            "sources": [
-                {
-                    "source":"x1", 
-                    "score": 0.2
-                }, 
-                {
-                    "source":"x2", 
-                    "score": 0.45
-                }
-            ]
+        "sources": [
+            {
+            "score": .2,
+            "source": "x1"
+            },
+            {
+            "score": .45,
+            "source": "x2"
+            }
+          ],
+        "target": "x2"
         },
         {
-            "target":"x3", 
-            "sources": [
-                {
-                    "source":"x2", 
-                    "score": 0.45
-                }, 
-                {
-                    "source":"x3", 
-                    "score": 0.56
-                }
-            ]
+        "sources": [
+            {
+            "score": .45,
+            "source": "x2"
+            },
+            {
+            "score": .56,
+            "source": "x3"
+            }
+          ],
+        "target": "x3"
         }
-    ]
-  }
-]
+      ]
+    }
+  ]
 }
