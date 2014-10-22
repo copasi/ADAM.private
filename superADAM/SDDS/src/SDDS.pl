@@ -75,10 +75,6 @@ my $inputFile = $ARGV{'-i'};
 # output
 my $outputFile = $ARGV{'-o'};
 
-# upper limits
-my $max_num_simulations = 10**6;
-my $max_num_steps = 100;
-
 # converts input.json to Perl format
 my $task = JSON::Parse::json_file_to_perl ($inputFile);
 my $input = $task->{'task'}->{'input'}->[0];
@@ -109,6 +105,10 @@ my $propensities = $arguments->{'propensities'};
 my $num_propensities = scalar @$propensities;
 
 my $stochFlag = 0;
+
+# upper limits
+my $max_num_simulations = 10**6;
+my $max_num_steps = 100;
 
 errorCheck ();
 my ($polyFuncs, $tranTables) = get_updateRules ();
