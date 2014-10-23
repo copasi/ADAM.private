@@ -22,6 +22,7 @@
 		  "type":"model",
 		  "description": "Gene Regulation of Mammalian Cortical Area Development Published in: Giacomantonio CE, Goodhill GJ (2010) A Boolean Model of the Gene Regulatory Network Underlying Mammalian Cortical Area Development. PLoS Comput Biol 6(9): e1000936",
 		  "name": "Cortical_Area_Development",
+		  "fieldCardinality": 2,
 		  "version": "1.0",
 		  "parameters": [{
 		      "id": "k1",
