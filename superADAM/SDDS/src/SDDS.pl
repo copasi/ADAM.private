@@ -138,7 +138,7 @@ exit;
 
 errorCheck ();
 
-Checks if the user enters the options/parameters correctly and there is any interna errors
+Checks if the user enters the options/parameters correctly and there is any internal errors
 
 =cut
 
