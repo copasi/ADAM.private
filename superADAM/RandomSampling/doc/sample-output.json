@@ -1,0 +1,25 @@
+{
+  "output":[
+    {
+      "numberVariables":3,
+      "samplingSize": 10,
+      "description":"basin of attractors of a large system using random sampling",
+      "fieldCardinality":2,
+      "type":"randomSamplingOutput",
+      "basinOfAttractors":[
+        {
+          "attractor":"0 1 1",
+          "size":"19"
+        }
+        ],
+      "statesAndAttractors": [
+        {
+          "attractor": "0 1 1",
+          "states": [
+            "0 0 0", "0 1 1", "1 0 1"
+            ] 
+        }
+        ]
+    }
+    ]
+}

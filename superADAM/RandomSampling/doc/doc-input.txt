@@ -1,2 +1,22 @@
-The input jason file should contain:
-1. A SDDS: (
+********************************************************************************
+Name: Documentation for  JSON input for Random Sampling
+Author: Seda Arat
+Date: October 23, 2014
+********************************************************************************
+RandomSampling needs a model as an input which includes the following
+information: fieldCardinality, numberVariables, variables and
+updateRules.
+
+(input) type: model
+
+(input) description: input for each variable can be polynomial function or transition table
+
+RandomSampling also needs only one argument to be specified by the user, samplingSize.
+
+(method) type: sampling
+
+(method) description: computing the basin of attractions for large systems using random sampling
+
+(method) id: RandomSampling
+
+
