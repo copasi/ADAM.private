@@ -1,111 +1,141 @@
-{
-"model": {
-  "description": "",
-  "name": "small_example_control",
-  "updateRules": {
-    "x1": {
-      "possibleInputVariables": ["x1","x2","x3"],
-      "transitionTable": [
-          [[0,0,0],0],
-          [[0,0,1],1],      
-          [[0,1,0],1],
-          [[0,1,1],1],
-          [[1,0,0],0],
-          [[1,0,1],1],
-          [[1,1,0],1],
-          [[1,1,1],1]
-        ]
-      },
-    "x2": {
-      "possibleInputVariables": ["x1","x2","x3"],
-      "transitionTable": [
-          [[0,0,0],0],
-          [[0,0,1],1],
-          [[0,1,0],1],
-          [[0,1,1],0],
-          [[1,0,0],1],
-          [[1,0,1],1],
-          [[1,1,0],0],
-          [[1,1,1],1]
-        ]
-      },
-    "x3": {
-      "possibleInputVariables": ["x1","x2","x3"],
-      "transitionTable": [
-          [[0,0,0],0],
-          [[0,0,1],0],
-          [[0,1,0],0],
-          [[0,1,1],1],
-          [[1,0,0],0],
-          [[1,0,1],1],
-          [[1,1,0],1],
-          [[1,1,1],1]
-        ]
-    }
-  },
-  "variables": [
-      {
-      "id": "x1",
-      "name": "1",
-      "states": ["low","high"]
-      },
-      {
-      "id": "x2",
-      "name": "2",
-      "states": ["low","high"]
-      },
-      {
-      "id": "x3",
-      "name": "3",
-      "states": ["low","high"]
-      }
-    ],
-    "propensities": {
-      "x1": {
-        "activation": 0.9,
-        "degradation": 0.9
-      },
-      "x2": {
-        "activation": 0.9,
-        "degradation": 0.9
-      },
-      "x3": {
-        "activation": 0.9,
-        "degradation": 0.9
-      }
-    },
-    "controlNodes":{
-       "n1":{
-	   "nodeIndex": 1,
-	   "nodeValue": 0
-    }
-   },
-    "controlEdges":{
-       "e1":{
-	   "edgeTail": 2,
-	   "edgeHead": 3,
-	   "edgeValue": 0
-    }
-   },
-    "costFunction":{
-       "desiredState":{
-      "x1": {
-	   "nodeIndex":1,
-	   "nodeValue": 0,
-	   "nodeWeight": 1
-      },
-      "x2": {
-	   "nodeIndex":2,
-	   "nodeValue": 0,
-	   "nodeWeight": 1
-      },
-      "x3": {
-	   "nodeIndex":3,
-	   "nodeValue": 0,
-	   "nodeWeight": 1
-      }
-    }
-   },
-  "version": "1.0"
-  }
-}
+{"task": {
+	"method": {
+		"type":"<problemType> PLEASE FILL IN",
+		"id":"<moduleName> PLEASE FILL IN",
+		"description":"<description> PLEASE FILL IN",
+		"arguments":[
+			{"name":"propensities",
+			 "value":[
+			      {
+				"name": "x1",
+				"activation": 0.9,
+				"degradation": 0.9
+			      },
+			      {
+				"name": "x2",
+				"activation": 0.9,
+				"degradation": 0.9
+			      },		
+			      {
+				"name":"x3",
+				"activation": 0.9,
+				"degradation": 0.9
+			      }
+			    ]
+			},
+			{"name":"controlNodes",
+			 "value":[
+				{
+				   "name":"n1",
+				   "nodeIndex": 1,
+				   "nodeValue": 0
+			    	}
+			      ]
+			},
+			{"name":"controlEdges",
+			 "value":[
+				{
+				   "name":"e1",
+				   "edgeTail": 2,
+				   "edgeHead": 3,
+				   "edgeValue": 0
+			    	}
+			      ]
+			},
+			{"name":"costFunction",
+			 "value":[{"name":"desiredState",
+				"value":[
+				      {
+					   "name":"x1",
+					   "nodeIndex":1,
+					   "nodeValue": 0,
+					   "nodeWeight": 1
+				      },
+				      {
+					   "name":"x2",
+					   "nodeIndex":2,
+					   "nodeValue": 0,
+					   "nodeWeight": 1
+				      },
+				      {
+					   "name":"x3",
+					   "nodeIndex":3,
+					   "nodeValue": 0,
+					   "nodeWeight": 1
+				      }]
+				}]
+				
+			}
+		]
+	},
+	"input":[
+	  {
+	  "type":"model",
+	  "description": "",
+	  "name": "small_example_control",
+	  "version": "1.0",
+	  "updateRules": [{
+		"target":"x1",
+	      "inputVariables": ["x1","x2","x3"],
+	      "transitionTable": [
+		  [[0,0,0],0],
+		  [[0,0,1],1],      
+		  [[0,1,0],1],
+		  [[0,1,1],1],
+		  [[1,0,0],0],
+		  [[1,0,1],1],
+		  [[1,1,0],1],
+		  [[1,1,1],1]
+		]
+	    },
+	    {
+	 	"target":"x2",
+	      "inputVariables": ["x1","x2","x3"],
+	      "transitionTable": [
+		  [[0,0,0],0],
+		  [[0,0,1],1],
+		  [[0,1,0],1],
+		  [[0,1,1],0],
+		  [[1,0,0],1],
+		  [[1,0,1],1],
+		  [[1,1,0],0],
+		  [[1,1,1],1]
+		]
+	    },
+	    {
+		 "target":"x3",
+	      "inputVariables": ["x1","x2","x3"],
+	      "transitionTable": [
+		  [[0,0,0],0],
+		  [[0,0,1],0],
+		  [[0,1,0],0],
+		  [[0,1,1],1],
+		  [[1,0,0],0],
+		  [[1,0,1],1],
+		  [[1,1,0],1],
+		  [[1,1,1],1]
+		]
+	    }
+	  ],
+	  "variables": [
+	      {
+	      "id": "x1",
+	      "name": "1",
+	      "states": ["low","high"]
+	      },
+	      {
+	      "id": "x2",
+	      "name": "2",
+	      "states": ["low","high"]
+	      },
+	      {
+	      "id": "x3",
+	      "name": "3",
+	      "states": ["low","high"]
+	      }
+	    ]
+	   }
+	  ]
+	}
+     }
+
