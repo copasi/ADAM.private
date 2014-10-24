@@ -433,6 +433,7 @@ bool FileManager::ReadReverseEngWeightMatrix( WeightMatrix& weight_matrix )
 
 	char ch;
 	int n;
+	double x;
 	int var_num;
 	String ns; // to collect a string of digits representing a number
 
@@ -454,7 +455,7 @@ bool FileManager::ReadReverseEngWeightMatrix( WeightMatrix& weight_matrix )
 		{
 			if( in_num )
 			{
-				if( isdigit( ch ) )
+				if( isdigit( ch ) || ch == '.' )
 				{
 					// accumulate digits
 					ns.push_back( ch );
@@ -463,11 +464,10 @@ bool FileManager::ReadReverseEngWeightMatrix( WeightMatrix& weight_matrix )
 				{
 					if( ns.length() > 0 )
 					{
-						n = atoi( ns.c_str() );
 						if( first_num )
 						{
 							// The first number after 'F' identifies the variable
-							var_num = n;
+							var_num = atoi( ns.c_str());
 							if( var_num > (int)weight_matrix.size() )
 							{
 								throw( "FileManager::ReadReverseEngWeightMatrix - invalid variable number after F" );
@@ -476,8 +476,9 @@ bool FileManager::ReadReverseEngWeightMatrix( WeightMatrix& weight_matrix )
 						}
 						else
 						{
+							x = atof( ns.c_str() );
 							// Append the number to the current row
-							row.push_back( n );
+							row.push_back( x );
 						}
 					}
 					if( ch == '\n' )
@@ -498,10 +499,11 @@ bool FileManager::ReadReverseEngWeightMatrix( WeightMatrix& weight_matrix )
 			}
 			else // we are outside of a number
 			{
-				if( isdigit( ch ) )
+				if( isdigit( ch ) || ch == '.' )
 				{
 					// accumulate the first digit
 					ns.clear();
+					if( ch == '.' ) ns.push_back( '0' );
 					ns.push_back( ch );
 					in_num = true;
 				}

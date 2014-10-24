@@ -2,7 +2,8 @@ require 'json'
 require 'matrix'
 require 'pp'
 
-class Method
+class TaskMethod
+	attr_reader :type, :id, :description, :arguments
 	def initialize(method)
 		@type=method['type']
 		@id=method['id']
@@ -17,6 +18,7 @@ class Method
 end
 
 class Model
+	attr_reader :fieldCardinality, :type, :description, :name, :version, :parameters, :updateRules, :variables, :variableScores, :simlab
 	def initialize(model)
 		@type=model['type']
 		@description=model['description']
@@ -26,18 +28,19 @@ class Model
 		@parameters=model['parameters']
 		@updateRules=model['updateRules']
 		@variables=model['variables']
-		@variableScores=model['variables']
+		@variableScores=model['variableScores']
 		@simlab=model['simlab']
 	end
 end
 
 class TimeSeries
+	attr_reader :data
 	def initialize(ts)
 		@data=ts['timeSeriesData']
 	end
 
 	def get_numberOfVariables()
-		if @data.empty? then
+		if !@data.empty? then
 			return @data[0]['matrix'][0].length
 		end
 		return 0
@@ -66,10 +69,17 @@ end
 
 class Task
 	def initialize(json,exec_file)
+		@raw_output=nil
+		@json_output=nil
+		@numberOfVariables=nil
+		@exec_file=exec_file
 		@errors=[]
 		@warnings=[]
 		@task = json['task']
-		@method = @task['method']
+		if @task.nil? then  raise "JSON_FILE_HAS_NO_TASK" end
+		if @task['input'].nil? then  raise "TASK_HAS_NO_INPUT" end
+		if @task['method'].nil? then  raise "TASK_HAS_NO_METHOD" end
+		@method=TaskMethod.new(@task['method'])
 		@input = {
 			"models"=>{},
 			"timeSeries"=>[],
@@ -80,14 +90,14 @@ class Task
 			when "model"
 				@input['models'][o['name']]=Model.new(o)
 			when "timeseries"
-				@input['timeSeries'].push(TimeSeries.new(input))
+				@input['timeSeries'].push(TimeSeries.new(o))
 			else
 				@input['custom'].push(input)
 			end
 		end
-		@raw_output=nil
-		@json_output=nil
-		@exec_file=exec_file
+		if !@input['timeSeries'].empty? then
+			@numberOfVariables=@input['timeSeries'][0].get_numberOfVariables()
+		end
 		@tmp_files=[]
 		self.validate_input()
 		if !@warnings.empty? then @warnings.each {|w| STDERR.puts(w.to_s) } end
@@ -97,8 +107,8 @@ class Task
 		end
 	end
 
-	def validate_input()
-		raise :INPUT_VALIDATION_NOT_IMPLEMENTED
+	def validate_input
+		@errors.push(:INPUT_VALIDATION_NOT_IMPLEMENTED)
 	end
 
 	def render_output()
@@ -106,8 +116,8 @@ class Task
 			puts "No output to render...\n"
 			return
 		end
-		@json_output= JSON.generate(res)
-		return @json_output
+		# @json_output= JSON.generate(@raw_output)
+		# return @json_output
 	end
 
 	def clean_temp_files()
@@ -117,37 +127,38 @@ end
 
 class React < Task
 	def initialize(json,exec_file)
+		super(json,exec_file)
 		@file_manager=nil
 	end
 
-	def validate_input()
+	def validate_input
 		# input must contain a timeseries
-		if @input['timeSeries'].empty? then errors.push(:TIMESERIES_REQUIRED) end
+		if @input['timeSeries'].empty? then @errors.push(:TIMESERIES_REQUIRED) end
 		# input should contain only 1 timeseries
-		if @input['timeSeries'].length>1 then warnings.push(:ONLY_FIRST_TIMESERIES_WILL_BE_TAKEN_INTO_ACCOUNT) end
+		if @input['timeSeries'].length>1 then @warnings.push(:ONLY_FIRST_TIMESERIES_WILL_BE_TAKEN_INTO_ACCOUNT) end
 		# timeseries must contain only binary matrixes
 		@input['timeSeries'].each do |ts|
-			ts['data'].each do |m|
+			ts.data.each do |m|
 				m['matrix'].each do |r|
-					if r.max>1 then errors.push(:TIMESERIES_MATRIXES_MUST_BE_BINARY) end
+					if r.max>1 then @errors.push(:TIMESERIES_MATRIXES_MUST_BE_BINARY) end
 				end
 				if !m['index'].empty? then
-					if m['index'].length>1 then warnings.push(:ONLY_FIRST_NODE_WILL_BE_KNOCKED_OUT) end
+					if m['index'].length>1 then @warnings.push(:ONLY_FIRST_NODE_WILL_BE_KNOCKED_OUT) end
 				end
 			end
 		end
 		# timeseries must contain at least 1 wildtype
 		wt_found=false
 		@input['timeSeries'].each do |ts|
-			ts['data'].each do |m|
-				if m['index'].empty then wt_found=true end
+			ts.data.each do |m|
+				if m['index'].empty? then wt_found=true end
 			end
 		end
-		if !wt_found then errors.push(:TIMESERIES_MUST_CONTAIN_AT_LEAST_1_WILDTYPE) end
+		if !wt_found then @errors.push(:TIMESERIES_MUST_CONTAIN_AT_LEAST_1_WILDTYPE) end
 		# if a model is present, its fieldcardinity must be equal to 2
 		if !@input['models'].empty? then
-			@input['models'].each do |m|
-				if m['fieldCardinality']!=2 then errors.push(:MODELS_FIELD_CARDINALITY_MUST_BE_2) end
+			@input['models'].each do |k,m|
+				if m.fieldCardinality!=2 then @errors.push(:MODELS_FIELD_CARDINALITY_MUST_BE_2) end
 			end
 		end
 
@@ -155,7 +166,7 @@ class React < Task
 		required=[
 			'HammingPolyWeight',
 			'ComplexityWeight',
-			'RevEnvWeight',
+			'RevEngWeight',
 			'BioProbWeight',
 			'HammingModelWeight',
 			'PolyScoreWeight',
@@ -167,7 +178,7 @@ class React < Task
 			'MutateProbability'
 		]
 		required.each do |arg|
-			if @method['arguments'][arg].nil? then errors.push(("MISSING_ARGUMENT_ERROR_"+arg.upcase).to_sym) end
+			if @method.arguments[arg].nil? then @errors.push(("MISSING_ARGUMENT_ERROR_"+arg.upcase).to_sym) end
 		end
 	end
 
@@ -176,7 +187,7 @@ class React < Task
 	end
 
 	def get_numberOfVariables()
-		return "N=%i;\n" % @input['timeSeries'][0].get_numberOfVariables()
+		return "N=%i;\n" % @numberOfVariables
 	end
 
 	def get_wildType()
@@ -212,15 +223,16 @@ class React < Task
 	end
 
 	def get_priorReverseEngineeringNetwork()
-		if !@input['models']['priorReverseEngineeringNetwork'].empty? then
+		model=@input['models']['priorReverseEngineeringNetwork']
+		if !model.nil? then
 			res=""
-			variableScores=@input['models']['priorReverseEngineeringNetwork']['variableScores']
-			variableScores.each_with_index do |vs,i|
-				res+="F%i " % i
-				row=Array.new(self.get_numberOfVariables(),"0")
+			model.variableScores.each_with_index do |vs,i|
+				i_baby=i+1
+				res+="F%i " % i_baby
+				row=Array.new(@numberOfVariables,0)
 				vs['sources'].each do |s|
-					idx=s['target'].slice!("x").to_i
-					row[idx]=s['score'].to_f.to_s
+					idx=s['source'].slice!("x")
+					row[idx.to_i]=s['score'].to_f.to_s
 				end
 				res+=row.join(' ')+" 1\n"	
 			end
@@ -238,9 +250,9 @@ class React < Task
 	end
 
 	def get_priorBiologicalNetwork()
-		if !@method['arguments']['priorBiologicalNetwork'].empty? then
+		if !@method.arguments['priorBiologicalNetwork'].nil? then
 			res=""
-			@method['parameters']['priorBiologicalNetwork'].each_with_index do |r,i|
+			@method.arguments['priorBiologicalNetwork'].each_with_index do |r,i|
 				idx=i+1
 				res+="F%i " % idx
 				res+=r.join(' ')+"\n"
@@ -256,10 +268,10 @@ class React < Task
 	def get_priorModel()
 		res="MODEL={"
 		model=@input['models']['priorModel']
-		if !model.empty? then
+		if !model.nil? then
 			functions=[]
 			combinations=1
-			model['updateRules'].each do |rule|
+			model.updateRules.each do |rule|
 				var=[]
 				rule['functions'].each { |f| var.push(f['polynomialFunction']) }
 				functions.push(var)
@@ -287,18 +299,18 @@ class React < Task
 	end
 
 	def get_parameters()
-		res="\nHammingPolyWeight\t"+basic['HammingPolyWeight'].to_s
-		res+="\nComplexityWeight\t"+basic['ComplexityWeight'].to_s
-		res+="\nRevEngWeight\t"+basic['RevEnvWeight'].to_s
-		res+="\nBioProbWeight\t"+basic['BioProbWeight'].to_s
-		res+="\nHammingModelWeight\t"+basic['HammingModelWeight'].to_s
-		res+="\nPolyScoreWeight\t"+basic['PolyScoreWeight'].to_s
-		res+="\nGenePoolSize\t"+advanced['GenePoolSize'].to_s
-		res+="\nNumCandidates\t"+advanced['NumCandidates'].to_s
-		res+="\nNumParentsToPreserve\t"+advanced['NumParentsToPreserve'].to_s
-		res+="\nMaxGenerations\t"+advanced['MaxGenerations'].to_s
-		res+="\nStableGenerationLimit\t"+advanced['StableGenerationLimit'].to_s
-		res+="\nMutateProbability\t"+advanced['MutateProbability'].to_s
+		res="\nHammingPolyWeight\t"+@method.arguments['HammingPolyWeight'].to_s
+		res+="\nComplexityWeight\t"+@method.arguments['ComplexityWeight'].to_s
+		res+="\nRevEngWeight\t"+@method.arguments['RevEngWeight'].to_s
+		res+="\nBioProbWeight\t"+@method.arguments['BioProbWeight'].to_s
+		res+="\nHammingModelWeight\t"+@method.arguments['HammingModelWeight'].to_s
+		res+="\nPolyScoreWeight\t"+@method.arguments['PolyScoreWeight'].to_s
+		res+="\nGenePoolSize\t"+@method.arguments['GenePoolSize'].to_s
+		res+="\nNumCandidates\t"+@method.arguments['NumCandidates'].to_s
+		res+="\nNumParentsToPreserve\t"+@method.arguments['NumParentsToPreserve'].to_s
+		res+="\nMaxGenerations\t"+@method.arguments['MaxGenerations'].to_s
+		res+="\nStableGenerationLimit\t"+@method.arguments['StableGenerationLimit'].to_s
+		res+="\nMutateProbability\t"+@method.arguments['MutateProbability'].to_s
 		res+="\n"
 		File.open("params.txt",'w') { |f| f.write(res) }
 		@tmp_files.push("params.txt")
@@ -308,13 +320,21 @@ class React < Task
 	def create_fileManager(file_manager)
 		out=""
 		begin
+			puts "A"
 			out+=self.get_fieldCardinality()
+			puts "A"
 			out+=self.get_numberOfVariables()
+			puts "A"
 			out+=self.get_wildType()
+			puts "A"
 			out+=self.get_knockOut()
+			puts "A"
 			out+=self.get_priorReverseEngineeringNetwork()
+			puts "A"
 			out+=self.get_priorBiologicalNetwork()
+			puts "A"
 			out+=self.get_priorModel()
+			puts "A"
 			out+=self.get_parameters()
 		rescue StandardError=>err
 			STDERR.puts err
@@ -347,5 +367,5 @@ if $0 == __FILE__ then
 	task=Task.new(json,'.././React')
 	task.run()
 	puts task.render_output()
-	#task.clean_temp_files()
+	task.clean_temp_files()
 end

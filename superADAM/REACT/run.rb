@@ -23,8 +23,12 @@ case param
 		if !File.exists?(param)	then puts "JSON input file not found" end
 		input = File.read(param)
 		json = JSON.parse(input)
-		task=Task.new(json,'./React')
-		task.run()
-		puts task.render_output()
-		#task.clean_temp_files()
+		begin
+			task=React.new(json,'./React')
+			task.run()
+			puts task.render_output()
+			task.clean_temp_files()
+		rescue StandardError=>e
+			STDERR.puts "ERROR: "+e.to_s
+		end
 end
