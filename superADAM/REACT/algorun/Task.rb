@@ -320,21 +320,13 @@ class React < Task
 	def create_fileManager(file_manager)
 		out=""
 		begin
-			puts "A"
 			out+=self.get_fieldCardinality()
-			puts "A"
 			out+=self.get_numberOfVariables()
-			puts "A"
 			out+=self.get_wildType()
-			puts "A"
 			out+=self.get_knockOut()
-			puts "A"
 			out+=self.get_priorReverseEngineeringNetwork()
-			puts "A"
 			out+=self.get_priorBiologicalNetwork()
-			puts "A"
 			out+=self.get_priorModel()
-			puts "A"
 			out+=self.get_parameters()
 		rescue StandardError=>err
 			STDERR.puts err
