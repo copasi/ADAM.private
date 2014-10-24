@@ -1,15 +1,9 @@
 *********************************************************************************
 * DOCUMENTATION FOR JSON OUTPUT IN REACT					*
 * Written by: Paola Vera-Licona							*
-* Date: 10/21/2014								*
+* Date: 10/23/2014								*
 *********************************************************************************
 
 
-JSON format output file: reverseEngineeringOutputData
-
-	*	It starts with one field that allow us to introduce comments regarding the file. The first field is  description to describe the file.
-	*	Number of variables numberVariables. This is a non-zero positive integer number.
-	*	The cardinality of the field for the PDSs. This is indicated as fieldCardinality. At the moment this has to be a prime number.
-	*	The PDS will be described as a hash table of update rules indicated by object updateRules. The update rule for the ith variable is represented as x followed the index of the variable. For instance xi, where i>0. 
-	*	For each ith variable xi, its corresponding update rule will be an array of hashtables  [{"0"}, {"0"}, {"0"}], where each hashtable has three objects:
-		+	The support variables. Designated as InputVariables. This is an array of variables written between quotes [x1, x2]. It is encouraged to write this array in ascending index order.
+JSON format output file: object model, representing a set of polynomial dynamical systems that obtained the best scores in REACT.
+In this model object we include the score for each one of the polynomial update rules as well as the score of each one of the edges of the inferred static graph.

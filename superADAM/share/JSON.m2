@@ -266,7 +266,12 @@ placeOnOneLine = (L) -> (
 ppJSON = method()
 ppJSON(Symbol, ZZ) := (a, nindent) -> ppJSON(toString a, nindent)
 ppJSON(String, ZZ) := (s, nindent) -> "\"" | s | "\""
-ppJSON(Number, ZZ) := (n, nindent) -> toString n
+ppJSON(Number, ZZ) := (n, nindent) -> (
+    s := toString n;
+    assert(#s > 0); -- this should not be the empty string
+    if s#0 === "." then "0"|s else s
+    )
+    
 ppJSON(BasicList, ZZ) := (L, nindent) -> (
     if placeOnOneLine L then (
     --if all(L, a -> instance(a, Number) or instance(a, String)) then (
@@ -284,13 +289,27 @@ ppJSON(BasicList, ZZ) := (L, nindent) -> (
 ppJSON(HashTable, ZZ) := (H, nindent) -> (
     keysH := delete(symbol cache, keys H);
     K := sort keysH;
-    L := for k in K list (
-        k1 := if instance(k, Number) then ppJSON(toString k, 0) else ppJSON(k, 0);
-        (spaces nindent) | k1 | ": " | ppJSON (H#k, nindent+2)
-        );
-    L = between(",\n",L);
-    Lstr := concatenate L;
-    "{\n" | Lstr | "\n" | (spaces nindent) | "}"
+    onOneLine := #K <= 2;
+    if #K >= 1 and not instance(H#(K#0),Number) and not instance(H#(K#0),String) then onOneLine = false;
+    if #K == 2 and not instance(H#(K#1),Number) and not instance(H#(K#1),String) then onOneLine = false;
+    if onOneLine then (
+        L := for k in K list (
+            k1 := if instance(k, Number) then ppJSON(toString k, 0) else ppJSON(k, 0);
+            k1 | ": " | ppJSON (H#k, 0)
+            );
+        L = between(", ",L);
+        Lstr := concatenate L;
+        "{ " | Lstr | " }"
+        )
+    else (
+        L = for k in K list (
+            k1 := if instance(k, Number) then ppJSON(toString k, 0) else ppJSON(k, 0);
+            (spaces (nindent+2)) | k1 | ": " | ppJSON (H#k, nindent+4)
+            );
+        L = between(",\n",L);
+        Lstr = concatenate L;
+        "{\n" | Lstr | "\n" | (spaces nindent) | "}"
+        )
     )
 
 TEST ///
