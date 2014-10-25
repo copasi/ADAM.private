@@ -58,8 +58,8 @@ case param
 			json = JSON.parse(input)
 			begin
 				task=React.new(json,'./React')
-				task.run()
-				puts task.render_output()
+				task.run("output.txt")
+				pp task.render_output("output.txt")
 				task.clean_temp_files()
 			rescue StandardError=>e
 				STDERR.puts "ERROR: "+e.to_s

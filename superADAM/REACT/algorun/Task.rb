@@ -70,7 +70,7 @@ end
 class Task
 	def initialize(json,exec_file)
 		@raw_output=nil
-		@json_output=nil
+		@output=nil
 		@numberOfVariables=nil
 		@exec_file=exec_file
 		@errors=[]
@@ -112,12 +112,7 @@ class Task
 	end
 
 	def render_output()
-		if @raw_output.nil? then
-			puts "No output to render...\n"
-			return
-		end
-		# @json_output= JSON.generate(@raw_output)
-		# return @json_output
+		puts "RENDER_OUTPUT_METHOD_NOT_IMPLEMENTED";
 	end
 
 	def clean_temp_files()
@@ -338,14 +333,107 @@ class React < Task
 		return true
 	end
 
-	def run()
+	def render_output(raw_output_file)
+		if !File.exists?(raw_output_file) then
+			puts "RAW_OUTPUT_FILE_DOES_NOT_EXISTS"
+			return
+		end
+		output={"output"=>Array.new()}
+		output["output"]={
+			"type"=>"model",
+			"description"=>"PLEASE FILL IN",
+			"name"=>"reverseEngineeringOutputModel",
+			"fieldCardinality"=>2,
+			"variableScores"=>Array.new(),
+			"updateRules"=>Array.new()
+		}
+		functions={}
+		idx_func=1
+		skip=false
+		function=""
+		File.foreach(raw_output_file) do |line|
+			if line.strip().empty?
+				idx_func=1
+			elsif line.lstrip() =~ /^f.*$/
+				function=line.split(" = ")[1]
+				fx="f%i" % idx_func
+				skip=false
+			elsif line.lstrip() =~ /^H.*$/
+				if !skip then
+					tmp=line.split(' ')
+					vars={
+						'H'=>tmp[1].to_f,
+						'C'=>tmp[3].to_f,
+						'R'=>tmp[4].to_f,
+						'B'=>tmp[7].to_f,
+						'polynomialFunction'=>function.strip
+					}
+					fx="x%i" % idx_func
+					if functions[fx].nil? then
+						functions[fx]={function=>vars}
+					elsif functions[fx][function].nil? then
+						functions[fx][function]=vars
+					end
+					skip=true
+					idx_func+=1
+				else
+					skip=false
+				end
+			end
+		end
+		variableScores_tmp={}
+		functions.each do |f,j|
+			variableScores_tmp[f]={}
+			n=0
+			j.each do |k,v|
+				n+=1
+				v['inputVariables']=k.scan(/x\d/).uniq
+				v['score']=(v['H']+v['C']+v['R']+v['B'])/4
+				v.delete('H')
+				v.delete('C')
+				v.delete('R')
+				v.delete('B')
+				v['inputVariables'].each do |v|
+					if variableScores_tmp[f][v].nil? then
+						variableScores_tmp[f][v]=1
+					else
+						variableScores_tmp[f][v]+=1
+					end
+				end
+			end
+			variableScores_tmp[f].each do |k,v|
+				variableScores_tmp[f][k]=(v.to_f/n.to_f).to_f.round(2)
+			end
+		end
+		updateRules=[]
+		functions.each do |k,v|
+			tmp=[]
+			v.each { |i,j| tmp.push(j) }
+			updateRules.push({"target"=>k,"functions"=>tmp})
+		end
+		variableScores=[]
+		variableScores_tmp.each do |k,v|
+			tmp=[]
+			v.each do |i,j|
+				tmp.push({"source"=>i,"score"=>j})
+			end
+			variableScores.push({"target"=>k,"sources"=>tmp})
+		end
+		output["output"]['variableScores']=variableScores
+		output["output"]['updateRules']=updateRules
+		return output
+	end
+
+	def run(output_file)
+		if output_file.nil? or output_file.empty? then
+			puts "Error: no output file given"
+			return 1
+		end
 		if self.create_fileManager("fileman.txt") then
-			system(@exec_file+' '+@file_manager+' output.txt')
-			if $?.exitstatus>0 or !File.exists?('output.txt') then
+			system(@exec_file+' '+@file_manager+' '+output_file)
+			if $?.exitstatus>0 or !File.exists?(output_file) then
 				puts "Error: error occured while trying to run algorithm"
 				return 1
-			else
-				File.open('output.txt','r') { |f| @raw_output=f.read() }
 			end
 			return 0
 		end
@@ -358,6 +446,6 @@ if $0 == __FILE__ then
 	json = JSON.parse(input)
 	task=Task.new(json,'.././React')
 	task.run()
-	puts task.render_output()
+	task.render_output()
 	task.clean_temp_files()
 end
