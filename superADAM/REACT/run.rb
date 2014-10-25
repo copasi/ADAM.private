@@ -27,18 +27,18 @@ case param
 		begin
 			puts "============== TEST1/3 ==============="
 			task1=React.new(test1,'./React')
-			task1.run()
-			task1.render_output()
+			task1.run('output.txt')
+			pp task1.render_output('output.txt')
 			task1.clean_temp_files()
 			puts "============== TEST2/3 ==============="
 			task2=React.new(test2,'./React')
-			task2.run()
-			task2.render_output()
+			task2.run('output.txt')
+			pp task2.render_output('output.txt')
 			task2.clean_temp_files()
 			puts "============== TEST3/3 ==============="
 			task3=React.new(test3,'./React')
-			task3.run()
-			task3.render_output()
+			task3.run('output.txt')
+			pp task3.render_output('output.txt')
 			task3.clean_temp_files()
 		rescue StandardError=>e
 			STDERR.puts "ERROR: "+e.to_s
