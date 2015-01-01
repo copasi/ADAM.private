@@ -1,0 +1,32 @@
+1. TT to polynomial
+2. polynomials to TT
+3. LM (in ginsim format) to polynomial (GS2PDS.m2...) IGNORE THIS FOR NOW
+4. Boolean Model (using ~ + *, or NOT, AND, OR) to polynomial
+
+5. (probabilistic or not) polynomial model --> brute force exhaustive enumeration of state space, generating a graphviz file
+  (super old perl code) Would be nice to replace this by cyclone?
+  output graph is not useful for even medium size input (for prob models)
+6. polynomial model --> one initial state --> get graphviz file of the trajectory
+7. polynomial model, limit cycle lengths (sizes 1,2,3 usually) --> get steady states and limit cycles of given lengths
+
+8. polynomial model --> dependency graph (currently done by regulatory.pl)
+9. large poly model --> calculate dynamics by brute force, but no graph (java/cyclone analysis executable)
+
+get rid of dvd_stochastic_runner.pl, if possible
+  note: cyclone doesn't handle prob input, and also doesn't generate a graph
+
+all of the functions/files called from adam.pl are the ones we want to have "json" versions of.
+
+functionality that we are not sure if they work:  either throw these out, or test them and make sure they are useful.
+  a. analysis of conjunctive networks (conjunctiveNetwork.rb)
+    need to check that the network is conjunctive!
+    a1. check that the code is correct. 
+      One way: use small systems that work with limitCycle code from above, and check that the answers are the same.
+  b. analysis by feedback cycles (circuits.rb)
+    Probably: remove this one?
+
+What about SDDS stuff?  Ask Seda.
+
+Petri nets (snoopy format): throw this out.
+
+openPDS: models with parameters.  Ask Seda about this.

@@ -1,0 +1,66 @@
+{
+  "task": {
+      "input": [
+          {
+            "description": "a very simple model",
+            "name": "Sample for testing",
+            "version": 1.0,
+            "type": "model",
+            "updateRules": [
+                {
+                    "functions": [
+                        {
+                        "inputVariables": ["x1","x2"],
+                        "polynomialFunction": "x1*x2",
+                        "target": "x1"
+                        }]
+                },
+                {
+                    "functions": [
+                        {
+                  "inputVariables": ["x1","x2"],
+                  "polynomialFunction": "x1+1",
+                  "target": "x2"
+}]
+                },
+                {
+                    "functions": [
+                        {
+                  "inputVariables": ["x1","x2"],
+                  "polynomialFunction": "x1+x2",
+                  "target": "x3"
+}]
+                }
+              ],
+            "variables": [
+                {
+                  "id": "x1",
+                  "name": "variable1",
+                  "states": ["0","1"]
+                },
+                {
+                  "id": "x2",
+                  "name": "variable2",
+                  "states": ["0","1"]
+                },
+                {
+                  "id": "x3",
+                  "name": "variable3",
+                  "states": ["0","1"]
+                }
+              ]
+          }
+        ],
+      "method": {
+          "arguments": [
+              {
+                "name": "cycleLengths",
+                "value": [1,2,3]
+              }
+            ],
+          "description": "using GB's to find fixed points and limit cycles",
+          "id": "limit-cycles-via-gb",
+          "type": "analysis"
+        }
+    }
+}

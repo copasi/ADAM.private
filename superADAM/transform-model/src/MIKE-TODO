@@ -1,0 +1,7 @@
+This is a list of things for me (or others) to do next:
+
+- verify routines: check semantics of model, timeseriesdata, others?
+- make sure all json files work, and use the new formats
+- limit cycles by gb: get this totally working
+- talk to Brandy, we will get basicRevEng working together
+- bug people about keeping superADAM clean, getting their parts done, doc, etc.

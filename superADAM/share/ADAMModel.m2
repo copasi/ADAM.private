@@ -240,7 +240,7 @@ findLimitCycles(Model, List, List) := (M, parameterValues, limitCycleLengths) ->
     then return errorPacket "expected model with only one function per node";
     mat := matrix{flatten PDS};
     H := for len in limitCycleLengths list (
-        limitcycles := gbSolver(PDS, len);
+        limitcycles := gbSolver(mat, len);
         len => toArray limitcycles
         );
     hashTable H
