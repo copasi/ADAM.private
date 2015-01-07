@@ -14,13 +14,13 @@ if #scriptCommandLine != 1 then (
     )
 
 ----------------------------
-print prettyPrintJSON parseModel get stdio
+print prettyPrintJSON verifyModel parseModel get stdio
     
 end
 
 -- Run these in the current directory    
-./verify-model <~/src/reinhard/cell-collective-json/Apoptosis_Network.json
-./verify-model <~/src/reinhard/cell-collective-json/B_bronchiseptica_and_T_retortaeformis_coinfection.json
+./verify-model <~/src/reinhard/cell-collective-json/Apoptosis_Network.json >foo
+./verify-model <~/src/reinhard/cell-collective-json/B_bronchiseptica_and_T_retortaeformis_coinfection.json >foo
 
 -- The following should give error packets, currently, as they are in an older format
 -- error: should not give an "error", should return an error packet!
@@ -39,3 +39,7 @@ M = parseJSON contents;
 M1 = modelFromJSONHashTable M;
 M2 = parseModel prettyPrintJSON M1;
 assert(M1 == M2)
+
+debug ADAMModel
+verifyModel M1
+

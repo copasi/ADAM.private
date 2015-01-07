@@ -29,6 +29,7 @@ export {
     "Model", 
     "model",
     "modelFromJSONHashTable",
+    "verifyModel",
     "checkModel",
     "parseModel", 
     "polynomials", 
@@ -164,20 +165,62 @@ verifyModel Model := (M) -> (
     -- result is either M or an ErrorPacket
     -- a 'model' should have been constructed via the 'model' function.
     -- First, we check that all the keys are expected
-    -- Second, we check the types of the easy ones
-    -- Third, we check the structure of variables, parameters
-    -- Fourth, check the updateRules
-    result := M#?"variables";
-    if not result then return false;
-    vars := M#"variables";
-    for f in vars do (
-        if not f#?"id" or not instance(f#"id", String) then return false;
-        if not f#?"states" or not instance(f#"states", List) then return false;
+    keysM := set keys M - set {symbol cache};
+    required := {"name", "description", "version", "variables", "updateRules"};
+    optional := {"parameters", "simlab"};
+    allkeys := join(required, optional);
+    -- First: check that all keys are a subset of allkeys
+    extras := keysM - set allkeys;
+    if #extras > 0 then (
+        -- there are fields we don't know about.  Return an error.
+        -- No one should be adding new fields that we don't know about.
+        return errorPacket("json model includes the following unknown key(s): "|toString toList extras);
         );
-    if not M#?"updateRules" then return false;
-    -- also to check:
+    -- Second: check that each key in 'required' occurs
+    missing := set required - keysM;
+    if #missing > 0 then (
+        return errorPacket("model is missing the following required key(s): "|toString toList missing);
+        );
+    -- at this point we are assured that the required keys are present.
+    -- Check the types of the easy ones
+    if not instance(M#"name", String) then
+      return errorPacket("verify model: name is not a String");
+    if not instance(M#"description", String) then
+      return errorPacket("verify model: description is not a String");
+    if not instance(M#"version", String) then
+      return errorPacket("verify model: version is not a String (it should not be a number)");
+    vars := M#"variables";
+    if not instance(vars, BasicList) then
+      return errorPacket("verify model: 'variables' should be a list");
+    for i from 1 to #vars do (
+        thisvar := vars#(i-1);
+        thisid := "x"|(toString i);
+        key := set keys thisvar;
+        -- keys should be among: {id, name, states}
+        extra := key - set{"id", "name", "states"};
+        missing := set{"id", "states"} - key;
+        if #extra > 0 then
+          return errorPacket("verify model: unexpected key(s) for variable: "|toString extra);
+        if #missing > 0 then
+          return errorPacket("verify model: missing key(s) for variable: "|toString missing);
+        -- now check the value of "id", and "states"
+        if not instance(thisvar#"id", String) then
+          return errorPacket("verify model: id for variable should be: '"|thisid|"'");
+        if thisvar#"id" != thisid then
+          return errorPacket("verify model: variable id '"|(thisvar#"id")|"' is not as expected: '"|("x"|(toString i))|"'");
+        if not instance(thisvar#"states", BasicList) 
+           or not all(thisvar#"states", f -> instance(f, String) or instance(f,ZZ)) then
+          return errorPacket("verify model: variable "|thisid|" states is not a list of strings or integers");
+        );
+      -- each element of 'vars' should have: ...
+    updates := M#"updateRules";
+    if not instance(updates, BasicList) then
+      return errorPacket "verify model: updateRules must be a list";
+    if #updates =!= #vars then
+      return errorPacket("verify model: #updateRules is "|toString (#updates)|" should match "|toString (#vars));
+    -- Fourth, check the updateRules
     ---- updateRules matches the description in doc/
-    result
+    M
     )
 
 modelFromJSONHashTable = method()
