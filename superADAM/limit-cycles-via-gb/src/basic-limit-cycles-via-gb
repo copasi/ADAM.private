@@ -1,0 +1,38 @@
+#!/usr/bin/env M2 --script
+
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+
+helpString = ///usage: basic-limit-cycles-via-gb json-model-file cycleLength param1 param2 ...
+  See "superADAM/limit-cycles-via-gb/doc" for the format of the input and output files
+  example output:
+    {"output": {"limitcycles": {"1": [[[0,1,1]]],"2": [],"3": []}}}
+///
+
+if #scriptCommandLine == 0 then (
+    stderr << helpString;
+    exit(1);
+    )
+
+--------------------------------
+debug ADAMModel
+print scriptCommandLine
+print scriptCommandLine#1
+M = parseModel get scriptCommandLine#1
+cycleLength = value scriptCommandLine#2
+nParams = # parameters M
+if nParams + 3 != #scriptCommandLine then
+  exit(1); -- or return error object.
+params = for i from 3 to nParams+2 list value scriptCommandLine#i  
+print cycleLength
+print params
+resultLimitCycles = findLimitCycles(M,params,cycleLength);
+print toJSON toHashTable {"output" => {"limitcycles" => resultLimitCycles}}
+
+end
+
+restart
+-- example:
+./basic-limit-cycles-via-gb ~/src/reinhard/cell-collective-json/Apoptosis_Network.json 1 0 0
+./basic-limit-cycles-via-gb ~/src/reinhard/cell-collective-json/Apoptosis_Network.json 1 1 0
+./basic-limit-cycles-via-gb ~/src/reinhard/cell-collective-json/Apoptosis_Network.json 1 0 1
+./basic-limit-cycles-via-gb ~/src/reinhard/cell-collective-json/Apoptosis_Network.json 3 1 1

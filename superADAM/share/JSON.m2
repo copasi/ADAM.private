@@ -260,8 +260,10 @@ placeOnOneLine = (L) -> (
     all(L, a -> instance(a, Number) or instance(a, String))
     or 
     -- a hack to get transition tables to print on one line
-    (#L == 2 and all(L#0, a -> instance(a, Number) or instance(a, String)) and 
-        (instance(L#1, Number) or instance(L#1, String)))
+    (#L == 2 
+        and instance(L#0, BasicList) 
+        and all(L#0, a -> instance(a, Number) or instance(a, String)) 
+        and (instance(L#1, Number) or instance(L#1, String)))
     )
 ppJSON = method()
 ppJSON(Symbol, ZZ) := (a, nindent) -> ppJSON(toString a, nindent)

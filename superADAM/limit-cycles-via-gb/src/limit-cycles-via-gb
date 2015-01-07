@@ -1,14 +1,11 @@
 #!/usr/bin/env M2 --script
 
-adamRoot = getenv("ADAM_ROOT")
-path = prepend(adamRoot | "/superADAM/share/", path)
-needsPackage "ADAMModel"
-needsPackage "JSON"
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 
 helpString = ///usage: limit-cycles-via-gb <json-taskfile >json-output-file
-See superADAM/limit-cycles-via-gb/doc for the format of the input and output files
-example output:
-  {"output": {"limitcycles": {"1": [[[0,1,1]]],"2": [],"3": []}}}
+  See "superADAM/limit-cycles-via-gb/doc" for the format of the input and output files
+  example output:
+    {"output": {"limitcycles": {"1": [[[0,1,1]]],"2": [],"3": []}}}
 ///
 
 if #scriptCommandLine != 1 then (
@@ -18,24 +15,7 @@ if #scriptCommandLine != 1 then (
 
 --------------------------------
 
-T = parseJSON get stdio
-{*
-  T = parseJSON get "../doc/sample-input.json"
-*}
-M = modelFromJSONHashTable T#"task"#"input"#0
-args = T#"task"#"method"#"arguments"
-if #args != 1 or args#0#"name" != "cycleLengths" then (
-    stderr << "expected one argument named 'cycleLengths'" << endl;
-    exit(1);
-    )
-cycleLengths = args#0#"value"
-if not all(cycleLengths, x -> instance(x, ZZ) and x >= 1) then (
-    stderr << "expected the limit cycle lengths to be positive integers" << endl;
-    exit(2);
-    )
-
-resultLimitCycles = findLimitCycles(M,{},cycleLengths)
-print toJSON toHashTable {"output" => {"limitcycles" => resultLimitCycles}}
+print wrFindLimitCycles get stdio
 
 end
 

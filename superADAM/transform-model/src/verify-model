@@ -1,8 +1,7 @@
 #!/usr/bin/env M2 --script
 
-path = prepend(currentDirectory()|"lib/M2code", path)
-debug needsPackage "ADAMModel"
-needsPackage "JSON"
+-- The following line should be placed in each M2 script
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 
 helpString = ///usage: verify-model <json-model-file >output-model
   If the model passes the verification suite, then the same model is passed to std output
@@ -15,14 +14,28 @@ if #scriptCommandLine != 1 then (
     )
 
 ----------------------------
-contents = get stdio
-M = parseModel contents
-if instance(M, ErrorPacket) then (
-    << toJSON M << endl
-) else (
-    << contents
-)
+print prettyPrintJSON parseModel get stdio
     
 end
-    
-./verify-model <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json
+
+-- Run these in the current directory    
+./verify-model <~/src/reinhard/cell-collective-json/Apoptosis_Network.json
+./verify-model <~/src/reinhard/cell-collective-json/B_bronchiseptica_and_T_retortaeformis_coinfection.json
+
+-- The following should give error packets, currently, as they are in an older format
+-- error: should not give an "error", should return an error packet!
+./verify-model <~/src/reinhard/ADAM/exampleJSON/SecondVersion1-Model.json
+
+end 
+-- in M2:
+restart
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+contents = get "~/src/reinhard/ADAM/exampleJSON/SecondVersion1-Model.json"
+parseModel contents
+parseJSON contents
+
+contents = get "~/src/reinhard/cell-collective-json/B_bronchiseptica_and_T_retortaeformis_coinfection.json"
+M = parseJSON contents;
+M1 = modelFromJSONHashTable M;
+M2 = parseModel prettyPrintJSON M1;
+assert(M1 == M2)

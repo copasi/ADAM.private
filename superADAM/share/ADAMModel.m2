@@ -137,10 +137,36 @@ checkEqual(HashTable,HashTable) := (H1,H2) -> (
     )
 checkEqual(Thing,Thing) := (a,b) -> a === b
 
-    
 
 checkModel = method()
 checkModel Model := (M) -> (
+    -- a 'model' should have been constructed via the 'model' function.
+    -- First, we check that all the keys are expected
+    -- Second, we check the types of the easy ones
+    -- Third, we check the structure of variables, parameters
+    -- Fourth, check the updateRules
+    result := M#?"variables";
+    if not result then return false;
+    vars := M#"variables";
+    for f in vars do (
+        if not f#?"id" or not instance(f#"id", String) then return false;
+        if not f#?"states" or not instance(f#"states", List) then return false;
+        );
+    if not M#?"updateRules" then return false;
+    -- also to check:
+    ---- updateRules matches the description in doc/
+    result
+    )
+
+verifyModel = method()
+verifyModel ErrorPacket := (M) -> M
+verifyModel Model := (M) -> (
+    -- result is either M or an ErrorPacket
+    -- a 'model' should have been constructed via the 'model' function.
+    -- First, we check that all the keys are expected
+    -- Second, we check the types of the easy ones
+    -- Third, we check the structure of variables, parameters
+    -- Fourth, check the updateRules
     result := M#?"variables";
     if not result then return false;
     vars := M#"variables";
@@ -157,6 +183,23 @@ checkModel Model := (M) -> (
 modelFromJSONHashTable = method()
 modelFromJSONHashTable HashTable := (M) -> (
     if instance(M, ErrorPacket) then return M;
+    keysM := set keys M;
+    required := {"name", "type", "description", "version", "variables", "updateRules"};
+    optional := {"parameters", "simlab"};
+    allkeys := join(required, optional);
+    -- First: check that all keys are a subset of allkeys
+    extras := keysM - set allkeys;
+    if #extras > 0 then (
+        -- there are fields we don't know about.  Return an error.
+        -- No one should be adding new fields that we don't know about.
+        return errorPacket("json model includes the following unknown key(s): "|toString toList extras);
+        );
+    -- Second: check that each key in 'required' occurs
+    missing := set required - keysM;
+    if #missing > 0 then (
+        return errorPacket("model is missing the following required key(s): "|toString toList missing);
+        );
+    -- Note: actual types are checked in 'checkModel', not here
     if not M#"type" === "model" then 
       return errorPacket "internal error: input is not a Model ot ErrorPacket";
     model(M#"name", 
