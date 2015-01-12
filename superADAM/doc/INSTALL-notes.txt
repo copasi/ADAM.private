@@ -10,5 +10,12 @@ export PATH=$ADAM_ROOT/superADAM/bin:$ADAM_ROOT/superADAM/share:$PATH
 
    Make sure that M2 is on your PATH.
    
+4. for SDDS, install
 
+    sudo perl -MCPAN -e shell
 
+    (answer the defaults if you choose)
+
+    sudo perl -MCPAN -e 'install Getopt::Euclid'
+    sudo perl -MCPAN -e 'install JSON::Parse'
+    sudo perl -MCPAN -e 'install JSON'
