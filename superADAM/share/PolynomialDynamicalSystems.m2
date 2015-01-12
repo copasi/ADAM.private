@@ -127,11 +127,11 @@ createRevEngJSONOutputModel List := (L) -> (
             { 
                 "target" => toString R_i,
                 "functions" => new Array from for j from 0 to #L_i-1 list(
-                    [{
+                    {
                             "inputVariables"=>apply(new Array from support L#i#j#0, toString),
                             "polynomialFunction"=>toString L#i#j#0,
 				            "score"=>L#i#j#1
-                    }]
+                    }
                     )
             }
         )})
