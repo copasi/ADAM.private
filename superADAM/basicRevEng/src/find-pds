@@ -18,6 +18,7 @@ if #scriptCommandLine != 1 then (
 --------------------------------
 TS = readTSDataFromJSON get stdio
 PDS = findPDS TS
+PDS = for f in PDS list {{f,1.0}} -- hack for the moment: output file expects lists of triples of poly functinos
 outputJSON = prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
 << outputJSON << endl;
 
@@ -26,13 +27,15 @@ end
 restart
 -- example:
 ./find-pds <../test/Gepasi-input.json
+./find-pds <../test/test1-input.json >foo-1
 ./find-pds help
 
 restart
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-TS = readTSDataFromJSON get "../test/Gepasi-input.json"
+TS = readTSDataFromJSON get "../basicRevEng/test/test1-input.json"
 PDS = findPDS TS
-createRevEngJSONOutputModel PDS -- currently failing
+PDS = for f in PDS list {{f,1.0}}
+createRevEngJSONOutputModel PDS
 toHashTable oo
 outputJSON = prettyPrintJSON oo

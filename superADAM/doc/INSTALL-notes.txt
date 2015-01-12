@@ -1,11 +1,14 @@
 1. First, git clone ADAM
 
 
-2. The following need to be placed in your .profile, where ADAM_ROOT should be the directory cloned into.
+2. The following need to be placed in your ~/.profile, where ADAM_ROOT should be the directory cloned into.
 
 export ADAM_ROOT=~/src/reinhard/ADAM/
 export PATH=$ADAM_ROOT/superADAM/bin:$ADAM_ROOT/superADAM/share:$PATH
 
 3. Install Macaulay2, preferably version 1.7 or later.
+
+   Make sure that M2 is on your PATH.
+   
 
 

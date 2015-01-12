@@ -116,25 +116,37 @@ readTSDataFromJSON(String) := (jsonData) -> (
 createRevEngJSONOutputModel = method()
 createRevEngJSONOutputModel List := (L) -> (
     -- Better have at least one variable
+    -- MES: currently, input is expected to be a list of polynomials
     assert(#L > 0);
     R := ring L#0#0#0;
-    {"reverseEngineeringOutputModel" => {
-            "numberVariables" => numgens R,
-            "fieldCardinality" => char R,
-            "updateRules" => for i from 0 to numgens R - 1 list (
-                toString R_i => new Array from for j from 0 to #L_i-1 list 
-				[{"inputVariables"=>apply(new Array from support L#i#j#0, toString),
-                                  "polynomialFunction"=>toString L#i#j#0,
-				  "score"=>L#i#j#1}]
-                )
-    }})
+    {
+        "type"=>"reverseEngineeringOutput",
+        "numberVariables" => numgens R,
+        "fieldCardinality" => char R,
+        "updateRules" => new Array from for i from 0 to numgens R - 1 list (
+            { 
+                "target" => toString R_i,
+                "functions" => new Array from for j from 0 to #L_i-1 list(
+                    [{
+                            "inputVariables"=>apply(new Array from support L#i#j#0, toString),
+                            "polynomialFunction"=>toString L#i#j#0,
+				            "score"=>L#i#j#1
+                    }]
+                    )
+            }
+        )})
 
 readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
  -- input argument follows description in reverse-engineering-input-data.json
 readTSDataFromJSON String := (jsonInput) -> (
     -- XXXXXX
     H := parseJSON jsonInput;
-    data := H#"task"#"input"#"reverseEngineeringInputData";
+    inputs := H#"task"#"input";
+    if not instance(inputs, BasicList) then
+    return errorPacket "expected array of inputs";
+    data := inputs#0;
+    if not instance(data, HashTable) or not data#?"type" or data#"type" != "reverseEngineeringInputData" then 
+    return errorPacket "input is not reverse engineering input data";
     n := data#"numberVariables";
     p := data#"fieldCardinality";
     kk := ZZ/p;

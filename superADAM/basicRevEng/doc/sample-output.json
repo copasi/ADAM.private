@@ -4,7 +4,7 @@
     "description": "optional place to put comments - basic output file from a reverse engineering method specifying a PDS",
     "fieldCardinality": 5,
     "numberVariables": 4,
-    "type": "reverseEngineeringOutputModel",
+    "type": "reverseEngineeringOutput",
     "updateRules": [
         {
         "functions": [
