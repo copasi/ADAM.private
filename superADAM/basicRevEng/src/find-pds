@@ -1,8 +1,11 @@
 #!/usr/bin/env M2 --script
 
-path = prepend(currentDirectory()|"lib/M2code", path)
-needsPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
-needsPackage "JSON"
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+
+--path = prepend(currentDirectory()|"lib/M2code", path)
+-- needsPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
+--needsPackage "JSON"
 
 helpString = ///usage: find-pds <json-rev-eng-input-data >json-rev-eng-output-model
 ///
@@ -22,5 +25,14 @@ end
 
 restart
 -- example:
-./find-pds <./ReverseEngineering/Gepasi.json
+./find-pds <../test/Gepasi-input.json
 ./find-pds help
+
+restart
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/Gepasi-input.json"
+PDS = findPDS TS
+createRevEngJSONOutputModel PDS -- currently failing
+toHashTable oo
+outputJSON = prettyPrintJSON oo

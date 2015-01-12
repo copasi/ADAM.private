@@ -4,32 +4,34 @@
           {
             "description": "a very simple model",
             "name": "Sample for testing",
-            "version": 1.0,
             "type": "model",
             "updateRules": [
                 {
-                    "functions": [
-                        {
+                  "functions": [
+                      {
                         "inputVariables": ["x1","x2"],
                         "polynomialFunction": "x1*x2",
                         "target": "x1"
-                        }]
+                      }
+                    ]
                 },
                 {
-                    "functions": [
-                        {
-                  "inputVariables": ["x1","x2"],
-                  "polynomialFunction": "x1+1",
-                  "target": "x2"
-}]
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x2"],
+                        "polynomialFunction": "x1+1",
+                        "target": "x2"
+                      }
+                    ]
                 },
                 {
-                    "functions": [
-                        {
-                  "inputVariables": ["x1","x2"],
-                  "polynomialFunction": "x1+x2",
-                  "target": "x3"
-}]
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x2"],
+                        "polynomialFunction": "x1+x2",
+                        "target": "x3"
+                      }
+                    ]
                 }
               ],
             "variables": [
@@ -48,7 +50,8 @@
                   "name": "variable3",
                   "states": ["0","1"]
                 }
-              ]
+              ],
+            "version": 1
           }
         ],
       "method": {
