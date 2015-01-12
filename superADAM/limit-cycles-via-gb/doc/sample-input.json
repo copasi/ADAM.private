@@ -7,29 +7,29 @@
             "type": "model",
             "updateRules": [
                 {
+                    "target": "x1",
                   "functions": [
                       {
                         "inputVariables": ["x1","x2"],
-                        "polynomialFunction": "x1*x2",
-                        "target": "x1"
+                        "polynomialFunction": "x1*x2"
                       }
                     ]
                 },
                 {
+                    "target": "x2",
                   "functions": [
                       {
                         "inputVariables": ["x1","x2"],
-                        "polynomialFunction": "x1+1",
-                        "target": "x2"
+                        "polynomialFunction": "x1+1"
                       }
                     ]
                 },
                 {
+                    "target": "x3",
                   "functions": [
                       {
                         "inputVariables": ["x1","x2"],
-                        "polynomialFunction": "x1+x2",
-                        "target": "x3"
+                        "polynomialFunction": "x1+x2"
                       }
                     ]
                 }
