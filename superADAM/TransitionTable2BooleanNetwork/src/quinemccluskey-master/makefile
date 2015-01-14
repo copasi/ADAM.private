@@ -1,4 +1,4 @@
-CC=g++
+#CC=g++
 
 .SUFFIXES: .cc .o
 
@@ -8,7 +8,7 @@ CC=g++
 all: qm
 
 qm: main.o minterm.o
-	$(CC) -o qm main.o minterm.o
+	$(CXX) -o qm main.o minterm.o
 
 clean : 
 	rm -f *.o qm

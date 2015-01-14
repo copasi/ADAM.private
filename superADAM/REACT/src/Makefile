@@ -5,34 +5,34 @@
 #  primary target goes first
 #
 React: BitStringNew.o DynSysModel.o NTuple.o Monomial.o Polynomial.o GAParams.o FileManager.o GAModel.o React.o
-	g++ BitStringNew.o DynSysModel.o NTuple.o Monomial.o Polynomial.o GAParams.o FileManager.o GAModel.o React.o -O3 -o React
+	$(CXX) BitStringNew.o DynSysModel.o NTuple.o Monomial.o Polynomial.o GAParams.o FileManager.o GAModel.o React.o -O3 -o React
 
 BitStringNew.o: BitString.cpp
-	gcc BitStringNew.cpp -O3 -c
+	$(CXX) BitStringNew.cpp -O3 -c
 
 DynSysModel.o: DynSysModel.cpp
-	gcc DynSysModel.cpp -O3 -c -g
+	$(CXX) DynSysModel.cpp -O3 -c -g
 
 NTuple.o: NTuple.cpp
-	gcc NTuple.cpp -O3 -c -g
+	$(CXX) NTuple.cpp -O3 -c -g
 
 Monomial.o: Monomial.cpp
-	gcc Monomial.cpp -O3 -c -g
+	$(CXX) Monomial.cpp -O3 -c -g
 
 Polynomial.o: Polynomial.cpp
-	gcc Polynomial.cpp -O3 -c -g
+	$(CXX) Polynomial.cpp -O3 -c -g
 
 GAParams.o: GAParams.cpp
-	gcc GAParams.cpp -O3 -c -g
+	$(CXX) GAParams.cpp -O3 -c -g
 
 FileManager.o: FileManager.cpp
-	gcc FileManager.cpp -O3 -c -g
+	$(CXX) FileManager.cpp -O3 -c -g
 
 GAModel.o: GAModel.cpp
-	gcc GAModel.cpp -O3 -c -g
+	$(CXX) GAModel.cpp -O3 -c -g
 
 React.o: React.cpp
-	gcc React.cpp -O3 -c -g
+	$(CXX) React.cpp -O3 -c -g
 
 
 clean:
