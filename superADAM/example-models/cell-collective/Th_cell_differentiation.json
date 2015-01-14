@@ -1,0 +1,321 @@
+{
+"description": "Luis Mendoza, A network model for the control of the differentiation process in Th cells, Biosystems, Vol 84, Issue 2, 2006, pp. 101-114 (http://www.sciencedirect.com/science/article/pii/S030326470500170X)",
+"name": "Th_cell_differentiation",
+"parameters": [
+    {
+    "id": "k1",
+    "name": "IFNb",
+    "states": [0,1]
+    },
+    {
+    "id": "k2",
+    "name": "IFNg_e",
+    "states": [0,1]
+    },
+    {
+    "id": "k3",
+    "name": "IL4_e",
+    "states": [0,1]
+    },
+    {
+    "id": "k4",
+    "name": "IL12",
+    "states": [0,1]
+    },
+    {
+    "id": "k5",
+    "name": "IL18",
+    "states": [0,1]
+    }
+  ],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x14","x13"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k1"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14","x9","x12","k2"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],1],
+            [[0,0,1,0],1],
+            [[0,0,1,1],1],
+            [[0,1,0,0],1],
+            [[0,1,0,1],1],
+            [[0,1,1,0],1],
+            [[0,1,1,1],1],
+            [[1,0,0,0],1],
+            [[1,0,0,1],1],
+            [[1,0,1,0],1],
+            [[1,0,1,1],1],
+            [[1,1,0,0],1],
+            [[1,1,0,1],1],
+            [[1,1,1,0],1],
+            [[1,1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x10","x3"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x1","k3"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5","x10"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","k4"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","k5"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x14"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x4"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x7"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x6"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x1","x14"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x14"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "GATA3",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "IFNbR",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "IFNg",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "IFNgR",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "IL4",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "IL4R",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "IL12R",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "IL18R",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "IRAK",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "SOCS1",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "STAT1",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "STAT4",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "STAT6",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "Tbet",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

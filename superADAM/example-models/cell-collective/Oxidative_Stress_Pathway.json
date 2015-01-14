@@ -1,0 +1,378 @@
+{
+"description": "Published in BMC Genomics: S. Sridharan et.al. BMC Genomic 2012, 13(Suppl 6):S4 http://www.biomedcentral.com/1471-2164/13/S6/S4",
+"name": "Oxidative_Stress_Pathway",
+"parameters": [
+    {
+    "id": "k1",
+    "name": "Stress",
+    "states": [0,1]
+    }
+  ],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x10","x4","x7","x19"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],0],
+            [[0,1,0,1],0],
+            [[0,1,1,0],0],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],0],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],0],
+            [[1,1,0,1],0],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x5"],
+        "transitionTable": [
+            [[0,0],1],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18","x10"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x3","x11"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8","x15","x1"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x9"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x17"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x12"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x16","x13"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x14"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18","x2"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x15"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x16"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x17"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k1","x2"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x18"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x19"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "Akt",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "ARE",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "ATM",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "Bach1",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "Bad",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "Bcl2",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "GSK3b",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "Keap1",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "Mdm2",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "Nrf2",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "p53",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "PI3K",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "PIP2",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "PIP3_345",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "PKC",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "PTEN",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "Ras",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "ROS",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "SMP",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

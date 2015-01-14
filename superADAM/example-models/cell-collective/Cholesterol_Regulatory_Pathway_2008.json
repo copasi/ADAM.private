@@ -1,0 +1,609 @@
+{
+"description": "Cholesterol regulatory pathway published in: https://www.biomedcentral.com/1752-0509/2/99",
+"name": "Cholesterol_Regulatory_Pathway_2008",
+"parameters": [],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x2"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x10","x31"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x9"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x26"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x25"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","x16"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x15"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x14"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x15"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x25"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x16"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x21","x2"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x17"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x34","x20"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x18"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x19"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x19"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x20"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x23"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x21"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x22"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x22"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x23"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x6"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x24"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x28"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x25"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x32"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x26"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x17","x18"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x27"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x27"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x28"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x30"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x29"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x33"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x30"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x26"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x31"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x12"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x32"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x24","x34"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x33"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x34"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x34"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "Acetoacetyl_CoA",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "Acetyl_CoA",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "Acetyl_CoA_acetyltransferase",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "Acetyl_CoA_acetyltransferase_gene",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "Acetyl_CoA_acetyltransferase_RNA",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "Cholesterol",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "Cyp51",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "Cyp51_gene",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "Cyp51_RNA",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "Desmosterol",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "Dimethyl_allyl_pyrophosphate",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "Farnesyl_pyrophosphate",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "FPP_Synthase",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "FPP_Synthase_gene",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "FPP_Synthase_RNA",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "Geranyl_pyrophosphate",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "HMG_CoA",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "HMG_CoA_Reductase",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "HMG_CoA_Reductase_gene",
+    "states": [0,1]
+    },
+    {
+    "id": "x20",
+    "name": "HMG_CoA_Reductase_RNA",
+    "states": [0,1]
+    },
+    {
+    "id": "x21",
+    "name": "HMG_CoA_Synthase",
+    "states": [0,1]
+    },
+    {
+    "id": "x22",
+    "name": "HMG_CoA_Synthase_gene",
+    "states": [0,1]
+    },
+    {
+    "id": "x23",
+    "name": "HMG_CoA_Synthase_RNA",
+    "states": [0,1]
+    },
+    {
+    "id": "x24",
+    "name": "Insig_SREBP_SCAP",
+    "states": [0,1]
+    },
+    {
+    "id": "x25",
+    "name": "Isopentenyl_pyrophosphate",
+    "states": [0,1]
+    },
+    {
+    "id": "x26",
+    "name": "Lanosterol",
+    "states": [0,1]
+    },
+    {
+    "id": "x27",
+    "name": "Mevalonic_Acid",
+    "states": [0,1]
+    },
+    {
+    "id": "x28",
+    "name": "Mevalonyl_pyrophosphate",
+    "states": [0,1]
+    },
+    {
+    "id": "x29",
+    "name": "mSREBP",
+    "states": [0,1]
+    },
+    {
+    "id": "x30",
+    "name": "pSREBP",
+    "states": [0,1]
+    },
+    {
+    "id": "x31",
+    "name": "Septdehydrocholesterol",
+    "states": [0,1]
+    },
+    {
+    "id": "x32",
+    "name": "Squaline",
+    "states": [0,1]
+    },
+    {
+    "id": "x33",
+    "name": "SREBP_SCAP",
+    "states": [0,1]
+    },
+    {
+    "id": "x34",
+    "name": "Statins",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

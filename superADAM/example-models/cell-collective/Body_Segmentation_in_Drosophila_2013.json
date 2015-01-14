@@ -1,0 +1,311 @@
+{
+"description": "Canalization and Control in Automata Networks: body segmentation in Drosophila melanogaster. Marques-Pita M, Rocha LM. PLoS One. 2013;8(3):e55946. doi: 10.1371/journal.pone.0055946. Epub 2013 Mar 8.",
+"name": "Body_Segmentation_in_Drosophila_2013",
+"parameters": [
+    {
+    "id": "k1",
+    "name": "hh_external",
+    "states": [0,1]
+    },
+    {
+    "id": "k2",
+    "name": "SLP",
+    "states": [0,1]
+    },
+    {
+    "id": "k3",
+    "name": "WG_external",
+    "states": [0,1]
+    }
+  ],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x6"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","k1","x2"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","k1","x2"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],0],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k2","k3"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4","x6"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x7"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","k1"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4","x3","x6"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x10","x11","k1"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],1],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","k1"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k2","x13","x4","x3"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],0],
+            [[0,1,0,1],1],
+            [[0,1,1,0],0],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],1],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],1],
+            [[1,1,0,1],1],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x14"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "ci",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "CI_protein",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "CIA",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "CIR",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "en",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "EN_protein",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "hh",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "HH_protein",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "PH",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "ptc",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "PTC_protein",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "SMO",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "wg",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "WG_protein",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

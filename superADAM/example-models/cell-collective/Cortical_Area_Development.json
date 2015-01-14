@@ -1,0 +1,126 @@
+{
+"description": "Gene Regulation of Mammalian Cortical Area Development Published in: Giacomantonio CE, Goodhill GJ (2010) A Boolean Model of the Gene Regulatory Network Underlying Mammalian Cortical Area Development. PLoS Comput Biol 6(9): e1000936",
+"name": "Cortical_Area_Development",
+"parameters": [],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x5"],
+        "transitionTable": [
+            [[0,0],1],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x5","x4","x1"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],1],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],0],
+            [[0,1,0,1],0],
+            [[0,1,1,0],0],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],0],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],0],
+            [[1,1,0,1],0],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x5","x2"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5","x2","x1"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x2"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x5"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "Coup_fti",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "Emx2",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "Fgf8",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "Pax6",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "Sp8",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

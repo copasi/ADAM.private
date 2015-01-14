@@ -1,0 +1,805 @@
+{
+"description": "From the article: Mai Z, Liu H. Boolean network-based analysis of the apoptosis network: irreversible apoptosis and stable surviving. J Theor Biol. 2009 Aug 21;259(4):760-9. doi: 10.1016/j.jtbi.2009.04.024. Epub 2009 May 5.",
+"name": "Apoptosis_Network",
+"parameters": [
+    {
+    "id": "k1",
+    "name": "GF",
+    "states": [0,1]
+    },
+    {
+    "id": "k2",
+    "name": "TNF",
+    "states": [0,1]
+    }
+  ],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x27"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x32"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x13","x26","x19"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],0],
+            [[0,1,0,1],0],
+            [[0,1,1,0],0],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],0],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],0],
+            [[1,1,0,1],0],
+            [[1,1,1,0],1],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x29"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x27","x5","x29"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x22","x12","x6","x29"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],0],
+            [[0,1,0,1],1],
+            [[0,1,1,0],0],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],1],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],0],
+            [[1,1,0,1],1],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4","x12","x10","x19"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],1],
+            [[0,0,1,1],1],
+            [[0,1,0,0],1],
+            [[0,1,0,1],0],
+            [[0,1,1,0],1],
+            [[0,1,1,1],1],
+            [[1,0,0,0],1],
+            [[1,0,0,1],0],
+            [[1,0,1,0],1],
+            [[1,0,1,1],1],
+            [[1,1,0,0],1],
+            [[1,1,0,1],0],
+            [[1,1,1,0],1],
+            [[1,1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8","x19"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4","x12","x19"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x15","x17","x10"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x8","x14","x19"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],1],
+            [[0,0,1,1],0],
+            [[0,1,0,0],1],
+            [[0,1,0,1],0],
+            [[0,1,1,0],1],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],0],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],0],
+            [[1,1,0,1],0],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x14"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x38"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x15"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8","x9"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x16"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x37"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x17"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k1"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x18"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8","x27","x10","x26"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],0],
+            [[0,0,1,1],0],
+            [[0,1,0,0],1],
+            [[0,1,0,1],0],
+            [[0,1,1,0],1],
+            [[0,1,1,1],0],
+            [[1,0,0,0],0],
+            [[1,0,0,1],0],
+            [[1,0,1,0],0],
+            [[1,0,1,1],0],
+            [[1,1,0,0],1],
+            [[1,1,0,1],0],
+            [[1,1,1,0],0],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x19"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x27","x21"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x20"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x1","x28"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x21"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x23"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x22"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x25"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x23"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x29"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x24"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x34"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x25"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x7","x6"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x26"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x20"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x27"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x39"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x28"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x22","x16","x24"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x29"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x30"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x31"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x31","x30","x33"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x32"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x29"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x33"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x37"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x34"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k2"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x35"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k2"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x36"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x35"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x37"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x37"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x38"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x36"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x39"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "A20",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "AKT",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "Apaf1",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "APC",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "BAD",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "BclX",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "BID",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "Cas3",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "Cas3_dummy",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "Cas6",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "Cas7",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "Cas8",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "Cas9",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "Cas12",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "cFLIP",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "DNADamageEvent",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "FADD",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "GFR",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "IAP",
+    "states": [0,1]
+    },
+    {
+    "id": "x20",
+    "name": "IkB",
+    "states": [0,1]
+    },
+    {
+    "id": "x21",
+    "name": "IKK",
+    "states": [0,1]
+    },
+    {
+    "id": "x22",
+    "name": "JNK",
+    "states": [0,1]
+    },
+    {
+    "id": "x23",
+    "name": "JNKK",
+    "states": [0,1]
+    },
+    {
+    "id": "x24",
+    "name": "Mdm2",
+    "states": [0,1]
+    },
+    {
+    "id": "x25",
+    "name": "MEKK1",
+    "states": [0,1]
+    },
+    {
+    "id": "x26",
+    "name": "Mito",
+    "states": [0,1]
+    },
+    {
+    "id": "x27",
+    "name": "NFkB",
+    "states": [0,1]
+    },
+    {
+    "id": "x28",
+    "name": "NIK",
+    "states": [0,1]
+    },
+    {
+    "id": "x29",
+    "name": "p53",
+    "states": [0,1]
+    },
+    {
+    "id": "x30",
+    "name": "PI3K",
+    "states": [0,1]
+    },
+    {
+    "id": "x31",
+    "name": "PIP2",
+    "states": [0,1]
+    },
+    {
+    "id": "x32",
+    "name": "PIP3",
+    "states": [0,1]
+    },
+    {
+    "id": "x33",
+    "name": "PTEN",
+    "states": [0,1]
+    },
+    {
+    "id": "x34",
+    "name": "RIP",
+    "states": [0,1]
+    },
+    {
+    "id": "x35",
+    "name": "TNFR1",
+    "states": [0,1]
+    },
+    {
+    "id": "x36",
+    "name": "TNFR2",
+    "states": [0,1]
+    },
+    {
+    "id": "x37",
+    "name": "TRADD",
+    "states": [0,1]
+    },
+    {
+    "id": "x38",
+    "name": "TRAF",
+    "states": [0,1]
+    },
+    {
+    "id": "x39",
+    "name": "TRAF2",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

@@ -1,0 +1,508 @@
+{
+"description": "Calzone L, Tournier L, Fourquet S, Thieffry D, Zhivotovsky B, et al. (2010) Mathematical Modelling of Cell-Fate Decision in Response to Death Receptor Engagement. PLoS Comput Biol 6(3): e1000702. doi:10.1371/journal.pcbi.1000702",
+"name": "Death_Receptor_Signaling",
+"parameters": [
+    {
+    "id": "k1",
+    "name": "FADD",
+    "states": [0,1]
+    },
+    {
+    "id": "k2",
+    "name": "FASL",
+    "states": [0,1]
+    },
+    {
+    "id": "k3",
+    "name": "TNF",
+    "states": [0,1]
+    }
+  ],
+"type": "model",
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x6"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3","x10","x25"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],0],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x15"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x7","x5"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x16"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x25","x2"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x12","x6","x8"],
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],0],
+            [[0,0,1,0],1],
+            [[0,0,1,1],0],
+            [[0,1,0,0],1],
+            [[0,1,0,1],0],
+            [[0,1,1,0],1],
+            [[0,1,1,1],0],
+            [[1,0,0,0],1],
+            [[1,0,0,1],0],
+            [[1,0,1,0],1],
+            [[1,0,1,1],0],
+            [[1,1,0,0],1],
+            [[1,1,0,1],0],
+            [[1,1,1,0],1],
+            [[1,1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x16"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x9","x16","x22"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k2","k1"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k1","x24"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x20"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x4","x15"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x14"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5","x21"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x15"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","x6"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x16"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x3"],
+        "transitionTable": [
+            [[0],1],
+            [[1],0]
+          ]
+        }
+      ],
+    "target": "x17"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x24","x7"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],0],
+            [[0,1,0],1],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],0],
+            [[1,1,0],1],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x18"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x19"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x18","x9"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],0],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x20"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x19","x16","x15"],
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x21"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x22"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x16"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x23"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k3"],
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x24"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x16","x22"],
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x25"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "name": "apoptosis",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "name": "apoptosome",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "name": "ATP",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "name": "BAX",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "name": "BCL2",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "name": "CASP3",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "name": "CASP8",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "name": "cFLIP",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "cIAP",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "name": "Cyt_c",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "name": "DISC-FAS",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "name": "DISC-TNF",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "name": "IKK",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "name": "MOMP",
+    "states": [0,1]
+    },
+    {
+    "id": "x15",
+    "name": "MPT",
+    "states": [0,1]
+    },
+    {
+    "id": "x16",
+    "name": "NFkB",
+    "states": [0,1]
+    },
+    {
+    "id": "x17",
+    "name": "NonACD",
+    "states": [0,1]
+    },
+    {
+    "id": "x18",
+    "name": "RIP1",
+    "states": [0,1]
+    },
+    {
+    "id": "x19",
+    "name": "RIP1k",
+    "states": [0,1]
+    },
+    {
+    "id": "x20",
+    "name": "RIP1ub",
+    "states": [0,1]
+    },
+    {
+    "id": "x21",
+    "name": "ROS",
+    "states": [0,1]
+    },
+    {
+    "id": "x22",
+    "name": "SMAC",
+    "states": [0,1]
+    },
+    {
+    "id": "x23",
+    "name": "survival",
+    "states": [0,1]
+    },
+    {
+    "id": "x24",
+    "name": "TNFR",
+    "states": [0,1]
+    },
+    {
+    "id": "x25",
+    "name": "XIAP",
+    "states": [0,1]
+    }
+  ],
+"version": "1.0"
+}

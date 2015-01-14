@@ -1,0 +1,19 @@
+These boolean models are taken from the web site:
+
+        http://thecellcollective.org/
+
+    Click on "Models", currently, this is the resulting link:
+
+        http://thecellcollective.org/cc.web/spring/internal-model-management?execution=e3s1
+    
+For each of these, I by hand downloaded transition table versions of
+these (obtaining a zip file), and then used code which currently
+resides in transform-model/src/read-cell-collective-model.m2 to
+generate these files.  It is not exactly automated, as the packaging
+and download process took some time.  And one needs to use the m2 code
+"by hand" currently.  But it mostly works.
+
+One model was too large for transition tables.  TODO: grab the boolean
+function versions of these models.
+
+    -- mike stillman, 14 jan 2015    
