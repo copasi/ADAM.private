@@ -338,8 +338,8 @@ class React < Task
 			puts "RAW_OUTPUT_FILE_DOES_NOT_EXISTS"
 			return
 		end
-		output={"output"=>Array.new()}
-		output["output"]={
+		@output={"output"=>Array.new()}
+		@output["output"]={
 			"type"=>"model",
 			"description"=>"PLEASE FILL IN",
 			"name"=>"reverseEngineeringOutputModel",
@@ -419,24 +419,34 @@ class React < Task
 			end
 			variableScores.push({"target"=>k,"sources"=>tmp})
 		end
-		output["output"]['variableScores']=variableScores
-		output["output"]['updateRules']=updateRules
-		return output
+		@output["output"]['variableScores']=variableScores
+		@output["output"]['updateRules']=updateRules
+		return @output
 	end
 
-	def run(output_file)
+	def run(output_file,params=nil)
 		if output_file.nil? or output_file.empty? then
 			puts "Error: no output file given"
 			return 1
 		end
+		test_flag=''
+		if params==:test then
+			test_flag=' --test'
+		end
 		if self.create_fileManager("fileman.txt") then
-			system(@exec_file+' '+@file_manager+' '+output_file)
+			system(@exec_file+' '+@file_manager+' '+output_file+test_flag)
 			if $?.exitstatus>0 or !File.exists?(output_file) then
 				puts "Error: error occured while trying to run algorithm"
 				return 1
 			end
 			return 0
 		end
+	end
+
+	def test(output_ref)
+		check1=output_ref['output']['variableScores']==@output['output']['variableScores']
+		check2=output_ref['output']['updateRules']==@output['output']['updateRules']
+		return (check1 and check2)
 	end
 end
 

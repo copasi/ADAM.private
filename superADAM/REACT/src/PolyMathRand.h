@@ -12,9 +12,13 @@ public:
 	}
 
 	// Seed the random number generator from the current time
-	static void Randomize( )
+	static void Randomize( int seed )
 	{
-		unsigned int s = static_cast<unsigned int>( time(0));
+		if (seed==0)
+		{
+			seed=time(0);
+		}
+		unsigned int s = static_cast<unsigned int>( seed );
 		srand( s );
 	}
 

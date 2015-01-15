@@ -9,6 +9,8 @@
 //		Last update	30-Dec-2005
 
 #include "BoolModel.h"
+#include <cstring>
+#define TEST_SEED 1234
 
 void test_BitStringNew()
 {
@@ -272,7 +274,7 @@ void test_DynSysModel()
 
 void test_polymath_rand()
 {
-	PolyMathRand::Randomize();
+	PolyMathRand::Randomize( 0 );
 
 	int i = 10;
 	while( --i >= 0 )
@@ -462,20 +464,27 @@ int main( int num_args, char* cmd_line_args[] )
 	{
 		String control_file_path = "GaControlFile.txt";
 		char *best_models_filename = (char*) "BestModels.txt";
-        if (num_args < 2)
-        {
-            std::cout << "Use React with the parameters:" << std::endl;
-            std::cout << "./React controlfilepath (usually fileman.txt) outputfilename" << std::endl; 
-            return 0;
-        }
+		int seed = time(0);
+		if (num_args < 2)
+		{
+			std::cout << "Use React with the parameters:" << std::endl;
+			std::cout << "./React controlfilepath (usually fileman.txt) outputfilename [--test]" << std::endl; 
+			std::cout << "Note: Appending --test will run React with a pre-defined random seed, use it ONLY for testing purposes, ignore otherwise." << std::endl; 
+			return 0;
+		}
 		if( num_args >= 2 )
 		{
 			control_file_path = String( cmd_line_args[1] );
 		}
 		if (num_args >= 3)
-		  {
-		    best_models_filename = cmd_line_args[2];
-		  }
+		{
+			best_models_filename = cmd_line_args[2];
+		}
+		if (num_args >= 4 && !strcmp(cmd_line_args[3],"--test"))
+		{
+			seed=TEST_SEED;
+			std::cout << "Running React in test configuration. DO NOT USE RESULTS FOR ANYTHING OTHER THAN TESTING PURPOSES." << std::endl;
+		}
 		std::cout << "Opening: " << control_file_path << std::endl;
 
 		// Initialize the run based on the control file
@@ -483,6 +492,7 @@ int main( int num_args, char* cmd_line_args[] )
 		ga.InitializeGA( control_file_path );
 
 		// Run the GA until convergence
+		ga.Randomize( seed );
 		ga.Run( best_models_filename );
 
 	}

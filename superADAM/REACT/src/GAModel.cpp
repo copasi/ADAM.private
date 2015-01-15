@@ -512,12 +512,15 @@ void GAModel::CreateNextGeneration()
 	}
 }
 
+void GAModel::Randomize( int seed )
+{
+	// Make sure each run is different!
+	PolyMathRand::Randomize( seed );
+}
+
 // Run - run the G.A. from the initial state until convergence or max_iter
 void GAModel::Run( char * best_models_filename)
 {
-	// Make sure each run is different!
-	PolyMathRand::Randomize();
-
 	// Populate the initial gene pool
 	FillGenePool( GAParams::GenePoolSize() );
 

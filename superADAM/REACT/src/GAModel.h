@@ -49,6 +49,8 @@ public:
 	//   using the candidate set as parents
 	void CreateNextGeneration();
 
+	void Randomize( int seed );
+
 	// Run - run the G.A. from the initial state until convergence or max_iter
 	// MES: added: parameter: filename is the output which had been hardcoded as "BestModels.txt"
 	void Run( char *filename );
