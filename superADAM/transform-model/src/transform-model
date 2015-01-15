@@ -1,55 +1,44 @@
 #!/usr/bin/env M2 --script
 
-path = prepend(currentDirectory()|"lib/M2code", path)
-debug needsPackage "ADAMModel"
-needsPackage "JSON"
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 
-helpString = ///usage: transform-model [add/remove] [poly/tt/bool] <json-model-file >output-model
-  where the input is taken from stdin:
-    json-model-file: a model file which includes transition tables
-    OR: an error json file
-  and the out is written to stdout:
-    output-model: the same model (in json format), 
-      with the given type of model added or removed.
-    OR an error in json format if:
-      original input file is an error (it is passed straaight through)
-      or
-      you are trying to add in 'bool' format (I don't know how to do that yet)
-      or
-      you are trying to remove the only transition table information
-  BUT: if you give incorrect arguments: then the function just ends with an error message on stderr, 
-    and a non-zero return value
-  example call:
-    ./transform-model add poly <~/Sites/ADAM/sampleJSON/sampleModel.json  >foo.json
-  example input file:
-  example output:
+helpString = ///usage: transform-model <json-task-file >json-output-model
 ///
 
-print scriptCommandLine;
-if #scriptCommandLine != 3 then (
+if #scriptCommandLine > 1 then (
     stderr << helpString;
     exit(1);
-    )
-add = scriptCommandLine#1
-if not member(add, {"add", "remove"}) then (
-    stderr << "first argument needs to be either 'add' or 'remove'" << endl;
-    exit(2);
-    )
-type = scriptCommandLine#2
-if type != "poly" and type != "tt" and type != "bool" then (
-    stderr << "second argument must be 'poly', 'tt', or 'bool'" << endl;
-    exit(3);
     )
 
 --------------------------------
 
-M = parseModel get stdio
+T = parseJSON get stdio -- task json object
+add = T#"task"#"method"#"arguments"#0
+type = T#"task"#"method"#"arguments"#1
+M = modelFromJSONHashTable T#"task"#"input"#0
 M1 = transformModel(add,type,M) -- returns a model or an error json (which is a HashTable)
 print prettyPrintJSON M1
 
 end
 
 restart
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+T = parseJSON get "../test/test1.json"
+-- now verify that T is a task
+result = null
+if keys T != {"task"} then (
+    result = errorPacket "input was not a task json file";
+    print result;
+    exit(1);
+    );
+if set keys T#"task" =!= set{"input", "method"}
+then (
+    result = errorPacket "expected keys to be 'input' and 'method'";
+    print result;
+    exit(1);
+    )
+-- expect one input, which should be a model
+-- expect
 -- example:
 ./transform-model add poly <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json
 ./transition2polynomials <~/Sites/ADAM/exampleJSON/SecondVersion1-Model.json

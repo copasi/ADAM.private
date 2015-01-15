@@ -1,0 +1,47 @@
+#!/usr/bin/env M2 --script
+
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+
+helpString = ///usage: make-transform-task [add/remove] [poly/tt/bool]
+  Creates, on standard output, a task json file for transform-model
+  The input model is taken from std input
+  If the input is an error json, or an error occurs, the output will be
+    an error json as well.
+  example calls:
+  make-transform-task add poly <input.json >task.json
+  cat input.json | make-transform-task add poly | transform-model
+///
+
+if #scriptCommandLine != 3 then (
+    stderr << helpString;
+    exit(1);
+    )
+add = scriptCommandLine#1
+if not member(add, {"add", "remove"}) then (
+    stderr << "first argument needs to be either 'add' or 'remove'" << endl;
+    exit(2);
+    )
+type = scriptCommandLine#2
+if type != "poly" and type != "tt" and type != "bool" then (
+    stderr << "second argument must be 'poly', 'tt', or 'bool'" << endl;
+    exit(3);
+    )
+
+J = get stdio; -- A string which should contain well-defined json.
+startJSON = ///{"task": {"method": {"arguments": ["@add@", "@type@"]}, "input":[///
+startJSON = replace("@add@", add, startJSON)
+startJSON = replace("@type@", type, startJSON)
+endJSON = ///]}}///
+print startJSON
+print J
+print endJSON
+
+end
+
+export FILE=../../example-models/cell-collective/Apoptosis_Network.json
+
+./make-transform-task add poly <$FILE | prettify-json | ./transform-model >foo
+./make-transform-task add poly <$FILE | ./transform-model >foo
+
+
+

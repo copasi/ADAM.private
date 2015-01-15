@@ -24,19 +24,30 @@ Caveat: the json parser doesn't handle all kinds of characters yet.
 If any problem, please let mike stillman know.
 ///
 
-if #scriptCommandLine != 3 then (
+if #scriptCommandLine != 3 and #scriptCommandLine != 1 then (
     stderr << helpString;
     exit(1);
     )
 
-contents = get scriptCommandLine#1
-H = parseJSON contents
+if #scriptCommandLine == 3 then (
+    contents = get scriptCommandLine#1;
+    H = parseJSON contents;
+    if instance(H, ErrorPacket) then (
+        stderr << H#"error" << endl;
+        exit(2);
+    ) else (
+        F = openOut scriptCommandLine#2;
+        F << prettyPrintJSON H << close;
+        exit(0);
+    ))
 
-if instance(H, ErrorPacket) then (
-    stderr << H#"error" << endl;
-    exit(2);
+-- at this point, #scriptCommandLine == 1, and we need to read/write from stdin/stdout
+    contents = get stdio;
+    H = parseJSON contents;
+    if instance(H, ErrorPacket) then (
+        stderr << H#"error" << endl;
+        exit(2);
+    ) else (
+        << prettyPrintJSON H << close;
+        exit(0);
     )
-
-F = openOut scriptCommandLine#2
-F << prettyPrintJSON H << close;
-exit(0);

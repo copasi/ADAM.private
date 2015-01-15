@@ -1,0 +1,12 @@
+The main duty of this helper module is to add in polynomial functions
+given transition tables (tt), or boolean functions.  However,
+transition tables can also be generated.  The function can also remove
+this data from a model (mainly used during testing).
+
+This module implements several functions:
+
+1. transform-model (input: task, output: json model)
+2. make-transform-task [add|remove] [poly|tt|bool] (input: json model, output: task)
+3. verify-model (input and output: json model)
+
+The main one is the first, the 2nd and 3rd are there to help with testing
