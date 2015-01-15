@@ -96,7 +96,7 @@ case param
 				task=React.new(json,'./React')
 				task.run("output.txt")
 				puts JSON.dump(task.render_output("output.txt"))
-				#task.clean_temp_files()
+				task.clean_temp_files()
 			rescue StandardError=>e
 				STDERR.puts "ERROR: "+e.to_s
 			end
