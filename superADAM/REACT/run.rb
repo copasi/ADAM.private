@@ -24,6 +24,23 @@ class String
 	end
 end
 
+def run_test(num)
+	input = File.read("test/test"+num+"/REACT_Input_Example"+num+".json")
+	test = JSON.parse(input)
+	output_ref = File.read("test/test"+num+"/REACT_Output_Reference"+num+".json")
+	test_reference_output = JSON.parse(output_ref)
+	puts "============== TEST"+num+"/3 ==============="
+	task=React.new(test,'./React')
+	task.run('output.txt',:test)
+	pp task.render_output('output.txt')
+	task.clean_temp_files()
+	if task.test(test_reference_output) then
+		return "TEST "+num+" PASSED".green()
+	else
+		return "TEST "+num+" FAILED".red()
+	end
+end
+
 param=ARGV[0]
 if param.nil? then param="help" end
 case param
@@ -34,6 +51,7 @@ case param
 		puts ""
 		puts "* make: compile REACT"
 		puts "* check: run all json tests file against REACT and compares them to reference output files"
+		puts "* test <test_number>: run test #<test_number>"
 		puts "* <input_file.json>: run REACT with the input JSON file"
 		puts "* clean: remove temporary and compiled files"
 		puts "* help: shows this help message"
@@ -41,53 +59,24 @@ case param
 		Dir.chdir "src"
 		system("make")
 		system("cp React ..")
+	when "test"
+		num=ARGV[1]
+		if not ["1","2","3"].include? num then
+			puts "Test number does not exist. Please choose a number between 1 and 3."
+			exit
+	       	end
+		begin
+			puts run_test(num)
+		rescue StandardError=>e
+			STDERR.puts "ERROR: "+e.to_s
+		end
 	when "check"
-		input = File.read("test/test1/REACT_Input Example1.json")
-		test1 = JSON.parse(input)
-		input = File.read("test/test2/REACT_InputExample2.json")
-		test2 = JSON.parse(input)
-		input = File.read("test/test3/REACT_Input Example3.json")
-		test3 = JSON.parse(input)
-		output_ref = File.read("test/test1/REACT_Output_Reference1.json")
-		test1_reference_output = JSON.parse(output_ref)
-		output_ref = File.read("test/test2/REACT_Output_Reference2.json")
-		test2_reference_output = JSON.parse(output_ref)
-		output_ref = File.read("test/test3/REACT_Output_Reference3.json")
-		test3_reference_output = JSON.parse(output_ref)
 		tests=[]
 		begin
-			puts "============== TEST1/3 ==============="
-			task1=React.new(test1,'./React')
-			task1.run('output.txt',:test)
-			pp task1.render_output('output.txt')
-			if task1.test(test1_reference_output) then
-				tests.push("TEST 1 PASSED".green())
-			else
-				tests.push("TEST 1 FAILED".red())
+			["1","2","3"].each do |i|
+				tests.push(run_test(i))
+				puts tests.last
 			end
-			task1.clean_temp_files()
-			puts tests.last
-			puts "============== TEST2/3 ==============="
-			task2=React.new(test2,'./React')
-			task2.run('output.txt',:test)
-			pp task2.render_output('output.txt')
-			if task2.test(test2_reference_output) then
-				tests.push("TEST 2 PASSED".green())
-			else
-				tests.push("TEST 2 FAILED".red())
-			end
-			puts tests.last
-			task2.clean_temp_files()
-			puts "============== TEST3/3 ==============="
-			task3=React.new(test3,'./React')
-			task3.run('output.txt',:test)
-			pp task3.render_output('output.txt')
-			if task3.test(test3_reference_output) then
-				tests.push("TEST 3 PASSED".green())
-			else
-				tests.push("TEST 3 FAILED".red())
-			end
-			task3.clean_temp_files()
 			tests.each { |p| puts p }
 		rescue StandardError=>e
 			STDERR.puts "ERROR: "+e.to_s
