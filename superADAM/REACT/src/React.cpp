@@ -493,7 +493,10 @@ int main( int num_args, char* cmd_line_args[] )
 
 		// Run the GA until convergence
 		ga.Randomize( seed );
-		ga.Run( best_models_filename );
+		for ( int x = 0; x < 100; x++ ) {
+			std::cout<< rand() <<std::endl;
+		}
+		// ga.Run( best_models_filename );
 
 	}
 	catch( const char* msg )
