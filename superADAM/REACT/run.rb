@@ -32,7 +32,7 @@ def run_test(num)
 	puts "============== TEST"+num+"/3 ==============="
 	task=React.new(test,'./React')
 	task.run('output.txt',:test)
-	pp task.render_output('output.txt')
+	puts JSON.dump(task.render_output("output.txt"))
 	task.clean_temp_files()
 	if task.test(test_reference_output) then
 		return "TEST "+num+" PASSED".green()
