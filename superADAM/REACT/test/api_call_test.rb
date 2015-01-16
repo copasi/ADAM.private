@@ -45,6 +45,6 @@ if port.nil? then
 end
 input = File.read(json_file)
 json = JSON.parse(input)
-uri = URI("http://"+ip+":"+port+"/run")
+uri = URI("http://"+ip+":"+port+"/do/run")
 res = Net::HTTP.post_form(uri, 'input' => input)
 puts res.body

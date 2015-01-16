@@ -20,16 +20,11 @@ require 'json'
 
 class Algorun < WEBrick::HTTPServlet::AbstractServlet
 
-    def do_GET (request, response)
-	response.status = 500
-	response.content_type = "text/plain"
-	response.body = "get lost\n"
-    end
-
     def do_POST (request, response)
+	puts request
 	output=""
 	case request.path
-		when "/run"
+		when "/do/run"
 			response.status = 500
 			json = JSON.parse(request.query["input"])
 			begin
