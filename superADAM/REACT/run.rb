@@ -93,7 +93,7 @@ case param
 		Dir.chdir "src"
 		system("make clean")
 	when "start"
-		server = WEBrick::HTTPServer.new(:Port => 8764, "RequestTimeout" => 300, :DocumentRoot => ENV["REACT_HOME"]+"algorun/web/")
+		server = WEBrick::HTTPServer.new(:Port => 8765, "RequestTimeout" => 300, :DocumentRoot => ENV["REACT_HOME"]+"algorun/web/")
 		server.mount("/do", Algorun)
 		trap("INT") {
 			server.shutdown
