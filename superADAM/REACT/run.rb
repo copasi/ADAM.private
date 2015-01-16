@@ -1,5 +1,11 @@
 #!/usr/bin/ruby
-require './algorun/Task.rb'
+require_relative './algorun/Task.rb'
+require_relative './algorun/React.rb'
+require_relative './algorun/Server.rb'
+
+if ENV["REACT_HOME"].nil? then
+	ENV["REACT_HOME"]=ENV["PWD"]
+end
 
 class String
 	# colorization
@@ -56,7 +62,7 @@ case param
 		puts "* clean: remove temporary and compiled files"
 		puts "* help: shows this help message"
 	when "make"
-		Dir.chdir "src"
+		Dir.chdir ENV['REACT_HOME']+"/src"
 		system("make")
 		system("cp React ..")
 	when "test"
@@ -86,6 +92,13 @@ case param
 		File.delete("React") if File.exists?("React")
 		Dir.chdir "src"
 		system("make clean")
+	when "start"
+		server = WEBrick::HTTPServer.new(:Port => 80)
+		server.mount "/", Algorun
+		trap("INT") {
+			server.shutdown
+		}
+		server.start()
 	else
 		if !File.exists?(param) or File.directory?(param) then
 			puts ("ERROR: No valid JSON input file given")
