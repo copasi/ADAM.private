@@ -316,7 +316,6 @@ class React < Task
 			test_flag=' --test'
 		end
 		if self.create_fileManager(ENV["REACT_HOME"]+"/fileman.txt") then
-			puts @exec_file+' '+@file_manager+' '+output_file+test_flag
 			system(@exec_file+' '+@file_manager+' '+output_file+test_flag)
 			if $?.exitstatus>0 or !File.exists?(output_file) then
 				puts "Error: error occured while trying to run algorithm"
