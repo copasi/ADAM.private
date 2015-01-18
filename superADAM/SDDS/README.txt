@@ -38,4 +38,4 @@ sudo docker rm sdds
 If you changed the REACT code, you need to rebuild the docker image:
 cd superADAM/SDDS
 sudo docker build -t <your username>/sdds .
-You may also have to update the Dockerfile to reflect changes you made in the REACT docker container.
+You may also have to update the Dockerfile to reflect changes you made in the SDDS docker container.
