@@ -37,6 +37,22 @@ then (
     print result;
     exit(1);
     )
+
+models = select(readDirectory "../../example-models/cell-collective/", f -> match("\\.json$", f))
+-- for each of these: add poly, rm transition table, add transition table, remove poly: should have identical to original (since the originals are all tt)
+export filename=../../example-models/cell-collective/Apoptosis_Network.json
+run ///cat ../../example-models/cell-collective/Apoptosis_Network.json \\
+    | ./make-transform-task add poly \\
+    | ./transform-model  \\
+    | ./make-transform-task remove tt \\
+    | ./transform-model \\
+    | ./make-transform-task add tt \\
+    | ./transform-model \\
+    | ./make-transform-task remove poly \\
+    | ./transform-model \\
+    | prettify-json >output.json)
+///
+prettify-json $filename reference-pp.json
 -- expect one input, which should be a model
 -- expect
 -- example:
