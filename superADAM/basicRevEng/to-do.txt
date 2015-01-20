@@ -1,0 +1,9 @@
+Tasks for Brandy
+----------------
+1. Add more examples, using test formats
+
+2. Send an email alerting about format change
+
+3. Add minsets code
+
+4. Ask Elena about gfan files in github
