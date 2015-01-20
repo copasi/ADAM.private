@@ -3,11 +3,7 @@
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
 
---path = prepend(currentDirectory()|"lib/M2code", path)
--- needsPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
---needsPackage "JSON"
-
-helpString = ///usage: find-pds <json-rev-eng-input-data >json-rev-eng-output-model
+helpString = ///usage: find-pds <json-timeseries-data >json-rev-eng-output-model
 ///
 
 if #scriptCommandLine != 1 then (
@@ -18,9 +14,8 @@ if #scriptCommandLine != 1 then (
 --------------------------------
 TS = readTSDataFromJSON get stdio
 PDS = findPDS TS
-PDS = for f in PDS list {{f,1.0}} -- hack for the moment: output file expects lists of triples of poly functinos
-outputJSON = prettyPrintJSON toHashTable createRevEngJSONOutputModel PDS
-<< outputJSON << endl;
+outputJSON = prettyPrintJSON createRevEngJSONOutputModel PDS
+print outputJSON
 
 end
 
@@ -31,11 +26,19 @@ restart
 ./find-pds help
 
 restart
+-- run this in basicRevEng/src dir
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-TS = readTSDataFromJSON get "../basicRevEng/test/test1-input.json"
+TS = readTSDataFromJSON get "../test/test1-input.json"
 PDS = findPDS TS
-PDS = for f in PDS list {{f,1.0}}
 createRevEngJSONOutputModel PDS
-toHashTable oo
+outputJSON = prettyPrintJSON oo
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test3-input.json"
+PDS = findPDS TS
+createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo

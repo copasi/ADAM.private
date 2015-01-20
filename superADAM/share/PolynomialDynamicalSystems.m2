@@ -11,21 +11,22 @@ newPackage(
         DebuggingMode => true
         )
 
-export{"readTSDataFromJSON",
+export{
+    "readTSDataFromJSON",
     "findPDS",
     "createRevEngJSONOutputModel",
     "getVars",
     "makeVars",
-       TimeSeriesData, 
-       FunctionData, 
-       readTSData,
-       functionData,
-       subFunctionData,
-       minRep,
-       findFunction,
-       checkFunction,
-       WildType
-      }
+    "TimeSeriesData", 
+    "FunctionData", 
+    "readTSData",
+    "functionData",
+    "subFunctionData",
+    "minRep",
+    "findFunction",
+    "checkFunction",
+    "WildType"
+    }
 
 ---------------------------------------------------------------------------------------------------
 -- Declaration of new data types
@@ -95,31 +96,14 @@ see(List) := (fs) -> scan(fs, (g -> (print g; print "")))
 -- readTSData returns a TimeSeriesData hashtable of the data.
 -- Uses "readMat"
 
-{*
-readTSDataFromJSON = method(TypicalValue => TimeSeriesData)
-readTSDataFromJSON(String) := (jsonData) -> (
-    -- see the file reverse-engineering-input-data.json
-    --  for the format of jsonData
-    -- output: TimeSeriesData
-    wtmats := apply(wtfiles, s -> readMat(s,R));
-    H := new MutableHashTable;
-    scan(knockouts, x -> (
-            m := readMat(x#1,R);
-            i := x#0;
-            if H#?i then H#i = append(H#i,m)
-            else H#i = {m}));
-    H.WildType = wtmats;
-    new TimeSeriesData from H
-)
-*}
-
 createRevEngJSONOutputModel = method()
+createRevEngJSONOutputModel ErrorPacket := (E) -> E
 createRevEngJSONOutputModel List := (L) -> (
     -- Better have at least one variable
     -- MES: currently, input is expected to be a list of polynomials
     assert(#L > 0);
     R := ring L#0#0#0;
-    {
+    toHashTable {
         "type"=>"reverseEngineeringOutput",
         "numberVariables" => numgens R,
         "fieldCardinality" => char R,
@@ -137,16 +121,16 @@ createRevEngJSONOutputModel List := (L) -> (
         )})
 
 readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
- -- input argument follows description in reverse-engineering-input-data.json
+ -- input argument follows description in doc/json-standard-formats.txt
 readTSDataFromJSON String := (jsonInput) -> (
-    -- XXXXXX
     H := parseJSON jsonInput;
     inputs := H#"task"#"input";
     if not instance(inputs, BasicList) then
-    return errorPacket "expected array of inputs";
+    return errorPacket "in readTSDataFromJSON: expected array of inputs";
     data := inputs#0;
-    if not instance(data, HashTable) or not data#?"type" or data#"type" != "reverseEngineeringInputData" then 
-    return errorPacket "input is not reverse engineering input data";
+    if not instance(data, HashTable) or not data#?"type" or data#"type" != "timeSeries" then 
+    return errorPacket "in readTSDataFromJSON: input is not time series data";
+    -- if there is no error, we get here, and construct a TimeSeriesData
     n := data#"numberVariables";
     p := data#"fieldCardinality";
     kk := ZZ/p;
@@ -171,10 +155,15 @@ findPDS(TimeSeriesData) := (T) -> (
     n := numColumns T;
     R := kk[makeVars n];
     FD := apply(n, i->functionData(T,i+1));
-    Fs := apply(n, i -> findFunction(FD_i,gens R));
-    Fs
+    errorPos := position(FD, f -> instance(f, ErrorPacket));
+    if errorPos =!= null then 
+        FD#errorPos -- returns an ErrorPacket for first error found.
+    else (
+        Fs := apply(n, i -> findFunction(FD_i,gens R));
+        for f in Fs list {{f,1.0}}
+        )
 )
-
+findPDS(ErrorPacket) := (E) -> E
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
 -- Given a data file and a coefficient ring, readMat returns the (txn)-matrix of the data (t=time, n=vars). 
@@ -214,7 +203,7 @@ readTSData(List,List,Ring) := (wtfiles, knockouts, R) -> (
 ---------------------------------------------------------------------------------------------------
 -- Given time series data and an integer i, functionData returns the FunctionData hashtable for function i,
 -- that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; 
--- else it returns an error statement.
+-- else it returns an ErrorPacket.
 
 functionData = method(TypicalValue => FunctionData)
 functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
@@ -225,39 +214,39 @@ functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
      scan(keys tsdata, x -> if class x === ZZ and x =!= v then mats = join(mats,tsdata#x));
 
      -- now make the hash table
-     scan(mats, m -> (
+     for m in mats do (
            e := entries m;
            for j from 0 to #e-2 do (
             tj := e#j;
             val := e#(j+1)#(v-1);
             if H#?tj and H#tj != val then
-              error ("function inconsistent: point " | 
+              return errorPacket ("in functionData: function inconsistent: point " | 
                    toString tj| " has images "|toString H#tj|
                    " and "|toString val);           
             H#tj = val;
-            )));
+            ));
      new FunctionData from H
 )
 
 ---------------------------------------------------------------------------------------------------
 -- Given function data (data for a function) and a list L of integers between 1 and n(=dim pds), 
 -- corresponding to a subset of the set of variables, 
--- subFuunctionData returns the function data projected to the variables in L, if consistent; 
--- else it returns an error statement.
+-- subFunctionData returns the function data projected to the variables in L, if consistent; 
+-- else it returns an ErrorPacket
 
 subFunctionData = method(TypicalValue => FunctionData)
 subFunctionData(FunctionData, List) := (fcndata,L) -> (
      H := new MutableHashTable;
      L = apply(L, j -> j-1);
-     scan(keys fcndata, p -> (
+     for p in keys fcndata do (
            q := p_L;
            val := fcndata#p;
            if H#?q and H#q != val
-           then error ("sub function inconsistent: point " | 
+           then return errorPacket ("in subFunctionData: function inconsistent: point " | 
             toString q| " has images "|toString H#q|
             " and "|toString val);
            H#q = val;
-           ));
+           );
      new FunctionData from H
 )
 
@@ -323,12 +312,16 @@ findFunction(FunctionData, List) := o -> (fcndata,L) -> (
      R := ring L#0;
      Lindices := apply(L, x -> index x + 1);
      F := subFunctionData(fcndata,Lindices);
-     S := (coefficientRing R)(monoid [L]);
-     pts := transpose matrix keys F;
-     vals := transpose matrix {values F};
-     (A,stds) := pointsMat(pts,S);
-     f := ((transpose stds) * (vals // A))_(0,0);
-     substitute(f,R)
+     if instance(F, ErrorPacket) then 
+         F
+     else (
+         S := (coefficientRing R)(monoid [L]);
+         pts := transpose matrix keys F;
+         vals := transpose matrix {values F};
+         (A,stds) := pointsMat(pts,S);
+         f := ((transpose stds) * (vals // A))_(0,0);
+         substitute(f,R)
+         )
 )
 
 ---------------------------------------------------------------------------------------------------
@@ -419,7 +412,7 @@ document {
 
 document {
 	Key => (functionData,TimeSeriesData, ZZ),
-	Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an error statement"
+	Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an ErrorPacket"
 }
 
 document {
@@ -456,7 +449,7 @@ document {
 
 document {
 	Key => (subFunctionData,FunctionData, List),
-	Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an error statement"
+	Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an ErrorPacket"
 }
 
 --       TimeSeriesData, 
