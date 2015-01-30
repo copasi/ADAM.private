@@ -1,4 +1,10 @@
-The input jason file should contain:
+********************************************************************************
+* DOCUMENTATION FOR CONTROL FOR SDDS                                           *
+* Written by: David Murrugarra                                                 *
+* Date: 01/29/2015                                                             *
+********************************************************************************
+
+The input Json file should contain:
 1. A SDDS:  a transition table with propensity parameters.
 2. Control nodes: a subset of the nodes.
 3. Control edges: a list of edges writen as [j i], the begining "j" and end
