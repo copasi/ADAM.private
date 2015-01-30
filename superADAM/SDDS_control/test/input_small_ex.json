@@ -141,9 +141,9 @@
                   ]
               }
             ],
-          "description": "<description> PLEASE FILL IN",
-          "id": "<moduleName> PLEASE FILL IN",
-          "type": "<problemType> PLEASE FILL IN"
+          "description": "<description> This code obtains a control policy of a system using Stochastic Discrete Dynamical System (SDDS)",
+          "id": "<moduleName> SDDS_control",
+          "type": "<problemType> Control"
         }
     }
 }
