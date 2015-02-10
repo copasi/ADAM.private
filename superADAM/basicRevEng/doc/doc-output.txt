@@ -1,3 +1,5 @@
+THIS FILE NEEDS TO BE UPDATED. (10 Feb 2015, Brandy+Mike)
+
 JSON format output file: reverseEngineeringOutputData
 
 	*	It starts with one field that allow us to introduce comments regarding the file. The first field is  “description” to describe the file.

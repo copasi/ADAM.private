@@ -1,9 +1,15 @@
 Tasks for Brandy
 ----------------
-1. Add more examples, using test formats
+1. Send an email alerting about format change (wait on this)
 
-2. Send an email alerting about format change
+2. Send mike a zip/tar file of example time series data.
 
-3. Add minsets code
+3. Create scripts for minsets and gfan, mirroring basicRevEng.  This includes
+  Makefile, running tests.
 
-4. Ask Elena about gfan files in github
+Tasks for Mike
+--------------
+Once Brandy sends me a zip/tar file of example time series,
+  mike will write a toJSON function that packages them up into a single file
+  containing json
+  
