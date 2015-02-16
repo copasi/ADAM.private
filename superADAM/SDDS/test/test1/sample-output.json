@@ -90,7 +90,7 @@
          "numberVariables":3,
          "numberofSimulations":100,
          "numberofTimeSteps":20,
-         "type":"stochastic Simulation"
+         "type":"stochastic simulation"
       }
    ]
 }
