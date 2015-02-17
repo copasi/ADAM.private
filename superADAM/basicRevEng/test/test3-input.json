@@ -1,7 +1,6 @@
 {
 "task": {
   "method": {
-    "arguments": ["your argument 1","your argument 2"],
     "description": "basic reverse engineering",
     "id": "basicRevEng",
     "type": "reverseEngineering"
@@ -25,7 +24,7 @@
           "index": [],
           "matrix": [
               [1,1,2,2],
-              [0,2,0,1],
+              [0,2,0,0],
               [1,0,0,0]
             ],
           "name": "wildtype experiment 2"
@@ -61,7 +60,7 @@
           "name": "knockout experiment 1"
           }
         ],
-      "type": "reverseEngineeringInputData"
+      "type": "timeSeries"
       }
     ]
   }

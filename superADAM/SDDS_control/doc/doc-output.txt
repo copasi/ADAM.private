@@ -1,3 +1,9 @@
+********************************************************************************
+* DOCUMENTATION FOR CONTROL FOR SDDS                                           *
+* Written by: David Murrugarra                                                 *
+* Date: 01/29/2015                                                             *
+********************************************************************************
+
 This will be an input for the SDDS for simulation. The output json file should contain: 
 1. A SDDS:  a transition table with propensity parameters. This is the
 same as the model given the input json file.

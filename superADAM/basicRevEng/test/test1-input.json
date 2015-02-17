@@ -55,7 +55,7 @@
                   "name": "knockout experiment 1"
                 }
               ],
-            "type": "reverseEngineeringInputData"
+            "type": "timeSeries"
           }
         ],
       "method": {

@@ -1,32 +1,31 @@
 newPackage(
     "PolynomialDynamicalSystems",
-        Version => "0.2", 
-        Date => "January 4, 2006",
+        Version => "0.1", 
+        Date => "November 21, 2005",
         Authors => {
          {Name => "Brandy Stigler", Email => "bstigler@mbi.osu.edu", HomePage => "http://users.mbi.ohio-state.edu/bstigler"},
          {Name => "Mike Stillman", Email => "mike@math.cornell.edu", HomePage => "http://www.math.cornell.edu/~mike"}
          },
         Headline => "Utilities for polynomial dynamical systems",
-        PackageExports => {"Points", "JSON"},
         DebuggingMode => true
         )
 
-export{
-    "readTSDataFromJSON",
-    "findPDS",
-    "createRevEngJSONOutputModel",
-    "getVars",
-    "makeVars",
-    "TimeSeriesData", 
-    "FunctionData", 
-    "readTSData",
-    "functionData",
-    "subFunctionData",
-    "minRep",
-    "findFunction",
-    "checkFunction",
-    "WildType"
-    }
+needs "Points.m2"
+
+export{getVars,
+       makeVars,
+       see,
+--       separateRegexp,
+       TimeSeriesData, 
+       FunctionData, 
+       readTSData,
+       functionData,
+       subFunctionData,
+       minRep,
+       findFunction,
+       checkFunction
+}
+
 
 ---------------------------------------------------------------------------------------------------
 -- Declaration of new data types
@@ -42,13 +41,6 @@ export{
 
 TimeSeriesData = new Type of HashTable
  
-ring(TimeSeriesData) :=  (T) -> (
-    ring first flatten values T
-)
-
-numColumns(TimeSeriesData) := (T) -> (
-    numColumns first flatten values T
-)
 ---------------------------------------------------------------------------------------------------
 -- FunctionData: This hashtable defines a function f:k^n->k, where k is a finite field.
 -- keys   = points in k^n (in domain of f)
@@ -91,79 +83,15 @@ see(List) := (fs) -> scan(fs, (g -> (print g; print "")))
 ---------------------------------------------------------------------------------------------------
 -- Utilities for data processing
 ---------------------------------------------------------------------------------------------------
+
 ---------------------------------------------------------------------------------------------------
--- Given a list of wildtype and a list of knockout time series data files, as well as a coefficient ring,
--- readTSData returns a TimeSeriesData hashtable of the data.
--- Uses "readMat"
+-- A function defined in a previous version of Macaulay2
 
-createRevEngJSONOutputModel = method()
-createRevEngJSONOutputModel ErrorPacket := (E) -> E
-createRevEngJSONOutputModel List := (L) -> (
-    -- Better have at least one variable
-    -- MES: currently, input is expected to be a list of polynomials
-    assert(#L > 0);
-    R := ring L#0#0#0;
-    toHashTable {
-        "type"=>"reverseEngineeringOutput",
-        "numberVariables" => numgens R,
-        "fieldCardinality" => char R,
-        "updateRules" => new Array from for i from 0 to numgens R - 1 list (
-            { 
-                "target" => toString R_i,
-                "functions" => new Array from for j from 0 to #L_i-1 list(
-                    {
-                            "inputVariables"=>apply(new Array from support L#i#j#0, toString),
-                            "polynomialFunction"=>toString L#i#j#0,
-				            "score"=>L#i#j#1
-                    }
-                    )
-            }
-        )})
+--separateRegexp = (sepregex, s) -> (
+--     s = replace(" +"," ",s);
+--     separate(" ",s)
+--)
 
-readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
- -- input argument follows description in doc/json-standard-formats.txt
-readTSDataFromJSON String := (jsonInput) -> (
-    H := parseJSON jsonInput;
-    inputs := H#"task"#"input";
-    if not instance(inputs, BasicList) then
-    return errorPacket "in readTSDataFromJSON: expected array of inputs";
-    data := inputs#0;
-    if not instance(data, HashTable) or not data#?"type" or data#"type" != "timeSeries" then 
-    return errorPacket "in readTSDataFromJSON: input is not time series data";
-    -- if there is no error, we get here, and construct a TimeSeriesData
-    n := data#"numberVariables";
-    p := data#"fieldCardinality";
-    kk := ZZ/p;
-    -- Now create the TimeSeriesData from the wildtype and knockout data
-    ts := data#"timeSeriesData"; -- list of hashtables, each has a matrix, and index (knockout list)
-    matrices := new MutableHashTable;
-    for experiment in ts do (
-        ind := experiment#"index";
-        typ := if #ind == 0 then WildType else ind#0;
-        mat := matrix(kk, experiment#"matrix");
-        if matrices#?typ then 
-            matrices#typ = append(matrices#typ, mat)
-        else
-            matrices#typ = {mat};
-        );
-    new TimeSeriesData from matrices
-)
-
-findPDS = method(TypicalValue=>List)
-findPDS(TimeSeriesData) := (T) -> (
-    kk := ring T;
-    n := numColumns T;
-    R := kk[makeVars n];
-    FD := apply(n, i->functionData(T,i+1));
-    errorPos := position(FD, f -> instance(f, ErrorPacket));
-    if errorPos =!= null then 
-        FD#errorPos -- returns an ErrorPacket for first error found.
-    else (
-        Fs := apply(n, i -> findFunction(FD_i,gens R));
-        for f in Fs list {{f,1.0}}
-        )
-)
-findPDS(ErrorPacket) := (E) -> E
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
 -- Given a data file and a coefficient ring, readMat returns the (txn)-matrix of the data (t=time, n=vars). 
@@ -203,7 +131,7 @@ readTSData(List,List,Ring) := (wtfiles, knockouts, R) -> (
 ---------------------------------------------------------------------------------------------------
 -- Given time series data and an integer i, functionData returns the FunctionData hashtable for function i,
 -- that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; 
--- else it returns an ErrorPacket.
+-- else it returns an error statement.
 
 functionData = method(TypicalValue => FunctionData)
 functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
@@ -214,17 +142,17 @@ functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
      scan(keys tsdata, x -> if class x === ZZ and x =!= v then mats = join(mats,tsdata#x));
 
      -- now make the hash table
-     for m in mats do (
+     scan(mats, m -> (
            e := entries m;
            for j from 0 to #e-2 do (
             tj := e#j;
             val := e#(j+1)#(v-1);
             if H#?tj and H#tj != val then
-              return errorPacket ("in functionData: function inconsistent: point " | 
+              error ("function inconsistent: point " | 
                    toString tj| " has images "|toString H#tj|
                    " and "|toString val);           
             H#tj = val;
-            ));
+            )));
      new FunctionData from H
 )
 
@@ -232,21 +160,21 @@ functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
 -- Given function data (data for a function) and a list L of integers between 1 and n(=dim pds), 
 -- corresponding to a subset of the set of variables, 
 -- subFunctionData returns the function data projected to the variables in L, if consistent; 
--- else it returns an ErrorPacket
+-- else it returns an error statement.
 
 subFunctionData = method(TypicalValue => FunctionData)
 subFunctionData(FunctionData, List) := (fcndata,L) -> (
      H := new MutableHashTable;
      L = apply(L, j -> j-1);
-     for p in keys fcndata do (
+     scan(keys fcndata, p -> (
            q := p_L;
            val := fcndata#p;
            if H#?q and H#q != val
-           then return errorPacket ("in subFunctionData: function inconsistent: point " | 
+           then error ("sub function inconsistent: point " | 
             toString q| " has images "|toString H#q|
             " and "|toString val);
            H#q = val;
-           );
+           ));
      new FunctionData from H
 )
 
@@ -283,19 +211,17 @@ minRep(FunctionData, Ring) := (fcndata,R) -> (
      Ps := apply(unique values fcndata, j -> select(keys fcndata, k -> fcndata#k === j));
 
      -- the next 2 commented lines were used for testing purposes
-	-- print apply(Ps, a-> #a);
-	-- time Ls := apply(subsets(Ps,2), x -> getdiffs(x#0,x#1,R));
+    -- print apply(Ps, a-> #a);
+    -- time Ls := apply(subsets(Ps,2), x -> getdiffs(x#0,x#1,R));
 
      --the last 2 lines were replaced with
-     print apply(Ps, a-> #a);
+     apply(Ps, a-> #a);
      Ls := apply(subsets(Ps,2), x -> getdiffs(x#0,x#1,R));
 
      sum Ls
 )
 
 ---------------------------------------------------------------------------------------------------
--- This function doesn't always work. ???
-
 -- Uses subFunctionData
 -- Given function data D for f_i and a list L of variables xi, i=1..n, (returned from minRep)
 -- findFunction computes a polynomial in the vars in L that fit D.
@@ -312,16 +238,12 @@ findFunction(FunctionData, List) := o -> (fcndata,L) -> (
      R := ring L#0;
      Lindices := apply(L, x -> index x + 1);
      F := subFunctionData(fcndata,Lindices);
-     if instance(F, ErrorPacket) then 
-         F
-     else (
-         S := (coefficientRing R)(monoid [L]);
-         pts := transpose matrix keys F;
-         vals := transpose matrix {values F};
-         (A,stds) := pointsMat(pts,S);
-         f := ((transpose stds) * (vals // A))_(0,0);
-         substitute(f,R)
-         )
+     S := (coefficientRing R)(monoid [L]);
+     pts := transpose matrix keys F;
+     vals := transpose matrix {values F};
+     (A,stds) := pointsMat(pts,S);
+     f := ((transpose stds) * (vals // A))_(0,0);
+     substitute(f,R)
 )
 
 ---------------------------------------------------------------------------------------------------
@@ -349,147 +271,60 @@ beginDocumentation()
 
 document { Key => PolynomialDynamicalSystems,
      Headline => "Utilities for polynomial dynamical systems",
-     EM "PolynomialDynamicalSystems", " is a package for the algebraic 
-     manipulation of polynomial dynamical systems.",
-     PARA{
-     "The following example describes the basic usage of this package."},
-     PARA{
-     "In this example, the file 'wt1.dat' contains 7 time series data points for 5 nodes.
-     The format of this file is: each row contains the (integer) data levels for a single node,
-     separated by white space (spaces, tabs, but all on the same line).  Each row should contain 
-     the same number of data points.  The knockout files have the same format.  The only difference
-     is that knockout's for the i th node won't be used to determine functions for that node."},
-     PARA{
-     "First, we read the time series and knockout data using ", TO readTSData, ".  This produces
-     a TimeSeriesData object, which is just a Macaulay2 hash table."},
-     EXAMPLE {
-	  ///T = readTSData({"wt1.dat"}, {(1,"ko1.dat")}, ZZ/5)///,
-	  },
-     "Suppose we wish to understand which nodes might affect node 2.  First, we determine
-     what any such function must satisy.",
-     EXAMPLE {
-	  "fT = functionData(T,2)"
-	  },
-     "In this example, there are only seven constaints on the function.  Consequently, there are
-     many functions which will satisfy these constraints.",
-     PARA{
-     "Next, we create a monomial ideal which encodes all of the possible sparsity patterns
-     of all such functions satisfying these constraints."},
-     EXAMPLE {
-	  "R = ZZ/5[makeVars 7];",
-	  "I = minRep(fT,R)",
-	  },
-     "The monomial ideal I has the property that there is a function involving 
-     variables x_i1, ..., x_ir if and only if I is contained in the ideal (x_i1, ..., x_ir).
-     For example, each generator of I is divisible by either x2 or x4, so there is a function 
-     involving just x2 and x4 which satisfies the data.",
-     PARA{
-     "In order to find all minimal such sets, we use the Macaulay2 built-in function "},
-     TO minimalPrimes, ".  Each monomial generator of the result encodes a minimal set.",
-     EXAMPLE {
-	  "minimalPrimes I"
-	  },
-     "The first generator tells us that there is a function involving only x2 and x4.",
-     EXAMPLE {
-	  "findFunction(fT,{x2,x4})"
-	  },
-     "The second generator tells us that there is a function involving only x3 and x4.",
-     EXAMPLE {
-	  "findFunction(fT,{x3,x4})"
-	  }
+     EM "PDS", " is a package for the algebraic manipulation of polynomial dynamical systems.",
+     PARA,
+     "This package defines the following types:",
+     UL {
+      TO ""
+      },
+     "This package includes the following functions:",
+     UL {
+      TO ""
+      }
 }
 
 document {
-	Key => (checkFunction, FunctionData, RingElement),
-	Headline => "given function data D and a polynomial g, evaluates g on D and returns true if g fits D and false otherwise"
-}
-
-
-document {
-	Key => (findFunction, FunctionData, List),
-	Headline => "given function data D and a list L of variables xi, i=1..n, computes a polynomial in the variables in L that fit D"
+    Key => (checkFunction, FunctionData, RingElement),
+    Headline => "given function data D and a polynomial g, evaluates g on D and returns true if g fits D and false otherwise; in this case, it returns an error statement"
 }
 
 document {
-	Key => (functionData,TimeSeriesData, ZZ),
-	Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an ErrorPacket"
+    Key => (findFunction, FunctionData, List),
+    Headline => "given function data D and a list L of variables xi, i=1..n, computes a polynomial in the variables in L that fit D"
 }
 
 document {
-	Key => (getVars, RingElement),
-	Headline => "returns the variables in a given polynomial"
+    Key => (functionData,TimeSeriesData, ZZ),
+    Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an error statement"
 }
 
 document {
-	Key => (makeVars, ZZ),
-	Headline => "given an integer n, returns a list of variables {x1..xn}"
+    Key => (getVars, RingElement),
+    Headline => "returns the variables in a given polynomial"
 }
 
 document {
-	Key => (minRep, FunctionData, Ring),
-	Headline => "given function data D and a polynomial ring, returns a monomial ideal, where the set of variables, one from each generator of the ideal, is the smallest # variables required for a consistent function; that is, the sets of variables needed for a minimal representation of the polynomial function defined by D; to be used with primaryDecomposition"
+    Key => (makeVars, ZZ),
+    Headline => "given an integer n, returns a list of variables {x1..xn}"
 }
-
-document { 
-     Key => {readTSData, (readTSData,List,List,Ring)},
-     Headline => "read time series data from a set of wild and knockout files",
-     Usage => "readTSData(WT,KO,kk)",
-     Inputs => {
-	  "WT" => " a list of file names, containing wild type data",
-	  "KO" => {" a list (i, L), where i is the variable being knocked out, and
-	        L is a list of file names containing knock out data for variable i."},
-	  "kk" => "the coefficient ring (usually a finite field)"
-	  },
-     Outputs => {
-	  TimeSeriesData => "a hash table"
-	  },
-     Caveat => {},
-     SeeAlso => {}
-     }
 
 document {
-	Key => (subFunctionData,FunctionData, List),
-	Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an ErrorPacket"
+    Key => (minRep, FunctionData, Ring),
+    Headline => "given function data D and a polynomial ring, returns a monomial ideal, where the set of variables, one from each generator of the ideal, is the smallest # variables required for a consistent function; that is, the sets of variables needed for a minimal representation of the polynomial function defined by D; to be used with primaryDecomposition"
 }
 
---       TimeSeriesData, 
---       FunctionData, 
+document {
+    Key => (readTSData,List,List,Ring),
+    Headline => "given a list of wildtype data filenames, a list of knockout data filenames, and a coefficient ring, returns a hashtable of type TimeSeriesData"
+}
 
-end
-document { 
-     Key => (borel,Matrix),
-     Headline => "",
-     Usage => "",
-     Inputs => {
-	  },
-     Outputs => {
-	  },
-     Consequences => {
-	  },     
-     "description",
-     EXAMPLE {
-	  },
-     Caveat => {},
-     SeeAlso => {}
-     }
+document {
+    Key => (see, List),
+    Headline => "prints each element of a given list on a single line"
+}
 
-end
-restart
-loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
---installPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
-p = 5;
-n = 5;
-kk = ZZ/p;
-R = kk[makeVars n];
-T = readTSData({"./ReverseEngineering/Gepasi_WT1.st"},{(5, "./ReverseEngineering/Gepasi_ko5.st")},kk)
-FD = apply(n, i->functionData(T,i+1));
-Fs = apply(n, i -> findFunction(FD_i,gens R))
-netList Fs
+document {
+    Key => (subFunctionData,FunctionData, List),
+    Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an error statement"
+}
 
-restart
-loadPackage("PolynomialDynamicalSystems", FileName=>"./ReverseEngineering/PolynomialDynamicalSystems.m2")
-PDS = findPDS get "./ReverseEngineering/Gepasi.json"
-netList oo
-toHashTable createRevEngJSONOutputModel PDS
-prettyPrintJSON oo
-toHashTable oo

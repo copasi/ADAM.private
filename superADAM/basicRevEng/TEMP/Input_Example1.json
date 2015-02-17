@@ -1,0 +1,44 @@
+{
+  "task": {
+      "method": {
+          "description": "this is the reverse engineering method that uses an evolutionary algorithm as optimization method",
+          "id": "REACT",
+          "type": "reverseEngineering"
+        },
+      "input": [
+          {
+            "timeSeriesData": [
+                {
+                  "index": [],
+                  "matrix": [
+                      [1,0,0,0],
+                      [0,1,0,1],
+                      [1,1,0,0]
+                    ],
+                  "name": "wildtype experiment 1"
+                },
+                {
+                  "index": [],
+                  "matrix": [
+                      [1,1,0,0],
+                      [0,0,0,1],
+                      [1,0,0,0]
+                    ],
+                  "name": "wildtype experiment 2"
+                },
+                {
+                  "index": [1],
+                  "matrix": [
+                      [0,0,0,0],
+                      [0,0,0,1],
+                      [0,1,0,0],
+                      [0,0,0,1]
+                    ],
+                  "name": "knockout experiment 1"
+                },
+              ],
+            "type": "timeSeries"
+          }
+        ]
+    }
+}

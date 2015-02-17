@@ -1,6 +1,6 @@
 # Authors: Seda Arat & David Murrugarra
 # Name: Script for Stochastic Discrete Dynamical Systems (SDDS)
-# Revision Date: October 22, 2014
+# Revision Date: Feb 16, 2015
 
 #!/usr/bin/perl
 
@@ -14,7 +14,7 @@ use warnings;
 use Getopt::Euclid;
 use JSON::Parse;
 use JSON;
-# use Data::Dumper;
+#use Data::Dumper;
 
 ############################################################
 
@@ -28,11 +28,11 @@ perl SDDS.pl - Simulate a model from a possible initialization.
 
 =head1 USAGE
 
-perl SDDS.pl -i <input-file> -o <output-file>
+perl SDDS.pl -i <input-file> -o <output-file> -s <seed-number>
 
 =head1 SYNOPSIS
 
-perl SDDS.pl -i <input-file> -o <output-file>
+perl SDDS.pl -i <input-file> -o <output-file> -s <seed-number>
 
 =head1 DESCRIPTION
 
@@ -52,11 +52,23 @@ network-file.type: readable
 
 =item -o[utput-file] <output-file>
 
-The JSON file containing the average trajectories of variables of interest.
+The JSON file containing the average trajectories of variables of interest (.json).
 
 =for Euclid:
 
 file.type: writable
+
+=head1 OPTIONAL ARGUMENTS
+
+=over
+
+=item -s[eed-number] <seed-number>
+
+The seed number for the random number generator. User enters a number if s/he wants to fix the seed so the random number generator will always generate the same number. Otherwise, no need to be specified.
+
+=for Euclid:
+
+network-file.type: readable
 
 =back
 
@@ -66,14 +78,22 @@ Seda Arat
 
 =cut
 
-# it is for random number generator
-srand ();
-
 # input
 my $inputFile = $ARGV{'-i'};
 
 # output
 my $outputFile = $ARGV{'-o'};
+
+# seed
+my $seed = $ARGV{'-s'};
+
+# it is for random number generator
+if (defined $seed) {
+  srand ($seed);
+}
+else {
+  srand (time() | $$);
+}
 
 # converts input.json to Perl format
 my $task = JSON::Parse::json_file_to_perl ($inputFile);
@@ -115,12 +135,11 @@ my ($polyFuncs, $tranTables) = get_updateRules ();
 my $propensitiesTable = get_propensities ();
 my $allTrajectories = get_allTrajectories ();
 my $averageTrajectories = get_averageTrajectories ();
-my $output = format_output ();
+my $tempFile = format_output ();
 
-my $json = JSON->new->indent ();
-open (OUT," > $outputFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
-print OUT $json->encode ($output);
-close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
+system ("cp $tempFile $outputFile");
+
+#system ("M2 ../../share/prettify-json $tempFile $outputFile");
 
 # print Dumper ($allTrajectories);
 # print ("\n*********************************\n");
@@ -176,7 +195,7 @@ sub errorCheck {
   foreach my $p (@$propensities) {
     my $actProp = $p->{"activation"};
     unless (($actProp >= 0) && ($actProp <= 1)) {
-      print ("<br>ERROR: The activation propensities for stochastic simulations must be a number between 0 and 1. <br>");
+      print ("<br>ERROR: The activation propensities for stochastic simulations must be a number between 0 and 1. For deterministic simulations, the activation propensities must be 1. <br>");
       exit;
     }
     if ($actProp != 1) {
@@ -185,13 +204,18 @@ sub errorCheck {
 
     my $degProp = $p->{"degradation"};
     unless (($degProp >= 0) && ($degProp <= 1)) {
-      print ("<br>ERROR: The degradation propensities for stochastic simulations must be a number between 0 and 1. <br>");
+      print ("<br>ERROR: The degradation propensities for stochastic simulations must be a number between 0 and 1. For deterministic simulations, the degradation propensities must be 1. <br>");
       exit;
     }
-    if ($actProp != 1) {
+    if ($degProp != 1) {
       $stochFlag = 1;
     }
+  }
 
+  # for deterministic simulations, no need to do more than 1 simulation since they will be all the same
+  if ($stochFlag != 1 && $num_simulations != 1) {
+    $num_simulations = 1;
+    print ("<br>FYI: For deterministic simulations, there is no need to do more than 1 simulation since they will be all the same. <br>");
   }
 
 }
@@ -212,15 +236,24 @@ sub get_updateRules {
 
   foreach my $i (@$updateRules) {
     my $key = $i->{"target"};
-    $polyFuncs->{$key} = $i->{"functions"}->[0]->{"polynomialFunction"};
-
-    my $value_tt = {};
-    foreach my $j (@{$i->{"functions"}->[0]->{"transitionTable"}}) {
-      my $k = join (' ', $j->[0]);
-      $value_tt->{$k} = $j->[1];
-    }
     
-    $tranTables->{$key} = $value_tt;
+    if (defined $i->{"functions"}->[0]->{"polynomialFunction"}) {
+      my $temp = $i->{"functions"}->[0]->{"polynomialFunction"};
+      $temp =~ s/\^/\*\*/g; # replace carret with double stars
+      $polyFuncs->{$key} = $temp;
+    }
+    elsif (defined $i->{"functions"}->[0]->{"transitionTable"}) {
+      my $value_tt = {};
+      foreach my $j (@{$i->{"functions"}->[0]->{"transitionTable"}}) {
+	my $k = join (' ', $j->[0]);
+	$value_tt->{$k} = $j->[1];
+      }
+      $tranTables->{$key} = $value_tt;
+    }
+    else {
+       print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. <br>");
+      exit;
+    }
   }
   
   return ($polyFuncs, $tranTables);
@@ -241,7 +274,6 @@ sub get_propensities {
 
   foreach my $i (@$propensities) {
     my $key = $i->{"id"};
-
     my $value = {
 		 "activation" => $i->{"activation"}, 
 		 "degradation" => $i->{"degradation"}
@@ -281,7 +313,7 @@ sub get_allTrajectories {
       my @ns = @{get_nextstate (\@is)};
       
       for (my $r = 1; $r <= $num_variables; $r++) {
-	push (@{$table{"x$r"}}, $ns[$r - 1]);
+		push (@{$table{"x$r"}}, $ns[$r - 1]);
       }
       @is = @ns;
     }
@@ -306,6 +338,7 @@ sub get_averageTrajectories {
 
   for (my $v = 1; $v <= $num_variables; $v++) {
     my @aveTraj;
+    
     for (my $t = 0; $t <= $num_steps; $t++) {
       my $sum = 0;
       
@@ -317,7 +350,7 @@ sub get_averageTrajectories {
     }
     my %hash = (
 		"id" => "x$v",
-		"aveTraj" => \@aveTraj
+		"averageTrajectory" => \@aveTraj
 	       );
     push (@averageTrajectories, \%hash);
   }
@@ -345,19 +378,24 @@ sub format_output {
   }
 
   my $output = {"output" => [{
-			      "type" => "simulationOutput",
-			      "description" => "average trajectory of each variable in the sytem is obtained by simulation using SDDS",
-			      "fieldCardinality" => $num_states,
+			      "type" => $simType . " simulation",
 			      "numberVariables" => $num_variables,
 			      "numberofTimeSteps" => $num_steps,
 			      "numberofSimulations" => $num_simulations,
 			      "initialState" => $initialState,
-			      "simulationType" => $simType,
+			      "fieldCardinality" => $num_states,
 			      "averageTrajectories" => $averageTrajectories
 			     }]
 	       };
-  
-  return $output;
+
+  my $tempFile = "temp.json";
+  my $json = JSON->new->indent ();
+  $json = $json->canonical([1]);
+  open (OUT," > $tempFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
+  print OUT $json->encode ($output);
+  close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
+
+  return $tempFile;
 }
 
 ############################################################
@@ -458,7 +496,7 @@ sub get_nextstate_stoch {
 get_nextstate_det ($state);
 
 Returns the next state (as a reference of an array) of a given state using 
-update functions.
+update functions. (propensity parameters are all 1)
 
 =cut
 
@@ -466,24 +504,27 @@ sub get_nextstate_det {
   my $currState = shift;
   my @nextState;
   
-  for (my $i = 1; $i <= @$currState; $i++) {
+  for (my $i = 1; $i <= $num_variables; $i++) {
     my $func = $polyFuncs->{"x$i"};
     my $tt = $tranTables->{"x$i"};
 
-    if ($func) {
-      for (my $j = 1; $j <= @$currState; $j++) {
-	$func =~ s/x[$j]/\($currState->[$j - 1]\)/g;
+    if (defined $func) {
+      my $temp = $func;
+      for (my $j = 1; $j <= $num_variables; $j++) {
+	$temp =~ s/x[$j]/\($currState->[$j - 1]\)/g;
       }
       
-      $nextState[$i - 1] = eval ($func) % $num_states;
+      my $ns = eval ($temp) % $num_states;
+      push (@nextState, $ns);
+
     }
-    elsif ($tt) {
+    elsif (defined $tt) {
 
       # TO_DO: use the transition table information if available
 
     }
     else {
-      print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. <br>");
+       print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. This error must have been detected earlier. <br>");
       exit;
     }
   }

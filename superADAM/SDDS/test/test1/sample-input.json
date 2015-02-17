@@ -1,7 +1,7 @@
 {
   "task": {
     "method": {
-      "description": “a simulation method using Stochastic Discrete Dynamical System (SDDS)",
+      "description": "simulations using Stochastic Discrete Dynamical System (SDDS)",
       "id": "SDDS",
       "type": "simulation",
       "arguments": [
@@ -32,6 +32,7 @@
       "input": [
         {
           "type": "model",
+          "description": "input for each variable can be polynomial function or transition table",
           "fieldCardinality": 2,
           "numberVariables": 3,
           "variables": [
