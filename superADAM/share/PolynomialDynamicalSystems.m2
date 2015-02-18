@@ -20,6 +20,7 @@ export{
     "TimeSeriesData", 
     "FunctionData", 
     "readTSData",
+    "makeTimeSeriesJSON",
     "functionData",
     "subFunctionData",
     "minRep",
@@ -148,6 +149,28 @@ readTSDataFromJSON String := (jsonInput) -> (
         );
     new TimeSeriesData from matrices
 )
+
+makeTimeSeriesJSON = method()
+makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
+    kk := ZZ/prime;
+    R := kk[makeVars numvars];
+    timeSeriesData := for e in experiments list (
+        new HashTable from {
+        "index" => e#0,
+        "matrix" => entries readMat(e#1, ZZ)
+        });
+    vals := {};
+    for t in timeSeriesData do vals = unique join(vals, unique flatten t#"matrix");
+    if any(vals, v -> v < 0 or v >= prime) then 
+    error "data not in range 0..prime-1";
+    prettyPrintJSON new HashTable from {
+        "description" => description,
+        "type" => "timeSeries",
+        "fieldCardinality" => prime,
+        "numberVariables" => numvars,
+        "timeSeriesData" => timeSeriesData
+        }
+    )
 
 findPDS = method(TypicalValue=>List)
 findPDS(TimeSeriesData) := (T) -> (
@@ -493,3 +516,4 @@ netList oo
 toHashTable createRevEngJSONOutputModel PDS
 prettyPrintJSON oo
 toHashTable oo
+

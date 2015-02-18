@@ -1,6 +1,6 @@
 # Authors: Seda Arat & David Murrugarra
 # Name: Script for Stochastic Discrete Dynamical Systems (SDDS)
-# Revision Date: Feb 16, 2015
+# Revision Date: Feb 17, 2015
 
 #!/usr/bin/perl
 
@@ -24,7 +24,7 @@ use JSON;
 
 =head1 NAME
 
-perl SDDS.pl - Simulate a model from a possible initialization.
+perl SDDS.pl - Simulate a model stochastically or deterministically from a possible initialization.
 
 =head1 USAGE
 
@@ -36,7 +36,7 @@ perl SDDS.pl -i <input-file> -o <output-file> -s <seed-number>
 
 =head1 DESCRIPTION
 
-SDDS.pl - Simulate a model from a possible initialization.
+SDDS.pl - Simulate a model stochastically or deterministically from a possible initialization.
 
 =head1 REQUIRED ARGUMENTS
 
@@ -52,7 +52,7 @@ network-file.type: readable
 
 =item -o[utput-file] <output-file>
 
-The JSON file containing the average trajectories of variables of interest (.json).
+The JSON file containing the average trajectories of all variables (.json).
 
 =for Euclid:
 
@@ -65,10 +65,6 @@ file.type: writable
 =item -s[eed-number] <seed-number>
 
 The seed number for the random number generator. User enters a number if s/he wants to fix the seed so the random number generator will always generate the same number. Otherwise, no need to be specified.
-
-=for Euclid:
-
-network-file.type: readable
 
 =back
 
@@ -104,9 +100,12 @@ my $arguments = $task->{'task'}->{'method'}->{'arguments'}->[0];
 my $updateRules = $input->{'updateRules'};
 my $num_rules = scalar @$updateRules;
 
-# sets the number of variables in the model (array)
+# sets the variables in the model (array)
 my $variables = $input->{'variables'};
 my $num_variables = scalar @$variables;
+
+# sets the number of variables in the model (scalar)
+my $numberVariables = $input->{'numberVariables'};
 
 # sets the unified (maximum prime) number that each state can take values up to (scalar)
 my $num_states = $input->{'fieldCardinality'};
@@ -163,19 +162,26 @@ Checks if the user enters the options/parameters correctly and there is any inte
 
 sub errorCheck {
   
-  # num_rules, num_variables and num_propensities
-  unless (($input->{"numberVariables"} == $num_variables) || ($num_rules == $num_variables)) {
-    print ("<br>INTERNAL ERROR: There is inconsistency betwen the number of variables ($num_variables) and numberVariables (", $input->{"numberVariables"}, ") OR the number of update rules ($num_rules). <br>");
+  # num_variables
+  unless ($numberVariables == $num_variables) {
+    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of variables ($num_variables) and numberVariables ($numberVariables). <br>");
     exit;
   }
 
-  unless ($num_variables == $num_propensities) {
-    print ("<br>ERROR: There must be propensity entries for all $num_variables variables. It seems there are propensity entries for only $num_propensities variables. <br>");
+  # num_rules
+  unless ($numberVariables == $num_rules) {
+    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of update rules ($num_rules) and numberVariables ($numberVariables). <br>");
     exit;
   }
 
-  unless ($num_variables == scalar @$initialState) {
-     print ("<br>ERROR: There must be $num_variables variables in the initial state. Please check the initial state entry. <br>");
+  #num_propensities
+  unless ($numberVariables == $num_propensities) {
+    print ("<br>ERROR: There must be propensity entries for all $numberVariables variables. It seems there are propensity entries for $num_propensities variables. <br>");
+    exit;
+  }
+
+  unless ($numberVariables == scalar @$initialState) {
+     print ("<br>ERROR: There must be $numberVariables variables in the initial state. Please check the initial state entry. <br>");
     exit;
   }
 

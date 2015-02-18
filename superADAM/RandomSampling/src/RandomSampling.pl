@@ -1,6 +1,6 @@
 # Author: Seda Arat
 # Name: Basin of Attractors for Large Systems using Random Sampling Synch Update
-# Revision Date: October 24, 2014
+# Revision Date: February 18, 2015
 
 #!/usr/bin/perl
 
@@ -20,21 +20,19 @@ use JSON;
 
  # TO_DO: use the transition table information if available
 
- # TO_DO: use hash/array references
-
 ############################################################
 
 =head1 NAME
 
-RandomSampling.pl - Find the basin of attractors of a given discrete system with a large state space using random sampling and a synchronous update schedule.
+RandomSampling.pl - Find a basin of attractors of a given discrete system with a large state space using random sampling and a synchronous update schedule.
 
 =head1 USAGE
 
-RandomSampling.pl -i <input-file> -o <output-file>
+RandomSampling.pl -i <input-file> -o <output-file> -s <seed-number>
 
 =head1 SYNOPSIS
 
-RandomSampling.pl -i <input-file> -o <output-file>
+RandomSampling.pl -i <input-file> -o <output-file> -s <seed-number>
 
 =head1 DESCRIPTION
 
@@ -54,11 +52,19 @@ network-file.type: readable
 
 =item -o[utput-file] <output-file>
 
-The JSON file containing the average trajectories of variables of interest.
+The JSON file containing a basin of attractors
 
 =for Euclid:
 
 file.type: writable
+
+=head1 OPTIONAL ARGUMENTS
+
+=over
+
+=item -s[eed-number] <seed-number>
+
+The seed number for the random number generator. User enters a number if s/he wants to fix the seed so the random number generator will always generate the same number. Otherwise, no need to be specified.
 
 =back
 
@@ -68,14 +74,22 @@ Seda Arat
 
 =cut
 
-# it is for random number generator
-srand ();
-
 # input
 my $inputFile = $ARGV{'-i'};
 
 # output
 my $outputFile = $ARGV{'-o'};
+
+# seed
+my $seed = $ARGV{'-s'};
+
+# it is for random number generator
+if (defined $seed) {
+  srand ($seed);
+}
+else {
+  srand (time() | $$);
+}
 
 # converts input.json to Perl format
 my $task = JSON::Parse::json_file_to_perl ($inputFile);
@@ -86,9 +100,12 @@ my $samplingSize = $task->{'task'}->{'method'}->{'arguments'}->[0]->{'samplingSi
 my $updateRules = $input->{'updateRules'};
 my $num_rules = scalar @$updateRules;
 
-# sets the number of variables in the model (array)
+# sets the variables in the model (array)
 my $variables = $input->{'variables'};
 my $num_variables = scalar @$variables;
+
+# sets the number of variables in the model (scalar)
+my $numberVariables = $input->{'numberVariables'};
 
 # sets the unified (maximum prime) number that each state can take values up to (scalar)
 my $num_states = $input->{'fieldCardinality'};
@@ -96,15 +113,16 @@ my $num_states = $input->{'fieldCardinality'};
 # upper limits
 my $max_num_sampling = 10**6;
 
+my $stateSpaceSize = $num_states ** $numberVariables;
+
 errorCheck ();
 my ($polyFuncs, $tranTables) = get_updateRules ();
 my ($statesAndAttractors, $basinOfAttractors) = get_basinOfAttractors ();
-my $output = format_output ();
+my $tempFile = format_output ();
 
-my $json = JSON->new->indent ();
-open (OUT," > $outputFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
-print OUT $json->encode ($output);
-close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
+system ("cp $tempFile $outputFile");
+
+#system ("M2 ../../share/prettify-json $tempFile $outputFile");
 
 exit;
 
@@ -124,9 +142,15 @@ Checks if the user enters the options/parameters correctly and there is any inte
 
 sub errorCheck {
   
-  # num_rules and num_variables
-  unless (($input->{"numberVariables"} == $num_variables) || ($num_rules == $num_variables)) {
-    print ("<br>INTERNAL ERROR: There is inconsistency betwen the number of variables ($num_variables) and numberVariables (", $input->{"numberVariables"}, ") OR the number of update rules ($num_rules). <br>");
+  # num_variables
+  unless ($numberVariables == $num_variables) {
+    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of variables ($num_variables) and numberVariables ($numberVariables). <br>");
+    exit;
+  }
+
+  # num_rules
+  unless ($numberVariables == $num_rules) {
+    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of update rules ($num_rules) and numberVariables ($numberVariables). <br>");
     exit;
   }
 
@@ -154,15 +178,24 @@ sub get_updateRules {
 
   foreach my $i (@$updateRules) {
     my $key = $i->{"target"};
-    $polyFuncs->{$key} = $i->{"functions"}->[0]->{"polynomialFunction"};
-
-    my $value_tt = {};
-    foreach my $j (@{$i->{"functions"}->[0]->{"transitionTable"}}) {
-      my $k = join (' ', $j->[0]);
-      $value_tt->{$k} = $j->[1];
-    }
     
-    $tranTables->{$key} = $value_tt;
+    if (defined $i->{"functions"}->[0]->{"polynomialFunction"}) {
+      my $temp = $i->{"functions"}->[0]->{"polynomialFunction"};
+      $temp =~ s/\^/\*\*/g; # replace carret with double stars
+      $polyFuncs->{$key} = $temp;
+    }
+    elsif (defined $i->{"functions"}->[0]->{"transitionTable"}) {
+      my $value_tt = {};
+      foreach my $j (@{$i->{"functions"}->[0]->{"transitionTable"}}) {
+	my $k = join (' ', $j->[0]);
+	$value_tt->{$k} = $j->[1];
+      }
+      $tranTables->{$key} = $value_tt;
+    }
+    else {
+       print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. <br>");
+      exit;
+    }
   }
   
   return ($polyFuncs, $tranTables);
@@ -181,8 +214,7 @@ Returns 2 hash tables one of which is for initialState-attractor and another is 
 sub get_basinOfAttractors {
   my $is_attractor_table = {};
   my $attractor_size_table = {};
-  
-  my $stateSpaceSize = $num_states ** $num_variables;
+
   my $length = 5;
   my %state_attractor_table;
   my %attractor_table;
@@ -261,15 +293,22 @@ sub format_output {
 
   my $output = {"output" => [{
 			      "type" => "randomSamplingOutput",
-			      "description" => "basin of attractors of a large system using random sampling",
 			      "fieldCardinality" => $num_states,
 			      "numberVariables" => $num_variables,
 			      "samplingSize" => $samplingSize,
-			      "basinOfAttractors" => @attractorsAndSizes
+			      "stateSpaceSize" => $stateSpaceSize,
+			      "basinOfAttraction" => \@attractorsAndSizes
 			     }]
 	       };
   
-  return $output;
+  my $tempFile = "temp.json";
+  my $json = JSON->new->indent ();
+  $json = $json->canonical([1]);
+  open (OUT," > $tempFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
+  print OUT $json->encode ($output);
+  close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
+
+  return $tempFile;
 }
 
 ############################################################
@@ -343,20 +382,22 @@ sub get_nextstate {
     my $func = $polyFuncs->{"x$i"};
     my $tt = $tranTables->{"x$i"};
 
-    if ($func) {
-      for (my $j = 1; $j <= @currState; $j++) {
-  	$func =~ s/x[$j]/\($currState[$j - 1]\)/g;
+    if (defined $func) {
+      my $temp = $func;
+      for (my $j = 1; $j <= $num_variables; $j++) {
+	$temp =~ s/x[$j]/\($currState[$j - 1]\)/g;
       }
       
-      $nextState[$i - 1] = eval ($func) % $num_states;
+      my $ns = eval ($temp) % $num_states;
+      push (@nextState, $ns);
     }
-    elsif ($tt) {
+    elsif (defined $tt) {
 
       # TO_DO: use the transition table information if available
 
     }
     else {
-      print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. <br>");
+      print ("<br>INTERNAL ERROR: Neither polynomial function or transition table is available as an update rule for x$i. This error must have been detected earlier. <br>");
       exit;
     }
   }

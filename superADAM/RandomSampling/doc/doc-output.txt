@@ -1,15 +1,13 @@
 ********************************************************************************
 Name: Documentation for  JSON output for Random Sampling
 Author: Seda Arat
-Date: October 24, 2014
+Date: February 18, 2015
 ********************************************************************************
-description: basin of attractors of a large system using random sampling
 
-type: randomSamplingOutput
+RandomSampling returns an output file containing a basin of attraction of the system. Attractors and their sizes (the number of states ending up at that attractor) are provided. An attractor can be a fixed point (steady state) or a limit cycle with some length.
 
-basinOfAttractors: The code randomly picks an initial state and computes their trajectories until the initial state reaches an attractor. An attractor can be a fixed point (steady state) or a limit cycle with some length. This is repeated many times, depending upon the specified samplingSize. basinOfAttractors is an array of hash tables consisting of attractors and their sizes.
+The output file also includes some information in the input file in case we need them for debugging or using this sampling results in another program such as fieldCardinality, numberVariables, samplingSize and stateSpaceSize.
 
-The following information is provided for "in-case-we-will-need-them"
-purposes: numberVariables, fieldCardinality, samplingSize.
+“type”: randomSamplingOutput
 
 
