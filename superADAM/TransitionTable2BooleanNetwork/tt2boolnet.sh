@@ -15,28 +15,34 @@ while read line; do
     if [ "$method" = "f" ] && [ "$k" = "1" ]; then index="$(($line))"; fi
     #
     if [ "$line" = "inputs" ]; then method="i"; k="0"; fi
-    if [ "$method" = "i" ] && [ "$k" = "1" ]; then TT[index]="$line"; fi
+    if [ "$method" = "i" ] && [ "$k" = "1" ]; then INPUTS[index]="$line"; TT[index]="$line"; fi
     #
     #echo "${#line}";
     if [ "$line" = "truth_table" ]; then method="tt"; k="0"; fi
-    if [ "$method" = "tt" ] && [ "$line" != "" ] && (("$k">=1)) && ((${#line}>1)); then TT[index]="${TT[$index]}
+    if [ "$method" = "tt" ] && (("$k">=1)) && ((${#line}>0)); then TT[index]="${TT[$index]}
 $line"; fi
     #echo "k= $k" ; 
     k="$(($k+1))";   
 done < "$inputfile"
 
-#creating files
-#echo "num=$numfun"
-for ((i=1;i<="$numfun";i++)); do echo "${TT[$i]}" > "$inputfile"."$i";
-done
 
 #########
 ## does not work if there are more than 26 variables
 #########
-basename="$inputfile"; numfun="$numfun";
-if (("$numfun">26)); then echo "ONLY WORKS UP TO 26 VARIABLES"; exit; fi
+for ((i=1;i<="$numfun";i++)); do
+    num_inputs=`echo "${INPUTS[$i]}"  | wc -w`
+    if (("$num_inputs">26)); then echo "ONLY WORKS UP TO 26 VARIABLES"; exit; fi
+done
+
+#creating files
+#echo "num=$numfun"
+
+for ((i=1;i<="$numfun";i++)); do 
+    echo "${TT[$i]}" > "$inputfile"."$i";
+done
 
 
+basename="$inputfile"; 
 #########
 ## create Boolean function for each file that contains a truth table
 #########
@@ -62,14 +68,18 @@ $line"`; numlines="$(($numlines+1))";
     k="$(($k+1))"
 done <"$ttfile"
 
+
 #check if it is a constant function
-if (($numvars==0)); then BF[varindex]=$(($truthtable)); continue; fi
+if (($numvars==0)); 
+    then BF[varindex]=$(($truthtable)); 
+    continue; 
+fi
 
 #create file necessary for qm code
 truthtable=`printf "$numvars
 $numlines$truthtable"`;
 echo "$truthtable"> "$ttfile"
-
+#cat "$ttfile"
 #echo "${vars[0]}"
 #echo "${vars[1]}"
 #echo "${vars[2]}"
@@ -95,8 +105,9 @@ REDNF=`echo "$REDNF"| tail -c +4`
 BF[varindex]="$REDNF";
 done
 
-#echo Boolean functions
+#echo Boolean functions and remove temp files
 for ((i=1;i<=$numfun;i++)); do
-     rm "$basename.$i"; echo "${BF[$i]}";
+     rm "$basename.$i"; 
+     echo "${BF[$i]}";
 done
 
