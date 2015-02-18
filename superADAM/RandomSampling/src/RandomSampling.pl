@@ -1,6 +1,6 @@
 # Author: Seda Arat
 # Name: Basin of Attractors for Large Systems using Random Sampling Synch Update
-# Revision Date: February 17, 2014\5
+# Revision Date: February 18, 2015
 
 #!/usr/bin/perl
 
