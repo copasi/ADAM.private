@@ -297,7 +297,7 @@ sub format_output {
 			      "numberVariables" => $num_variables,
 			      "samplingSize" => $samplingSize,
 			      "stateSpaceSize" => $stateSpaceSize,
-			      "basinOfAttractors" => \@attractorsAndSizes
+			      "basinOfAttraction" => \@attractorsAndSizes
 			     }]
 	       };
   

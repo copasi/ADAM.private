@@ -1,6 +1,0 @@
-********************************************************************************
-Name: Documentation for  JSON output of simulation using SDDS
-Author: Seda Arat
-Date: October 23, 2014
-********************************************************************************
-RandomSampling module computes the basin of attractors for large systems using random sampling.

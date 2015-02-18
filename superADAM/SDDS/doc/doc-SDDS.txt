@@ -1,6 +1,6 @@
 ********************************************************************************
-Name: Documentation for  JSON output of simulation using SDDS
+Name: Documentation for SDDS
 Author: Seda Arat
-Date: October 22, 2014
+Date: February 18, 2015
 ********************************************************************************
 SDDS module simulates the average trajectory for each variable out of numberofSimulations trajectories deterministically or stochastically.
