@@ -1,0 +1,3 @@
+1. Write a script to transform json format (e.g. sample-input.json) into the input format required for the code (e.g. sample-input_truthtable.json)
+
+2. Write a script to transform the ourput format (e.g. sample-output_truthtable.json) into json format (e.g. sample-output.json)

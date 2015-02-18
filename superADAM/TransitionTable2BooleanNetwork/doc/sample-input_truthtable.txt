@@ -1,0 +1,175 @@
+num_functions
+14
+
+
+function
+1
+inputs
+x1 x14 x13
+truth_table
+000 0
+001 1
+010 0
+011 0
+100 1
+101 1
+110 0
+111 0
+
+
+function
+2
+inputs
+k1
+truth_table
+0 0
+1 1
+
+
+function
+3
+inputs
+x14 x9 x12 k2
+truth_table
+0000 0
+0001 1
+0010 1
+0011 1
+0100 1
+0101 1
+0110 1
+0111 1
+1000 1
+1001 1
+1010 1
+1011 1
+1100 1
+1101 1
+1110 1
+1111 1
+
+
+function
+4
+inputs
+x10 x3
+truth_table
+00 0
+01 1
+10 0
+11 0
+
+
+function
+5
+inputs
+x11 x1 k3
+truth_table
+000 0
+001 1
+010 1
+011 1
+100 0
+101 1
+110 0
+111 1
+
+
+function
+6
+inputs
+x5 x10
+truth_table
+00 0
+01 0
+10 1
+11 0
+
+
+function
+7
+inputs
+x13 k4
+truth_table
+00 0
+01 1
+10 0
+11 0
+
+
+function
+8
+inputs
+x13 k5
+truth_table
+00 0
+01 1
+10 0
+11 0
+
+
+function
+9
+inputs
+x8
+truth_table
+0 0
+1 1
+
+
+function
+10
+inputs
+x11 x14
+truth_table
+00 0
+01 1
+10 1
+11 1
+
+
+function
+11
+inputs
+x2 x4
+truth_table
+00 0
+01 1
+10 1
+11 1
+
+
+function
+12
+inputs
+x1 x7
+truth_table
+00 0
+01 1
+10 0
+11 0
+
+
+function
+13
+inputs
+x6
+truth_table
+0 0
+1 1
+
+
+function
+14
+inputs
+x11 x1 x14
+truth_table
+000 0
+001 1
+010 0
+011 0
+100 1
+101 1
+110 0
+111 0
+

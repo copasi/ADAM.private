@@ -1,0 +1,321 @@
+{
+    "output": [
+            {
+                "type": "model",
+                "description": "Sample model",
+		"parameters": [
+    {
+    "id": "k1",
+    "states": [0,1]
+    },
+    {
+    "id": "k2",
+    "states": [0,1]
+    },
+    {
+    "id": "k3",
+    "states": [0,1]
+    },
+    {
+    "id": "k4",
+    "states": [0,1]
+    },
+    {
+    "id": "k5",
+    "states": [0,1]
+    }
+  ],
+"updateRules": [
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x14","x13"],
+        "booleanFunction": "(!x14 & x13) | (x1 & !x14)",
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x1"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["k1"],
+        "booleanFunction": "(k1)",
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x2"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x14","x9","x12","k2"],
+        "booleanFunction": "(k2) | (x12) | (x9) | (x14)",
+        "transitionTable": [
+            [[0,0,0,0],0],
+            [[0,0,0,1],1],
+            [[0,0,1,0],1],
+            [[0,0,1,1],1],
+            [[0,1,0,0],1],
+            [[0,1,0,1],1],
+            [[0,1,1,0],1],
+            [[0,1,1,1],1],
+            [[1,0,0,0],1],
+            [[1,0,0,1],1],
+            [[1,0,1,0],1],
+            [[1,0,1,1],1],
+            [[1,1,0,0],1],
+            [[1,1,0,1],1],
+            [[1,1,1,0],1],
+            [[1,1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x3"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x10","x3"],
+        "booleanFunction": "(!x10 & x3)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x4"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x1","k3"],
+        "booleanFunction": "(k3) | (!x11 & x1)",
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],1],
+            [[0,1,1],1],
+            [[1,0,0],0],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],1]
+          ]
+        }
+      ],
+    "target": "x5"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x5","x10"],
+        "booleanFunction": "(x5 & !x10)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],0],
+            [[1,0],1],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x6"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","k4"],
+        "booleanFunction": "(!x13 & k4)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x7"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x13","k5"],
+        "booleanFunction": "(!x13 & k5)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x8"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x8"],
+        "booleanFunction": "(x8)",
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x9"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x14"],
+        "booleanFunction": "(x14) | (x11)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x10"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x2","x4"],
+        "booleanFunction": "(x4) | (x2)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],1],
+            [[1,1],1]
+          ]
+        }
+      ],
+    "target": "x11"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x1","x7"],
+        "booleanFunction": "(!x1 & x7)",
+        "transitionTable": [
+            [[0,0],0],
+            [[0,1],1],
+            [[1,0],0],
+            [[1,1],0]
+          ]
+        }
+      ],
+    "target": "x12"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x6"],
+        "booleanFunction": "(x6)",
+        "transitionTable": [
+            [[0],0],
+            [[1],1]
+          ]
+        }
+      ],
+    "target": "x13"
+    },
+    {
+    "functions": [
+        {
+        "inputVariables": ["x11","x1","x14"],
+        "booleanFunction": "(!x1 & x14) | (x11 & !x1)",
+        "transitionTable": [
+            [[0,0,0],0],
+            [[0,0,1],1],
+            [[0,1,0],0],
+            [[0,1,1],0],
+            [[1,0,0],1],
+            [[1,0,1],1],
+            [[1,1,0],0],
+            [[1,1,1],0]
+          ]
+        }
+      ],
+    "target": "x14"
+    }
+  ],
+"variables": [
+    {
+    "id": "x1",
+    "states": [0,1]
+    },
+    {
+    "id": "x2",
+    "states": [0,1]
+    },
+    {
+    "id": "x3",
+    "states": [0,1]
+    },
+    {
+    "id": "x4",
+    "states": [0,1]
+    },
+    {
+    "id": "x5",
+    "states": [0,1]
+    },
+    {
+    "id": "x6",
+    "states": [0,1]
+    },
+    {
+    "id": "x7",
+    "states": [0,1]
+    },
+    {
+    "id": "x8",
+    "states": [0,1]
+    },
+    {
+    "id": "x9",
+    "name": "IRAK",
+    "states": [0,1]
+    },
+    {
+    "id": "x10",
+    "states": [0,1]
+    },
+    {
+    "id": "x11",
+    "states": [0,1]
+    },
+    {
+    "id": "x12",
+    "states": [0,1]
+    },
+    {
+    "id": "x13",
+    "states": [0,1]
+    },
+    {
+    "id": "x14",
+    "states": [0,1]
+    }
+  ]
+
+
+    }
+]
+}
