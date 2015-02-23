@@ -1,0 +1,25 @@
+Making the following map :
+x1 --> 0
+x2 --> 1
+x3 --> 2
+x4 --> 3
+x5 --> 4
+x6 --> 5
+
+Original Graph  : 
+6 Vertices
+9 Edges
+
+Constant Nodes :
+
+
+MVFS Reduced graph : 
+0 Vertices
+0 Edges
+
+A minimum feedback vertex set : x5 
+
+Is it really a feedback vertex set ? yes
+
+Order of Evaluation : 
+0 2 3 5 1 4 
