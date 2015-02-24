@@ -1,0 +1,12 @@
+
+
+
+
+everyone, get their modules in the required format
+Mike will Skype with rev-eng folks
+move cyclone module into superADAM
+create GraphViz module in superADAM
+stefan will finish front-end stuff
+sook will create ADAM model template
+
+
