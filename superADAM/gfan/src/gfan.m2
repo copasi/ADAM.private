@@ -83,7 +83,7 @@ gfan(TimeSeriesData) := (TS) -> (
                 ));
         fns=append(fns,{value el,c/(k*nn*1.0)});
         FF=append(FF,fns);
-        ));
+        ))
 )    
 --A=createRevEngJSONOutputModel FF;
 --B=toHashTable A;
