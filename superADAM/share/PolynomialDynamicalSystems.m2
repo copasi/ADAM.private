@@ -187,6 +187,37 @@ findPDS(TimeSeriesData) := (T) -> (
         )
 )
 findPDS(ErrorPacket) := (E) -> E
+
+---------------------------------------------------------------------------------------------------
+
+minSets = method(Options => {Output => null,
+                         Avoid => null}
+                 )
+minSets(TimeSeriesData, ZZ, Ring) := opts -> (T, i, R) -> (
+        d := functionData(T,i);
+        I := minRep(d,R);
+    if instance(I,ZZ) then I = monomialIdeal(0_R); -- because I can be the zero element
+--    I = I + monomialIdeal(R_(i-1));
+    if opts.Avoid =!= null then (
+         J1= saturate(I,product flatten {opts.Avoid});
+         globalI = J1;
+         I = J1;
+         );
+    J := flatten entries gens mesdual I;
+    if opts.Output =!= null
+    then (
+      fil := openOut opts.Output;
+      displayMinRep(fil, I);
+          displayMinSets(fil, J);
+      close fil;
+      );
+    J /sort @@ support
+    )
+
+minSets(TimeSeriesData) = (T) -> (
+    n:=numColumns T;
+    apply(n, i->minSets(T,i+1,ring T))
+)
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
 -- Given a data file and a coefficient ring, readMat returns the (txn)-matrix of the data (t=time, n=vars). 
