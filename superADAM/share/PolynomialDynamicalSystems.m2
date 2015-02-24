@@ -14,6 +14,7 @@ newPackage(
 export{
     "readTSDataFromJSON",
     "findPDS",
+--    "gfanRevEng",
     "createRevEngJSONOutputModel",
     "getVars",
     "makeVars",
@@ -26,9 +27,12 @@ export{
     "minRep",
     "findFunction",
     "checkFunction",
-    "WildType"
+    "WildType",
+    "Avoid",
+    "Output"
     }
-
+    
+debug Core
 ---------------------------------------------------------------------------------------------------
 -- Declaration of new data types
 ---------------------------------------------------------------------------------------------------
@@ -189,6 +193,60 @@ findPDS(TimeSeriesData) := (T) -> (
 findPDS(ErrorPacket) := (E) -> E
 
 ---------------------------------------------------------------------------------------------------
+mesintersect = (L) -> (
+     -- L is a list of monomial ideals
+    M := L#0;
+    R := ring M;
+    i := 1;
+    << #L << " generators" << endl;
+    while i < #L do (
+     << "doing " << i << endl;
+     M = newMonomialIdeal(R, rawIntersect(raw M, raw L#i));
+     i = i+1;
+     );
+    M)
+
+mesdual = method()
+
+mesdual MonomialIdeal := (J) -> (if J == 0 
+  then monomialIdeal 1_(ring J) 
+  else if ideal J == 1 then monomialIdeal 0_(ring J)
+  else mesintersect (monomialIdeal @@ support \ first entries generators J))
+  
+displayMinRep = (fil,I) -> (
+     -- show: tally of degree of min gens
+     -- if any of size 1,2,3, display them
+     g := flatten entries gens I;
+     h := tally apply(g, f -> first degree f);
+     fil << #g << " min rep elements " << h << endl;
+     h1 := select(g, f -> first degree f == 1);
+     h2 := select(g, f -> first degree f == 2);
+     h3 := select(g, f -> first degree f == 3);
+     h4 := select(g, f -> first degree f == 4);
+     if #h1 > 0 then fil << "min rep length 1 = " << toString h1 << endl;
+     if #h2 > 0 then fil << "min rep length 2 = " << toString h2 << endl;
+     if #h3 > 0 then fil << "min rep length 3 = " << toString h3 << endl;
+     if #h3 > 0 then fil << "min rep length 4 = " << toString h4 << endl;
+     )
+
+displayMinSets = (fil,J) -> (
+     -- show: tally of degree of min gens
+     -- if any of size 1,2,3, display them
+     g := J;
+     h := tally apply(g, f -> first degree f);
+     fil << #g << " min set elements " << h << endl;
+     hlo := min keys h;
+     h1 := select(g, f -> first degree f == 1);
+     h2 := select(g, f -> first degree f == 2);
+     h3 := select(g, f -> first degree f == 3);
+     if #h1 > 0 and #h1 < 10 then fil << "min sets length 1 = " << toString h1 << endl;
+     if #h2 > 0 and #h2 < 10 then fil << "min sets length 2 = " << toString h2 << endl;
+     if #h3 > 0 and #h3 < 10 then fil << "min sets length 3 = " << toString h3 << endl;
+     if hlo > 3 and (true or h#hlo < 8) then (
+          hhlo := select(g, f -> first degree f == hlo);
+          fil << "min sets length " << hlo << " = " << netList hhlo << endl;
+      );
+     )
 
 minSets = method(Options => {Output => null,
                          Avoid => null}
@@ -199,8 +257,7 @@ minSets(TimeSeriesData, ZZ, Ring) := opts -> (T, i, R) -> (
     if instance(I,ZZ) then I = monomialIdeal(0_R); -- because I can be the zero element
 --    I = I + monomialIdeal(R_(i-1));
     if opts.Avoid =!= null then (
-         J1= saturate(I,product flatten {opts.Avoid});
-         globalI = J1;
+         J1:= saturate(I,product flatten {opts.Avoid});
          I = J1;
          );
     J := flatten entries gens mesdual I;
@@ -214,9 +271,9 @@ minSets(TimeSeriesData, ZZ, Ring) := opts -> (T, i, R) -> (
     J /sort @@ support
     )
 
-minSets(TimeSeriesData) = (T) -> (
+minSets(TimeSeriesData) := opts -> (T) -> (
     n:=numColumns T;
-    apply(n, i->minSets(T,i+1,ring T))
+    apply(n, i->minSets(T,i+1,ring T, opts))
 )
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"

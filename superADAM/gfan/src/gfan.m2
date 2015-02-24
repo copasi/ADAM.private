@@ -8,7 +8,7 @@
 --Output: File sample-output-gfan.txt that contains for each local polynomial all distinct normal forms and the corresponding proportion wrt all normal forms.
 --********************* 
 
-needs "PolynomialDynamicalSystems.m2"
+needsPackage "PolynomialDynamicalSystems"
 needsPackage "Points"
 
 gfanRevEng = method(TypicalValue=>List, Options=>{Multiplier=>10, RandomSeed=>null})

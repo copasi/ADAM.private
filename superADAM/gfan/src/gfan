@@ -1,7 +1,8 @@
-#!/usr/bin/env M2 --script
+#!/usr/bin/M2 --script
 
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
+needs "gfan.m2"
 
 helpString = ///usage: gfan <json-timeseries-data >json-rev-eng-output-model
 ///
@@ -13,7 +14,7 @@ if #scriptCommandLine != 1 then (
 
 --------------------------------
 TS = readTSDataFromJSON get stdio
-PDS = gfan TS
+PDS = gfanRevEng TS
 outputJSON = prettyPrintJSON createRevEngJSONOutputModel PDS
 print outputJSON
 
@@ -29,8 +30,9 @@ restart
 -- run this in basicRevEng/src dir
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
+needs "gfan.m2"
 TS = readTSDataFromJSON get "../test/test1-input.json"
-PDS = gfan TS
+PDS = gfanRevEng TS
 createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo
 
