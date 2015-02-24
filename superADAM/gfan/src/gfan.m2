@@ -8,12 +8,12 @@
 --Output: File sample-output-gfan.txt that contains for each local polynomial all distinct normal forms and the corresponding proportion wrt all normal forms.
 --********************* 
 
-gfan = method(TypicalValue=>List)
-gfan(TimeSeriesData) := (TS) -> (
+needs "PolynomialDynamicalSystems.m2"
+needsPackage "Points"
 
-    needs "PolynomialDynamicalSystems.m2"
-    needsPackage "Points"
-    
+gfanRevEng = method(TypicalValue=>List, Options=>{Multiplier=>10, RandomSeed=>null})
+gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
+
     --TS is a hashtable of time series data WITH NO KO DATA
     --TS = readTSDataFromJSON get "../test/test1-input.json";
     
@@ -21,8 +21,8 @@ gfan(TimeSeriesData) := (TS) -> (
     kk := ring TS; --Field
     nn := numColumns TS; --Number of variables (MUST come as input)
     
-    --SHOULD WE MAKE THIS AN ARGUMENT?
-    k:=10; --k*(number of variables) is the number of PDS models normalized wrt G. bases
+    --k was originally set to 10, now allowed to be an optional argument
+    k:=opts.Multiplier; --k*(number of variables) is the number of PDS models normalized wrt G. bases
     
     --FD is a list of hashtables, where each contains the input-vectors/output pairs for each node
     FD := apply(nn, II->functionData(TS, II+1));
@@ -35,7 +35,7 @@ gfan(TimeSeriesData) := (TS) -> (
     allFuncts:={};
     
     --Sample randomly from the G. fan
-    setRandomSeed processID();
+    if opts.RandomSeed =!= null then setRandomSeed opts.RandomSeed;
     apply(k*nn, J -> (
         m:=k*nn;
         w:={};
@@ -83,13 +83,15 @@ gfan(TimeSeriesData) := (TS) -> (
                 ));
         fns=append(fns,{value el,c/(k*nn*1.0)});
         FF=append(FF,fns);
-        ))
+        ));
+    FF
 )    
 --A=createRevEngJSONOutputModel FF;
 --B=toHashTable A;
 --C=prettyPrintJSON B;
 --"sample-output-gfan.txt" << C << endl << close
+
+--NEED TO HANDLE ERROR PACKETS
     
-    
-    end
-    ----------------------------------------------------- end of file---------------------------------------------------
+end
+----------------------------------------------------- end of file---------------------------------------------------
