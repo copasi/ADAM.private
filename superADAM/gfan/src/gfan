@@ -1,4 +1,4 @@
-#!/usr/bin/M2 --script
+#!/usr/bin/env M2 --script
 
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
@@ -44,3 +44,14 @@ TS = readTSDataFromJSON get "../test/test3-input.json"
 PDS = gfan TS
 createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo
+
+-- run this in gfan/src dir
+restart
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+needs "gfan.m2"
+TS = readTSDataFromJSON get "../test/test2-input.json"
+PDS = gfanRevEng TS
+outputJSON = prettyPrintJSON createRevEngJSONOutputModel PDS
+print outputJSON
+
