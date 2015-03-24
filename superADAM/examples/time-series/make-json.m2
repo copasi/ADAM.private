@@ -32,5 +32,6 @@ load "make-json.m2"
 allDirs()
 makeTSJSON "gepasi"
 makeTSJSON "lactose"
+makeTSJSON "testing-gfan"
 makeTSJSON {}
 M2 make-json.m2 --silent -e "makeTSJSON{}" -e "exit 0"
