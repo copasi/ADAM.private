@@ -30,14 +30,17 @@ gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
     --IN is a matrix of input vectors
     IN := matrix keys first FD;
     
-    allNFs:={};
+    ----allNFs:={};
     functs:={};
     allFuncts:={};
-    
+
+    R := kk[vars(53..52+nn)]; -- this is the polynomial ring into which we will place all normal forms
+    FF := matrix{for i from 0 to nn-1 list findFunction(FD_i, gens R)};
+
     --Sample randomly from the G. fan
     if opts.RandomSeed =!= null then setRandomSeed opts.RandomSeed;
-    apply(k*nn, J -> (
-        m:=k*nn;
+    m := k*nn;
+    allNFs := for j from 1 to m list (
         w:={};
         w={random(0,m)};
         apply(nn-2, II->(w=append(w,random(0,m=m-w#II));
@@ -53,25 +56,30 @@ gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
         --GB is a list of Grobner basis elements - THIS IS WHAT YOU WANT FOR GFAN
         (SM, LT, GB) := points(transpose IN, Rr);
         --F is a list of interpolating functions, one for each node 
-        FF := apply(nn, II->findFunction(FD_II, gens Rr));
+        ----FF := apply(nn, II->findFunction(FD_II, gens Rr));
         use Rr;
-        GG := {matrix{GB}};
-        NF := apply(nn, II->apply(GG, gb->(FF_II)%gb));
-        temp:={};
-        temp=apply(nn, II->append(temp,NF#II#0));
-        allNFs=append(allNFs,flatten temp);
-        ));
-    
-    allCounts:={};
-    FF:={};
-    apply(nn, JJ->(
-        s:={};
-        apply(k*nn, II->(
-                s=append(s,toString (allNFs#II#JJ));
-                --s=append(s,allNFs#II#JJ); --leave functions in the ring
-                ));
-        --Count how many times a normal form is repeated for each local polynomial
-        ssort:=rsort s;
+        ----GG := {matrix{GB}};
+        NF := sub(FF, vars Rr) % (forceGB matrix{GB}); -- one row matrix of all normal forms wrt this GB
+        ----NF := apply(nn, II->apply(GG, gb->(sub(FF_II,Rr))%gb));
+        ----temp:={};
+        ----temp=apply(nn, II->append(temp,NF#II#0));
+        flatten entries sub(NF,vars R)
+        );
+    ----allCounts:={};
+    ----FS={};
+    ----apply(nn, JJ->(
+    for i from 0 to nn-1 list (
+        ----s:={};
+        ----apply(k*nn, II->(
+        ----        s=append(s,toString (allNFs#II#i));
+        ----        --s=append(s,allNFs#II#JJ); --leave functions in the ring
+        ----        ));
+        ------Count how many times a normal form is repeated for each local polynomial
+        ----ssort:=rsort s;
+        dist := tally(allNFs/(nfs -> nfs#i)); -- list of polynomials in R for node i
+        for f in keys dist list {f, dist#f / (nn * k * 1.0)}
+        )
+ {*
         fns:={};
         c:=1;
         el:=toString ssort#0;
@@ -82,9 +90,10 @@ gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
                     fns=append(fns,{value el,c/(k*nn*1.0)}), el=toString ssort#(II+1), c=1); 
                 ));
         fns=append(fns,{value el,c/(k*nn*1.0)});
-        FF=append(FF,fns);
-        ));
-    FF
+        fns
+        ---FS=append(FS,fns);
+        );
+ *}
 )    
 --A=createRevEngJSONOutputModel FF;
 --B=toHashTable A;
