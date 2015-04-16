@@ -1,0 +1,67 @@
+{
+"task": {
+  "input": {
+    "reverseEngineeringInputData": {
+      "description": "optional place to put comments - data matrices for wildtype and knockout experiments",
+      "fieldCardinality": 5,
+      "numberVariables": 4,
+      "timeSeriesData": [
+          {
+          "index": [],
+          "matrix": [
+              [1,2,2,2],
+              [0,1,0,1],
+              [1,1,0,0]
+            ],
+          "name": "wildtype experiment 1"
+          },
+          {
+          "index": [],
+          "matrix": [
+              [1,1,2,2],
+              [0,2,0,1],
+              [1,0,0,0]
+            ],
+          "name": "wildtype experiment 2"
+          },
+          {
+          "index": [1,3],
+          "matrix": [
+              [0,2,0,2],
+              [0,2,0,1],
+              [0,1,0,2],
+              [0,2,0,1]
+            ],
+          "name": "double knockout experiment 1"
+          },
+          {
+          "index": [1,3],
+          "matrix": [
+              [0,1,0,2],
+              [0,1,0,1],
+              [0,1,0,1],
+              [0,2,0,2]
+            ],
+          "name": "double knockout experiment 2"
+          },
+          {
+          "index": [2],
+          "matrix": [
+              [1,0,0,2],
+              [0,0,2,1],
+              [1,0,2,1],
+              [0,0,0,2]
+            ],
+          "name": "knockout experiment 1"
+          }
+        ]
+      }
+    },
+  "method": {
+    "id": "Gfan",
+    "description": "Computes all PDS's based on discrete data. Assigns probabilities to each PDS function",
+    "parameters": []
+    },
+  "type": "reverseEngineering"
+  }
+}
