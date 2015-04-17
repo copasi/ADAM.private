@@ -3,8 +3,8 @@ require_relative './algorun/Task.rb'
 require_relative './algorun/React.rb'
 require_relative './algorun/Server.rb'
 
-if ENV["REACT_HOME"].nil? then
-	ENV["REACT_HOME"]=ENV["PWD"]
+if ENV["CODE_HOME"].nil? then
+	ENV["CODE_HOME"]=ENV["PWD"]
 end
 
 class String
@@ -60,9 +60,10 @@ case param
 		puts "* test <test_number>: run test #<test_number>"
 		puts "* <input_file.json>: run REACT with the input JSON file"
 		puts "* clean: remove temporary and compiled files"
+		puts "* start: start the REACT web service"
 		puts "* help: shows this help message"
 	when "make"
-		Dir.chdir ENV['REACT_HOME']+"/src"
+		Dir.chdir ENV['CODE_HOME']+"/src"
 		system("make")
 		system("cp React ..")
 	when "test"
@@ -93,7 +94,7 @@ case param
 		Dir.chdir "src"
 		system("make clean")
 	when "start"
-		server = WEBrick::HTTPServer.new(:Port => 8765, "RequestTimeout" => 300, :DocumentRoot => ENV["REACT_HOME"]+"algorun/web/")
+		server = WEBrick::HTTPServer.new(:Port => 8765, "RequestTimeout" => 300, :DocumentRoot => ENV["CODE_HOME"]+"algorun/web/")
 		server.mount("/do", Algorun)
 		trap("INT") {
 			server.shutdown

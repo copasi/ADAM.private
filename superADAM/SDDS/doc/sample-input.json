@@ -1,7 +1,7 @@
 {
   "task": {
     "method": {
-      "description": “a simulation method using Stochastic Discrete Dynamical System (SDDS)",
+      "description": "a simulation method using Stochastic Discrete Dynamical System (SDDS)",
       "id": "SDDS",
       "type": "simulation",
       "arguments": [
