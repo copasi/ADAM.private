@@ -1,0 +1,30 @@
+{
+  "task": {
+      "input": [
+          {
+            "description": "data from Gepasi",
+            "fieldCardinality": 13,
+            "numberVariables": 7,
+            "timeSeriesData": [
+                {
+                    "index": [],
+                    "matrix": [
+                        [1, 5, 1, 1, 2, 2, 3],
+                        [1, 4, 1, 2, 3, 3, 4],
+                        [5, 6, 6, 2, 3, 4, 5],
+                        [0, 5, 6, 3, 4, 5, 6]
+                    ],
+                    "name": "wildtype experiment 2"
+                }
+            ],
+            "type": "timeSeries"
+          }
+	  ],
+      "method": {
+          "arguments": [],
+          "description": "example time series",
+          "id": "basicRevEng",
+          "type": "reverseEngineering"
+        }
+    }
+}

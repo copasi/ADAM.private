@@ -31,8 +31,8 @@ restart
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
 needs "gfan.m2"
-TS = readTSDataFromJSON get "../test/test1-input.json"
-PDS = gfanRevEng TS
+TS = readTSDataFromJSON get "../test/test3-input.json"
+time PDS = gfanRevEng(TS, Multiplier=>10);
 createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo
 

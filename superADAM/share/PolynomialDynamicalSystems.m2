@@ -1,9 +1,9 @@
 newPackage(
     "PolynomialDynamicalSystems",
-        Version => "0.2", 
-        Date => "January 4, 2006",
+        Version => "1.0", 
+        Date => "12 May 2015",
         Authors => {
-         {Name => "Brandy Stigler", Email => "bstigler@mbi.osu.edu", HomePage => "http://users.mbi.ohio-state.edu/bstigler"},
+         {Name => "Brandy Stigler", Email => "bstigler@smu.edu", HomePage => "http://faculty.smu.edu/bstigler"},
          {Name => "Mike Stillman", Email => "mike@math.cornell.edu", HomePage => "http://www.math.cornell.edu/~mike"}
          },
         Headline => "Utilities for polynomial dynamical systems",
@@ -210,6 +210,8 @@ mesintersect = (L) -> (
 
 mesdual = method()
 
+-- TODO: use Macaulay2 "dual MonomialIdeal", as that uses Roune's 
+--   optimized algorithm
 mesdual MonomialIdeal := (J) -> (if J == 0 
   then monomialIdeal 1_(ring J) 
   else if ideal J == 1 then monomialIdeal 0_(ring J)
@@ -567,24 +569,6 @@ document {
 
 --       TimeSeriesData, 
 --       FunctionData, 
-
-end
-document { 
-     Key => (borel,Matrix),
-     Headline => "",
-     Usage => "",
-     Inputs => {
-	  },
-     Outputs => {
-	  },
-     Consequences => {
-	  },     
-     "description",
-     EXAMPLE {
-	  },
-     Caveat => {},
-     SeeAlso => {}
-     }
 
 end
 restart

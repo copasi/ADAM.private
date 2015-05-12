@@ -50,6 +50,12 @@ H = parseJSON str
 print prettyPrintJSON H
 
 H = parseJSON get "~/src/reinhard/cell-collective-json/Apoptosis_Network.json"
-"foo.json" <<  toTask([H],[], ["blah", "limitcycles", "yada yada", [new HashTable from {"name" => "cycleLengths", "value" => [1]}]]) << endl << close
+("foo.json" << 
+  toTask(
+      [H],
+      [], 
+      ["blah", "limitcycles", "yada yada", [new HashTable from {"name" => "cycleLengths", "value" => [1]}]]
+      )
+  << endl << close
+  )
 
-toTask("
