@@ -1,0 +1,87 @@
+MODEL NAME: sook_model
+
+SIMULATION NAME: sim1
+
+SIZE OF STATE SPACE: 8
+
+NUMBER OF CYCLES: 6
+
+COMPONENT 1:
+Size = 2(25.0000 %)
+Limit Cycle:
+Length = 1
+States = [ 0 0 1 ]
+
+COMPONENT 2:
+Size = 2(25.0000 %)
+Limit Cycle:
+Length = 1
+States = [ 1 1 0 ]
+
+COMPONENT 3:
+Size = 1(12.5000 %)
+Limit Cycle:
+Length = 1
+States = [ 0 0 0 ]
+
+COMPONENT 4:
+Size = 1(12.5000 %)
+Limit Cycle:
+Length = 1
+States = [ 0 1 1 ]
+
+COMPONENT 5:
+Size = 1(12.5000 %)
+Limit Cycle:
+Length = 1
+States = [ 1 0 0 ]
+
+COMPONENT 6:
+Size = 1(12.5000 %)
+Limit Cycle:
+Length = 1
+States = [ 1 1 1 ]
+
+DONE
+<NOTES>
+</NOTES>
+
+MODEL NAME: sook_model
+
+SIMULATION NAME: sim1
+
+NUMBER OF VARIABLES: 3
+
+VARIABLE NAMES: SA COR PSY 
+
+NUMBER OF STATES: 2 2 2 
+
+SPEED OF VARIABLES: 1 1 1 
+
+STATE TRANSITION TABLE for SA:
+COR PSY SA SA
+0
+1
+0
+0
+1
+1
+0
+1
+
+
+
+STATE TRANSITION TABLE for COR:
+COR COR
+0
+1
+
+
+
+STATE TRANSITION TABLE for PSY:
+PSY PSY
+0
+1
+
+
+
