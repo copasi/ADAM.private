@@ -4,9 +4,9 @@ RUN apt-get update
 RUN apt-get install -y ruby2.0 build-essential
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-USER M2
-ADD ../share/* /home/M2/adam/superADAM/share/
-ADD ./src/* /home/M2/adam/superADAM/basicRevEng/src/
-ADD ./test/* /home/M2/adam/superADAM/basicRevEng/test/
-ENV ADAM_ROOT /home/M2/adam
-ENV PATH $ADAM_ROOT/superADAM/share:$PATH
+ADD share/ /home/M2/adam/superADAM/share/
+ADD basicRevEng/src/* /home/M2/
+ADD M2script /home/M2/
+ADD basicRevEng/test/* /home/M2/test/
+ENV ADAM_ROOT /home/M2/adam/
+ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
