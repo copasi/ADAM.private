@@ -24,6 +24,8 @@ export {
     "prettyPrintJSON", 
     "toHashTable", 
     "fromHashTable", 
+    "toMutableHashTable",
+    "fromMutableHashTable",
     "exampleJSON",
     "ErrorPacket", -- errors get passed around as packets
     "errorPacket" -- create an error packet
@@ -358,6 +360,23 @@ fromHashTable BasicList := (L) -> (
     M := for a in L list fromHashTable a;
     new Array from M
     )
+
+
+-- new code: needs to be documented and tested
+toMutableHashTable = method()
+toMutableHashTable Thing := (s) -> s
+toMutableHashTable List := (L) -> (
+    -- L should be a list of pairs, to be made into a hashtable
+    H := L/toMutableHashTable;
+    new MutableList from H
+    )
+toMutableHashTable HashTable := (A) -> new MutableHashTable from (apply(pairs A, (k,v) -> (k, toMutableHashTable v)))
+
+-- new code: needs to be documented and tested
+fromMutableHashTable = method()
+fromMutableHashTable Thing := (a) -> a
+fromMutableHashTable MutableHashTable := (H) -> hashTable for k in keys H list (k, fromMutableHashTable H#k)
+fromMutableHashTable MutableList := (L) -> for a in L list fromMutableHashTable a
 
 exampleJSON = {///
 {"model": {
