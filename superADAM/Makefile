@@ -1,4 +1,5 @@
 # to create docker images
+.always gfan basicreveng run-gfan run-basicreveng
 
 gfan:
 	sudo docker build -f gfan/Dockerfile -t mikestillman/gfan .
