@@ -12,7 +12,7 @@ ADD ./algorun/web/index.html /home/REACT/algorun/web/
 ADD ./algorun/web/js /home/REACT/algorun/web/js/
 ADD ./algorun/web/css /home/REACT/algorun/web/css/
 RUN cd /home/REACT/
-ENV REACT_HOME /home/REACT/
+ENV CODE_HOME /home/REACT
 RUN ["/usr/bin/ruby","/home/REACT/run.rb","make"]
 RUN rm -f src/*.o
 EXPOSE 8765

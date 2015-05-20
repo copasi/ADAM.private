@@ -1,0 +1,44 @@
+#!/usr/bin/env M2 --script
+
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+
+helpString = ///usage: minsets <json-timeseries-data >json-rev-eng-output-model
+///
+
+if #scriptCommandLine != 1 then (
+    stderr << helpString;
+    exit(1);
+    )
+
+--------------------------------
+TS = readTSDataFromJSON get stdio
+MS = minSets TS
+outputJSON = prettyPrintJSON createRevEngJSONOutputModel MS
+print outputJSON
+
+end
+
+restart
+-- example:
+./minsets <../test/Gepasi-input.json
+./minsets <../test/test1-input.json >foo-1
+./minsets help
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test1-input.json"
+MS = minSets TS
+createRevEngJSONOutputModel MS
+outputJSON = prettyPrintJSON oo
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test3-input.json"
+MS = minSets TS
+createRevEngJSONOutputModel MS
+outputJSON = prettyPrintJSON oo

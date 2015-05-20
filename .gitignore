@@ -4,3 +4,4 @@ tmp
 .autotools
 .bak
 bin
+*.bak

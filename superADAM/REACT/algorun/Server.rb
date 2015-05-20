@@ -3,6 +3,7 @@
 require 'webrick'
 require 'open-uri'
 require 'json'
+require 'net/http'
 
 =begin
     WEBrick is a Ruby library that makes it easy to build an HTTP server with Ruby. 
@@ -21,21 +22,38 @@ require 'json'
 class Algorun < WEBrick::HTTPServlet::AbstractServlet
 
     def do_POST (request, response)
-	puts request
 	output=""
 	case request.path
 		when "/do/run"
 			response.status = 500
 			json = JSON.parse(request.query["input"])
-			begin
-				output_file=ENV["REACT_HOME"]+"/output.txt"
-				task=React.new(json,ENV["REACT_HOME"]+'./React')
-				task.run(output_file)
-				output = JSON.dump(task.render_output(output_file))
-				task.clean_temp_files()
+			if not ENV["VALIDATE_INPUT"].nil? then
+				eval("def validate_input(json)\n"+ENV["VALIDATE_INPUT"]+"\nend\n")
+			end
+			check_input=self.respond_to?(:validate_input)
+			if ((not check_input) || (check_input && validate_input(json))) then
+				begin
+					output_file=ENV["CODE_HOME"]+"/output.txt"
+					task=React.new(json,ENV["CODE_HOME"]+'/./React')
+					task.run(output_file)
+					json_output=task.render_output(output_file)
+					output = JSON.dump(json_output)
+					task.clean_temp_files()
+					if not ENV["OUTPUT_TO"].nil? then
+						output_to=eval(ENV["OUTPUT_TO"])
+						output_to.each do |node|
+							eval("def check(json)\n"+node["condition"]+"\nend\n")
+							if check(json_output) then
+								Net::HTTP.post_form(URI(node["target"]),'input'=>output)
+							end
+						end
+					end
+				rescue StandardError=>e
+					output = "ERROR: "+e.to_s
+				end
 				response.status = 200
-			rescue StandardError=>e
-				output = "ERROR: "+e.to_s
+			else
+				output="PASS: invalid input"
 			end
 		else
 			output+="failure"

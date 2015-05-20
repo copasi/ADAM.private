@@ -38,7 +38,7 @@ print endJSON
 
 end
 
-export FILE=../../example-models/cell-collective/Apoptosis_Network.json
+export FILE=../../examples/cell-collective/Apoptosis_Network.json
 
 ./make-transform-task add poly <$FILE | prettify-json | ./transform-model >foo
 ./make-transform-task add poly <$FILE | ./transform-model >foo
