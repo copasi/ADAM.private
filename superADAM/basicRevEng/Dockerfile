@@ -6,7 +6,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD share/ /home/M2/adam/superADAM/share/
 ADD basicRevEng/src/* /home/M2/
-ADD M2script /home/M2/
+RUN echo M2 --script \"\$\@\" > /usr/bin/M2script
+RUN chmod +x /usr/bin/M2script
 ADD basicRevEng/test/* /home/M2/test/
 ENV ADAM_ROOT /home/M2/adam/
 ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
