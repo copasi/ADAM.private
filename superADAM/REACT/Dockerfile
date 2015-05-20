@@ -1,8 +1,7 @@
 FROM phusion/baseimage:0.9.15
 MAINTAINER Thibauld Favre <thibauld@fastmail.com>
 RUN apt-get update
-RUN apt-get install -y ruby2.0 aptitude
-RUN aptitude -y install build-essential
+RUN apt-get install -y ruby2.0 build-essential
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ADD run.rb /home/REACT/
 ADD ./src/*.h /home/REACT/src/
