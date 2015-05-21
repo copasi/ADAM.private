@@ -1,3 +1,5 @@
+
+
 {
   "task": {
     "method": {
@@ -23,7 +25,7 @@
                 "score": 1
               },
               {
-                "source": "x2",
+                "source": "x3",
                 "score": 1
               },
               {
@@ -31,12 +33,12 @@
                 "score": 1
               },
               {
-                "source": "x3",
-                "score": 1
+                "source": "x5",
+                "score": 0.75
               },
               {
-                "source": "x5",
-                "score": 1
+                "source": "x2",
+                "score": 0.25
               }
             ]
           },
@@ -44,7 +46,7 @@
             "target": "x2",
             "sources": [
               {
-                "source": "x2",
+                "source": "x1",
                 "score": 1
               },
               {
@@ -54,10 +56,6 @@
               {
                 "source": "x4",
                 "score": 1
-              },
-              {
-                "source": "x5",
-                "score": 0.5
               }
             ]
           },
@@ -71,6 +69,10 @@
               {
                 "source": "x4",
                 "score": 1
+              },
+              {
+                "source": "x1",
+                "score": 0.5
               }
             ]
           },
@@ -86,11 +88,11 @@
                 "score": 1
               },
               {
-                "source": "x3",
+                "source": "x4",
                 "score": 1
               },
               {
-                "source": "x4",
+                "source": "x3",
                 "score": 1
               },
               {
@@ -107,19 +109,15 @@
                 "score": 1
               },
               {
-                "source": "x4",
-                "score": 1
-              },
-              {
-                "source": "x2",
-                "score": 1
-              },
-              {
                 "source": "x3",
                 "score": 1
               },
               {
                 "source": "x5",
+                "score": 1
+              },
+              {
+                "source": "x2",
                 "score": 1
               }
             ]
@@ -130,33 +128,40 @@
             "target": "x1",
             "functions": [
               {
-                "polynomialFunction": "x1*x2*x4 + x1*x3*x5 + x1 + x3*x4 + 0",
+                "polynomialFunction": "x1*x3*x4 + x1*x3*x5 + x1*x5 + x1 + x4*x5 + x5 + 0",
                 "inputVariables": [
                   "x1",
-                  "x2",
-                  "x4",
                   "x3",
+                  "x4",
                   "x5"
                 ],
                 "score": 0.275
               },
               {
-                "polynomialFunction": "x1*x2*x4*x5 + x1*x3*x5 + x1 + x3*x4 + 0",
+                "polynomialFunction": "x1*x2*x5 + x1*x3*x5 + x1 + x3*x4 + x4*x5 + x5 + 0",
                 "inputVariables": [
                   "x1",
                   "x2",
-                  "x4",
                   "x5",
-                  "x3"
+                  "x3",
+                  "x4"
                 ],
                 "score": 0.275
               },
               {
-                "polynomialFunction": "x1*x2*x5 + x1*x2 + x1*x3*x4 + x1 + 0",
+                "polynomialFunction": "x1*x3*x5 + x1*x5 + x1 + x3*x4 + x4*x5 + x5 + 0",
                 "inputVariables": [
                   "x1",
-                  "x2",
+                  "x3",
                   "x5",
+                  "x4"
+                ],
+                "score": 0.275
+              },
+              {
+                "polynomialFunction": "x1 + x3*x4 + 0",
+                "inputVariables": [
+                  "x1",
                   "x3",
                   "x4"
                 ],
@@ -168,23 +173,22 @@
             "target": "x2",
             "functions": [
               {
-                "polynomialFunction": "x2 + x3*x4*x5 + x3 + x4 + 1",
+                "polynomialFunction": "x1 + x3*x4 + x4",
                 "inputVariables": [
-                  "x2",
-                  "x3",
-                  "x4",
-                  "x5"
-                ],
-                "score": 0.26574075
-              },
-              {
-                "polynomialFunction": "x2 + x3*x4 + x3 + x4 + 1",
-                "inputVariables": [
-                  "x2",
+                  "x1",
                   "x3",
                   "x4"
                 ],
-                "score": 0.26574075
+                "score": 0.2564815
+              },
+              {
+                "polynomialFunction": "x1 + x3*x4 + x4 + 0",
+                "inputVariables": [
+                  "x1",
+                  "x3",
+                  "x4"
+                ],
+                "score": 0.2564815
               }
             ]
           },
@@ -198,6 +202,15 @@
                   "x4"
                 ],
                 "score": 0.26574075
+              },
+              {
+                "polynomialFunction": "x1*x4 + x2*x4 + 1",
+                "inputVariables": [
+                  "x1",
+                  "x4",
+                  "x2"
+                ],
+                "score": 0.26574075
               }
             ]
           },
@@ -205,7 +218,40 @@
             "target": "x4",
             "functions": [
               {
-                "polynomialFunction": "x1*x2 + x1*x3*x4 + x1*x5 + x2*x3*x5 + x2*x3 + x2 + x3*x4 + x3*x5 + x3 + x4 + 1",
+                "polynomialFunction": "x1*x2*x4 + x2*x3 + x3 + x5 + 1",
+                "inputVariables": [
+                  "x1",
+                  "x2",
+                  "x4",
+                  "x3",
+                  "x5"
+                ],
+                "score": 0.2564815
+              },
+              {
+                "polynomialFunction": "x1*x4 + x2*x3 + x3 + x5 + 1",
+                "inputVariables": [
+                  "x1",
+                  "x4",
+                  "x2",
+                  "x3",
+                  "x5"
+                ],
+                "score": 0.2564815
+              },
+              {
+                "polynomialFunction": "x1*x4*x5 + x2*x3 + x3 + x5 + 1",
+                "inputVariables": [
+                  "x1",
+                  "x4",
+                  "x5",
+                  "x2",
+                  "x3"
+                ],
+                "score": 0.2564815
+              },
+              {
+                "polynomialFunction": "x1*x2*x3 + x1*x4*x5 + x3 + x5 + 1",
                 "inputVariables": [
                   "x1",
                   "x2",
@@ -213,18 +259,7 @@
                   "x4",
                   "x5"
                 ],
-                "score": 0.26574075
-              },
-              {
-                "polynomialFunction": "x1*x2 + x1*x3 + x1*x5 + x2*x3*x5 + x2*x3 + x2 + x3*x4 + x3*x5 + x3 + x4 + 1",
-                "inputVariables": [
-                  "x1",
-                  "x2",
-                  "x3",
-                  "x5",
-                  "x4"
-                ],
-                "score": 0.26574075
+                "score": 0.2564815
               }
             ]
           },
@@ -232,41 +267,270 @@
             "target": "x5",
             "functions": [
               {
-                "polynomialFunction": "x1*x4 + x1 + x2*x3 + x2*x4 + x2 + x3*x4*x5 + x3*x5 + x4*x5 + 0",
+                "polynomialFunction": "x1*x3*x5 + x1 + x2*x3 + x5 + 0",
                 "inputVariables": [
                   "x1",
-                  "x4",
-                  "x2",
                   "x3",
-                  "x5"
-                ],
-                "score": 0.26574075
-              },
-              {
-                "polynomialFunction": "x1*x2*x4 + x1 + x2*x3 + x2*x4 + x2 + x3*x4*x5 + x3*x5 + x4*x5 + 0",
-                "inputVariables": [
-                  "x1",
-                  "x2",
-                  "x4",
-                  "x3",
-                  "x5"
-                ],
-                "score": 0.26574075
-              },
-              {
-                "polynomialFunction": "x1*x2*x4*x5 + x1 + x2*x3 + x2*x4 + x2 + x3*x4*x5 + x3*x5 + x4*x5 + 0",
-                "inputVariables": [
-                  "x1",
-                  "x2",
-                  "x4",
                   "x5",
-                  "x3"
+                  "x2"
+                ],
+                "score": 0.26574075
+              },
+              {
+                "polynomialFunction": "x1*x3*x5 + x1 + x2*x3 + x5",
+                "inputVariables": [
+                  "x1",
+                  "x3",
+                  "x5",
+                  "x2"
                 ],
                 "score": 0.26574075
               }
             ]
           }
         ]
+      },
+      {
+        "description": "data from Gepasi",
+        "fieldCardinality": 2,
+        "numberVariables": 5,
+        "timeSeriesData": [
+          {
+            "index": [
+              
+            ],
+            "matrix": [
+              [
+                1,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0
+              ]
+            ],
+            "name": "wildtype experiment 1"
+          },
+          {
+            "index": [
+              
+            ],
+            "matrix": [
+              [
+                1,
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0
+              ]
+            ],
+            "name": "wildtype experiment 2"
+          },
+          {
+            "index": [
+              1
+            ],
+            "matrix": [
+              [
+                0,
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                1,
+                1
+              ]
+            ],
+            "name": "knockout experiment 1"
+          }
+        ],
+        "type": "timeSeries"
       }
     ]
   }
