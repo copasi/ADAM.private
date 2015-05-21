@@ -1,26 +1,18 @@
 require 'json'
 
 class BNReduction	
-	
-	def initialize()
+	def initialize(json)
 		@ks = Hash.new	
 		@xs = Hash.new	
 		@steadystates = Hash.new
 		@parameters = []
 		@idorder = []
-		@value = []	
+		@value = []
+		@json_data = json
+		self.j2i_parse_json()
 	end
 
-	def i2j_readFile(json_file)
-		@json_data = ''
-		f = File.open(json_file, "r")
-		f.each_line do |line|
-  			@json_data += line
-		end
-		f.close	
-	end
-
-	def i2j_parse_json()
+	def j2i_parse_json()
 		@parsed = JSON.parse(@json_data)
 		@karguments =  @parsed["task"]["method"]["arguments"]
 		ks_length =  @karguments.length
@@ -36,9 +28,29 @@ class BNReduction
 			@xs[@x_variables[i-1]["target"]] = @x_variables[i-1]["functions"][0]["booleanFunction"]
 			i = i + 1
 		end
+
 	end
-	
-	def i2j_replace_k(k_string)
+
+	def j2i_get_input()
+		@formatted_input = ''
+		i = 1
+		while i <= @xs.length do
+			index = "x" + String(i)
+			@formatted_input += j2i_replace_k(@xs[index])
+			@formatted_input += "\n"
+			i = i + 1
+		end
+		i = 1
+		while i <= @ks.length
+			index = "k" + String(i)
+			@formatted_input += String(@ks[index])
+			@formatted_input += "\n"
+			i = i + 1
+		end
+		return @formatted_input
+	end
+
+	def j2i_replace_k(k_string)
 		occurences = k_string.scan(/k[1-9]/)
 		i = 1
 		while i <= occurences.length
@@ -48,28 +60,10 @@ class BNReduction
 			i = i+1	
 		end
 		return k_string
-		
 	end
-	def i2j_write_output(output_file)
-		f = File.open(output_file, "w")
-		i = 1
-		while i <= @xs.length do
-			index = "x" + String(i)
-			f.write(replace_k(@xs[index]))
-			f.write("\n")
-			i = i + 1
-		end
-		i = 1
-		while i <= @ks.length
-			index = "k" + String(i)
-			f.write(@ks[index])
-			f.write("\n")
-			i = i + 1
-		end
-		f.close()
-		puts "Done!"
-	end
-	def j2o_readFile(output_file)
+
+#################################################################################
+	def o2j_read_file(output_file)
 		i = 0
 
 		while i < @ks.length do
@@ -99,7 +93,6 @@ class BNReduction
 			@value[i] = @state
 			i = i + 1
 		end
-		#puts @value
 		@steadystates["value"] = @value
 		@final = Hash.new
 		@output = Hash.new
@@ -113,24 +106,35 @@ class BNReduction
 		@final_json = JSON.generate(@final)
 	end
 	
-	def j2o_write_output(output_file)
-		f = File.open(output_file, "w")
-		f.write(@final_json)
+	def get_final_json()
+		return @final_json
+	end
+##################################################################################
+
+	def run()
+		main_dir = File.expand_path("..", Dir.pwd)
+		Dir.chdir main_dir + "/BNReduction/src/"
+
+		@in = j2i_get_input()
+		@bnr_input_file = "bnr_input.txt"
+		f = File.open(@bnr_input_file, "w")
+		f.write(@in)
 		f.close()
-		puts 'Done!'
+		system("./BNReduction.sh"+' '+@bnr_input_file)
+		
+		@bnr_output_file = "bnr_input.txt.fp"
+		o2j_read_file(@bnr_output_file)
+		puts @final_json
 	end
 end
 
-if $0 == __FILE__ then
-	if !File.exists?(ARGV[0]) then puts "JSON input file not found" end
-	
-	testObj = BNReduction.new()
-	testObj.i2j_readFile(ARGV[0])
-	testObj.i2j_parse_json()
-	testObj.i2j_write_output('output.txt')
-
-	# testObj.j2o_readFile('algorithm_output.txt')
-	# testObj.j2o_write_output('final_output.json')
-end
-
-
+#f = File.open("sample-input.json")
+#js = ''
+#f.each_line do |line|
+#	js += line
+#end
+#f.close()
+#ex_file = ''
+#@test = BNReduction.new(js)
+#@test.run()
+#@test.get_final_json()
