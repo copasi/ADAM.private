@@ -26,7 +26,8 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 	case request.path
 		when "/do/run"
 			response.status = 500
-			json = JSON.parse(request.query["input"])
+			#json = JSON.parse(request.query["input"])
+			json = request.query["input"]
 			if not ENV["VALIDATE_INPUT"].nil? then
 				eval("def validate_input(json)\n"+ENV["VALIDATE_INPUT"]+"\nend\n")
 			end
@@ -34,11 +35,14 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 			if ((not check_input) || (check_input && validate_input(json))) then
 				begin
 					output_file=ENV["CODE_HOME"]+"/output.txt"
-					task=BNReduction.new(json,ENV["CODE_HOME"]+'/./BNReduction')
-					task.run(output_file)
-					json_output=task.render_output(output_file)
-					output = JSON.dump(json_output)
-					task.clean_temp_files()
+					#task=BNReduction.new(json,ENV["CODE_HOME"]+'/./BNReduction')
+					#task.run(output_file)
+					#json_output=task.render_output(output_file)
+					task = BNReduction.new(json)
+					task.run()
+					output = task.get_final_json()
+					#output = JSON.dump(json_output)
+					#task.clean_temp_files()
 					if not ENV["OUTPUT_TO"].nil? then
 						output_to=eval(ENV["OUTPUT_TO"])
 						output_to.each do |node|
