@@ -152,11 +152,11 @@ public:
 	EdgeList FindHeaviestEdges( );
 
 	// Return the maximum edge weight of a graph
-	double WeightedGraph::MaxWeight();
+	double MaxWeight();
 
 	// Returns true if the distance between adjacent vertices of a connected graph
 	//  with more then one vertex is the same for all vertices, e.g. 1,2,3,4,5
-	bool WeightedGraph::IsDistanceSame( );
+	bool IsDistanceSame( );
 
 
 	friend ostream& operator<<( ostream& out, const WeightedGraph& g );

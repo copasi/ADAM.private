@@ -8,38 +8,10 @@
 
 ####### Compiler, tools and options
 
-CC       = cc
-CXX      = c++
-LEX      = flex
-YACC     = yacc
-CFLAGS   = -pipe -fno-common -fPIC -Wall -W -Os  -D__DARWIN_X11__
-CXXFLAGS = -pipe -fno-common -fPIC -Wall -W -Os  -D__DARWIN_X11__
-LEXFLAGS = 
-YACCFLAGS= -d
-INCPATH  = -I/sw/share/qt3/mkspecs/darwin-g++ -I. -I. -I/sw/include/qt
-LINK     = c++
-LFLAGS   = -headerpad_max_install_names -prebind -mdynamic-no-pic
-LIBS     = $(SUBLIBS) -L/sw/lib 
-AR       = ar cq
-RANLIB   = ranlib -s
-MOC      = $(QTDIR)/bin/moc
-UIC      = $(QTDIR)/bin/uic
-QMAKE    = qmake
-TAR      = tar -cf
-GZIP     = gzip -9f
-COPY     = cp -f
-COPY_FILE= cp -f
-COPY_DIR = cp -f -r
-DEL_FILE = rm -f
-SYMLINK  = ln -sf
-DEL_DIR  = rmdir
-MOVE     = mv -f
-CHK_DIR_EXISTS= test -d
-MKDIR    = mkdir -p
-
-####### Output directory
-
-OBJECTS_DIR = ./
+CC       = gcc
+CXX      = g++
+LINK     = g++
+DEL_FILE = rm -rf
 
 ####### Files
 
@@ -52,74 +24,24 @@ SOURCES = GraphCluster.cpp \
 OBJECTS = GraphCluster.o \
 		GraphMeasure.o \
 		RankCorr.o
-FORMS = 
-UICDECLS = 
-UICIMPLS = 
-SRCMOC   = 
-OBJMOC = 
-DIST	   = discretize.pro
-QMAKE_TARGET = discretize
-DESTDIR  = 
+
 TARGET   = discretize
 
 first: all
-####### Implicit rules
-
-.SUFFIXES: .c .o .cpp .cc .cxx .C
-
-.cpp.o:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
-
-.cc.o:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
-
-.cxx.o:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
-
-.C.o:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $@ $<
-
-.c.o:
-	$(CC) -c $(CFLAGS) $(INCPATH) -o $@ $<
 
 ####### Build rules
 
 all: Makefile $(TARGET)
 
-$(TARGET):  $(UICDECLS) $(OBJECTS) $(OBJMOC)  
-	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJMOC) $(LIBS) $(OBJCOMP)
+$(TARGET): $(OBJECTS)
+	$(LINK) $(LDFLAGS) -o $(TARGET) $(OBJECTS)
 
-mocables: $(SRCMOC)
-uicables: $(UICDECLS) $(UICIMPLS)
-
-$(MOC): 
-	( cd $(QTDIR)/src/moc ; $(MAKE) )
-
-Makefile: discretize.pro  /sw/share/qt3/mkspecs/darwin-g++/qmake.conf 
-	$(QMAKE) -o Makefile discretize.pro
-qmake: 
-	@$(QMAKE) -o Makefile discretize.pro
-
-dist: 
-	@mkdir -p .tmp/discretize && $(COPY_FILE) --parents $(SOURCES) $(HEADERS) $(FORMS) $(DIST) .tmp/discretize/ && ( cd `dirname .tmp/discretize` && $(TAR) discretize.tar discretize && $(GZIP) discretize.tar ) && $(MOVE) `dirname .tmp/discretize`/discretize.tar.gz . && $(DEL_FILE) -r .tmp/discretize
-
-mocclean:
-uiclean:
-
-yaccclean:
-lexclean:
 clean:
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
-
-####### Sub-libraries
-
 distclean: clean
-	-$(DEL_FILE) $(TARGET) $(TARGET)
-
-
-FORCE:
+	-$(DEL_FILE) $(TARGET)
 
 ####### Compile
 
