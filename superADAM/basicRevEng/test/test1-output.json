@@ -1,57 +1,125 @@
 {
-  "fieldCardinality": 5,
-  "numberVariables": 5,
-  "type": "reverseEngineeringOutput",
-  "updateRules": [
-      {
-        "functions": [
-            {
-              "inputVariables": ["x1","x3","x4","x5"],
-              "polynomialFunction": "2*x3*x5-x4*x5-2*x1+2*x3-x4+2*x5+2",
-              "score": 1
-            }
-          ],
-        "target": "x1"
-      },
-      {
-        "functions": [
-            {
-              "inputVariables": ["x1","x2","x3","x4","x5"],
-              "polynomialFunction": "x3*x4-x4^2-2*x1*x5+2*x3*x5+2*x4*x5+2*x1+2*x2-x3-x5",
-              "score": 1
-            }
-          ],
-        "target": "x2"
-      },
-      {
-        "functions": [
-            {
-              "inputVariables": ["x1","x2","x3","x4","x5"],
-              "polynomialFunction": "2*x3*x4+2*x4^2+x1*x5+2*x3*x5+2*x4*x5-x1+2*x2-x3+2*x4-x5-1",
-              "score": 1
-            }
-          ],
-        "target": "x3"
-      },
-      {
-        "functions": [
-            {
-              "inputVariables": ["x1","x3","x4","x5"],
-              "polynomialFunction": "-2*x3*x4+2*x4^2-x1*x5+x3*x5+x1+2*x3+x4-2*x5-2",
-              "score": 1
-            }
-          ],
-        "target": "x4"
-      },
-      {
-        "functions": [
-            {
-              "inputVariables": ["x1","x3","x4","x5"],
-              "polynomialFunction": "2*x3*x4+2*x4^2-2*x1*x5-2*x3*x5-x4*x5-2*x5^2-2*x1+2*x5-1",
-              "score": 1
-            }
-          ],
-        "target": "x5"
-      }
-    ]
+  "task": {
+      "input": [
+          {
+            "description": "data from Gepasi",
+            "fieldCardinality": 5,
+            "numberVariables": 5,
+            "timeSeriesData": [
+                {
+                  "index": [],
+                  "matrix": [
+                      [3,0,0,0,0],
+                      [1,1,1,1,3],
+                      [0,1,2,1,4],
+                      [0,1,2,1,1],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0],
+                      [0,1,2,1,0]
+                    ],
+                  "name": "wildtype experiment 1"
+                },
+                {
+                  "index": [],
+                  "matrix": [
+                      [3,3,4,4,1],
+                      [1,2,3,2,4],
+                      [3,3,3,3,3],
+                      [4,4,3,4,2],
+                      [4,4,3,4,2],
+                      [4,4,3,4,2],
+                      [4,4,3,4,2],
+                      [4,4,3,4,2],
+                      [4,4,3,4,2]
+                    ],
+                  "name": "wildtype experiment 2"
+                },
+                {
+                  "index": [1],
+                  "matrix": [
+                      [0,3,4,4,1],
+                      [0,2,3,2,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1],
+                      [0,2,3,3,1]
+                    ],
+                  "name": "knockout experiment 1"
+                }
+              ],
+            "type": "timeSeries"
+          },
+          {
+            "fieldCardinality": 5,
+            "numberVariables": 5,
+            "type": "model",
+            "updateRules": [
+                {
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x3","x4","x5"],
+                        "polynomialFunction": "2*x3*x5-x4*x5-2*x1+2*x3-x4+2*x5+2",
+                        "score": 1
+                      }
+                    ],
+                  "target": "x1"
+                },
+                {
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x2","x3","x4","x5"],
+                        "polynomialFunction": "x3*x4-x4^2-2*x1*x5+2*x3*x5+2*x4*x5+2*x1+2*x2-x3-x5",
+                        "score": 1
+                      }
+                    ],
+                  "target": "x2"
+                },
+                {
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x2","x3","x4","x5"],
+                        "polynomialFunction": "2*x3*x4+2*x4^2+x1*x5+2*x3*x5+2*x4*x5-x1+2*x2-x3+2*x4-x5-1",
+                        "score": 1
+                      }
+                    ],
+                  "target": "x3"
+                },
+                {
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x3","x4","x5"],
+                        "polynomialFunction": "-2*x3*x4+2*x4^2-x1*x5+x3*x5+x1+2*x3+x4-2*x5-2",
+                        "score": 1
+                      }
+                    ],
+                  "target": "x4"
+                },
+                {
+                  "functions": [
+                      {
+                        "inputVariables": ["x1","x3","x4","x5"],
+                        "polynomialFunction": "2*x3*x4+2*x4^2-2*x1*x5-2*x3*x5-x4*x5-2*x5^2-2*x1+2*x5-1",
+                        "score": 1
+                      }
+                    ],
+                  "target": "x5"
+                }
+              ]
+          }
+        ],
+      "method": {
+          "arguments": [],
+          "description": "example time series",
+          "id": "basicRevEng",
+          "type": "reverseEngineering"
+        }
+    }
 }

@@ -2,7 +2,7 @@
 
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-needs "gfan.m2"
+needs "/home/M2/src/gfan.m2"
 
 helpString = ///usage: gfan <json-timeseries-data >json-rev-eng-output-model
 ///
@@ -30,7 +30,7 @@ restart
 -- run this in basicRevEng/src dir
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-needs "gfan.m2"
+needs "/home/M2/src/gfan.m2"
 TS = readTSDataFromJSON get "../test/test3-input.json"
 time PDS = gfanRevEng(TS, Multiplier=>10);
 createRevEngJSONOutputModel PDS

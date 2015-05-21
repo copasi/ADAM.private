@@ -1,0 +1,31 @@
+basicrvg:
+  image: thibauld/basicreveng
+  ports:
+    - "32320:8765"
+  links:
+    - react
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://react:8765/do/run","condition"=>"return true"}]
+react:
+  image: thibauld/react
+  ports:
+    - "32321:8765"
+  links:
+    - sdds
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://sdds:8765/do/run","condition"=>"return true"}]
+sdds:
+  image: thibauld/sdds
+  ports:
+    - "32322:8765"
+  links:
+    - plantsimlab
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://plantsimlab/index.php","condition"=>"return true"}]
+plantsimlab:
+  build: dummy_psl
+  ports:
+    - "32323:80"

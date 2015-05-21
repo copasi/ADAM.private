@@ -12,9 +12,23 @@ if #scriptCommandLine != 1 then (
     )
 
 --------------------------------
-TS = readTSDataFromJSON get stdio
-PDS = findPDS TS
-outputJSON = prettyPrintJSON createRevEngJSONOutputModel PDS
+infile = get stdio
+
+TS = readTSDataFromJSON infile
+
+Jin = parseJSON infile;
+PDS = findPDS TS;
+JPDS = createRevEngJSONOutputModel PDS;
+
+if not instance(JPDS, ErrorPacket) then 
+( 
+    M = toMutableHashTable Jin;
+    M#"task"#"input" = append(Jin#"task"#"input", JPDS);
+    JPDS = fromMutableHashTable M;
+)
+
+outputJSON = prettyPrintJSON JPDS;
+
 print outputJSON
 
 end
