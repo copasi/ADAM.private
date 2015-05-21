@@ -113,7 +113,7 @@ my $num_states = $input->{'fieldCardinality'};
 # sets the number of simulations that the user has specified (scalar)
 my $num_simulations = 100;  #default
 if (defined $arguments->{'numberofSimulations'}) {
-  $num_simulation = $arguments->{'numberofSimulations'};
+  $num_simulations = $arguments->{'numberofSimulations'};
 }
 
 # sets the number of steps that the user has specified (scalar)
