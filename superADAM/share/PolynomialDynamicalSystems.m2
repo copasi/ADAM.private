@@ -111,7 +111,7 @@ createRevEngJSONOutputModel List := (L) -> (
     assert(#L > 0);
     R := ring L#0#0#0;
     toHashTable {
-        "type"=>"reverseEngineeringOutput",
+        "type"=>"model",
         "numberVariables" => numgens R,
         "fieldCardinality" => char R,
         "updateRules" => new Array from for i from 0 to numgens R - 1 list (
