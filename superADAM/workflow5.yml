@@ -1,5 +1,5 @@
 basicrvg:
-  image: mikestillman/basicrevenge
+  image: thibauld/basicreveng
   ports:
     - "32320:8765"
   links:
