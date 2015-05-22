@@ -1,6 +1,6 @@
 # Authors: Seda Arat & David Murrugarra
 # Name: Script for Stochastic Discrete Dynamical Systems (SDDS)
-# Revision Date: Feb 17, 2015
+# Revision Date: May 20, 2015
 
 #!/usr/bin/perl
 
@@ -111,16 +111,27 @@ my $numberVariables = $input->{'numberVariables'};
 my $num_states = $input->{'fieldCardinality'};
 
 # sets the number of simulations that the user has specified (scalar)
-my $num_simulations = $arguments->{'numberofSimulations'};
+my $num_simulations = 100;  #default
+if (defined $arguments->{'numberofSimulations'}) {
+  $num_simulations = $arguments->{'numberofSimulations'};
+}
 
 # sets the number of steps that the user has specified (scalar)
-my $num_steps = $arguments->{'numberofTimeSteps'};
+my $num_steps = 50;  #default
+if (define $arguments->{'numberofTimeSteps'}) {
+  $num_steps = $arguments->{'numberofTimeSteps'};
+}
 
+######## TO-DO: initial State is t=0 state in discretized data ########
 # sets the initial states that the user has specified for simulations (array)
 my $initialState = $arguments->{'initialState'};
 
+
 # sets the propensities (array);
-my $propensities = $arguments->{'propensities'};
+my $propensities = [1, 1];
+if (defined $arguments->{'propensities'}) {
+  $propensities = $arguments->{'propensities'};
+}
 my $num_propensities = scalar @$propensities;
 
 my $stochFlag = 0;
