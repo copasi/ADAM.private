@@ -1,12 +1,9 @@
-# FROM mikestillman/macaulay2:1.7-0
-FROM ubuntu:14.04
+FROM phusion/baseimage:0.9.16
 
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
 RUN apt-get update
 RUN apt-get install -y ruby2.0 build-essential
-RUN apt-get install gcc -y
-RUN apt-get install g++
 RUN apt-get install perl
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -16,8 +13,8 @@ ADD Macaulay2-key /home/BNReduction/
 RUN apt-key add /home/BNReduction/Macaulay2-key
 RUN apt-get update -q
 RUN apt-get install -y -q macaulay2
-RUN cd ~
 
+# Lines to add BNReduction algorithm
 ADD run.rb /home/BNReduction/
 ADD ./algorun/*.rb /home/BNReduction/algorun/
 ADD ./algorun/web/index.html /home/BNReduction/algorun/web/
@@ -28,5 +25,8 @@ ADD ./src /home/BNReduction/src/
 RUN make -C /home/BNReduction/src/ clean
 RUN make -C /home/BNReduction/src/ install
 
+ENV CODE_HOME /home/BNReduction/
+
 EXPOSE 8765
+
 ENTRYPOINT ["/usr/bin/ruby","/home/BNReduction/run.rb","start"]
