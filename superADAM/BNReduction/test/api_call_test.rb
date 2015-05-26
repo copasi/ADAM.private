@@ -1,7 +1,7 @@
 require 'net/http'
 require 'json'
 
-# sends a test JSON file to the BNRedction docker container on the ip and port given in parameter and return the response
+# sends a test JSON file to the BNReduction docker container on the ip and port given in parameter and return the response
 
 class String
 	# colorization
