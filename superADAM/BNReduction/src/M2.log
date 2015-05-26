@@ -1,6 +1,0 @@
-
-i1 :  filename="bnr_input.txt.poly"; file=openOutAppend("bnr_input.txt.red"); 
-
-i3 : file<< "\n\nFIXED_POINTS_REDUCED\n";
-
-i4 : F=lines(get(filename)); if #F==0 then (file<< "1 \n\n"; close(file); exit);

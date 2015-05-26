@@ -34,7 +34,7 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 			check_input=self.respond_to?(:validate_input)
 			if ((not check_input) || (check_input && validate_input(json))) then
 				begin
-					#output_file=ENV["CODE_HOME"]+"/output.txt"
+					output_file=ENV["CODE_HOME"]+"/output.txt"
 					#task=BNReduction.new(json,ENV["CODE_HOME"]+'/./BNReduction')
 					#task.run(output_file)
 					#json_output=task.render_output(output_file)
