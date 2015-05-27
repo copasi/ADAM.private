@@ -31,15 +31,16 @@ class String
 end
 
 def run_test(num)
-	input = File.read("test/test"+num+"/REACT_Input_Example"+num+".json")
+	input = File.read("test/test"+num+"/BNReduction_Input_Example"+num+".json")
 	test = JSON.parse(input)
-	output_ref = File.read("test/test"+num+"/REACT_Output_Reference"+num+".json")
+	output_ref = File.read("test/test"+num+"/BNReduction_Output_Reference"+num+".json")
 	test_reference_output = JSON.parse(output_ref)
 	puts "============== TEST"+num+"/3 ==============="
-	task=React.new(test,'./React')
-	task.run('output.txt',:test)
-	puts JSON.dump(task.render_output("output.txt"))
-	task.clean_temp_files()
+	task = BNReduction.new(json)
+	task.run()
+	output = task.get_final_json()
+	puts output
+	#task.clean_temp_files()
 	if task.test(test_reference_output) then
 		return "TEST "+num+" PASSED".green()
 	else
@@ -51,21 +52,21 @@ param=ARGV[0]
 if param.nil? then param="help" end
 case param
 	when "help"
-		puts "REACT Evolutionary Algorithm for Discrete Dynamical System Optimization" 
+		puts "BNReduction algorithm" 
 		puts ""
 		puts "Usage: ./run.rb [help|make|check|<input_file.json>]"
 		puts ""
-		puts "* make: compile REACT"
-		puts "* check: run all json tests file against REACT and compares them to reference output files"
+		puts "* make: compile BNReduction"
+		puts "* check: run all json tests file against Reduction and compares them to reference output files"
 		puts "* test <test_number>: run test #<test_number>"
-		puts "* <input_file.json>: run REACT with the input JSON file"
+		puts "* <input_file.json>: run BNReduction with the input JSON file"
 		puts "* clean: remove temporary and compiled files"
-		puts "* start: start the REACT web service"
+		puts "* start: start the BNReduction web service"
 		puts "* help: shows this help message"
 	when "make"
 		Dir.chdir ENV['CODE_HOME']+"/src"
 		system("make")
-		system("cp React ..")
+		system("cp BNReduction ..")
 	when "test"
 		num=ARGV[1]
 		if not ["1","2","3"].include? num then
@@ -90,7 +91,7 @@ case param
 		end
 	when "clean"
 		system("rm Bio.txt K*.txt output.txt RevMat.txt params.txt w*.txt Model*.txt fileman.txt")
-		File.delete("React") if File.exists?("React")
+		File.delete("BNReduction") if File.exists?("BNReduction")
 		Dir.chdir "src"
 		system("make clean")
 	when "start"
@@ -107,9 +108,9 @@ case param
 			input = File.read(param)
 			json = JSON.parse(input)
 			begin
-				task=React.new(json,'./React')
-				task.run("output.txt")
-				puts JSON.dump(task.render_output("output.txt"))
+				task.run()
+				output = task.get_final_json()
+				puts output
 				task.clean_temp_files()
 			rescue StandardError=>e
 				STDERR.puts "ERROR: "+e.to_s
