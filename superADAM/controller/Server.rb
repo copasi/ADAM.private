@@ -5,7 +5,7 @@ require 'open-uri'
 require 'json'
 require 'net/http'
 
-ADAM_ROOT="/home/thibauld/ADAM.private/"
+ADAM_ROOT="/home/democratech/ADAM.private/"
 
 =begin
     WEBrick is a Ruby library that makes it easy to build an HTTP server with Ruby. 
@@ -42,8 +42,14 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 	output=""
 	case request.path
 		when "/do/run"
-			@@status="waiting"
-			puts "status: waiting"	
+			#@@status="waiting"
+			#puts "status: waiting"	
+			puts request.query
+			puts "workflow: "+request.query["workflow"]
+			puts "input: "+request.query["input"]
+			@@status="done"
+			puts "status: done"
+			sleep(2)	
 			response.status = 500
 			while @@status == "waiting" do
 				print "."
@@ -61,6 +67,7 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 			response.status = 404
 	end
 	response.content_type = "application/json"
+	response['Access-Control-Allow-Origin']='http://plantsimlab.local.org'
 	response.body = output+ "\n"
     end
 end
