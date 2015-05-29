@@ -29,7 +29,6 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
     def do_POST (request, response)
 	output=""
 	case request.path
-<<<<<<< HEAD
 		when "/do/run"	
 			bnr_json_input = request.query["input"]
 			puts "I got it"
@@ -44,20 +43,6 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 						puts output
 					end
 				end
-=======
-		when "/do/run"
-			@@status="waiting"
-			puts "status: waiting"	
-			response.status = 500
-			while @@status == "waiting" do
-				print "."
-				sleep(1)
-			end
-			if @@status=="done" then
-				puts "OK"
-				output = File.read(ADAM_ROOT+"superADAM/SDDS/test/test1/sample-output.json")
-				response.status=200
->>>>>>> 9c036066fa66ae2214743b3934001b9c813ce5e3
 			else
 				output += "Couldn't pass to BNReduction!"
 			end
