@@ -1,6 +1,6 @@
 # Authors: Seda Arat & David Murrugarra
 # Name: Script for Stochastic Discrete Dynamical Systems (SDDS)
-# Revision Date: May 20, 2015
+# Revision Date: May 29, 2015
 
 #!/usr/bin/perl
 
@@ -14,11 +14,12 @@ use warnings;
 use Getopt::Euclid;
 use JSON::Parse;
 use JSON;
-#use Data::Dumper;
+use Data::Dumper;
 
 ############################################################
 
  # TO_DO: use the transition table information if available
+ # TO-DO: initial State is t=0 state in discretized data
 
 ############################################################
 
@@ -77,6 +78,11 @@ Seda Arat
 # input
 my $inputFile = $ARGV{'-i'};
 
+if (-z $inputFile) {
+  print ("<br>INTERNAL ERROR: The inputfile is empty. <br>");
+  exit;
+}
+
 # output
 my $outputFile = $ARGV{'-o'};
 
@@ -93,47 +99,89 @@ else {
 
 # converts input.json to Perl format
 my $task = JSON::Parse::json_file_to_perl ($inputFile);
-my $input = $task->{'task'}->{'input'}->[0];
-my $arguments = $task->{'task'}->{'method'}->{'arguments'}->[0];
-#my $data = $task->{'task'}->{'input'}->{}->[0];
 
-# sets the update rules/functions (array)
-my $updateRules = $input->{'updateRules'};
-my $num_rules = scalar @$updateRules;
+unless (defined $task) {
+  print ("<br>INTERNAL ERROR: The inputfile has no \"task\". <br>");
+  exit;
+}
+
+my $input = $task->{'task'}->{'input'};
+
+unless (defined $input) {
+  print ("<br>INTERNAL ERROR: The inputfile has no \"input\". <br>");
+  exit;
+}
+
+my $model;
+my $data;
+
+for (my $i = 0; $i < scalar @$input; $i++) {
+  my $type = $input->[$i]->{"type"};
+
+  if ($type eq "model") {
+    $model = $input->[$i];
+  }
+  elsif ($type eq "timeSeries") {
+    $data = $input->[$i];
+  }
+  else {
+    print ("<br>INTERNAL FYI: There is another input type other than model and timeSeries data. <br>");
+  }
+}
+
+unless (defined $model) {
+  print ("<br>INTERNAL ERROR: There is no model in the inputfile. <br>");
+  exit;
+}
+
+unless (defined $data) {
+  print ("<br>INTERNAL FYI: There is no timeSeries data in the inputfile. <br>");
+}
 
 # sets the variables in the model (array)
-my $variables = $input->{'variables'};
+my $variables = $model->{'variableScores'};
 my $num_variables = scalar @$variables;
 
-######## TO-DO: numberVariables should be reached from the discretized data ########
-# sets the number of variables in the model (scalar)
-my $numberVariables = $data->{'numberVariables'};
+# sets the update rules/functions (array)
+my $updateRules = $model->{'updateRules'};
+my $num_rules = scalar @$updateRules;
 
 # sets the unified (maximum prime) number that each state can take values up to (scalar)
-my $num_states = $input->{'fieldCardinality'};
+my $num_states = $model->{'fieldCardinality'};
+
+my $arguments = $task->{'task'}->{'method'}->{'arguments'}->[0];
 
 # sets the number of simulations that the user has specified (scalar)
-my $num_simulations = 100;  #default
+my $num_simulations = 1;  #default
 if (defined $arguments->{'numberofSimulations'}) {
   $num_simulations = $arguments->{'numberofSimulations'};
 }
 
 # sets the number of steps that the user has specified (scalar)
-my $num_steps = 50;  #default
+my $num_steps = 20;  #default
 if (defined $arguments->{'numberofTimeSteps'}) {
   $num_steps = $arguments->{'numberofTimeSteps'};
 }
 
-######## TO-DO: initial State is t=0 state in discretized data ########
-# sets the initial states that the user has specified for simulations (array)
-my $initialState = $arguments->{'initialState'};
+# sets the initial states and propensities that the user has specified for simulations (array)
+my $initialState;
+my $propensities;
+for (my $j = 1; $j <= $num_variables; $j++) {
+  push (@$initialState, 0);  #default
+  $propensities->[$j - 1] = {"id" => "x$j",
+			     "activation" => 1.0,
+			     "degradation" => 1.0
+			    };  #default
+}
 
+if (defined $arguments->{'initialState'}) {
+  $initialState = $arguments->{'initialState'};
+}
 
-# sets the propensities (array);
-my $propensities = [1, 1];
 if (defined $arguments->{'propensities'}) {
   $propensities = $arguments->{'propensities'};
 }
+
 my $num_propensities = scalar @$propensities;
 
 my $stochFlag = 0;
@@ -147,11 +195,7 @@ my ($polyFuncs, $tranTables) = get_updateRules ();
 my $propensitiesTable = get_propensities ();
 my $allTrajectories = get_allTrajectories ();
 my $averageTrajectories = get_averageTrajectories ();
-my $tempFile = format_output ();
-
-system ("cp $tempFile $outputFile");
-
-#system ("M2 ../../share/prettify-json $tempFile $outputFile");
+format_output ();
 
 # print Dumper ($allTrajectories);
 # print ("\n*********************************\n");
@@ -174,27 +218,21 @@ Checks if the user enters the options/parameters correctly and there is any inte
 =cut
 
 sub errorCheck {
-  
-  # num_variables
-  unless ($numberVariables == $num_variables) {
-    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of variables ($num_variables) and numberVariables ($numberVariables). <br>");
-    exit;
-  }
 
   # num_rules
-  unless ($numberVariables == $num_rules) {
-    print ("<br>INTERNAL ERROR: There is inconsistency betwen the size of update rules ($num_rules) and numberVariables ($numberVariables). <br>");
+  unless ($num_variables == $num_rules) {
+    print ("<br>INTERNAL ERROR: There is inconsistency between the size of update rules ($num_rules) and the number of variables ($num_variables). <br>");
     exit;
   }
 
   #num_propensities
-  unless ($numberVariables == $num_propensities) {
-    print ("<br>ERROR: There must be propensity entries for all $numberVariables variables. It seems there are propensity entries for $num_propensities variables. <br>");
+  unless ($num_variables == $num_propensities) {
+    print ("<br>ERROR: There must be propensity entries for all $num_variables variables. There are propensity entries for $num_propensities variables. <br>");
     exit;
   }
 
-  unless ($numberVariables == scalar @$initialState) {
-     print ("<br>ERROR: There must be $numberVariables variables in the initial state. Please check the initial state entry. <br>");
+  unless ($num_variables == scalar @$initialState) {
+     print ("<br>ERROR: There must be $num_variables variables in the initial state. Please check the initial state entry. <br>");
     exit;
   }
 
@@ -396,25 +434,25 @@ sub format_output {
     $simType = "deterministic";
   }
 
-  my $output = {"output" => [{
-			      "type" => $simType . " simulation",
-			      "numberVariables" => $num_variables,
-			      "numberofTimeSteps" => $num_steps,
-			      "numberofSimulations" => $num_simulations,
-			      "initialState" => $initialState,
-			      "fieldCardinality" => $num_states,
-			      "averageTrajectories" => $averageTrajectories
-			     }]
+  my $output = {
+		"type" => "timeSeries simulation",
+		"description" => $simType . " simulation",
+		"name" => "SDDSoutputDATA",
+		"numberVariables" => $num_variables,
+		"numberofTimeSteps" => $num_steps,
+		"numberofSimulations" => $num_simulations,
+		"initialState" => $initialState,
+		"fieldCardinality" => $num_states,
+		"averageTrajectories" => $averageTrajectories
 	       };
 
-  my $tempFile = "temp.json";
+  push ($task->{"task"}->{"input"}, $output);
+
   my $json = JSON->new->indent ();
   $json = $json->canonical([1]);
-  open (OUT," > $tempFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
-  print OUT $json->encode ($output);
+  open (OUT," > $outputFile") or die ("<br>ERROR: Cannot open the file for output. <br>");
+  print OUT $json->encode ($task);
   close (OUT) or die ("<br>ERROR: Cannot close the file for output. <br>");
-
-  return $tempFile;
 }
 
 ############################################################
