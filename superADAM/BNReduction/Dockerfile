@@ -5,12 +5,11 @@ MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 # Lines to add BNReduction algorithm
 ADD Macaulay2-key /home/BNReduction/
 ADD run.rb /home/BNReduction/
-ADD ./algorun/*.rb /home/BNReduction/algorun/
 ADD ./algorun/web/index.html /home/BNReduction/algorun/web/
 ADD ./algorun/web/js /home/BNReduction/algorun/web/js/
 ADD ./algorun/web/css /home/BNReduction/algorun/web/css/
 ADD ./src /home/BNReduction/src/
-
+ADD ./algorun/*.rb /home/BNReduction/algorun/
 
 # Lines to install Macaulay2 and download Boost library
 RUN apt-get update && \

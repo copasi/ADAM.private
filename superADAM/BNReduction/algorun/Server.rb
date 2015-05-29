@@ -26,7 +26,6 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 	case request.path
 		when "/do/run"
 			response.status = 500
-			#json = JSON.parse(request.query["input"])
 			json = request.query["input"]
 			if not ENV["VALIDATE_INPUT"].nil? then
 				eval("def validate_input(json)\n"+ENV["VALIDATE_INPUT"]+"\nend\n")
@@ -34,26 +33,25 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 			check_input=self.respond_to?(:validate_input)
 			if ((not check_input) || (check_input && validate_input(json))) then
 				begin
-					#output_file=ENV["CODE_HOME"]+"/output.txt"
-					#task=BNReduction.new(json,ENV["CODE_HOME"]+'/./BNReduction')
-					#task.run(output_file)
-					#json_output=task.render_output(output_file)
+					pid = fork {
 					task = BNReduction.new(json)
 					task.run()
 					output = task.get_final_json()
-					#output = JSON.dump(json_output)
-					#task.clean_temp_files()
 					if not ENV["OUTPUT_TO"].nil? then
 						output_to=eval(ENV["OUTPUT_TO"])
 						output_to.each do |node|
 							eval("def check(json)\n"+node["condition"]+"\nend\n")
-							if check(json_output) then
+							if check(output) then
 								Net::HTTP.post_form(URI(node["target"]),'input'=>output)
+								puts output
 							end
 						end
 					end
+					response.content_type = "application/json"
+					response.body = output+ "\n"
+					}
 				rescue StandardError=>e
-					output = "ERROR: "+e.to_s
+					output = "ERROR: " + e.to_s
 				end
 				response.status = 200
 			else
@@ -69,7 +67,7 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 end
 
 if $0 == __FILE__ then
-	server = WEBrick::HTTPServer.new(:Port => 80)
+	server = WEBrick::HTTPServer.new(:Port => 80, "RequestTimeout" => 3000, :DocumentRoot => "web/")
 	server.mount "/", Algorun
 	trap("INT") {
 		server.shutdown
