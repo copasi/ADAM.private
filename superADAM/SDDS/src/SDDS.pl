@@ -95,6 +95,7 @@ else {
 my $task = JSON::Parse::json_file_to_perl ($inputFile);
 my $input = $task->{'task'}->{'input'}->[0];
 my $arguments = $task->{'task'}->{'method'}->{'arguments'}->[0];
+#my $data = $task->{'task'}->{'input'}->{}->[0];
 
 # sets the update rules/functions (array)
 my $updateRules = $input->{'updateRules'};
@@ -104,8 +105,9 @@ my $num_rules = scalar @$updateRules;
 my $variables = $input->{'variables'};
 my $num_variables = scalar @$variables;
 
+######## TO-DO: numberVariables should be reached from the discretized data ########
 # sets the number of variables in the model (scalar)
-my $numberVariables = $input->{'numberVariables'};
+my $numberVariables = $data->{'numberVariables'};
 
 # sets the unified (maximum prime) number that each state can take values up to (scalar)
 my $num_states = $input->{'fieldCardinality'};
@@ -118,7 +120,7 @@ if (defined $arguments->{'numberofSimulations'}) {
 
 # sets the number of steps that the user has specified (scalar)
 my $num_steps = 50;  #default
-if (define $arguments->{'numberofTimeSteps'}) {
+if (defined $arguments->{'numberofTimeSteps'}) {
   $num_steps = $arguments->{'numberofTimeSteps'};
 }
 
