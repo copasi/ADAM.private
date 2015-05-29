@@ -5,11 +5,6 @@ require 'open-uri'
 require 'json'
 require 'net/http'
 
-<<<<<<< HEAD
-=======
-ADAM_ROOT="/home/thibauld/ADAM.private/"
-
->>>>>>> 9c036066fa66ae2214743b3934001b9c813ce5e3
 =begin
     WEBrick is a Ruby library that makes it easy to build an HTTP server with Ruby. 
     It comes with most installations of Ruby by default (it's part of the standard library), 
