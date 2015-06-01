@@ -118,7 +118,7 @@ if (defined $arguments->{'numberofSimulations'}) {
 
 # sets the number of steps that the user has specified (scalar)
 my $num_steps = 50;  #default
-if (define $arguments->{'numberofTimeSteps'}) {
+if (defined $arguments->{'numberofTimeSteps'}) {
   $num_steps = $arguments->{'numberofTimeSteps'};
 }
 
