@@ -9,13 +9,13 @@ ENV ADAM_ROOT /home/M2/adam/
 ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
 ADD share/ /home/M2/adam/superADAM/share/
 
-ADD basicRevEng/run.rb /home/M2/
-ADD basicRevEng/algorun/*.rb /home/M2/algorun/
-ADD basicRevEng/algorun/web/index.html /home/M2/algorun/web/
-ADD basicRevEng/algorun/web/js /home/M2/algorun/web/js/
-ADD basicRevEng/algorun/web/css /home/M2/algorun/web/css/
-ADD basicRevEng/src/* /home/M2/src/
-ADD basicRevEng/test/* /home/M2/test/
+ADD run.rb /home/M2/
+ADD algorun/*.rb /home/M2/algorun/
+ADD algorun/web/index.html /home/M2/algorun/web/
+ADD algorun/web/js /home/M2/algorun/web/js/
+ADD algorun/web/css /home/M2/algorun/web/css/
+ADD src/* /home/M2/src/
+ADD test/* /home/M2/test/
 
 ENV CODE_HOME /home/M2
 EXPOSE 8765
