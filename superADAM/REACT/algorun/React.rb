@@ -317,8 +317,8 @@ class React < Task
 			"description"=>"PLEASE FILL IN",
 			"name"=>"reverseEngineeringOutputModel",
 			"fieldCardinality"=>2,
-			#"variableScores"=>variableScores,
-			"variables"=>variableScores,
+			"variableScores"=>variableScores,
+			#"variables"=>variableScores,
 			"updateRules"=>updateRules
 		})
 		if not @input['timeSeries'].nil? then
