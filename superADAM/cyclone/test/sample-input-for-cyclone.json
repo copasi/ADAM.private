@@ -4,12 +4,14 @@
         "method": {
             "type": "simulation using transition tables",
             "id": "Cyclone",
-            "description": "Iterates over the state space of a graph input and produces all limit cycles in the state space and outputs these, along with the percentage of the state space"
+            "description": "Iterates over the state space of a graph input and produces all limit cycles in the state space and outputs these, along with the percentage of the state space",
+            "generate": "trajectory"
 	},
         "input": [
             {
                 "type": "model",
                 "description": "my-first-model",
+                "simulationName": "Unmodified",
                 "updateRules": [
                     {
                         "target": "CAP",
