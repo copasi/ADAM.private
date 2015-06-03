@@ -4,8 +4,22 @@ require 'pp'
 
 class React < Task
 	def initialize(json,exec_file)
-		super(json,exec_file)
 		@file_manager=nil
+		@default_values= {
+			'HammingPolyWeight'=>0.5,
+			'ComplexityWeight'=>0.2,
+			'RevEngWeight'=>0,
+			'BioProbWeight'=>0,
+			'HammingModelWeight'=>0.35,
+			'PolyScoreWeight'=>0.65,
+			'GenePoolSize'=>100,
+			'NumCandidates'=>55,
+			'NumParentsToPreserve'=>5,
+			'MaxGenerations'=>100,
+			'StableGenerationLimit'=>50,
+			'MutateProbability'=>0.5
+		}
+		super(json,exec_file)
 	end
 
 	def validate_input
@@ -55,7 +69,12 @@ class React < Task
 			'MutateProbability'
 		]
 		required.each do |arg|
-			if @method.arguments[arg].nil? then @errors.push(("MISSING_ARGUMENT_ERROR_"+arg.upcase).to_sym) end
+			# if @method.arguments[arg].nil? then @errors.push(("MISSING_ARGUMENT_ERROR_"+arg.upcase).to_sym) end
+			if @method.arguments[arg].nil? then
+				if not @default_values[arg].nil? then
+					@method.arguments[arg]=@default_values[arg]
+				end
+			end
 		end
 	end
 
@@ -220,15 +239,7 @@ class React < Task
 			puts "RAW_OUTPUT_FILE_DOES_NOT_EXISTS"
 			return
 		end
-		@output={"output"=>Array.new()}
-		@output["output"]={
-			"type"=>"model",
-			"description"=>"PLEASE FILL IN",
-			"name"=>"reverseEngineeringOutputModel",
-			"fieldCardinality"=>2,
-			"variableScores"=>Array.new(),
-			"updateRules"=>Array.new()
-		}
+		@output={"task"=>{"method"=>@method.raw_obj,"input"=>Array.new()}}
 		functions={}
 		idx_func=1
 		skip=false
@@ -301,8 +312,25 @@ class React < Task
 			end
 			variableScores.push({"target"=>k,"sources"=>tmp})
 		end
-		@output["output"]['variableScores']=variableScores
-		@output["output"]['updateRules']=updateRules
+		@output["task"]["input"].push({
+			"type"=>"model",
+			"description"=>"PLEASE FILL IN",
+			"name"=>"reverseEngineeringOutputModel",
+			"fieldCardinality"=>2,
+			"variableScores"=>variableScores,
+			#"variables"=>variableScores,
+			"updateRules"=>updateRules
+		})
+		if not @input['timeSeries'].nil? then
+			@input['timeSeries'].each do |ts|
+				@output["task"]["input"].push(ts.raw_obj)
+			end
+		end
+		if not @input['custom'].nil? then
+			@input['custom'].each do |obj|
+				@output["task"]["input"].push(obj)
+			end
+		end
 		return @output
 	end
 

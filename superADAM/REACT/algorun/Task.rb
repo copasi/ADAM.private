@@ -1,6 +1,7 @@
 class TaskMethod
-	attr_reader :type, :id, :description, :arguments
+	attr_reader :type, :id, :description, :arguments, :raw_obj
 	def initialize(method)
+		@raw_obj=method
 		@type=method['type']
 		@id=method['id']
 		@description=method['desription']
@@ -16,6 +17,7 @@ end
 class Model
 	attr_reader :fieldCardinality, :type, :description, :name, :version, :parameters, :updateRules, :variables, :variableScores, :simlab
 	def initialize(model)
+		@raw_obj=model
 		@type=model['type']
 		@description=model['description']
 		@name=model['name']
@@ -30,9 +32,10 @@ class Model
 end
 
 class TimeSeries
-	attr_reader :data
+	attr_reader :data, :raw_obj
 	def initialize(ts)
 		@data=ts['timeSeriesData']
+		@raw_obj=ts
 	end
 
 	def get_numberOfVariables()
@@ -88,7 +91,7 @@ class Task
 			when "timeseries"
 				@input['timeSeries'].push(TimeSeries.new(o))
 			else
-				@input['custom'].push(input)
+				@input['custom'].push(o)
 			end
 		end
 		if !@input['timeSeries'].empty? then
