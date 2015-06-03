@@ -3,10 +3,10 @@ require_relative './algorun/Task.rb'
 require_relative './algorun/Sdds.rb'
 require_relative './algorun/Server.rb'
 
-if ENV["SDDS_HOME"].nil? then
-	ENV["SDDS_HOME"]=ENV["PWD"]
+if ENV["CODE_HOME"].nil? then
+	ENV["CODE_HOME"]=ENV["PWD"]
 end
-HOME=ENV["SDDS_HOME"]
+HOME=ENV["CODE_HOME"]
 
 class String
 	# colorization

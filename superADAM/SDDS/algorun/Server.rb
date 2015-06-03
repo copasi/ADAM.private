@@ -3,6 +3,7 @@
 require 'webrick'
 require 'open-uri'
 require 'json'
+require 'net/http'
 
 =begin
     WEBrick is a Ruby library that makes it easy to build an HTTP server with Ruby. 
@@ -21,15 +22,14 @@ require 'json'
 class Algorun < WEBrick::HTTPServlet::AbstractServlet
 
     def do_POST (request, response)
-	puts request
 	output=""
 	case request.path
 		when "/do/run"
 			response.status = 500
 			json = JSON.parse(request.query["input"])
 			begin
-				output_file=HOME+"/output.json"
-				task=Sdds.new(json,HOME+'/src/SDDS.pl')
+				output_file=ENV["CODE_HOME"]+"/output.json"
+				task=Sdds.new(json,ENV["CODE_HOME"]+'/src/SDDS.pl')
 				task.run(output_file)
 				output = JSON.dump(task.render_output(output_file))
 				task.clean_temp_files()

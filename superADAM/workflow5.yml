@@ -21,11 +21,11 @@ sdds:
   ports:
     - "32322:8765"
   links:
-    - psl
+    - controller
   environment:
     - VALIDATE_INPUT="return true\n"
-    - OUTPUT_TO=[{"target"=>"http://psl/index.php","condition"=>"return true"}]
-psl:
-  build: dummy_psl
+    - OUTPUT_TO=[{"target"=>"http://controller:8765/do/done","condition"=>"return true"}]
+controller:
+  image: ahosny/controller:0.9.0
   ports:
-    - "32324:80"
+    - "32323:8765"
