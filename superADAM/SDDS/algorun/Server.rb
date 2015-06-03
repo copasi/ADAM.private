@@ -33,9 +33,19 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 				task.run(output_file)
 				output = JSON.dump(task.render_output(output_file))
 				task.clean_temp_files()
+				if not ENV["OUTPUT_TO"].nil? then
+					output_to=eval(ENV["OUTPUT_TO"])
+					output_to.each do |node|
+						eval("def check(json)\n"+node["condition"]+"\nend\n")
+						if check(output) then
+							Net::HTTP.post_form(URI(node["target"]),'input'=>output)
+							puts output
+						end
+					end
+				end
 				response.status = 200
 			rescue StandardError=>e
-				output = "ERROR: "+e.to_s
+				output = "ERROR: " + e.to_s
 			end
 		else
 			output+="failure"
