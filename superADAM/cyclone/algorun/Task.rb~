@@ -1,7 +1,6 @@
 class TaskMethod
-	attr_reader :type, :id, :description, :arguments, :raw_obj
+	attr_reader :type, :id, :description, :arguments
 	def initialize(method)
-		@raw_obj=method
 		@type=method['type']
 		@id=method['id']
 		@description=method['desription']
@@ -17,7 +16,6 @@ end
 class Model
 	attr_reader :fieldCardinality, :type, :description, :name, :version, :parameters, :updateRules, :variables, :variableScores, :simlab
 	def initialize(model)
-		@raw_obj=model
 		@type=model['type']
 		@description=model['description']
 		@name=model['name']
@@ -32,10 +30,9 @@ class Model
 end
 
 class TimeSeries
-	attr_reader :data, :raw_obj
+	attr_reader :data
 	def initialize(ts)
 		@data=ts['timeSeriesData']
-		@raw_obj=ts
 	end
 
 	def get_numberOfVariables()
@@ -91,7 +88,7 @@ class Task
 			when "timeseries"
 				@input['timeSeries'].push(TimeSeries.new(o))
 			else
-				@input['custom'].push(o)
+				@input['custom'].push(input)
 			end
 		end
 		if !@input['timeSeries'].empty? then
@@ -123,7 +120,7 @@ if $0 == __FILE__ then
 	if !File.exists?(ARGV[0]) then puts "JSON input file not found" end
 	input = File.read(ARGV[0])
 	json = JSON.parse(input)
-	task=Task.new(json,'.././React')
+	task=Task.new(json,'.././BNReduction')
 	task.run()
 	task.render_output()
 	task.clean_temp_files()

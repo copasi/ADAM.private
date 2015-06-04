@@ -62,7 +62,6 @@ class BNReduction
 		return k_string
 	end
 
-#################################################################################
 	def o2j_read_file(output_file)
 		i = 0
 
@@ -109,11 +108,10 @@ class BNReduction
 	def get_final_json()
 		return @final_json
 	end
-##################################################################################
 
 	def run()
-		main_dir = File.expand_path("..", Dir.pwd)
-		Dir.chdir main_dir + "/BNReduction/src/"
+		# main_dir = File.expand_path("..", Dir.pwd)
+		Dir.chdir ENV["CODE_HOME"] + "src/"
 
 		@in = j2i_get_input()
 		@bnr_input_file = "bnr_input.txt"
@@ -124,17 +122,18 @@ class BNReduction
 		
 		@bnr_output_file = "bnr_input.txt.fp"
 		o2j_read_file(@bnr_output_file)
-		puts @final_json
+		return get_final_json()
 	end
 end
 
-#f = File.open("sample-input.json")
-#js = ''
-#f.each_line do |line|
-#	js += line
-#end
-#f.close()
-#ex_file = ''
-#@test = BNReduction.new(js)
-#@test.run()
-#@test.get_final_json()
+# FOR TESTING PURPOSES ONLY
+'''
+f = File.open("sample-input.json")
+js = ''
+f.each_line do |line|
+	js += line
+end
+f.close()
+ex_file = ''
+@test = BNReduction.new(js)
+puts @test.run()'''

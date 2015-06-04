@@ -1,0 +1,318 @@
+{
+    "task": {
+        "method": {
+            "type": "steady state computation",
+            "id": "BNReduction",
+            "description": "Computes steady states usign reduction and Groebner basis. Model must be Boolean.",
+		"arguments": [
+		{
+		"id": "k1",
+		"value": 0
+		}
+		]
+	},
+        "input": [
+            {
+                "type": "model",
+                "description": "Sample model",
+		"parameters": [
+		    {
+		    "id": "k1",
+		    "states": [0,1]
+		    }
+		  ],
+                "updateRules": [
+                    {
+                        "target": "x1",
+                        "functions": [
+                            {
+				"inputVariables": ["x1","x21","x22"],
+                                "booleanFunction": "(x1 | x21 ) & !x22"
+                            }
+                        ]
+                    },
+                    {
+                        "target": "x2",
+                        "functions": [
+                            {
+				"inputVariables": [],
+                                "booleanFunction": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "target": "x3",
+                        "functions": [
+                            {
+				"inputVariables": ["x2"],
+                                "booleanFunction": "x2"
+                            }
+                        ]
+                    },
+                    {
+                        "target": "x4",
+                        "functions": [
+                            {
+				"inputVariables": ["x12","x16","x20","x22","x19"],
+                                "booleanFunction": "(x14 | x16 | x20 | x22 ) & !x19"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x5",
+                        "functions": [
+                            {
+				"inputVariables": ["x4"],
+                                "booleanFunction": "x4"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x6",
+                        "functions": [
+                            {
+				"inputVariables": ["x1"],
+                                "booleanFunction": "x1"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x7",
+                        "functions": [
+                            {
+				"inputVariables": ["x6"],
+                                "booleanFunction": "x6"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x8",
+                        "functions": [
+                            {
+				"inputVariables": [],
+                                "booleanFunction": "0"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x9",
+                        "functions": [
+                            {
+				"inputVariables": ["x8","x21"],
+                                "booleanFunction": "x8 & !x21"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x10",
+                        "functions": [
+                            {
+				"inputVariables": [],
+                                "booleanFunction": "0"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x11",
+                        "functions": [
+                            {
+				"inputVariables": ["x10","x21"],
+                                "booleanFunction": "x10 & !x21"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x12",
+                        "functions": [
+                            {
+				"inputVariables": ["x1","x18"],
+                                "booleanFunction": "x1 & !x18"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x13",
+                        "functions": [
+                            {
+				"inputVariables": ["x12","x17"],
+                                "booleanFunction": "x12 & !x17"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x14",
+                        "functions": [
+                            {
+				"inputVariables": ["x11"],
+                                "booleanFunction": "x11"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x15",
+                        "functions": [
+                            {
+				"inputVariables": ["x5","x17"],
+                                "booleanFunction": "x5 & !x17"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x16",
+                        "functions": [
+                            {
+				"inputVariables": ["k1"],
+                                "booleanFunction": "k1"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x17",
+                        "functions": [
+                            {
+				"inputVariables": ["x18","x22"],
+                                "booleanFunction": "x18 | x22"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x18",
+                        "functions": [
+                            {
+				"inputVariables": ["x3","x15"],
+                                "booleanFunction": "x3 | x15"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x19",
+                        "functions": [
+                            {
+				"inputVariables": ["x7"],
+                                "booleanFunction": "x7"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x20",
+                        "functions": [
+                            {
+				"inputVariables": ["x9","x1"],
+                                "booleanFunction": "x9 & !x1"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x21",
+                        "functions": [
+                            {
+				"inputVariables": ["13"],
+                                "booleanFunction": "x13"
+                            }
+                        ]
+                    },
+		    {
+                        "target": "x22",
+                        "functions": [
+                            {
+				"inputVariables": ["x18","x22", "x1"],
+                                "booleanFunction": "(x18 | x22 ) & !x1"
+                            }
+                        ]
+                    }
+                ],
+
+                "variables": [
+                    {
+                        "id": "x1",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x2",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x3",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x4",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x5",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x6",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x7",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x8",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x9",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x10",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x11",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x12",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x13",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x14",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x15",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x16",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x17",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x18",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x19",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x20",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x21",
+			"states": [0,1]
+                    },
+                    {
+                        "id": "x22",
+			"states": [0,1]
+                    }
+                ]
+            }
+        ]
+    }
+}

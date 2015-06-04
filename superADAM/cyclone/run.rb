@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 require_relative './algorun/Task.rb'
-require_relative './algorun/BNReduction.rb'
+require_relative './algorun/Cyclone.rb'
 require_relative './algorun/Server.rb'
 
 if ENV["CODE_HOME"].nil? then
@@ -31,12 +31,12 @@ class String
 end
 
 def run_test(num)
-	input = File.read("test/test"+num+"/BNReduction_Input_Example"+num+".json")
+	input = File.read("test/test"+num+"/Cyclone_Input_Example"+num+".json")
 	test = JSON.parse(input)
-	output_ref = File.read("test/test"+num+"/BNReduction_Output_Reference"+num+".json")
+	output_ref = File.read("test/test"+num+"/Cyclone_Output_Reference"+num+".json")
 	test_reference_output = JSON.parse(output_ref)
 	puts "============== TEST"+num+"/3 ==============="
-	task = BNReduction.new(json)
+	task = Cyclone.new(json)
 	task.run()
 	output = task.get_final_json()
 	puts output
@@ -52,21 +52,21 @@ param=ARGV[0]
 if param.nil? then param="help" end
 case param
 	when "help"
-		puts "BNReduction algorithm" 
+		puts "Cyclone algorithm" 
 		puts ""
 		puts "Usage: ./run.rb [help|make|check|<input_file.json>]"
 		puts ""
-		puts "* make: compile BNReduction"
+		puts "* make: compile Cyclone"
 		puts "* check: run all json tests file against Reduction and compares them to reference output files"
 		puts "* test <test_number>: run test #<test_number>"
-		puts "* <input_file.json>: run BNReduction with the input JSON file"
+		puts "* <input_file.json>: run Cyclone with the input JSON file"
 		puts "* clean: remove temporary and compiled files"
-		puts "* start: start the BNReduction web service"
+		puts "* start: start the Cyclone web service"
 		puts "* help: shows this help message"
 	when "make"
 		Dir.chdir ENV['CODE_HOME']+"/src"
 		system("make")
-		system("cp BNReduction ..")
+		system("cp Cyclone ..")
 	when "test"
 		num=ARGV[1]
 		if not ["1","2","3"].include? num then
@@ -91,7 +91,7 @@ case param
 		end
 	when "clean"
 		system("rm Bio.txt K*.txt output.txt RevMat.txt params.txt w*.txt Model*.txt fileman.txt")
-		File.delete("BNReduction") if File.exists?("BNReduction")
+		File.delete("Cyclone") if File.exists?("Cyclone")
 		Dir.chdir "src"
 		system("make clean")
 	when "start"
