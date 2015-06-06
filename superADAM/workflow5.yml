@@ -1,3 +1,12 @@
+controller:
+  image: ahosny/controller:0.9.0
+  ports:
+    - "32319:8765"
+  links:
+    - basicrvg
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://basicrvg:8765/do/run","condition"=>"return true"}]
 basicrvg:
   image: ahosny/basicreveng:0.9.0
   ports:
@@ -20,12 +29,8 @@ sdds:
   image: ahosny/sdds:0.9.0
   ports:
     - "32322:8765"
-  links:
-    - controller
+#  links:
+#    - controller
   environment:
     - VALIDATE_INPUT="return true\n"
-    - OUTPUT_TO=[{"target"=>"http://controller:8765/do/done","condition"=>"return true"}]
-controller:
-  image: ahosny/controller:0.9.0
-  ports:
-    - "32323:8765"
+    - OUTPUT_TO=[{"target"=>"http://10.0.0.4:8080/do/run","condition"=>"return true"}]
