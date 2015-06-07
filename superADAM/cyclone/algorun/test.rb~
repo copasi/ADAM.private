@@ -1,3 +1,0 @@
-pid = fork { 	puts 'ahmed'
- 		puts 'eh6a'}
-puts 'back'
