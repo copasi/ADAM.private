@@ -38,7 +38,11 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 					output_to.each do |node|
 						eval("def check(json)\n"+node["condition"]+"\nend\n")
 						if check(output) then
-							Net::HTTP.post_form(URI(node["target"]),'input'=>output)
+							hostip = `/sbin/ip route|awk '/default/ { print $3 }'`
+							host = node["target"]
+							host = host.gsub("hostip", String(hostip))
+							host = host.gsub("\n", "")
+							Net::HTTP.post_form(URI(host),'input'=>output)
 							puts output
 						end
 					end
