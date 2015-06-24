@@ -45,7 +45,7 @@ class Algorun < WEBrick::HTTPServlet::AbstractServlet
 							end
 						end
 					end
-					response.content_type = "application/json"
+					#response.content_type = "application/json"
 					response.body = output+ "\n"
 				rescue StandardError=>e
 					output = "ERROR: " + e.to_s

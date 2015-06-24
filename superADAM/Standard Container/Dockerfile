@@ -3,7 +3,7 @@ FROM phusion/baseimage:0.9.16
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
 RUN apt-get update && \
-apt-get install -y ruby2.0 build-essential perl && \
+apt-get install -y ruby2.0 build-essential perl wget && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
