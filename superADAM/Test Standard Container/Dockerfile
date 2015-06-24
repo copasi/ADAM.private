@@ -1,4 +1,4 @@
-FROM ahosny/algorun
+FROM ahosny/algorun:0.9.1
 
 MAINTAINER Your Name <your_email@domain.com>
 
