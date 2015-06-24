@@ -1,12 +1,12 @@
 FROM ahosny/algorun
 
-MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
-
-# Add any algorithm dependencies here
-# EXAMPLE: RUN apt-get -y wget
+MAINTAINER Your Name <your_email@domain.com>
 
 # Add your algorithm code foler to /home/algorithm/src/
 # EXAMPLE: ADD ./src /home/algorithm/src/
+
+# Add any algorithm dependencies here
+# EXAMPLE: RUN apt-get -y wget
 
 # Add your command to execute an algorithm as environment variable EXEC_COMMAND
 # EXAMPLE: ENV EXEC_COMMAND "ruby test.rb"
