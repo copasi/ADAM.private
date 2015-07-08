@@ -142,8 +142,7 @@ class Cyclone
 	end
 
 	def run()
-		Dir.chdir ENV["CODE_HOME"] + "src/"
-		#Dir.chdir "/home/abdelrahman/uchc/ADAM.private/superADAM/cyclone/src/"
+		#Dir.chdir ENV["CODE_HOME"] + "src/"
 		@in = j2i_get_input()
 		@cyclone_input_file = "cyclone_input.txt"
 		@cyclone_output_file = "cyclone_output.txt"
@@ -161,9 +160,8 @@ class Cyclone
 	end
 end
 
-# FOR TESTING PURPOSES ONLY
-'''
-f = File.open("sample-input.json")
+input_file = ARGV[0].dup
+f = File.open(input_file)
 js = ''
 f.each_line do |line|
 	js += line
@@ -171,4 +169,7 @@ end
 f.close()
 ex_file = ''
 @test = Cyclone.new(js)
-puts @test.run()'''
+result = @test.run()
+f = File.open("output.txt", "w")
+f.write(result)
+f.close()

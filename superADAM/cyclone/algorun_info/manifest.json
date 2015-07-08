@@ -1,0 +1,8 @@
+{
+"algo_name": "Cyclone",
+"short_description": "Calculate Dynamics of a discrete dynamical system using exhaustive search",
+"authors": ["Reinhard Laubenbacher (PI)", "Brett Tyler (Co-PI)", "John McDowell (Co-PI)", "Stefan Hoops (Co-PI)"],
+"long_description": "No long description provided!",
+"web_link": "https://github.com/PlantSimLab/cyclone",
+"params": {}
+}

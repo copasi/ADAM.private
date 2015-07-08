@@ -1,33 +1,36 @@
-FROM phusion/baseimage:0.9.16
+FROM ahosny/algorun:0.9.1
 
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
-ADD run.rb /home/cyclone/
-ADD CMakeLists.txt /home/cyclone/
-ADD ./algorun/web/index.html /home/cyclone/algorun/web/
-ADD ./algorun/web/js /home/cyclone/algorun/web/js/
-ADD ./algorun/web/css /home/cyclone/algorun/web/css/
-ADD ./algorun/*.rb /home/cyclone/algorun/
-ADD ./src /home/cyclone/src/
+# Add your algorithm code foler to /home/algorithm/src/
+ADD CMakeLists.txt /home/algorithm/
+ADD ./src /home/algorithm/src/
+ADD ./algorun_info /home/algorithm/web/algorun_info/
 
+# Add any algorithm dependencies here
 RUN apt-get update && \
-apt-get install -y ruby2.0 build-essential perl && \
+apt-get install -y ruby2.0 wget && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN apt-get update -q && \
-apt-get install -y wget
 RUN wget http://www.cmake.org/files/v2.8/cmake-2.8.3.tar.gz && \
 tar -xf cmake-2.8.3.tar.gz
 RUN cd cmake-2.8.3 && \
 ./bootstrap && \
 make -C /cmake-2.8.3/ && \
 make -C /cmake-2.8.3/ install && \
-cmake /home/cyclone/CMakeLists.txt && \
-make -C /home/cyclone/ clean && \
-make -C /home/cyclone/ install
+cmake /home/algorithm/CMakeLists.txt && \
+make -C /home/algorithm/ clean && \
+make -C /home/algorithm/ install
 
-ENV CODE_HOME /home/cyclone/
+# Add your command to execute an algorithm as environment variable EXEC_COMMAND
+ENV EXEC_COMMAND "ruby Cyclone.rb"
 
-EXPOSE 8765
+# Add your command options (if any) as environment variable COMMAND_OPTIONS
+# ENV COMMAND_OPTIONS "-c"
 
-ENTRYPOINT ["/usr/bin/ruby","/home/cyclone/run.rb","start"]
+# If you specified -f as a command line option for the output file, ignore this step
+# If your code outputs results to a hard-coded file name, specify it as environment variable OUTPUT_FILE_NAME
+ENV OUTPUT_FILE_NAME "output.txt"
+
+
+
