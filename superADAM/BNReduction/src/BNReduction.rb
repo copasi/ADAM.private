@@ -102,7 +102,7 @@ class BNReduction
 		@output["variables"] = @parsed["task"]["input"][0]["variables"]
 		@output["steadystates"] = @steadystates
 		@final["output"] = [@output]
-		@final_json = JSON.generate(@final)
+		@final_json = JSON.pretty_generate(@final)
 	end
 	
 	def get_final_json()
