@@ -134,7 +134,7 @@ class Cyclone
 		f.close()
 		@final = {}
 		@final["output"] = @output
-		@final_json = JSON.generate(@final)		
+		@final_json = JSON.pretty_generate(@final)		
 	end
 	
 	def get_final_json()
