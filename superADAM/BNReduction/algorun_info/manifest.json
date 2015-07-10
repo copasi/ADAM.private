@@ -1,0 +1,8 @@
+{
+"algo_name": "BNReduction",
+"short_description": "Tools for Steady State Computation of Boolean Networks",
+"authors": ["A. Veliz-Cuba", "B. Aguilar, F. Hinkelmann", "R. Laubenbacher"],
+"long_description": "BNReduction reliably determines all steady states of sparse Boolean networks with up to 1000 nodes. The algorithm is effective at analyzing virtually all published models even those of moderate connectivity. The problem for large Boolean networks with high average connectivity remains an open problem",
+"web_link": "http://www.biomedcentral.com/1471-2105/15/221",
+"params": {}
+}

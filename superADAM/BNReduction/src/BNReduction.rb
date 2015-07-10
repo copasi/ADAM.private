@@ -111,7 +111,7 @@ class BNReduction
 
 	def run()
 		# main_dir = File.expand_path("..", Dir.pwd)
-		Dir.chdir ENV["CODE_HOME"] + "src/"
+		# Dir.chdir ENV["CODE_HOME"] + "src/"
 
 		@in = j2i_get_input()
 		@bnr_input_file = "bnr_input.txt"
@@ -126,9 +126,8 @@ class BNReduction
 	end
 end
 
-# FOR TESTING PURPOSES ONLY
-'''
-f = File.open("sample-input.json")
+input_file = ARGV[0].dup
+f = File.open(input_file)
 js = ''
 f.each_line do |line|
 	js += line
@@ -136,4 +135,7 @@ end
 f.close()
 ex_file = ''
 @test = BNReduction.new(js)
-puts @test.run()'''
+result = @test.run()
+f = File.open("output.txt", "w")
+f.write(result)
+f.close()

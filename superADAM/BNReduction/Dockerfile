@@ -1,35 +1,38 @@
-FROM phusion/baseimage:0.9.16
+FROM ahosny/algorun:0.9.1
 
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
-# Lines to add BNReduction algorithm
-ADD Macaulay2-key /home/BNReduction/
-ADD run.rb /home/BNReduction/
-ADD ./algorun/web/index.html /home/BNReduction/algorun/web/
-ADD ./algorun/web/js /home/BNReduction/algorun/web/js/
-ADD ./algorun/web/css /home/BNReduction/algorun/web/css/
-ADD ./src /home/BNReduction/src/
-ADD ./algorun/*.rb /home/BNReduction/algorun/
+# Add your algorithm code folder to /home/algorithm/src/
+ADD Macaulay2-key /home/algorithm/
+ADD ./algorun_info /home/algorithm/web/algorun_info/
+ADD ./src /home/algorithm/src/
 
-# Lines to install Macaulay2 and download Boost library
+# Add any algorithm dependencies here
 RUN apt-get update && \
-apt-get install -y ruby2.0 build-essential perl && \
+apt-get install -y wget && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 echo "deb http://www.math.uiuc.edu/Macaulay2/Repositories/Ubuntu trusty main" >> /etc/apt/sources.list && \
-apt-key add /home/BNReduction/Macaulay2-key && \
+apt-key add /home/algorithm/Macaulay2-key && \
 apt-get update -q && \
 apt-get install -y -q macaulay2 && \
-apt-get install -y wget && \
-wget -O /home/BNReduction/src/boost_1_55_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2 && \
-tar --bzip2 -xf /home/BNReduction/src/boost_1_55_0.tar.bz2 -C /home/BNReduction/src/ && \
-rm /home/BNReduction/src/boost_1_55_0.tar.bz2 && \
-make -C /home/BNReduction/src/ clean && \
-make -C /home/BNReduction/src/ install && \
-rm -r /home/BNReduction/src/boost_1_55_0/
+wget -O /home/algorithm/src/boost_1_55_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2 && \
+tar --bzip2 -xf /home/algorithm/src/boost_1_55_0.tar.bz2 -C /home/algorithm/src/ && \
+rm /home/algorithm/src/boost_1_55_0.tar.bz2 && \
+make -C /home/algorithm/src/ clean && \
+make -C /home/algorithm/src/ install && \
+rm -r /home/algorithm/src/boost_1_55_0/
+RUN apt-get install -y ruby2.0
 
-ENV CODE_HOME /home/BNReduction/
+# Add your command to execute an algorithm as environment variable EXEC_COMMAND
+ENV EXEC_COMMAND "ruby BNReduction.rb"
 
-EXPOSE 8765
+# Add your command options (if any) as environment variable COMMAND_OPTIONS
+# ENV COMMAND_OPTIONS "-c"
 
-ENTRYPOINT ["/usr/bin/ruby","/home/BNReduction/run.rb","start"]
+# If you specified -f as a command line option for the output file, ignore this step
+# If your code outputs results to a hard-coded file name, specify it as environment variable OUTPUT_FILE_NAME
+ENV OUTPUT_FILE_NAME "output.txt"
+
+
+
