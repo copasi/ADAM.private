@@ -1,0 +1,8 @@
+{
+"algo_name": "SDDS",
+"short_description": "Stochastic Discrete Dynamical System",
+"authors": ["Seda Arat"],
+"long_description": "SDDS module simulates the average trajectory for each variable out of numberofSimulations trajectories deterministically or stochastically",
+"web_link": "http://algorun.org",
+"params": {}
+}

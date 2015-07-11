@@ -1,6 +1,7 @@
 require 'json'
 require 'matrix'
 require 'pp'
+require_relative 'Task.rb'
 
 class Sdds < Task
 	
@@ -54,18 +55,17 @@ class Sdds < Task
 			puts "Error: no output file given"
 			return 1
 		end
-		File.open(HOME+"/input.json",'w') { |f| f.write(JSON.dump(@input_json)) }
-		system("/usr/bin/perl "+@exec_file+' -i '+HOME+'/input.json'+' -o '+output_file)
+		File.open("input.json",'w') { |f| f.write(JSON.dump(@input_json)) }
+		system("/usr/bin/perl "+@exec_file+' -i '+'input.json'+' -o '+output_file)
 		if $?.exitstatus>0 or !File.exists?(output_file) then
-			puts "Error: error occured while trying to run SDDS"
-			return 1
+			return "Cannot run SDDS!"
 		end
-		return 0
+		return 1
 	end
 
 	def clean_temp_files()
-		File.delete(HOME+"/input.json") if File.exists?(HOME+"/input.json")
-		File.delete(HOME+"/output.json") if File.exists?(HOME+"/output.json")
+		File.delete("input.json") if File.exists?("input.json")
+		File.delete("output.json") if File.exists?("output.json")
 	end
 
 	def test(output_ref)
@@ -77,7 +77,8 @@ if $0 == __FILE__ then
 	if !File.exists?(ARGV[0]) then puts "JSON input file not found" end
 	input = File.read(ARGV[0])
 	json = JSON.parse(input)
-	task=Sdds.new(json,'../src/SDDS.pl')
-	task.run("output.json")
-	task.render_output("output.json")
+	task=Sdds.new(json,'SDDS.pl')
+	asd = task.run("output.json")
+	output = task.render_output("output.json")
+	File.open("output.txt",'w') { |f| f.write(JSON.pretty_generate(output)) }
 end

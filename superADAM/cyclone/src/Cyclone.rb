@@ -107,7 +107,7 @@ class Cyclone
 		f.close()
 		@final = {}
 		@final["output"] = @output
-		@final_json = JSON.generate(@final)
+		@final_json = JSON.pretty_generate(@final)
 	end
 
 	def o2j_edges(output_file)
