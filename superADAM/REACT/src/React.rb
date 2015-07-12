@@ -1,23 +1,26 @@
 require 'json'
 require 'matrix'
 require 'pp'
+require_relative 'Task.rb'
+require_relative 'React.rb'
+require_relative 'Server.rb'
 
 class React < Task
 	def initialize(json,exec_file)
 		@file_manager=nil
 		@default_values= {
-			'HammingPolyWeight'=>0.5,
-			'ComplexityWeight'=>0.2,
-			'RevEngWeight'=>0,
-			'BioProbWeight'=>0,
-			'HammingModelWeight'=>0.35,
-			'PolyScoreWeight'=>0.65,
-			'GenePoolSize'=>100,
-			'NumCandidates'=>55,
-			'NumParentsToPreserve'=>5,
-			'MaxGenerations'=>100,
-			'StableGenerationLimit'=>50,
-			'MutateProbability'=>0.5
+			'HammingPolyWeight'=>ENV['PARAM_HammingPolyWeight'],
+			'ComplexityWeight'=>ENV['PARAM_ComplexityWeight'],
+			'RevEngWeight'=>ENV['PARAM_RevEngWeight'],
+			'BioProbWeight'=>ENV['PARAM_BioProbWeight'],
+			'HammingModelWeight'=>ENV['PARAM_HammingModelWeight'],
+			'PolyScoreWeight'=>ENV['PARAM_PolyScoreWeight'],
+			'GenePoolSize'=>ENV['PARAM_GenePoolSize'],
+			'NumCandidates'=>ENV['PARAM_NumCandidates'],
+			'NumParentsToPreserve'=>ENV['PARAM_NumParentsToPreserve'],
+			'MaxGenerations'=>ENV['PARAM_MaxGenerations'],
+			'StableGenerationLimit'=>ENV['PARAM_StableGenerationLimit'],
+			'MutateProbability'=>ENV['PARAM_MutateProbability']
 		}
 		super(json,exec_file)
 	end
@@ -151,7 +154,7 @@ class React < Task
 			@method.arguments['priorBiologicalNetwork'].each_with_index do |r,i|
 				idx=i+1
 				res+="F%i " % idx
-				res+=r.join(' ')+"\n"
+				res+=r.join(" ")+"\n"
 			end
 			File.open("Bio.txt",'w') { |f| f.write(res) }
 			@tmp_files.push("Bio.txt")
@@ -361,11 +364,9 @@ class React < Task
 end
 
 if $0 == __FILE__ then
-	if !File.exists?(ARGV[0]) then puts "JSON input file not found" end
 	input = File.read(ARGV[0])
 	json = JSON.parse(input)
-	task=React.new(json,'.././React')
-	task.run("output.txt")
-	task.render_output("output.txt")
-	task.clean_temp_files()
+	task=React.new(json,'/home/algorithm/src/React')
+	x = task.run("output.raw")
+	File.open("output.txt",'w') { |f| f.write(JSON.pretty_generate(task.render_output("output.raw"))) }
 end

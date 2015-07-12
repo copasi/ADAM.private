@@ -1,19 +1,43 @@
-FROM phusion/baseimage:0.9.15
-MAINTAINER Thibauld Favre <thibauld@fastmail.com>
+FROM ahosny/algorun:0.9.1
+
+MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
+
+# Don't forget to fill files in algorun_info folder and put your source code in src folder
+# ADD ./algorun_info /home/algorithm/web/algorun_info/
+# ADD ./src /home/algorithm/src/
+
+# Add any algorithm dependencies here
 RUN apt-get update && \
 apt-get install -y ruby2.0 build-essential
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-ADD run.rb /home/REACT/
-ADD ./src/*.h /home/REACT/src/
-ADD ./src/*.cpp /home/REACT/src/
-ADD ./src/Makefile /home/REACT/src/
-ADD ./algorun/*.rb /home/REACT/algorun/
-ADD ./algorun/web/index.html /home/REACT/algorun/web/
-ADD ./algorun/web/js /home/REACT/algorun/web/js/
-ADD ./algorun/web/css /home/REACT/algorun/web/css/
-RUN cd /home/REACT/
-ENV CODE_HOME /home/REACT
-RUN ["/usr/bin/ruby","/home/REACT/run.rb","make"]
+
+ADD ./algorun_info /home/algorithm/web/algorun_info/
+ADD ./src /home/algorithm/src/
+
+RUN ruby /home/algorithm/src/run.rb make
+# RUN ["/usr/bin/ruby","/home/algorithm/src/run.rb","make"]
 RUN rm -f src/*.o
-EXPOSE 8765
-ENTRYPOINT ["/usr/bin/ruby","/home/REACT/run.rb","start"]
+
+# Add your command to execute an algorithm as environment variable EXEC_COMMAND
+ENV EXEC_COMMAND "ruby React.rb"
+
+# Add your command options (if any) as environment variable COMMAND_OPTIONS
+# EXAMPLE: ENV COMMAND_OPTIONS "-c"
+
+# If you specified -f as a command line option for the output file, ignore this step
+# If your code outputs results to a hard-coded file name, specify it as environment variable OUTPUT_FILE_NAME
+ENV OUTPUT_FILE_NAME "output.txt"
+
+# If your algorithm uses some default configuration, pass them as environment variables
+ENV PARAM_HammingPolyWeight "0.5"
+ENV PARAM_ComplexityWeight "0.2"
+ENV PARAM_RevEngWeight "0"
+ENV PARAM_BioProbWeight "0"
+ENV PARAM_HammingModelWeight "0.35"
+ENV PARAM_PolyScoreWeight "0.65"
+ENV PARAM_GenePoolSize "100"
+ENV PARAM_NumCandidates "55"
+ENV PARAM_NumParentsToPreserve "5"
+ENV PARAM_MaxGenerations "100"
+ENV PARAM_StableGenerationLimit "50"
+ENV PARAM_MutateProbability "0.5"

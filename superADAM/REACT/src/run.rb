@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
-require_relative './algorun/Task.rb'
-require_relative './algorun/React.rb'
-require_relative './algorun/Server.rb'
+require_relative 'Task.rb'
+require_relative 'React.rb'
+require_relative 'Server.rb'
 
 if ENV["CODE_HOME"].nil? then
 	ENV["CODE_HOME"]=ENV["PWD"]
@@ -63,9 +63,9 @@ case param
 		puts "* start: start the REACT web service"
 		puts "* help: shows this help message"
 	when "make"
-		Dir.chdir ENV['CODE_HOME']+"/src"
+		Dir.chdir ENV['CODE_HOME']+"/src/"
 		system("make")
-		system("cp React ..")
+		# system("cp React ..")
 	when "test"
 		num=ARGV[1]
 		if not ["1","2","3"].include? num then
