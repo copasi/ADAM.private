@@ -1,4 +1,4 @@
-FROM ahosny/algorun:0.9.1
+FROM ahosny/algorun:0.9.2
 
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
@@ -29,15 +29,15 @@ ENV EXEC_COMMAND "ruby React.rb"
 ENV OUTPUT_FILE_NAME "output.txt"
 
 # If your algorithm uses some default configuration, pass them as environment variables
-ENV PARAM_HammingPolyWeight "0.5"
-ENV PARAM_ComplexityWeight "0.2"
-ENV PARAM_RevEngWeight "0"
-ENV PARAM_BioProbWeight "0"
-ENV PARAM_HammingModelWeight "0.35"
-ENV PARAM_PolyScoreWeight "0.65"
-ENV PARAM_GenePoolSize "100"
-ENV PARAM_NumCandidates "55"
-ENV PARAM_NumParentsToPreserve "5"
-ENV PARAM_MaxGenerations "100"
-ENV PARAM_StableGenerationLimit "50"
-ENV PARAM_MutateProbability "0.5"
+ENV HammingPolyWeight "0.5"
+ENV ComplexityWeight "0.2"
+ENV RevEngWeight "0"
+ENV BioProbWeight "0"
+ENV HammingModelWeight "0.35"
+ENV PolyScoreWeight "0.65"
+ENV GenePoolSize "100"
+ENV NumCandidates "55"
+ENV NumParentsToPreserve "5"
+ENV MaxGenerations "100"
+ENV StableGenerationLimit "50"
+ENV MutateProbability "0.5"
