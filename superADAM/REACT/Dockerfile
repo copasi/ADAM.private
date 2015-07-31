@@ -27,17 +27,3 @@ ENV EXEC_COMMAND "ruby React.rb"
 # If you specified -f as a command line option for the output file, ignore this step
 # If your code outputs results to a hard-coded file name, specify it as environment variable OUTPUT_FILE_NAME
 ENV OUTPUT_FILE_NAME "output.txt"
-
-# If your algorithm uses some default configuration, pass them as environment variables
-ENV HammingPolyWeight "0.5"
-ENV ComplexityWeight "0.2"
-ENV RevEngWeight "0"
-ENV BioProbWeight "0"
-ENV HammingModelWeight "0.35"
-ENV PolyScoreWeight "0.65"
-ENV GenePoolSize "100"
-ENV NumCandidates "55"
-ENV NumParentsToPreserve "5"
-ENV MaxGenerations "100"
-ENV StableGenerationLimit "50"
-ENV MutateProbability "0.5"
