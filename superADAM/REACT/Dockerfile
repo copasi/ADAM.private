@@ -1,4 +1,4 @@
-FROM ahosny/algorun:0.9.2
+FROM ahosny/algorun:0.9.3
 
 MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
 
