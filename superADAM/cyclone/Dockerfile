@@ -1,13 +1,11 @@
-FROM ahosny/algorun:0.9.1
-
-MAINTAINER Abdelrahman H. Ibrahim <abdelrahman.hosny@hotmail.com>
-
-# Add your algorithm code foler to /home/algorithm/src/
-ADD CMakeLists.txt /home/algorithm/
-ADD ./src /home/algorithm/src/
+# Fill files in algorun_info folder and put your source code in src folder
+# Don't change the following three lines
+FROM algorun/algorun
 ADD ./algorun_info /home/algorithm/web/algorun_info/
+ADD ./src /home/algorithm/src/
+ADD CMakeLists.txt /home/algorithm/
 
-# Add any algorithm dependencies here
+# Install any algorithm dependencies here
 RUN apt-get update && \
 apt-get install -y ruby2.0 wget && \
 apt-get clean && \
@@ -22,15 +20,6 @@ cmake /home/algorithm/CMakeLists.txt && \
 make -C /home/algorithm/ clean && \
 make -C /home/algorithm/ install
 
-# Add your command to execute an algorithm as environment variable EXEC_COMMAND
-ENV EXEC_COMMAND "ruby Cyclone.rb"
-
-# Add your command options (if any) as environment variable COMMAND_OPTIONS
-# ENV COMMAND_OPTIONS "-c"
-
-# If you specified -f as a command line option for the output file, ignore this step
-# If your code outputs results to a hard-coded file name, specify it as environment variable OUTPUT_FILE_NAME
-ENV OUTPUT_FILE_NAME "output.txt"
-
-
+# [Optional] Sign your image
+MAINTAINER Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>
 

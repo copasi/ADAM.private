@@ -1,8 +1,42 @@
 {
-"algo_name": "BNReduction",
-"short_description": "Tools for Steady State Computation of Boolean Networks",
-"authors": ["A. Veliz-Cuba", "B. Aguilar, F. Hinkelmann", "R. Laubenbacher"],
-"long_description": "BNReduction reliably determines all steady states of sparse Boolean networks with up to 1000 nodes. The algorithm is effective at analyzing virtually all published models even those of moderate connectivity. The problem for large Boolean networks with high average connectivity remains an open problem",
-"web_link": "http://www.biomedcentral.com/1471-2105/15/221",
-"params": {}
+	"algo_name": "BNReduction", // the name of your algorithm
+	"algo_summary": "Tools for Steady State Computation of Boolean Networks", // a 1-line summary of your algorithm
+	"algo_description": "BNReduction reliably determines all steady states of sparse Boolean networks with up to 1000 nodes. The algorithm is effective at analyzing virtually all published models even those of moderate connectivity. The problem for large Boolean networks with high average connectivity remains an open problem", // a few lines description of your algorithm (basic html accepted)
+	"algo_website": "http://www.biomedcentral.com/1471-2105/15/221", // url where users can find more information about your algorithm
+	"algo_keywords": ["reverse engineering", "cell biology"], // a list of keywords describing your algorithm
+	"algo_authors": [ // a list of all the algorithm's authors
+		{
+			"name": "A. Veliz-Cuba",
+			"email": "", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "", // leave "" if not available
+			"organization": "", // leave "" if not available
+			"org_website": "" // leave "" if not available
+		},
+		{
+			"name": "B. Aguilar",
+			"email": "", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "", // leave "" if not available
+			"organization": "", // leave "" if not available
+			"org_website": "" // leave "" if not available
+		},
+		{
+			"name": "F. Hinkelmann",
+			"email": "", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "", // leave "" if not available
+			"organization": "", // leave "" if not available
+			"org_website": "" // leave "" if not available
+		},
+		{
+			"name": "Reinhard Laubenbacher (PI)",
+			"email": "laubenbacher@uchc.edu", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "http://facultydirectory.uchc.edu/profile?profileId=Laubenbacher-Reinhard", // leave "" if not available
+			"organization": "Center for Quantitative Medicine", // leave "" if not available
+			"org_website": "http://cqm.uchc.edu/" // leave "" if not available
+		}
+	],
+	"algo_exec": "ruby BNReduction.rb", // the command to start algorithm execution. AlgoRun passes the input file as the first argument
+	"algo_output_filename": "output.txt", // path of the file where your algorithm outputs its results
+	"algo_parameters": { // list all the parameters available for your algorithm. These parameters will be available for use in your algorithm as environment variables.
+	},
+	"algo_image": "algorun/bnreduction" // Example: "ahosny/react". leave "" if you did not upload your algorithm to docker hub or if you do not know what docker hub is :).
 }
