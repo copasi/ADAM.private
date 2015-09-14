@@ -23,6 +23,7 @@
 	"algo_exec": "ruby React.rb", // the command to start algorithm execution. AlgoRun passes the input file as the first argument
 	"algo_output_filename": "output.txt", // path of the file where your algorithm outputs its results
 	"algo_parameters": { // list all the parameters available for your algorithm. These parameters will be available for use in your algorithm as environment variables.
+		"HammingPolyWeight": "0.5",
 		"ComplexityWeight": "0.2",
 		"RevEngWeight": "0",
 		"BioProbWeight": "0",

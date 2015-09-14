@@ -6,7 +6,7 @@ ADD ./src /home/algorithm/src/
 
 # Install any algorithm dependencies here
 RUN apt-get update && \
-apt-get install -y ruby2.0 build-essential
+apt-get install -y build-essential ruby
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN ruby /home/algorithm/src/run.rb make
 RUN rm -f src/*.o

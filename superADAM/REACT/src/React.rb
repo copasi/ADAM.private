@@ -9,18 +9,18 @@ class React < Task
 	def initialize(json,exec_file)
 		@file_manager=nil
 		@default_values= {
-			'HammingPolyWeight'=>ENV['PARAM_HammingPolyWeight'],
-			'ComplexityWeight'=>ENV['PARAM_ComplexityWeight'],
-			'RevEngWeight'=>ENV['PARAM_RevEngWeight'],
-			'BioProbWeight'=>ENV['PARAM_BioProbWeight'],
-			'HammingModelWeight'=>ENV['PARAM_HammingModelWeight'],
-			'PolyScoreWeight'=>ENV['PARAM_PolyScoreWeight'],
-			'GenePoolSize'=>ENV['PARAM_GenePoolSize'],
-			'NumCandidates'=>ENV['PARAM_NumCandidates'],
-			'NumParentsToPreserve'=>ENV['PARAM_NumParentsToPreserve'],
-			'MaxGenerations'=>ENV['PARAM_MaxGenerations'],
-			'StableGenerationLimit'=>ENV['PARAM_StableGenerationLimit'],
-			'MutateProbability'=>ENV['PARAM_MutateProbability']
+			'HammingPolyWeight'=>ENV['HammingPolyWeight'],
+			'ComplexityWeight'=>ENV['ComplexityWeight'],
+			'RevEngWeight'=>ENV['RevEngWeight'],
+			'BioProbWeight'=>ENV['BioProbWeight'],
+			'HammingModelWeight'=>ENV['HammingModelWeight'],
+			'PolyScoreWeight'=>ENV['PolyScoreWeight'],
+			'GenePoolSize'=>ENV['GenePoolSize'],
+			'NumCandidates'=>ENV['NumCandidates'],
+			'NumParentsToPreserve'=>ENV['NumParentsToPreserve'],
+			'MaxGenerations'=>ENV['MaxGenerations'],
+			'StableGenerationLimit'=>ENV['StableGenerationLimit'],
+			'MutateProbability'=>ENV['MutateProbability']
 		}
 		super(json,exec_file)
 	end
