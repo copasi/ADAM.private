@@ -9,7 +9,15 @@ newPackage(
      Headline => "A bunch of helper functions for solvebyGB and conjunctiveNetwork")
 
 
-export{makeStates, getDivisors, composeSystem, makeRing, nextState, makeStatesHelper, booleanRing}
+export{
+    "makeStates", 
+    "getDivisors", 
+    "composeSystem", 
+    "makeRing", 
+    "nextState", 
+    "makeStatesHelper", 
+    "booleanRing"
+    }
 exportMutable {}
 
 -- a state is a list of 0s and 1s in ZZ (not ZZ/2)
