@@ -38,5 +38,6 @@
 	"algo_output_filename": "output.txt", // path of the file where your algorithm outputs its results
 	"algo_parameters": { // list all the parameters available for your algorithm. These parameters will be available for use in your algorithm as environment variables.
 	},
+	"input_type": "algorun:superadam", // if your algorithm is compatible with other algorithms on AlgoRun, mention the input type it accepts here. Example: "algorun:superadam". leave the default value otherwise.
 	"algo_image": "algorun/cyclone" // Example: "ahosny/react". leave "" if you did not upload your algorithm to docker hub or if you do not know what docker hub is :).
 }

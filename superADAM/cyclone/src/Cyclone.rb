@@ -1,4 +1,5 @@
 require 'json'
+require 'open3'
 
 class Cyclone	
 	def initialize(json)
@@ -21,7 +22,7 @@ class Cyclone
 		@variables = @parsed["task"]["input"][0]["variables"]
 		for i in 0...@variables.length
 			@variable_names.push(@variables[i]["id"])
-			@no_of_states.push(@variables[i]["states"][1]+1)
+			@no_of_states.push(@variables[i]["states"].length)
 			@speed_of_variables.push(@variables[i]["speed"])
 		end
 		@no_of_variables = @variables.length
@@ -32,7 +33,7 @@ class Cyclone
 			@target = @update_rules[i]["target"]
 			@state_transition_tables += "STATE TRASITION TABLE for " + @target + ":\n"
 			@input_variables = @update_rules[i]["functions"][0]["inputVariables"]
-			@state_transition_tables += @input_variables.join(" ")
+			@state_transition_tables += @input_variables.join(" ") + " " + @input_variables[@input_variables.length - 1]
 			@state_transition_tables += "\n"
 			@transition_table = @update_rules[i]["functions"][0]["transitionTable"]
 			for i in 0...@transition_table.length()
@@ -64,6 +65,11 @@ class Cyclone
 		@formatted_input += "\n\n"
 		@formatted_input += @state_transition_tables
 		return @formatted_input
+	end
+
+	def clean()
+		File.delete(@cyclone_input_file) if File.exist?(@cyclone_input_file)
+		File.delete(@cyclone_output_file) if File.exist?(@cyclone_output_file)
 	end
 
 	def o2j_trajectory(output_file)
@@ -108,6 +114,7 @@ class Cyclone
 		@final = {}
 		@final["output"] = @output
 		@final_json = JSON.pretty_generate(@final)
+		clean()
 	end
 
 	def o2j_edges(output_file)
@@ -134,7 +141,8 @@ class Cyclone
 		f.close()
 		@final = {}
 		@final["output"] = @output
-		@final_json = JSON.pretty_generate(@final)		
+		@final_json = JSON.pretty_generate(@final)
+		clean()		
 	end
 	
 	def get_final_json()
@@ -151,6 +159,11 @@ class Cyclone
 		f.close()
 		if @mode == "trajectory"
 			system("cyclone " + @cyclone_input_file + " -table -f " + @cyclone_output_file)
+			#stdin, stdout, stderr, wait_thr = Open3.popen3("cyclone " + @cyclone_input_file + " -table -f " + @cyclone_output_file)
+			#puts stdout.gets(nil)
+			#puts '-----------'
+			#puts stderr.gets(nil)
+
 			o2j_trajectory(@cyclone_output_file)
 		else
 			system("cyclone " + @cyclone_input_file + " -table -edges -f " + @cyclone_output_file)

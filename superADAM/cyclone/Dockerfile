@@ -7,7 +7,7 @@ ADD CMakeLists.txt /home/algorithm/
 
 # Install any algorithm dependencies here
 RUN apt-get update && \
-apt-get install -y ruby2.0 wget && \
+apt-get install -y ruby wget && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN wget http://www.cmake.org/files/v2.8/cmake-2.8.3.tar.gz && \
