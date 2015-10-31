@@ -36,5 +36,6 @@
 		"StableGenerationLimit": "50",
 		"MutateProbability": "0.5"
 	},
+	"input_type": "algorun:superadam", // if your algorithm is compatible with other algorithms on AlgoRun, mention the input type it accepts here. Example: "algorun:superadam". leave the default value otherwise.
 	"algo_image": "algorun/react" // Example: "ahosny/react". leave "" if you did not upload your algorithm to docker hub or if you do not know what docker hub is :).
 }
