@@ -6,7 +6,7 @@ ADD ./src /home/algorithm/src/
 
 # Install any algorithm dependencies here
 RUN apt-get update
-RUN apt-get install -y ruby2.0 perl cpanminus libgetopt-euclid-perl libjson-perl build-essential
+RUN apt-get install -y ruby perl cpanminus libgetopt-euclid-perl libjson-perl build-essential
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN cpanm JSON::Parse
 
