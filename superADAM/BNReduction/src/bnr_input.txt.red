@@ -1,0 +1,5 @@
+
+
+FIXED_POINTS_REDUCED
+1 
+

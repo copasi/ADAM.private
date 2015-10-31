@@ -20,7 +20,7 @@ rm /home/algorithm/src/boost_1_55_0.tar.bz2 && \
 make -C /home/algorithm/src/ clean && \
 make -C /home/algorithm/src/ install && \
 rm -r /home/algorithm/src/boost_1_55_0/
-RUN apt-get install -y ruby2.0
+RUN apt-get install -y ruby
 
 # [Optional] Sign your image
 MAINTAINER Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>

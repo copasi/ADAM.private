@@ -12,7 +12,27 @@ newPackage(
     )
 
 
-export{GBFP,GBFP0,SUB,bf1,bf12,bf2,BF12,T1,T2,T3,T4, makeStates, getDivisors, composeSystem, makeRing, nextState, makeStatesHelper, sortOutput, modifyOutput}
+export{
+    "GBFP",
+    "GBFP0",
+    "SUB",
+    "bf1",
+    "bf12",
+    "bf2",
+    "BF12",
+    "T1",
+    "T2",
+    "T3",
+    "T4", 
+    "makeStates", 
+    "getDivisors", 
+    "composeSystem", 
+    "makeRing", 
+    "nextState", 
+    "makeStatesHelper", 
+    "sortOutput", 
+    "modifyOutput"
+    }
 
 
 --This method computes the groebner basis of an ideal and solves the new system

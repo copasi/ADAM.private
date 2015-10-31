@@ -15,6 +15,8 @@ class BNReduction
 	def j2i_parse_json()
 		@parsed = JSON.parse(@json_data)
 		@karguments =  @parsed["task"]["method"]["arguments"]
+		@model_type = @parsed["task"]["input"][0]["type"]
+		@model_description = @parsed["task"]["input"][0]["description"]
 		ks_length =  @karguments.length
 		i = 1
 		while i <= ks_length do
@@ -95,8 +97,8 @@ class BNReduction
 		@steadystates["value"] = @value
 		@final = Hash.new
 		@output = Hash.new
-		@output["type"] = "model"
-		@output["description"] = "sample model"
+		@output["type"] = @model_type
+		@output["description"] = @model_description
 		@output["parameters"] = @parsed["task"]["input"][0]["parameters"]
 		@output["updateRules"] = @parsed["task"]["input"][0]["updateRules"]
 		@output["variables"] = @parsed["task"]["input"][0]["variables"]
