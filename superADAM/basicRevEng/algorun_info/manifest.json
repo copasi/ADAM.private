@@ -1,0 +1,29 @@
+{
+	"algo_name": "BasicRevEng", // the name of your algorithm
+	"algo_summary": "My short description", // a 1-line summary of your algorithm
+	"algo_description": "My long description", // a few lines description of your algorithm (basic html accepted)
+	"algo_website": "http://algorun.org", // url where users can find more information about your algorithm
+	"algo_keywords": ["reverse engineering", "cell biology"], // a list of keywords describing your algorithm
+	"algo_authors": [ // a list of all the algorithm's authors
+		{
+			"name": "John Doe",
+			"email": "john@doe.com", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "http://johndoe.info", // leave "" if not available
+			"organization": "John Doe University", // leave "" if not available
+			"org_website": "http://johndoe.edu" // leave "" if not available
+		},
+		{
+			"name": "Jim Doe",
+			"email": "jim@doe.com", // make sure you have a gravatar (http://gravatar.com)
+			"personal_website": "http://jimdoe.info", // leave "" if not available
+			"organization": "John Doe University", // leave "" if not available
+			"org_website": "http://johndoe.edu" // leave "" if not available
+		}
+	],
+	"algo_exec": "/usr/bin/M2script find-pds < ", // the command to start algorithm execution. AlgoRun passes the input file as the first argument
+	"algo_output_filename": "stdout", // path of the file where your algorithm outputs its results
+	"algo_parameters": { // list all the parameters available for your algorithm. These parameters will be available for use in your algorithm as environment variables.
+	},
+	"input_type": "algorun:superadam", // if your algorithm is compatible with other algorithms on AlgoRun, mention the input type it accepts here. Example: "algorun:superadam". leave the default value otherwise.
+	"algo_image": "algorun/basicreveng" // Example: "ahosny/react". leave "" if you did not upload your algorithm to docker hub or if you do not know what docker hub is :).
+}
