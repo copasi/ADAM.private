@@ -1,0 +1,38 @@
+controller:
+  image: ahosny/controller:0.9.0
+  ports:
+    - "32319:8765"
+  links:
+    - basicrvg
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://basicrvg.test:8765/do/run","condition"=>"return true"}]
+  publish-service: controller.test
+basicrvg:
+  image: ahosny/basicreveng:0.9.0
+  ports:
+    - "32320:8765"
+  links:
+    - react
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://react.test:8765/do/run","condition"=>"return true"}]
+  publish-service: basicrvg.test
+react:
+  image: ahosny/react:0.9.0
+  ports:
+    - "32321:8765"
+  links:
+    - sdds
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://sdds.test:8765/do/run","condition"=>"return true"}]
+  publish-service: react.test
+sdds:
+  image: ahosny/sdds:0.9.0
+  ports:
+    - "32322:8765"
+  environment:
+    - VALIDATE_INPUT="return true\n"
+    - OUTPUT_TO=[{"target"=>"http://controller.test/do/done","condition"=>"return true"}]
+  publish-service: sdds.test
