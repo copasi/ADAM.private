@@ -1,22 +1,24 @@
 {
-	"algo_name": "SDDS", // the name of your algorithm
-	"algo_summary": "Stochastic Discrete Dynamical System", // a 1-line summary of your algorithm
-	"algo_description": "SDDS module simulates the average trajectory for each variable out of numberofSimulations trajectories deterministically or stochastically", // a few lines description of your algorithm (basic html accepted)
-	"algo_website": "http://algorun.org", // url where users can find more information about your algorithm
-	"algo_keywords": ["reverse engineering", "cell biology"], // a list of keywords describing your algorithm
-	"algo_authors": [ // a list of all the algorithm's authors
+	"algo_name": "SDDS",
+	"algo_summary": "Stochastic Discrete Dynamical System",
+	"algo_description": "SDDS module simulates the average trajectory for each variable out of numberofSimulations trajectories deterministically or stochastically",
+	"algo_website": "http://algorun.org",
+	"algo_keywords": ["reverse engineering", "cell biology"],
+	"algo_authors": [
 		{
 			"name": "Seda Arat",
-			"email": "arat@uchc.edu", // make sure you have a gravatar (http://gravatar.com)
-			"personal_website": "http://www.math.vt.edu/people/sedag/", // leave "" if not available
-			"organization": "Center for Quantitative Medicine", // leave "" if not available
-			"org_website": "http://cqm.uchc.edu/" // leave "" if not available
+			"email": "arat@uchc.edu",
+			"profile_picture": "",
+			"personal_website": "http://www.math.vt.edu/people/sedag/",
+			"organization": "Center for Quantitative Medicine",
+			"org_website": "http://cqm.uchc.edu/"
 		}
 	],
-	"algo_exec": "ruby Sdds.rb", // the command to start algorithm execution. AlgoRun passes the input file as the first argument
-	"algo_output_filename": "output.txt", // path of the file where your algorithm outputs its results
-	"algo_parameters": { // list all the parameters available for your algorithm. These parameters will be available for use in your algorithm as environment variables.
+	"algo_exec": "ruby Sdds.rb",
+	"algo_input_stream": "file",
+	"algo_output_stream": "output.txt",
+	"algo_parameters": {
 	},
-	"input_type": "algorun:superadam", // if your algorithm is compatible with other algorithms on AlgoRun, mention the input type it accepts here. Example: "algorun:superadam". leave the default value otherwise.
-	"algo_image": "algorun/sdds" // Example: "ahosny/react". leave "" if you did not upload your algorithm to docker hub or if you do not know what docker hub is :).
+	"input_type": "algorun:superadam",
+	"algo_image": "algorun/sdds"
 }
