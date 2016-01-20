@@ -2,9 +2,10 @@
 --File Name: Discretize.m2
 --Author: Elena S. Dimitrova
 --Original Date: 3/8/2009
---Descritpion: Booleanizes the input data based on our discretization method. ereadMat is a modification of readMat from the PolynomialDynamicalSystems package.
---Input: Number of variables; time series files
---Output: Files named "Bool-original filename.txt" with the booleanized data
+--Last modified: 1/20/2016
+--Descritpion: Booleanizes the input data based on our discretization method. 
+--Input: JSON time series file
+--Output: Files named "JSON-ts-output.txt" with booleanized data.
 --********************* 
 
 loadPackage "PolynomialDynamicalSystems"
