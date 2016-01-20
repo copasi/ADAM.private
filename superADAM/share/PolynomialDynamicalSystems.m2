@@ -130,11 +130,8 @@ createRevEngJSONOutputModel List := (L) -> (
 readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
  -- input argument follows description in doc/json-standard-formats.txt
 readTSDataFromJSON String := (jsonInput) -> (
-    H := parseJSON jsonInput;
-    inputs := H#"task"#"input";
-    if not instance(inputs, BasicList) then
-    return errorPacket "in readTSDataFromJSON: expected array of inputs";
-    data := inputs#0;
+    -- TODO: return an error packet if the data is missing fields (i.e. don't do M2 error).
+    data := parseJSON jsonInput;
     if not instance(data, HashTable) or not data#?"type" or data#"type" != "timeSeries" then 
     return errorPacket "in readTSDataFromJSON: input is not time series data";
     -- if there is no error, we get here, and construct a TimeSeriesData
