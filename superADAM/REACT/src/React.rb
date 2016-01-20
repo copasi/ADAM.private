@@ -8,6 +8,7 @@ require_relative 'Server.rb'
 class React < Task
 	def initialize(json,exec_file)
 		@file_manager=nil
+		@arguments={}
 		@default_values= {
 			'HammingPolyWeight'=>ENV['HammingPolyWeight'],
 			'ComplexityWeight'=>ENV['ComplexityWeight'],
@@ -50,8 +51,8 @@ class React < Task
 		end
 		if !wt_found then @errors.push(:TIMESERIES_MUST_CONTAIN_AT_LEAST_1_WILDTYPE) end
 		# if a model is present, its fieldcardinity must be equal to 2
-		if !@input['models'].empty? then
-			@input['models'].each do |k,m|
+		if !@input['polynomialDynamicalSystemSet'].empty? then
+			@input['polynomialDynamicalSystemSet'].each do |m|
 				if m.fieldCardinality!=2 then @errors.push(:MODELS_FIELD_CARDINALITY_MUST_BE_2) end
 			end
 		end
@@ -73,9 +74,9 @@ class React < Task
 		]
 		required.each do |arg|
 			# if @method.arguments[arg].nil? then @errors.push(("MISSING_ARGUMENT_ERROR_"+arg.upcase).to_sym) end
-			if @method.arguments[arg].nil? then
+			if @arguments[arg].nil? then
 				if not @default_values[arg].nil? then
-					@method.arguments[arg]=@default_values[arg]
+					@arguments[arg]=@default_values[arg]
 				end
 			end
 		end
@@ -122,8 +123,8 @@ class React < Task
 	end
 
 	def get_priorReverseEngineeringNetwork()
-		model=@input['models']['priorReverseEngineeringNetwork']
-		if !model.nil? then
+		model=@input['priorReverseEngineeringNetwork']
+		if !model.empty? then
 			res=""
 			model.variableScores.each_with_index do |vs,i|
 				i_baby=i+1
@@ -149,9 +150,9 @@ class React < Task
 	end
 
 	def get_priorBiologicalNetwork()
-		if !@method.arguments['priorBiologicalNetwork'].nil? then
+		if !@arguments['priorBiologicalNetwork'].nil? then
 			res=""
-			@method.arguments['priorBiologicalNetwork'].each_with_index do |r,i|
+			@arguments['priorBiologicalNetwork'].each_with_index do |r,i|
 				idx=i+1
 				res+="F%i " % idx
 				res+=r.join(" ")+"\n"
@@ -166,7 +167,7 @@ class React < Task
 
 	def get_priorModel()
 		res="MODEL={"
-		model=@input['models']['priorModel']
+		model=@input['polynomialDynamicalSystemSet'][0]
 		if !model.nil? then
 			functions=[]
 			combinations=1
@@ -198,18 +199,18 @@ class React < Task
 	end
 
 	def get_parameters()
-		res="\nHammingPolyWeight\t"+@method.arguments['HammingPolyWeight'].to_s
-		res+="\nComplexityWeight\t"+@method.arguments['ComplexityWeight'].to_s
-		res+="\nRevEngWeight\t"+@method.arguments['RevEngWeight'].to_s
-		res+="\nBioProbWeight\t"+@method.arguments['BioProbWeight'].to_s
-		res+="\nHammingModelWeight\t"+@method.arguments['HammingModelWeight'].to_s
-		res+="\nPolyScoreWeight\t"+@method.arguments['PolyScoreWeight'].to_s
-		res+="\nGenePoolSize\t"+@method.arguments['GenePoolSize'].to_s
-		res+="\nNumCandidates\t"+@method.arguments['NumCandidates'].to_s
-		res+="\nNumParentsToPreserve\t"+@method.arguments['NumParentsToPreserve'].to_s
-		res+="\nMaxGenerations\t"+@method.arguments['MaxGenerations'].to_s
-		res+="\nStableGenerationLimit\t"+@method.arguments['StableGenerationLimit'].to_s
-		res+="\nMutateProbability\t"+@method.arguments['MutateProbability'].to_s
+		res="\nHammingPolyWeight\t"+@arguments['HammingPolyWeight'].to_s
+		res+="\nComplexityWeight\t"+@arguments['ComplexityWeight'].to_s
+		res+="\nRevEngWeight\t"+@arguments['RevEngWeight'].to_s
+		res+="\nBioProbWeight\t"+@arguments['BioProbWeight'].to_s
+		res+="\nHammingModelWeight\t"+@arguments['HammingModelWeight'].to_s
+		res+="\nPolyScoreWeight\t"+@arguments['PolyScoreWeight'].to_s
+		res+="\nGenePoolSize\t"+@arguments['GenePoolSize'].to_s
+		res+="\nNumCandidates\t"+@arguments['NumCandidates'].to_s
+		res+="\nNumParentsToPreserve\t"+@arguments['NumParentsToPreserve'].to_s
+		res+="\nMaxGenerations\t"+@arguments['MaxGenerations'].to_s
+		res+="\nStableGenerationLimit\t"+@arguments['StableGenerationLimit'].to_s
+		res+="\nMutateProbability\t"+@arguments['MutateProbability'].to_s
 		res+="\n"
 		File.open("params.txt",'w') { |f| f.write(res) }
 		@tmp_files.push("params.txt")
@@ -242,7 +243,6 @@ class React < Task
 			puts "RAW_OUTPUT_FILE_DOES_NOT_EXISTS"
 			return
 		end
-		@output={"task"=>{"method"=>@method.raw_obj,"input"=>Array.new()}}
 		functions={}
 		idx_func=1
 		skip=false
@@ -315,25 +315,15 @@ class React < Task
 			end
 			variableScores.push({"target"=>k,"sources"=>tmp})
 		end
-		@output["task"]["input"].push({
-			"type"=>"model",
+		@output=[{
+			"type"=>"PolynomialDynamicalSystemSet",
 			"description"=>"PLEASE FILL IN",
 			"name"=>"reverseEngineeringOutputModel",
 			"fieldCardinality"=>2,
 			"variableScores"=>variableScores,
 			#"variables"=>variableScores,
 			"updateRules"=>updateRules
-		})
-		if not @input['timeSeries'].nil? then
-			@input['timeSeries'].each do |ts|
-				@output["task"]["input"].push(ts.raw_obj)
-			end
-		end
-		if not @input['custom'].nil? then
-			@input['custom'].each do |obj|
-				@output["task"]["input"].push(obj)
-			end
-		end
+		}]
 		return @output
 	end
 
