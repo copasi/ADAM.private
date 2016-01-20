@@ -7,6 +7,19 @@ if ENV["CODE_HOME"].nil? then
 	ENV["CODE_HOME"]=ENV["PWD"]
 end
 
+ENV['HammingPolyWeight']="0.5"
+ENV['ComplexityWeight']="0.2"
+ENV['RevEngWeight']="0"
+ENV['BioProbWeight']="0"
+ENV['HammingModelWeight']="0.35"
+ENV['PolyScoreWeight']="0.65"
+ENV['GenePoolSize']="100"
+ENV['NumCandidates']="55"
+ENV['NumParentsToPreserve']="5"
+ENV['MaxGenerations']="100"
+ENV['StableGenerationLimit']="50"
+ENV['MutateProbability']="0.5"
+
 class String
 	# colorization
 	def colorize(color_code)
