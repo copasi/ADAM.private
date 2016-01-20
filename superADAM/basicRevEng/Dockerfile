@@ -16,7 +16,7 @@ RUN echo M2 --script \"\$\@\" > /usr/bin/M2script
 RUN chmod +x /usr/bin/M2script
 ENV ADAM_ROOT /home/M2/adam/
 ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
-ADD share/ /home/M2/adam/superADAM/share/
+ADD ../share/ /home/M2/adam/superADAM/share/
 
 # [Optional] Sign your image
 MAINTAINER Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>

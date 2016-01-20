@@ -1,6 +1,3 @@
-{
-  "task": {
-      "input": [
           {
             "description": "data from Gepasi",
             "fieldCardinality": 5,
@@ -19,12 +16,3 @@
               ],
             "type": "timeSeriesWithBadType"
           }
-        ],
-      "method": {
-          "arguments": [],
-          "description": "example time series which will give an error",
-          "id": "basicRevEng",
-          "type": "reverseEngineering"
-        }
-    }
-}

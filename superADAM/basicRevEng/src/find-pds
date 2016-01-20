@@ -15,20 +15,9 @@ if #scriptCommandLine != 1 then (
 infile = get stdio
 
 TS = readTSDataFromJSON infile
-
-Jin = parseJSON infile;
 PDS = findPDS TS;
 JPDS = createRevEngJSONOutputModel PDS;
-
-if not instance(JPDS, ErrorPacket) then 
-( 
-    M = toMutableHashTable Jin;
-    M#"task"#"input" = append(Jin#"task"#"input", JPDS);
-    JPDS = fromMutableHashTable M;
-)
-
 outputJSON = prettyPrintJSON JPDS;
-
 print outputJSON
 
 end
@@ -44,6 +33,15 @@ restart
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
 TS = readTSDataFromJSON get "../test/test1-input.json"
+PDS = findPDS TS
+createRevEngJSONOutputModel PDS
+outputJSON = prettyPrintJSON oo
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test2-input.json"
 PDS = findPDS TS
 createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo
