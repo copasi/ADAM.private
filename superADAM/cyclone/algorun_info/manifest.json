@@ -19,7 +19,7 @@
 			"email": "",
 			"profile_picture": "",
 			"personal_website": "",
-			"organization": "",
+			"organization": "N/A",
 			"org_website": ""
 		},
 		{
@@ -27,7 +27,7 @@
 			"email": "",
 			"profile_picture": "",
 			"personal_website": "",
-			"organization": "",
+			"organization": "N/A",
 			"org_website": ""
 		},
 		{
@@ -35,7 +35,7 @@
 			"email": "",
 			"profile_picture": "",
 			"personal_website": "",
-			"organization": "",
+			"organization": "N/A",
 			"org_website": ""
 		}
 	],
@@ -44,6 +44,6 @@
 	"algo_output_stream": "output.txt",
 	"algo_parameters": {
 	},
-	"input_type": "algorun:superadam",
+	"input_type": "DiscreteModelSet",
 	"algo_image": "algorun/cyclone"
 }

@@ -15,11 +15,8 @@ class Cyclone
 
 	def j2i_parse_json()
 		@parsed = JSON.parse(@json_data)
-		@mode = @parsed["task"]["method"]["generate"]	
-		@input =  @parsed["task"]["input"][0]
-		@model_name = @input["description"]
-		@simulation_name = @input["simulationName"]
-		@variables = @parsed["task"]["input"][0]["variables"]
+		@model_name = @parsed["description"]
+		@variables = @parsed["variables"]
 		for i in 0...@variables.length
 			@variable_names.push(@variables[i]["id"])
 			@no_of_states.push(@variables[i]["states"].length)
@@ -28,7 +25,7 @@ class Cyclone
 		@no_of_variables = @variables.length
 
 		@state_transition_tables = ''
-		@update_rules = @parsed["task"]["input"][0]["updateRules"]
+		@update_rules = @parsed["updateRules"]
 		for i in 0...@update_rules.length()
 			@target = @update_rules[i]["target"]
 			@state_transition_tables += "STATE TRASITION TABLE for " + @target + ":\n"
@@ -45,8 +42,8 @@ class Cyclone
 
 	def j2i_get_input()
 		@formatted_input = ''
-		@formatted_input += "MODEL NAME: " + @model_name + "\n"
-		@formatted_input += "SIMULATION NAME: " + @simulation_name + "\n"		
+		@formatted_input += "MODEL NAME: model-for-cyclone \n"
+		@formatted_input += "SIMULATION NAME: test-simulation\n"		
 		@formatted_input += "NUMBER OF VARIABLES: " + String(@no_of_variables) + "\n"
 		@formatted_input += "VARIABLE NAMES:"
 		for vn in @variable_names
@@ -118,7 +115,7 @@ class Cyclone
 	end
 
 	def o2j_edges(output_file)
-		@output = [{}]
+		@output = {}
 		f = File.open(output_file, "r")
 		@node = []
 		@connection = []
@@ -133,15 +130,16 @@ class Cyclone
 				connection_entry = []
 				connection_entry.push(line.split("->")[0].strip)
 				connection_entry.push(line.split("->")[1].strip)
+				connection_entry.push("")
+				connection_entry.push("")
 				@connection.push(connection_entry)
 			end
 		end
-		@output[0]["node"] = @node
-		@output[0]["connection"] = @connection
+		@output["type"] = "AnnotatedGraph"
+		@output["nodes"] = @node
+		@output["edges"] = @connection
 		f.close()
-		@final = {}
-		@final["output"] = @output
-		@final_json = JSON.pretty_generate(@final)
+		@final_json = JSON.pretty_generate(@output)
 		clean()		
 	end
 	
@@ -157,18 +155,8 @@ class Cyclone
 		f = File.open(@cyclone_input_file, "w")
 		f.write(@in)
 		f.close()
-		if @mode == "trajectory"
-			system("cyclone " + @cyclone_input_file + " -table -f " + @cyclone_output_file)
-			#stdin, stdout, stderr, wait_thr = Open3.popen3("cyclone " + @cyclone_input_file + " -table -f " + @cyclone_output_file)
-			#puts stdout.gets(nil)
-			#puts '-----------'
-			#puts stderr.gets(nil)
-
-			o2j_trajectory(@cyclone_output_file)
-		else
-			system("cyclone " + @cyclone_input_file + " -table -edges -f " + @cyclone_output_file)
-			o2j_edges(@cyclone_output_file)
-		end
+		system("cyclone " + @cyclone_input_file + " -table -edges -f " + @cyclone_output_file)
+		o2j_edges(@cyclone_output_file)
 		return get_final_json()
 	end
 end
