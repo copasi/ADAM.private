@@ -19,4 +19,4 @@ ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
 ADD ./share/ /home/M2/adam/superADAM/share/
 
 # [Optional] Sign your image
-MAINTAINER Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>
+# MAINTAINER Your Name <your_email@domain.com>

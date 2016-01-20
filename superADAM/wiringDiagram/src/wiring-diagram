@@ -1,0 +1,79 @@
+#!/usr/bin/env M2 --script
+
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+
+helpString = ///usage: wiring-diagram <json-pds-model >json-directed-graph
+///
+
+if #scriptCommandLine != 1 then (
+    stderr << scriptCommandLine << ": " << helpString;
+    exit(1);
+    )
+
+--------------------------------
+infile = get stdio
+
+-- read model from infile
+-- call wiring diagram
+-- make json for that
+-- output it
+m = parseJSON infile
+m1 = modelFromJSONHashTable m
+print prettyPrintJSON hashTable {"nodes" => for v in vars m1 list hashTable{"id"=>v}, "edges" => edges m1, "type" => "Graph"}
+
+end
+
+TS = readTSDataFromJSON infile
+
+Jin = parseJSON infile;
+PDS = findPDS TS;
+JPDS = createRevEngJSONOutputModel PDS;
+
+if not instance(JPDS, ErrorPacket) then 
+( 
+    M = toMutableHashTable Jin;
+    M#"task"#"input" = append(Jin#"task"#"input", JPDS);
+    JPDS = fromMutableHashTable M;
+)
+
+outputJSON = prettyPrintJSON JPDS;
+
+print outputJSON
+
+end
+
+restart
+-- example:
+./find-pds <../test/Gepasi-input.json
+./find-pds <../test/test1-input.json >foo-1
+./find-pds help
+
+restart
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+infile = get "../test/test1-input.json" -- a model
+m = parseJSON infile
+flatten for x in m#"updateRules" list for j in x#"functions"#0#"inputVariables" list (print x; {j, x#"target"})
+m1 = modelFromJSONHashTable m
+prettyPrintJSON hashTable {"vertices" => vars m1, "edges" => edges m1}
+edges m1
+print m1
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test1-input.json"
+PDS = findPDS TS
+createRevEngJSONOutputModel PDS
+outputJSON = prettyPrintJSON oo
+
+restart
+-- run this in basicRevEng/src dir
+load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
+needsPackage "PolynomialDynamicalSystems"
+TS = readTSDataFromJSON get "../test/test3-input.json"
+PDS = findPDS TS
+createRevEngJSONOutputModel PDS
+outputJSON = prettyPrintJSON oo

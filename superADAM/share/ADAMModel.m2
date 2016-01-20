@@ -32,6 +32,7 @@ export {
     "verifyModel",
     "checkModel",
     "parseModel", 
+    "edges",
     "polynomials", 
     "findLimitCycles", 
     "polyFromTransitionTable",
@@ -43,21 +44,14 @@ export {
 Model = new Type of HashTable
 
 model = method(Options => {
-        "description" => "", 
-        "version" => "0.0",
-        "variables" => null,
         "parameters" => {},
-        "updateRules" => null,
-        "simlab" => null
+        "updateRules" => null
         })
-model String := opts -> (name) -> (
-    parts := {{"name", name},
-        {"description", opts#"description"},
-        {"version", opts#"version"},
-        {"variables", opts#"variables"},
+model List := opts -> (varlist) -> (
+    parts := {
+        {"variables", varlist},
         {"parameters", opts#"parameters"},
         {"updateRules", opts#"updateRules"},
-        {"simlab", opts#"simlab"},
         symbol cache => new CacheTable
         };
     parts = select(parts, x -> x#1 =!= null);
@@ -90,6 +84,11 @@ ring Model := (M) -> (
         I1 := ideal for x in gens R1 list x^p-x;
         R1/I1);
     M.cache.ring
+    )
+
+edges = method()
+edges Model := (M) -> (
+    flatten for x in M#"updateRules" list for j in x#"functions"#0#"inputVariables" list {j, x#"target"}
     )
 
 -- The following is used for testing purposes
@@ -154,7 +153,7 @@ checkModel Model := (M) -> (
         if not f#?"states" or not instance(f#"states", List) then return false;
         );
     if not M#?"updateRules" then return false;
-    -- also to check:
+    -- TODO: check updateRules!! also to check:
     ---- updateRules matches the description in doc/
     result
     )
@@ -225,33 +224,28 @@ verifyModel Model := (M) -> (
 
 modelFromJSONHashTable = method()
 modelFromJSONHashTable HashTable := (M) -> (
+    -- XXXX
     if instance(M, ErrorPacket) then return M;
     keysM := set keys M;
-    required := {"name", "type", "description", "version", "variables", "updateRules"};
-    optional := {"parameters", "simlab"};
-    allkeys := join(required, optional);
-    -- First: check that all keys are a subset of allkeys
-    extras := keysM - set allkeys;
-    if #extras > 0 then (
-        -- there are fields we don't know about.  Return an error.
-        -- No one should be adding new fields that we don't know about.
-        return errorPacket("json model includes the following unknown key(s): "|toString toList extras);
-        );
-    -- Second: check that each key in 'required' occurs
+    required := {"type", "updateRules", "numberVariables", "fieldCardinality"};
+    -- check that each key in 'required' occurs
     missing := set required - keysM;
     if #missing > 0 then (
         return errorPacket("model is missing the following required key(s): "|toString toList missing);
         );
     -- Note: actual types are checked in 'checkModel', not here
     if not M#"type" === "model" then 
-      return errorPacket "internal error: input is not a Model ot ErrorPacket";
-    model(M#"name", 
-        "description" => M#"description",
-        "version" => M#"version",
-        "variables" => M#"variables",
+      return errorPacket "internal error: input is not a Model or ErrorPacket";
+    varlist := if M#?"variables" then M#"variables" else (
+        -- create varlist from updateRules
+        for i from 0 to #M#"updateRules"-1 list (
+            hashTable{"id" => M#"updateRules"#i#"target", 
+                "states" => for j from 0 to M#"fieldCardinality"-1 list toString j
+                })
+        );
+    model(varlist,
         "parameters" => if M#?"parameters" then M#"parameters" else {},
-        "updateRules" => M#"updateRules",
-        "simlab" => if M#?"simlab" then M#"simlab" else null
+        "updateRules" => M#"updateRules"
         )
     )
 
