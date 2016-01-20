@@ -23,8 +23,3 @@ x1 & x2
 !x2 | x4
 1
 The variables must range from x1 to xn. The folder Examples has some examples of Boolean networks in the necessary format.
-
-
-
-
-

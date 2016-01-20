@@ -22,34 +22,47 @@ require 'net/http'
 class Algorun < WEBrick::HTTPServlet::AbstractServlet
 
     def do_POST (request, response)
-	output=""
+	output = "Internal Server Error!"
+	response.status = 500
 	case request.path
 		when "/do/run"	
-			basicreveng_json_input = request.query["input"]
-			puts "I got it"
-			if not ENV["OUTPUT_TO"].nil? then
-				output_to=eval(ENV["OUTPUT_TO"])
-				output = basicreveng_json_input
-				output_to.each do |node|
-					eval("def check(json)\n"+node["condition"]+"\nend\n")
-					if check(basicreveng_json_input) then
-						res = Net::HTTP.post_form(URI(node["target"]),'input'=>basicreveng_json_input)
-						output = res.body
-						puts output
-					end
-				end
+			user_input = request.query["input"]
+			if request.query["callback"].nil? then
+				output = "No callback provided. Request not passed!"
 			else
-				output += "Couldn't pass to BNReduction!"
+				f = File.open('callback.txt', "w")
+				f.write(request.query["callback"])
+				f.close()
+				if not ENV["OUTPUT_TO"].nil? then
+					output_to=eval(ENV["OUTPUT_TO"])
+					output_to.each do |node|
+						eval("def check(json)\n"+node["condition"]+"\nend\n")
+						if check(user_input) then
+							res = Net::HTTP.post_form(URI(node["target"]),'input'=>user_input)
+							output = "Request passed to the first module successfully ..\n"
+							output += "Now, listen to your callback URL!"
+							response.status = 200
+						end
+					end
+				else
+					output = "Couldn't pass input to first module in the workflow!"
+				end
 			end
 		when "/do/done"
 			final_output = request.query["input"]
-			@@status="done"
-			# puts "status: done"
-			puts final_output
-			output = final_output
-			response.status = 200	
+			if File.file?('callback.txt') then
+				f = File.open('callback.txt')
+				callback = f.gets
+				f.close()
+				res = Net::HTTP.post_form(URI(callback),'input'=>final_output)
+				output = "Thank you last module for completing the job!"
+				response.status = 200
+				File.delete('callback.txt')
+			else
+				output = "No task provided first with callback!"
+			end	
 		else
-			output+="failure"
+			output = "Path request not found!"
 			response.status = 404
 	end
 	response.content_type = "application/json"

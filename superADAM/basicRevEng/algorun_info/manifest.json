@@ -1,0 +1,33 @@
+{
+	"manifest_version": "1.1",
+	"algo_name": "BasicRevEng",
+	"algo_summary": "My short description",
+	"algo_description": "My long description",
+	"algo_website": "http://algorun.org",
+	"algo_keywords": ["reverse engineering", "cell biology"],
+	"algo_authors": [
+		{
+			"name": "John Doe",
+			"email": "john@doe.com",
+			"profile_picture": "",
+			"personal_website": "http://johndoe.info",
+			"organization": "John Doe University",
+			"org_website": "http://johndoe.edu"
+		},
+		{
+			"name": "Jim Doe",
+			"email": "jim@doe.com",
+			"profile_picture": "",
+			"personal_website": "http://jimdoe.info",
+			"organization": "John Doe University",
+			"org_website": "http://johndoe.edu"
+		}
+	],
+	"algo_exec": "/usr/bin/M2script find-pds",
+	"algo_input_stream": "stdin",
+	"algo_output_stream": "stdout",
+	"algo_parameters": {
+	},
+	"input_type": "algorun:superadam",
+	"algo_image": "algorun/basicreveng"
+}

@@ -1,4 +1,0 @@
-bnreduction:
-  image: ahosny/bnreduction:0.9.0
-  ports:
-    - "31331:8765"
