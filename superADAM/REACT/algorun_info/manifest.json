@@ -19,8 +19,8 @@
 			"email": "",
 			"profile_picture": "",
 			"personal_website": "",
-			"organization": "",
-			"org_website": ""
+			"organization": "Wolfram Alpha",
+			"org_website": "http://www.wolframalpha.com/"
 		}
 	],
 	"algo_exec": "ruby React.rb",
