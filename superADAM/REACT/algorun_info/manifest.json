@@ -6,17 +6,33 @@
 	"algo_website": "http://compsysmed.org/Software/EARevEng/REACT.html",
 	"algo_keywords": ["reverse engineering", "cell biology"],
 	"published_paper": {
-		"title": "REACT: A reverse-engineering algorithm with evolutionary computation tools",
-		"url":"http://scholar.lib.vt.edu/theses/available/etd-06182007-222927/unrestricted/PVL_ETD.pdf"
+		"title": "An algebra-based method for inferring gene regulatory networks",
+		"url":"http://www.ncbi.nlm.nih.gov/pubmed/24669835"
 	},
 	"algo_authors": [
 		{
 			"name": "Paola Vera-Licona",
 			"email": "veralicona@uchc.edu",
 			"profile_picture": "",
-			"personal_website": "http://compsysmed.org/Homepage/Welcome.html",
+			"personal_website": "http://compsysmed.org",
 			"organization": "Center for Quantitative Medicine, UConn Health",
 			"org_website": "http://cqm.uchc.edu/"
+		},
+		{
+			"name": "Abdul Jarrah",
+			"email": "ajarrah@aus.edu",
+			"profile_picture": "",
+			"personal_website": "https://www2.aus.edu/facultybios/profile.php?faculty=ajarrah",
+			"organization": "Department of Mathematics and Statistics, AUS",
+			"org_website": "http://www.aus.edu/info/200168/college_of_arts_and_sciences/290/department_of_mathematics_and_statistics/4"
+		},
+		{
+			"name": "Luis David Garcia-Puente",
+			"email": "lgarcia@shsu.edu",
+			"profile_picture": "",
+			"personal_website": "http://www.shsu.edu/~ldg005/",
+			"organization": "Department of Mathematics and Statistics, Sam Houston State University",
+			"org_website": "http://www.aus.edu/info/200168/college_of_arts_and_sciences/290/department_of_mathematics_and_statistics/4"
 		},
 		{
 			"name": "John J. McGee",
@@ -25,6 +41,14 @@
 			"personal_website": "",
 			"organization": "Wolfram Alpha",
 			"org_website": "http://www.wolframalpha.com/"
+		},
+		{
+			"name": "Reinhard Laubenbacher",
+			"email": "",
+			"profile_picture": "",
+			"personal_website": "http://facultydirectory.uchc.edu/profile?profileId=Laubenbacher-Reinhard",
+			"organization": "Center for Quantitative Medicine, UConn Health",
+			"org_website": "http://cqm.uchc.edu/"
 		}
 	],
 	"algo_packager": {
