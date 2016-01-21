@@ -57,7 +57,7 @@
                   "name": "wildtype experiment 2"
                 }
               ],
-            "type": "timeSeries"
+            "type": "timeSeriesSet"
           }
         ]
     }

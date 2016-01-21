@@ -147,7 +147,7 @@
                 }
               ]
           },
-          { "type": "timeSeries",
+          { "type": "timeSeriesSet",
             "timeSeriesData": [
                 {
                   "index": [],
