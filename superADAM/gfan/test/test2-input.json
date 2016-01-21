@@ -1,6 +1,6 @@
-         {
+          {
             "description": "test with only one time series matrix",
-            "fieldCardinality": 5,
+            "fieldCardinality": 0,
             "numberVariables": 5,
             "timeSeriesData": [
                 {
