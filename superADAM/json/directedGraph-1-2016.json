@@ -14,7 +14,7 @@
                 },
                 {
                   "sources": [
-                      { "source": "x2", "sign":"+"}
+                      { "source": "x2"}
                     ],
                   "target": "x2"
                 },
