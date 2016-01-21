@@ -12,7 +12,7 @@ needsPackage "Points"
 
 
 --TS is a hashtable of time series data WITH NO KO DATA
-TS = readTSDataFromJSON get "Gepasi.json";
+TS = readTSDataFromJSON get "Gepasi-1.json";
 
 pp = char ring TS; --Field characteristic (MUST come as input)
 kk = ring TS; --Field
@@ -53,7 +53,7 @@ Rr = kk[vars(53..52+nn), Weights => w];
 --GB is a list of Grobner basis elements - THIS IS WHAT YOU WANT FOR GFAN
 (SM, LT, GB) = points(transpose IN, Rr);
 
---F is a list of interpolating functions, one for each node 
+--F is a list of interpolating functions, one for each node -- MOVE OUTSIDE THE LOOP!
 FF = apply(nn, II->findFunction(FD_II, gens Rr));
 
 use Rr;
@@ -73,6 +73,7 @@ FF={};
 apply(nn, JJ->(
 s={};
 apply(k*nn, II->(
+--apply(1, II->(
 s=append(s,toString (allNFs#II#JJ));
 --s=append(s,allNFs#II#JJ); --leave functions in the ring
 ));

@@ -1,0 +1,49 @@
+{
+"reverseEngineeringOutputModel": {
+  "fieldCardinality": 2,
+  "numberVariables": 3,
+  "updateRules": {
+    "x1": [
+        [
+          {
+          "inputVariables": ["x2"],
+          "polynomialFunction": "x2",
+          "score": .785
+          }
+        ],
+        [
+          {
+          "inputVariables": ["x1","x3"],
+          "polynomialFunction": "x1*x3+x1+1",
+          "score": .215
+          }
+        ]
+      ],
+    "x2": [
+        [
+          {
+          "inputVariables": ["x2","x3"],
+          "polynomialFunction": "x2+x3+1",
+          "score": .785
+          }
+        ],
+        [
+          {
+          "inputVariables": ["x1","x3"],
+          "polynomialFunction": "x1*x3+x1+x3",
+          "score": .215
+          }
+        ]
+      ],
+    "x3": [
+        [
+          {
+          "inputVariables": ["x1"],
+          "polynomialFunction": "x1+1",
+          "score": 1
+          }
+        ]
+      ]
+    }
+  }
+}

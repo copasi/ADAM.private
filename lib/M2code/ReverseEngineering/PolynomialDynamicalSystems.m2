@@ -11,21 +11,29 @@ newPackage(
         DebuggingMode => true
         )
 
-export{"readTSDataFromJSON",
+export{
+    "readTSDataFromJSON",
     "findPDS",
+--    "gfanRevEng",
     "createRevEngJSONOutputModel",
     "getVars",
     "makeVars",
-       TimeSeriesData, 
-       FunctionData, 
-       readTSData,
-       functionData,
-       subFunctionData,
-       minRep,
-       findFunction,
-       checkFunction,
-       WildType
-      }
+    "TimeSeriesData", 
+    "FunctionData", 
+    "readTSData",
+    "makeTimeSeriesJSON",
+    "functionData",
+    "subFunctionData",
+    "minRep",
+    "findFunction",
+    "checkFunction",
+    "WildType",
+    "Avoid",
+    "Output"
+    }
+    
+debug Core
+support ZZ := (n) -> {}
 
 ---------------------------------------------------------------------------------------------------
 -- Declaration of new data types
@@ -95,46 +103,41 @@ see(List) := (fs) -> scan(fs, (g -> (print g; print "")))
 -- readTSData returns a TimeSeriesData hashtable of the data.
 -- Uses "readMat"
 
-{*
-readTSDataFromJSON = method(TypicalValue => TimeSeriesData)
-readTSDataFromJSON(String) := (jsonData) -> (
-    -- see the file reverse-engineering-input-data.json
-    --  for the format of jsonData
-    -- output: TimeSeriesData
-    wtmats := apply(wtfiles, s -> readMat(s,R));
-    H := new MutableHashTable;
-    scan(knockouts, x -> (
-            m := readMat(x#1,R);
-            i := x#0;
-            if H#?i then H#i = append(H#i,m)
-            else H#i = {m}));
-    H.WildType = wtmats;
-    new TimeSeriesData from H
-)
-*}
-
 createRevEngJSONOutputModel = method()
+createRevEngJSONOutputModel ErrorPacket := (E) -> E
 createRevEngJSONOutputModel List := (L) -> (
     -- Better have at least one variable
+    -- MES: currently, input is expected to be a list of polynomials
     assert(#L > 0);
     R := ring L#0#0#0;
-    {"reverseEngineeringOutputModel" => {
-            "numberVariables" => numgens R,
-            "fieldCardinality" => char R,
-            "updateRules" => for i from 0 to numgens R - 1 list (
-                toString R_i => new Array from for j from 0 to #L_i-1 list 
-				[{"inputVariables"=>apply(new Array from support L#i#j#0, toString),
-                                  "polynomialFunction"=>toString L#i#j#0,
-				  "score"=>L#i#j#1}]
-                )
-    }})
+    toHashTable {
+        "type"=>"reverseEngineeringOutput",
+        "numberVariables" => numgens R,
+        "fieldCardinality" => char R,
+        "updateRules" => new Array from for i from 0 to numgens R - 1 list (
+            { 
+                "target" => toString R_i,
+                "functions" => new Array from for j from 0 to #L_i-1 list(
+                    {
+                            "inputVariables"=>apply(new Array from support L#i#j#0, toString),
+                            "polynomialFunction"=>toString L#i#j#0,
+				            "score"=>L#i#j#1
+                    }
+                    )
+            }
+        )})
 
 readTSDataFromJSON = method(TypicalValue=>TimeSeriesData)
- -- input argument follows description in reverse-engineering-input-data.json
+ -- input argument follows description in doc/json-standard-formats.txt
 readTSDataFromJSON String := (jsonInput) -> (
-    -- XXXXXX
     H := parseJSON jsonInput;
-    data := H#"task"#"input"#"reverseEngineeringInputData";
+    inputs := H#"task"#"input";
+    if not instance(inputs, BasicList) then
+    return errorPacket "in readTSDataFromJSON: expected array of inputs";
+    data := inputs#0;
+    if not instance(data, HashTable) or not data#?"type" or data#"type" != "timeSeries" then 
+    return errorPacket "in readTSDataFromJSON: input is not time series data";
+    -- if there is no error, we get here, and construct a TimeSeriesData
     n := data#"numberVariables";
     p := data#"fieldCardinality";
     kk := ZZ/p;
@@ -153,16 +156,127 @@ readTSDataFromJSON String := (jsonInput) -> (
     new TimeSeriesData from matrices
 )
 
+makeTimeSeriesJSON = method()
+makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
+    kk := ZZ/prime;
+    R := kk[makeVars numvars];
+    timeSeriesData := for e in experiments list (
+        new HashTable from {
+        "index" => e#0,
+        "matrix" => entries readMat(e#1, ZZ)
+        });
+    vals := {};
+    for t in timeSeriesData do vals = unique join(vals, unique flatten t#"matrix");
+    if any(vals, v -> v < 0 or v >= prime) then 
+    error "data not in range 0..prime-1";
+    prettyPrintJSON new HashTable from {
+        "description" => description,
+        "type" => "timeSeries",
+        "fieldCardinality" => prime,
+        "numberVariables" => numvars,
+        "timeSeriesData" => timeSeriesData
+        }
+    )
+
 findPDS = method(TypicalValue=>List)
 findPDS(TimeSeriesData) := (T) -> (
     kk := ring T;
     n := numColumns T;
     R := kk[makeVars n];
     FD := apply(n, i->functionData(T,i+1));
-    Fs := apply(n, i -> findFunction(FD_i,gens R));
-    Fs
+    errorPos := position(FD, f -> instance(f, ErrorPacket));
+    if errorPos =!= null then 
+        FD#errorPos -- returns an ErrorPacket for first error found.
+    else (
+        Fs := apply(n, i -> findFunction(FD_i,gens R));
+        for f in Fs list {{f,1.0}}
+        )
 )
+findPDS(ErrorPacket) := (E) -> E
 
+---------------------------------------------------------------------------------------------------
+mesintersect = (L) -> (
+     -- L is a list of monomial ideals
+    M := L#0;
+    R := ring M;
+    i := 1;
+    << #L << " generators" << endl;
+    while i < #L do (
+     << "doing " << i << endl;
+     M = newMonomialIdeal(R, rawIntersect(raw M, raw L#i));
+     i = i+1;
+     );
+    M)
+
+mesdual = method()
+
+mesdual MonomialIdeal := (J) -> (if J == 0 
+  then monomialIdeal 1_(ring J) 
+  else if ideal J == 1 then monomialIdeal 0_(ring J)
+  else mesintersect (monomialIdeal @@ support \ first entries generators J))
+  
+displayMinRep = (fil,I) -> (
+     -- show: tally of degree of min gens
+     -- if any of size 1,2,3, display them
+     g := flatten entries gens I;
+     h := tally apply(g, f -> first degree f);
+     fil << #g << " min rep elements " << h << endl;
+     h1 := select(g, f -> first degree f == 1);
+     h2 := select(g, f -> first degree f == 2);
+     h3 := select(g, f -> first degree f == 3);
+     h4 := select(g, f -> first degree f == 4);
+     if #h1 > 0 then fil << "min rep length 1 = " << toString h1 << endl;
+     if #h2 > 0 then fil << "min rep length 2 = " << toString h2 << endl;
+     if #h3 > 0 then fil << "min rep length 3 = " << toString h3 << endl;
+     if #h3 > 0 then fil << "min rep length 4 = " << toString h4 << endl;
+     )
+
+displayMinSets = (fil,J) -> (
+     -- show: tally of degree of min gens
+     -- if any of size 1,2,3, display them
+     g := J;
+     h := tally apply(g, f -> first degree f);
+     fil << #g << " min set elements " << h << endl;
+     hlo := min keys h;
+     h1 := select(g, f -> first degree f == 1);
+     h2 := select(g, f -> first degree f == 2);
+     h3 := select(g, f -> first degree f == 3);
+     if #h1 > 0 and #h1 < 10 then fil << "min sets length 1 = " << toString h1 << endl;
+     if #h2 > 0 and #h2 < 10 then fil << "min sets length 2 = " << toString h2 << endl;
+     if #h3 > 0 and #h3 < 10 then fil << "min sets length 3 = " << toString h3 << endl;
+     if hlo > 3 and (true or h#hlo < 8) then (
+          hhlo := select(g, f -> first degree f == hlo);
+          fil << "min sets length " << hlo << " = " << netList hhlo << endl;
+      );
+     )
+
+minSets = method(Options => {Output => null,
+                         Avoid => null}
+                 )
+minSets(TimeSeriesData, ZZ, Ring) := opts -> (T, i, R) -> (
+        d := functionData(T,i);
+        I := minRep(d,R);
+    if instance(I,ZZ) then I = monomialIdeal(0_R); -- because I can be the zero element
+--    I = I + monomialIdeal(R_(i-1));
+    if opts.Avoid =!= null then (
+         J1:= saturate(I,product flatten {opts.Avoid});
+         I = J1;
+         );
+    J := flatten entries gens mesdual I;
+    if opts.Output =!= null
+    then (
+      fil := openOut opts.Output;
+      displayMinRep(fil, I);
+          displayMinSets(fil, J);
+      close fil;
+      );
+    J /sort @@ support
+    )
+
+minSets(TimeSeriesData) := opts -> (T) -> (
+    n:=numColumns T;
+    apply(n, i->minSets(T,i+1,ring T, opts))
+)
 ---------------------------------------------------------------------------------------------------
 -- Internal to "readTSData"
 -- Given a data file and a coefficient ring, readMat returns the (txn)-matrix of the data (t=time, n=vars). 
@@ -202,7 +316,7 @@ readTSData(List,List,Ring) := (wtfiles, knockouts, R) -> (
 ---------------------------------------------------------------------------------------------------
 -- Given time series data and an integer i, functionData returns the FunctionData hashtable for function i,
 -- that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; 
--- else it returns an error statement.
+-- else it returns an ErrorPacket.
 
 functionData = method(TypicalValue => FunctionData)
 functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
@@ -213,39 +327,39 @@ functionData(TimeSeriesData, ZZ) := (tsdata,v) -> (
      scan(keys tsdata, x -> if class x === ZZ and x =!= v then mats = join(mats,tsdata#x));
 
      -- now make the hash table
-     scan(mats, m -> (
+     for m in mats do (
            e := entries m;
            for j from 0 to #e-2 do (
             tj := e#j;
             val := e#(j+1)#(v-1);
             if H#?tj and H#tj != val then
-              error ("function inconsistent: point " | 
+              return errorPacket ("in functionData: function inconsistent: point " | 
                    toString tj| " has images "|toString H#tj|
                    " and "|toString val);           
             H#tj = val;
-            )));
+            ));
      new FunctionData from H
 )
 
 ---------------------------------------------------------------------------------------------------
 -- Given function data (data for a function) and a list L of integers between 1 and n(=dim pds), 
 -- corresponding to a subset of the set of variables, 
--- subFuunctionData returns the function data projected to the variables in L, if consistent; 
--- else it returns an error statement.
+-- subFunctionData returns the function data projected to the variables in L, if consistent; 
+-- else it returns an ErrorPacket
 
 subFunctionData = method(TypicalValue => FunctionData)
 subFunctionData(FunctionData, List) := (fcndata,L) -> (
      H := new MutableHashTable;
      L = apply(L, j -> j-1);
-     scan(keys fcndata, p -> (
+     for p in keys fcndata do (
            q := p_L;
            val := fcndata#p;
            if H#?q and H#q != val
-           then error ("sub function inconsistent: point " | 
+           then return errorPacket ("in subFunctionData: function inconsistent: point " | 
             toString q| " has images "|toString H#q|
             " and "|toString val);
            H#q = val;
-           ));
+           );
      new FunctionData from H
 )
 
@@ -311,12 +425,16 @@ findFunction(FunctionData, List) := o -> (fcndata,L) -> (
      R := ring L#0;
      Lindices := apply(L, x -> index x + 1);
      F := subFunctionData(fcndata,Lindices);
-     S := (coefficientRing R)(monoid [L]);
-     pts := transpose matrix keys F;
-     vals := transpose matrix {values F};
-     (A,stds) := pointsMat(pts,S);
-     f := ((transpose stds) * (vals // A))_(0,0);
-     substitute(f,R)
+     if instance(F, ErrorPacket) then 
+         F
+     else (
+         S := (coefficientRing R)(monoid [L]);
+         pts := transpose matrix keys F;
+         vals := transpose matrix {values F};
+         (A,stds) := pointsMat(pts,S);
+         f := ((transpose stds) * (vals // A))_(0,0);
+         substitute(f,R)
+         )
 )
 
 ---------------------------------------------------------------------------------------------------
@@ -407,7 +525,7 @@ document {
 
 document {
 	Key => (functionData,TimeSeriesData, ZZ),
-	Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an error statement"
+	Headline => "given time series data and an integer i, returns a hashtable of type FunctionData for function i, that is the input-output (vector-scalar) data pairs corresponding to node i, if consistent; else returns an ErrorPacket"
 }
 
 document {
@@ -444,7 +562,7 @@ document {
 
 document {
 	Key => (subFunctionData,FunctionData, List),
-	Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an error statement"
+	Headline => "given function data and a list L of integers between 1 and n(=dim pds), corresponding to a subset of the set of variables, returns the function data projected to the variables in L, if consistent; else it returns an ErrorPacket"
 }
 
 --       TimeSeriesData, 
@@ -488,3 +606,4 @@ netList oo
 toHashTable createRevEngJSONOutputModel PDS
 prettyPrintJSON oo
 toHashTable oo
+

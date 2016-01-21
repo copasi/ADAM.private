@@ -1,0 +1,38 @@
+{
+"task": {
+  "input": {
+    "reverseEngineeringInputData": {
+    "description": "data from Gepasi",
+    "numberVariables": 5,
+    "fieldCardinality": 2,
+    "timeSeriesData": [
+      {
+        "matrix": [
+            [1, 1, 0, 0, 0],
+            [0, 1, 0, 0, 1],
+            [0, 0, 0, 1, 0],
+            [0, 0, 0, 1, 0]
+        ],
+        "name": "wildtype experiment 1",
+        "index": [] 
+      },
+      {
+        "matrix": [
+            [1, 0, 1, 1, 0],
+            [1, 1, 1, 1, 1]
+        ],
+        "name": "wildtype experiment 2",
+        "index": [] 
+      }
+      
+          ]
+  },
+  "method": {
+    "id": "REACT",
+    "name": "evolutionary algorithm",
+    "parameter": ["your parameter 1","your parameter 2"]
+    },
+  "type": "reverseEngineering"
+  }
+}
+}
