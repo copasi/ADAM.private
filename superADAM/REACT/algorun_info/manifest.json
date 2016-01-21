@@ -1,10 +1,14 @@
 {
-	"manifest_version": "1.1",
+	"manifest_version": "1.3",
 	"algo_name": "REACT",
 	"algo_summary": "Evolutionary Algorithm for Discrete Dynamical System Optimization",
 	"algo_description": "The inference of gene regulatory networks (GRNs) from system-level experimental observations is at the heart of systems biology due to its centrality in gaining insight into the complex regulatory mechanisms in cellular systems. This includes the inference of both the network topology and dynamic mathematical models. <br>This software contains a novel network inference algorithm within the algebraic framework of Boolean polynomial dynamical system (BPDS). The algorithm considers time series data, including that of perturbation experiments such as knock-out mutants and RNAi experiments. To infer the network topology and dynamic models, it allows for the incorporation of prior biological knowledge while being robust to significant levels of noise in the data used for inference. It uses an evolutionary algorithm for local optimization with an encoding of the mathematical models as BPDS.",
 	"algo_website": "http://compsysmed.org/Software/EARevEng/REACT.html",
 	"algo_keywords": ["reverse engineering", "cell biology"],
+	"published_paper": {
+		"title": "REACT: A reverse-engineering algorithm with evolutionary computation tools",
+		"url":"http://scholar.lib.vt.edu/theses/available/etd-06182007-222927/unrestricted/PVL_ETD.pdf"
+	},
 	"algo_authors": [
 		{
 			"name": "Paola Vera-Licona",
@@ -23,6 +27,14 @@
 			"org_website": "http://www.wolframalpha.com/"
 		}
 	],
+	"algo_packager": {
+		"name": "Thibauld Favre",
+		"email": "tfavre@gmail.com",
+		"personal_website": "https://twitter.com/thibauld",
+		"profile_picture": "",
+		"organization": "democratech", 
+		"org_website": "https://democratech.co" 
+	},
 	"algo_exec": "ruby React.rb",
 	"algo_input_stream": "file",
 	"algo_output_stream": "output.txt",
@@ -40,6 +52,7 @@
 		"StableGenerationLimit": "50",
 		"MutateProbability": "0.5"
 	},
-	"input_type": "algorun:superadam",
+	"input_type": "[superAdam:TimeSeries,superAdam:PolynomialDynamicalSystemSet,(Graph)]",
+	"output_type": "superAdam:PolynomialDynamicalSystemSet",
 	"algo_image": "algorun/react"
 }

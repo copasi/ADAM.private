@@ -1,34 +1,0 @@
-SuperADAM ALGORITHMS
-
-(V) = Verified by author in charge
-(VV) = Author acknowledges changes to be made to INPUT/OUTPUT file to comply with future improvements in their algorithm
-
-________________________________________________________________________________________Discretization (V)Author in charge: Elena
-INPUTMandatory: TimeSeries (floating point)Optional: Number of discrete states (not yet implemented but will be in the near future)
-OUTPUTMandatory: TimeSeriesOptional: N/A________________________________________________________________________________________Basic RevEng (VV)Author in charge: Brandy and Mike
-INPUTMandatory: TimeSeriesOptional: Graph (not yet implemented)
-OUTPUTMandatory: PDSSOptional: N/A
-
-________________________________________________________________________________________MinSets (VV)Author in charge: Brandy and Mike
-INPUTMandatory: TimeSeriesOptional: Graph (not yet implemented)
-OUTPUTMandatory: GraphOptional: N/A
-
-________________________________________________________________________________________GFan (VV)Author in charge: Elena
-INPUTMandatory: TimeSeriesOptional: N/A
-OUTPUTMandatory: PDSSOptional: N/A
-
-________________________________________________________________________________________REACT (V)Author in charge: Paola
-INPUTMandatory: TimeSeries (they have to be discretized in 2 states, i.e. FieldCardinality =2)Optional: PDSS, PrioBioNetwork, Graph
-OUTPUTMandatory: PDSSOptional: N/A________________________________________________________________________________________BNReduction (V)Author in charge: Alan
-INPUTMandatory: Model (Boolean model as an list of Boolean functions with optional set of parameters)Optional: N/A
-OUTPUTMandatory: SteadyStatesOptional: N/A
-
-________________________________________________________________________________________*CycloneAuthor in charge: Abdel
-INPUT:Mandatory: PDSOptional: ?
-OUTPUTMandatory: Simulation (Deterministic)Optional: ?________________________________________________________________________________________SDDSAuthor in charge: Seda
-INPUTMandatory: PDSS, UpdateRulesOptional: ?
-OUTPUTMandatory: Simulation (Stochastic)Optional: ?
-
-________________________________________________________________________________________Control for SDDSAuthor in charge: David 
-INPUTMandatory:Optional:
-OUTPUTMandatory:Optional:
