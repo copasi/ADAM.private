@@ -1,0 +1,24 @@
+{
+  "description": "output discretization",
+  "fieldCardinality": 2,
+  "numberVariables": 5,
+  "timeSeriesData": [
+      {
+        "index": [],
+        "matrix": [
+            [1,0,0,0,0],
+            [0,1,0,1,1],
+            [0,1,1,1,1],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0]
+          ]
+      }
+    ],
+  "type": "timeSeries"
+}

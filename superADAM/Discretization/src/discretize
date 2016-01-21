@@ -1,0 +1,5 @@
+#!/usr/bin/env M2 --script
+
+load ("Discretize.m2")
+infile = scriptCommandLine#1
+discretizeTS(infile)

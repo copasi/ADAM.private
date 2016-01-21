@@ -1,0 +1,39 @@
+{
+   	"manifest_version": "1.3",
+	"algo_name": "Discretize",
+	"algo_summary": "Discretizes floating point time series data into finite number of states",
+	"algo_description": "",
+	"algo_website": "",
+	"algo_keywords": ["discretize", "time", "series"],
+	"published_paper": {
+            "title": "Dimitrova, E.S., McGee, J., Laubenbacher, R., Vera Licona, P. (2010). Discretization of time series data. Journal of Computational Biology, 17(6), pp. 853-868",
+            "url": "http://clemson.pure.elsevier.com/en/publications/discretization-of-time-series-data(83bfda23-3d70-426e-8d84-f53d6654432f).html"
+    	},
+	"algo_authors": [
+		{
+			"name": "Dimitrova, E.S",
+			"email": "edimit@clemson.edu",
+            		"profile_picture": "elena.jpg",
+			"personal_website": "http://people.clemson.edu/~EDIMIT/",
+			"organization": "Clemson University",
+			"org_website": "http://clemson.edu"
+		}
+	],
+	"algo_packager": {
+            "name": "Abdelrahman Hosny",
+            "email": "abdelrahman.hosny@hotmail.com",
+            "personal_website": "http://abdelrahmanhosny.com",
+            "profile_picture": "",
+            "organization": "University of Connecticut", 
+            "org_website": "http://cse.uconn.edu" 
+    },
+	"algo_exec": "/usr/bin/M2script discretize",
+	"algo_input_stream": "file",
+    	"algo_output_stream": "JSON-ts-output.json",
+	"algo_parameters": {
+	},
+	"input_type": "TimeSeries",
+	"output_type": "TimeSeries",
+	"algo_image": "algorun/discretize"
+}
+
