@@ -20,7 +20,12 @@ infile = get stdio
 -- output it
 m = parseJSON infile
 m1 = modelFromJSONHashTable m
-print prettyPrintJSON hashTable {"nodes" => for v in vars m1 list hashTable{"id"=>v}, "edges" => edges m1, "type" => "Graph"}
+print prettyPrintJSON hashTable {
+    "description" => "",
+    "name" => "",
+    "type" => "directedGraph",
+    "edges" => wiringDiagram m1
+    }
 
 end
 
@@ -45,6 +50,7 @@ end
 
 restart
 -- example:
+./wiring-diagram <../test/test1-input.json
 ./find-pds <../test/Gepasi-input.json
 ./find-pds <../test/test1-input.json >foo-1
 ./find-pds help
