@@ -1,8 +1,8 @@
-#!/usr/bin/M2 --script
+#!/usr/bin/env M2 --script
 
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-needs "/home/M2/src/gfan.m2"
+needs "gfan.m2"
 
 helpString = ///usage: gfan <json-timeseries-data >json-rev-eng-output-model
 ///
@@ -11,6 +11,12 @@ if #scriptCommandLine != 1 then (
     stderr << helpString;
     exit(1);
     )
+
+randomSeedValue = getenv "GFAN_RANDOMSEED"
+  -- possible values: "test": chooses specific seed
+  --  "": choose random seed
+  --  "actual string": use this as the seed.
+if randomSeedValue =!= "" then setRandomSeed randomSeedValue
 
 --------------------------------
 TS = readTSDataFromJSON get stdio
@@ -23,6 +29,7 @@ end
 restart
 -- example:
 ./gfan <../test/Gepasi-input.json
+
 ./gfan <../test/test1-input.json >foo-1
 ./gfan help
 
@@ -30,8 +37,10 @@ restart
 -- run this in basicRevEng/src dir
 load (getenv("ADAM_ROOT")|"superADAM/share/ADAM.m2")
 needsPackage "PolynomialDynamicalSystems"
-needs "/home/M2/src/gfan.m2"
-TS = readTSDataFromJSON get "../test/test3-input.json"
+needs "gfan.m2"
+TS = readTSDataFromJSON get "test2-input.json"
+PDS = gfanRevEng TS
+
 time PDS = gfanRevEng(TS, Multiplier=>10);
 createRevEngJSONOutputModel PDS
 outputJSON = prettyPrintJSON oo
