@@ -1,8 +1,6 @@
 # Fill files in algorun_info folder and put your source code in src folder
-# Don't change the following three lines
+# Don't change the following line
 FROM algorun/algorun
-ADD ./algorun_info /home/algorithm/web/algorun_info/
-ADD ./src /home/algorithm/src/
 
 ADD Macaulay2-key /home/algorithm/
 RUN echo "deb http://www.math.uiuc.edu/Macaulay2/Repositories/Ubuntu trusty main" >> /etc/apt/sources.list && \
@@ -17,6 +15,10 @@ RUN chmod +x /usr/bin/M2script
 ENV ADAM_ROOT /home/M2/adam/
 ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
 ADD ./share/ /home/M2/adam/superADAM/share/
+
+# don't change these two lines
+ADD ./algorun_info /home/algorithm/web/algorun_info/
+ADD ./src /home/algorithm/src/
 
 # [Optional] Sign your image
 # MAINTAINER Your Name <your_email@domain.com>
