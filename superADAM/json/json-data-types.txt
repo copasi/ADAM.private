@@ -1,6 +1,6 @@
 Date: 01-21-16
 
-Keywords
+Keywords to be used with "type"
 ----------
 TimeSeriesSet
 PolynomialDynamicalSystemSet
