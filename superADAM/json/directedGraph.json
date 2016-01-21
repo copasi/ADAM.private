@@ -1,0 +1,26 @@
+//format for directed graphs, intended for wiring diagrams and state space graphs
+
+{
+            "description": "Polynomial model",
+            "name": "priorReverseEngineeringNetwork",
+            "type": "directedGraph",
+            "edges": [
+                {
+                  "sources": [
+                      { "weight": 0.5, "source": "x1"},
+                      { "weight": 1, "source": "x2", "sign":"+"}
+                    ],
+                  "target": "x1"
+                },
+                {
+                  "sources": [
+                      { "source": "x2", "sign":"+"}
+                    ],
+                  "target": "x2"
+                },
+                {
+                  "sources": [],
+                  "target": "x3"
+                }
+              ]
+}
