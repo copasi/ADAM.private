@@ -4,7 +4,7 @@
 --Original Date: 3/8/2009
 --Last modified: 1/20/2016
 --Descritpion: Booleanizes the input data based on our discretization method. 
---Input: JSON time series file
+--Input: JSON time series file; must have "fieldCardinality": 0.
 --Output: Files named "JSON-ts-output.txt" with booleanized data.
 --********************* 
 
@@ -33,17 +33,24 @@ discrm=append(discrm, dis);
 
 );
 c=0;
-for f from 0 to 0 do (
-fl="Discr-ts.txt"; file=openOut fl;
+outputList={};
+outputLine={};
+outputMatrices={};
+for f from 0 to #count-1 do (
+--fl="Discr-ts.txt"; file=openOut fl;
 for i from 0 to count#f-1 do (
 for j from 0  to #((transpose discrm)#(c+i))-1 do (
-file<<(transpose discrm)#(c+i)#j<<" ";);
-file << endl; );
+outputLine=append(outputLine, (transpose discrm)#(c+i)#j);
+       );
+  outputList=append(outputList, outputLine);
+   outputLine={};
+       );
+  outputMatrices=append(outputMatrices, {{}, outputList});
+   outputList={};
 c=c+count#f;
-file<<close;);
-out=makeTimeSeriesJSON("output discretization", levels, #m, {{{}, "Discr-ts.txt"}});
-"JSON-ts-output.json" << out << endl << close;
-removeFile toString file;
+       );
+out=makeTimeSeriesJSON("", levels, #m, outputMatrices);
+"Discretization-output.json" << out << close;
 )
 
 end

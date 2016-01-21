@@ -137,7 +137,7 @@ readTSDataFromJSON String := (jsonInput) -> (
     -- if there is no error, we get here, and construct a TimeSeriesData
     n := data#"numberVariables";
     p := data#"fieldCardinality";
-    kk := ZZ/p;
+    kk := if p==0 then RR else ZZ/p;
     -- Now create the TimeSeriesData from the wildtype and knockout data
     ts := data#"timeSeriesData"; -- list of hashtables, each has a matrix, and index (knockout list)
     matrices := new MutableHashTable;
@@ -155,26 +155,26 @@ readTSDataFromJSON String := (jsonInput) -> (
 
 makeTimeSeriesJSON = method()
 -- version for taking data from files
-makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
-    kk := ZZ/prime;
-    R := kk[makeVars numvars];
-    timeSeriesData := for e in experiments list (
-        new HashTable from {
-        "index" => e#0,
-        "matrix" => entries readMat(e#1, ZZ)
-        });
-    vals := {};
-    for t in timeSeriesData do vals = unique join(vals, unique flatten t#"matrix");
-    if any(vals, v -> v < 0 or v >= prime) then 
-    error "data not in range 0..prime-1";
-    prettyPrintJSON new HashTable from {
-        "description" => description,
-        "type" => "timeSeries",
-        "fieldCardinality" => prime,
-        "numberVariables" => numvars,
-        "timeSeriesData" => timeSeriesData
-        }
-    )
+--makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
+--    kk := ZZ/prime;
+--    R := kk[makeVars numvars];
+--    timeSeriesData := for e in experiments list (
+--        new HashTable from {
+--        "index" => e#0,
+--        "matrix" => entries readMat(e#1, ZZ)
+--       });
+--    vals := {};
+--    for t in timeSeriesData do vals = unique join(vals, unique flatten t#"matrix");
+--    if any(vals, v -> v < 0 or v >= prime) then 
+--    error "data not in range 0..prime-1";
+--    prettyPrintJSON new HashTable from {
+--        "description" => description,
+--       "type" => "timeSeries",
+--        "fieldCardinality" => prime,
+--        "numberVariables" => numvars,
+--        "timeSeriesData" => timeSeriesData
+--        }
+--    )
 
 --version for taking data from memory
 --experiments is a list {{index set,matrix},{index set,matrix},...} of pairs in which 
