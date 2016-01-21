@@ -42,7 +42,7 @@ file << endl; );
 c=c+count#f;
 file<<close;);
 out=makeTimeSeriesJSON("output discretization", levels, #m, {{{}, "Discr-ts.txt"}});
-"JSON-ts-output.txt" << out << endl << close;
+"JSON-ts-output.json" << out << endl << close;
 removeFile toString file;
 )
 

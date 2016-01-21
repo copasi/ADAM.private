@@ -33,6 +33,7 @@ export {
     "checkModel",
     "parseModel", 
     "edges",
+    "wiringDiagram",
     "polynomials", 
     "findLimitCycles", 
     "polyFromTransitionTable",
@@ -89,6 +90,23 @@ ring Model := (M) -> (
 edges = method()
 edges Model := (M) -> (
     flatten for x in M#"updateRules" list for j in x#"functions"#0#"inputVariables" list {j, x#"target"}
+    )
+
+--- ZZZZ
+wiringDiagram = method()
+wiringDiagram Model := (M) -> (
+    -- output is a list of hashtables, one for each node.
+    -- each hashtable contains the input edges to a node and the weights and signs (which are likely "")
+    for node in M#"updateRules" list (
+        hashTable {
+            "target" => node#"target",
+            "sources" => for v in node#"functions"#0#"inputVariables" list 
+              hashTable {
+                  "source" => v
+                  -- also has optional fields: "weight" (value: float), "sign" (value is one of "+", "-", "") 
+                  }
+            }
+        )
     )
 
 -- The following is used for testing purposes

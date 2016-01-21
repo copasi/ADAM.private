@@ -1,34 +1,54 @@
 {
+  "description": "",
   "edges": [
-      ["x1","x1"],
-      ["x3","x1"],
-      ["x4","x1"],
-      ["x5","x1"],
-      ["x1","x2"],
-      ["x2","x2"],
-      ["x3","x2"],
-      ["x4","x2"],
-      ["x5","x2"],
-      ["x1","x3"],
-      ["x2","x3"],
-      ["x3","x3"],
-      ["x4","x3"],
-      ["x5","x3"],
-      ["x1","x4"],
-      ["x3","x4"],
-      ["x4","x4"],
-      ["x5","x4"],
-      ["x1","x5"],
-      ["x3","x5"],
-      ["x4","x5"],
-      ["x5","x5"]
+      {
+        "sources": [
+            { "source": "x1" },
+            { "source": "x3" },
+            { "source": "x4" },
+            { "source": "x5" }
+          ],
+        "target": "x1"
+      },
+      {
+        "sources": [
+            { "source": "x1" },
+            { "source": "x2" },
+            { "source": "x3" },
+            { "source": "x4" },
+            { "source": "x5" }
+          ],
+        "target": "x2"
+      },
+      {
+        "sources": [
+            { "source": "x1" },
+            { "source": "x2" },
+            { "source": "x3" },
+            { "source": "x4" },
+            { "source": "x5" }
+          ],
+        "target": "x3"
+      },
+      {
+        "sources": [
+            { "source": "x1" },
+            { "source": "x3" },
+            { "source": "x4" },
+            { "source": "x5" }
+          ],
+        "target": "x4"
+      },
+      {
+        "sources": [
+            { "source": "x1" },
+            { "source": "x3" },
+            { "source": "x4" },
+            { "source": "x5" }
+          ],
+        "target": "x5"
+      }
     ],
-  "nodes": [
-      { "id": "x1" },
-      { "id": "x2" },
-      { "id": "x3" },
-      { "id": "x4" },
-      { "id": "x5" }
-    ],
-  "type": "Graph"
+  "name": "",
+  "type": "directedGraph"
 }
