@@ -12,9 +12,10 @@ needsPackage "PolynomialDynamicalSystems"
 needsPackage "Points"
 
 gfanRevEng = method(TypicalValue=>List, Options=>{Multiplier=>10, RandomSeed=>null})
-gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
+gfanRevEng(String) := opts -> (TSfile) -> (
 
     --TS is a hashtable of time series data WITH NO KO DATA
+ TS = readTSDataFromJSON get TSfile;
     
     pp := char ring TS; --Field characteristic
     kk := ring TS; --Field
@@ -47,12 +48,14 @@ gfanRevEng(TimeSeriesData) := opts -> (TS) -> (
         NF := sub(FF, vars Rr) % (forceGB matrix{GB}); -- one row matrix of all normal forms wrt this GB
         flatten entries sub(NF,vars R)
         );
-    for i from 0 to nn-1 list (
-        dist := tally(allNFs/(nfs -> nfs#i)); -- list of polynomials in R for node i
-        for f in keys dist list {f, dist#f / (nn * k * 1.0)}
-        )
-    )
-
+   
+        PDS=for i from 0 to nn-1 list (dist := tally(allNFs/(nfs -> nfs#i)); -- list of polynomials in R for node i
+        for f in keys dist list  {f, dist#f / (nn * k * 1.0)}
+        );
+   JPDS = createRevEngJSONOutputModel PDS;
+   outputJSON = prettyPrintJSON JPDS;
+   "gfan-output.json" << outputJSON << close;
+   )
 --NEED TO HANDLE ERROR PACKETS
     
 end
