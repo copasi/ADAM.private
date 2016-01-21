@@ -315,7 +315,7 @@ class React < Task
 			end
 			variableScores.push({"target"=>k,"sources"=>tmp})
 		end
-		@output=[{
+		@output={
 			"type"=>"PolynomialDynamicalSystemSet",
 			"description"=>"PLEASE FILL IN",
 			"name"=>"reverseEngineeringOutputModel",
@@ -323,7 +323,7 @@ class React < Task
 			"variableScores"=>variableScores,
 			#"variables"=>variableScores,
 			"updateRules"=>updateRules
-		}]
+		}
 		return @output
 	end
 
