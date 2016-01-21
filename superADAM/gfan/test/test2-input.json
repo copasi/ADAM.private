@@ -1,7 +1,4 @@
-{
-  "task": {
-      "input": [
-          {
+         {
             "description": "test with only one time series matrix",
             "fieldCardinality": 5,
             "numberVariables": 5,
@@ -26,12 +23,3 @@
               ],
             "type": "timeSeries"
           }
-        ],
-      "method": {
-          "arguments": [],
-          "description": "example time series",
-          "id": "basicRevEng",
-          "type": "reverseEngineering"
-        }
-    }
-}
