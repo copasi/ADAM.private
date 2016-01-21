@@ -3,8 +3,9 @@
 # the others should be named e.g. test2-input.json, test2-output.json
 TESTS = test1 test2 test3 test4
 
-PORT = 31334  # this should be different for each type of container
-COMMAND = ./src/find-pds # 
+# the port number  should be different for each type of container
+PORT = 31334
+COMMAND = ./src/find-pds
 CONTAINER_NAME = basic-reveng
 
 # see the following file for the available
