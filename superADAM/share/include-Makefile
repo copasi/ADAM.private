@@ -42,7 +42,7 @@ check-direct: $(TESTS_DIRECT)
 	@diff -w -q $@ $*-output.json || echo "curl $* failed: make sure you have done 'make run'"
 
 %-direct.out : %-input.json
-	@docker exec -i basic-reveng /bin/algorun < $< > $@
+	@docker exec -i $(CONTAINER_NAME) /bin/algorun < $< > $@
 	@diff -w -q $@ $*-output.json || echo "direct $* failed: make sure you have done 'make run'"
 
 clean:

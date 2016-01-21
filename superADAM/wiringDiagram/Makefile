@@ -1,18 +1,13 @@
-build:
-	docker pull algorun/algorun
-	cp -r ../share .
-	cp test/test1-input.json algorun_info/input_example.txt
-	cp test/test1-output.json algorun_info/output_example.txt
-	docker build -t algorun/wiring-diagram .
+# change these values for each container
+# note: test1 is actually copied from algorun/input_example.txt, algorun/output_example.txt
+# the others should be named e.g. test2-input.json, test2-output.json
+TESTS = test1
 
-run:
-	docker run -p 31333:8765 algorun/wiring-diagram
+# the port number  should be different for each type of container
+PORT = 31333
+COMMAND = ./src/wiring-diagram
+CONTAINER_NAME = wiring-diagram
 
-try:
-	open http://$$(docker-machine ip default):31333
-
-check: test1
-
-test1:
-	@./src/wiring-diagram <./test/test1-input.json | diff -w -q - ./test/test1-output.json || echo "test1 failed"
-
+# see the following file for the available
+# make targets, or do 'make help'
+include ../share/include-Makefile
