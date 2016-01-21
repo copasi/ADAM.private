@@ -154,6 +154,7 @@ readTSDataFromJSON String := (jsonInput) -> (
 )
 
 makeTimeSeriesJSON = method()
+-- version for taking data from files
 makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
     kk := ZZ/prime;
     R := kk[makeVars numvars];
@@ -174,6 +175,33 @@ makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experi
         "timeSeriesData" => timeSeriesData
         }
     )
+
+--version for taking data from memory
+--experiments is a list {{index set,matrix},{index set,matrix},...} of pairs in which 
+--if index set={}, then  matrix corresponds to data from a WT experiment
+--if index set={i,j,...}, then  matrix corresponds to data from an experiment in which nodes i, j,... have been knocked out
+--and matrix is a double list (not an M2 matrix)
+makeTimeSeriesJSON(String, ZZ, ZZ, List) := (description, prime, numvars, experiments) -> (
+    kk := ZZ/prime;
+    R := kk[makeVars numvars];
+    timeSeriesData := for e in experiments list (
+        new HashTable from {
+        "index" => e#0,
+        "matrix" => e#1
+        });
+    vals := {};
+    for t in timeSeriesData do vals = unique join(vals, unique flatten t#"matrix");
+    if any(vals, v -> v < 0 or v >= prime) then 
+    error "data not in range 0..prime-1";
+    prettyPrintJSON new HashTable from {
+        "description" => description,
+        "type" => "timeSeries",
+        "fieldCardinality" => prime,
+        "numberVariables" => numvars,
+        "timeSeriesData" => timeSeriesData
+        }
+    )
+
 
 findPDS = method(TypicalValue=>List)
 findPDS(TimeSeriesData) := (T) -> (
