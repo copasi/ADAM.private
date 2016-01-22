@@ -1,0 +1,18 @@
+{
+  "type": "AnnotatedGraph",
+  "description": "Sample Annotated Graph",
+  "nodes": [
+    {
+      "id": "node0",
+      "label": " 0 0 0 0 0"
+    },
+    {
+      "id": "node1",
+      "label": " 0 0 0 0 1"
+    }
+  ],
+  "edges": [
+    [source_node_id,dest_node_id,sign,wight],
+    [source_node_id,dest_node_id,sign,wight]
+  ]
+}
