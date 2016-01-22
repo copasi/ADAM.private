@@ -62,65 +62,7 @@
 	"algo_exec": "ruby Task.rb",
 	"algo_input_stream": "file",
 	"algo_output_stream": "output.txt",
-	"algo_parameters": {
-		"propensities": [
-		    {
-		      "activation": 0.9,
-		      "degradation": 0.9,
-		      "name": "x1"
-		    },
-		    {
-		      "activation": 0.9,
-		      "degradation": 0.9,
-		      "name": "x2"
-		    },
-		    {
-		      "activation": 0.9,
-		      "degradation": 0.9,
-		      "name": "x3"
-		    }
-		],
-		"controlNodes": [
-		    {
-		      "name": "n1",
-		      "nodeIndex": 1,
-		      "nodeValue": 0
-		    }
-		],
-		"controlEdges": [
-		    {
-		      "edgeHead": 3,
-		      "edgeTail": 2,
-		      "edgeValue": 0,
-		      "name": "e1"
-		    }
-		],
-		"costFunction": [
-		    {
-		      "name": "desiredState",
-		      "value": [
-			  {
-			    "name": "x1",
-			    "nodeIndex": 1,
-			    "nodeValue": 0,
-			    "nodeWeight": 1
-			  },
-			  {
-			    "name": "x2",
-			    "nodeIndex": 2,
-			    "nodeValue": 0,
-			    "nodeWeight": 1
-			  },
-			  {
-			    "name": "x3",
-			    "nodeIndex": 3,
-			    "nodeValue": 0,
-			    "nodeWeight": 1
-			  }
-			]
-		    }
-		]
-	},
+	"algo_parameters": {"propensities":"[{ \"activation\": 0.9, \"degradation\": 0.9, \"name\": \"x1\" },,{ \"activation\": 0.9, \"degradation\": 0.9, \"name\": \"x2\" },,{ \"activation\": 0.9, \"degradation\": 0.9, \"name\": \"x3\" }]","controlNodes":"[{ \"name\": \"n1\", \"nodeIndex\": 1, \"nodeValue\": 0 }]","controlEdges":"[{ \"edgeHead\": 3, \"edgeTail\": 2, \"edgeValue\": 0, \"name\": \"e1\" }]","costFunction":"[{ \"name\": \"desiredState\", \"value\": [ { \"name\": \"x1\", \"nodeIndex\": 1, \"nodeValue\": 0, \"nodeWeight\": 1 }, { \"name\": \"x2\", \"nodeIndex\": 2, \"nodeValue\": 0, \"nodeWeight\": 1 }, { \"name\": \"x3\", \"nodeIndex\": 3, \"nodeValue\": 0, \"nodeWeight\": 1 }] }]"},
 	"input_type": "[superAdam:BooleanDynamicalSystemSet]",
 	"output_type": "superAdam:ControlPolicy",
 	"algo_image": "algorun/sdds_control"

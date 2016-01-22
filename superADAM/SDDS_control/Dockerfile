@@ -10,7 +10,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # don't change these two lines        
 ADD ./algorun_info /home/algorithm/web/algorun_info/
 ADD ./src /home/algorithm/src/
-RUN ruby /home/algorithm/src/run.rb make
+RUN cd /home/algorithm/src && ruby run.rb make
 RUN rm -f src/*.o
 
 # [Optional] Sign your image

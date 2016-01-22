@@ -107,11 +107,44 @@ end
 class SDDS<Task
 	def initialize(json,exec_file)
 		@arguments={}
+        
+        # parse parameter for propensities
+        envPropensities = ENV['propensities']
+        envPropensities = envPropensities[1,(envPropensities.length-2)]
+        propensities = []
+        for x in envPropensities.split(',,')
+            propensities.push( JSON.parse(x))
+        end
+        
+        # parse parameter for controlNodes
+        envControlNodes = ENV['controlNodes']
+        envControlNodes = envControlNodes[1,(envControlNodes.length-2)]
+        controlNodes = []
+        for x in envControlNodes.split(',,')
+            controlNodes.push( JSON.parse(x))
+        end
+        
+        # parse parameter for controlEdges
+        envControlEdges = ENV['controlEdges']
+        envControlEdges = envControlEdges[1,(envControlEdges.length-2)]
+        controlEdges = []
+        for x in envControlEdges.split(',,')
+            controlEdges.push( JSON.parse(x))
+        end
+        
+        # parse parameter for costFunction
+        envCostFunction = ENV['costFunction']
+        envCostFunction = envCostFunction[1,(envCostFunction.length-2)]
+        costFunction = []
+        for x in envCostFunction.split(',,')
+            costFunction.push( JSON.parse(x))
+        end
+
 		@default_values= {
-			'propensities'=>JSON.parse(ENV['propensities']),
-			'controlNodes'=>JSON.parse(ENV['controlNodes']),
-			'controlEdges'=>JSON.parse(ENV['controlEdges']),
-			'costFunction'=>JSON.parse(ENV['costFunction'])
+            'propensities'=>propensities,
+            'controlNodes'=>controlNodes,
+            'controlEdges'=>controlEdges,
+			'costFunction'=>costFunction
 		}
 		super(json,exec_file)
 	end
