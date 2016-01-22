@@ -1,6 +1,6 @@
 {
 	"manifest_version": "1.3",
-	"algo_name": "REACT",
+	"algo_name": "SDDS Control",
 	"algo_summary": "Evolutionary Algorithm for Discrete Dynamical System Optimization",
 	"algo_description": "The inference of gene regulatory networks (GRNs) from system-level experimental observations is at the heart of systems biology due to its centrality in gaining insight into the complex regulatory mechanisms in cellular systems. This includes the inference of both the network topology and dynamic mathematical models. <br>This software contains a novel network inference algorithm within the algebraic framework of Boolean polynomial dynamical system (BPDS). The algorithm considers time series data, including that of perturbation experiments such as knock-out mutants and RNAi experiments. To infer the network topology and dynamic models, it allows for the incorporation of prior biological knowledge while being robust to significant levels of noise in the data used for inference. It uses an evolutionary algorithm for local optimization with an encoding of the mathematical models as BPDS.",
 	"algo_website": "http://compsysmed.org/Software/EARevEng/REACT.html",
@@ -59,24 +59,130 @@
 		"organization": "democratech", 
 		"org_website": "https://democratech.co" 
 	},
-	"algo_exec": "ruby React.rb",
+	"algo_exec": "ruby Task.rb",
 	"algo_input_stream": "file",
 	"algo_output_stream": "output.txt",
 	"algo_parameters": {
-		"HammingPolyWeight": "0.5",
-		"ComplexityWeight": "0.2",
-		"RevEngWeight": "0",
-		"BioProbWeight": "0",
-		"HammingModelWeight": "0.35",
-		"PolyScoreWeight": "0.65",
-		"GenePoolSize": "100",
-		"NumCandidates": "55",
-		"NumParentsToPreserve": "5",
-		"MaxGenerations": "100",
-		"StableGenerationLimit": "50",
-		"MutateProbability": "0.5"
+		"propensities": [
+		    {
+		      "activation": 0.9,
+		      "degradation": 0.9,
+		      "name": "x1"
+		    },
+		    {
+		      "activation": 0.9,
+		      "degradation": 0.9,
+		      "name": "x2"
+		    },
+		    {
+		      "activation": 0.9,
+		      "degradation": 0.9,
+		      "name": "x3"
+		    }
+		],
+		"controlNodes": [
+		    {
+		      "name": "n1",
+		      "nodeIndex": 1,
+		      "nodeValue": 0
+		    }
+		],
+		"controlEdges": [
+		    {
+		      "edgeHead": 3,
+		      "edgeTail": 2,
+		      "edgeValue": 0,
+		      "name": "e1"
+		    }
+		],
+		"costFunction": [
+		    {
+		      "name": "desiredState",
+		      "value": [
+			  {
+			    "name": "x1",
+			    "nodeIndex": 1,
+			    "nodeValue": 0,
+			    "nodeWeight": 1
+			  },
+			  {
+			    "name": "x2",
+			    "nodeIndex": 2,
+			    "nodeValue": 0,
+			    "nodeWeight": 1
+			  },
+			  {
+			    "name": "x3",
+			    "nodeIndex": 3,
+			    "nodeValue": 0,
+			    "nodeWeight": 1
+			  }
+			]
+		    }
+		]
 	},
-	"input_type": "[superAdam:TimeSeriesSet,superAdam:PolynomialDynamicalSystemSet,(superAdam:DirectedGraph)]",
-	"output_type": "superAdam:PolynomialDynamicalSystemSet",
-	"algo_image": "algorun/react"
+	"input_type": "[superAdam:BooleanDynamicalSystemSet]",
+	"output_type": "superAdam:ControlPolicy",
+	"algo_image": "algorun/sdds_control"
 }
+
+
+	"algo_parameters": {
+		"propensities": "[\
+		    {\
+		      \"activation\": 0.9,
+		      \"degradation\": 0.9,
+		      \"name\": \"x1\"
+		    },\
+		    {\
+		      \"activation\": 0.9,
+		      \"degradation\": 0.9,
+		      \"name\": \"x2\"
+		    },\
+		    {\
+		      \"activation\": 0.9,
+		      \"degradation\": 0.9,
+		      \"name\": \"x3\"
+		    }\
+		]",
+		"controlNodes": "[
+		    {
+		      \"name\": \"n1\",
+		      \"nodeIndex\": 1,
+		      \"nodeValue\": 0
+		    }
+		]",
+		"controlEdges": "[
+		    {
+		      \"edgeHead\": 3,
+		      \"edgeTail\": 2,
+		      \"edgeValue\": 0,
+		      \"name\": \"e1\"
+		    }
+		]",
+		"costFunction": "[
+		    {
+		      \"name\": \"desiredState\",
+		      \"value\": [
+			  {
+			    \"name\": \"x1\",
+			    \"nodeIndex\": 1,
+			    \"nodeValue\": 0,
+			    \"nodeWeight\": 1
+			  },
+			  {
+			    \"name\": \"x2\",
+			    \"nodeIndex\": 2,
+			    \"nodeValue\": 0,
+			    \"nodeWeight\": 1
+			  },
+			  {
+			    \"name\": \"x3\",
+			    \"nodeIndex\": 3,
+			    \"nodeValue\": 0,
+			    \"nodeWeight\": 1
+			  }
+			]
+		    }
+		]"
+

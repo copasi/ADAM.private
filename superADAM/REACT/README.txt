@@ -15,13 +15,13 @@ More info: http://www.paola-vera-licona.net/Software/EARevEng/REACT.html
 === HOW TO RUN REACT ===
 
 REACT has been made available as a Docker container to make it easy to run anywhere without tedious technical manipulation. For more information about Docker, see http://docker.com
-The REACT docker image is available here: https://registry.hub.docker.com/u/thibauld/react/
+The REACT docker image is available here: https://registry.hub.docker.com/u/algorun/react/
 
 1. Install docker
 See https://docs.docker.com/
 
 2. Run the REACT docker image
-sudo docker run -d -p 31331:8765 --name react thibauld/react
+sudo docker run -d -p 31331:8765 --name react algorun/react
 This will automatically pull the thibauld/react docker image from docker hub.
 Note that you can pick an other port number than 31331
 

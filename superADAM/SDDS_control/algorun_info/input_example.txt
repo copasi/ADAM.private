@@ -1,0 +1,69 @@
+[
+  {
+    "description": "",
+    "name": "small_example_control",
+    "type": "DiscreteDynamicalSystemSet",
+    "updateRules": [
+	{
+	  "inputVariables": ["x1","x2","x3"],
+	  "target": "x1",
+	  "transitionTable": [
+	      [[0,0,0],0],
+	      [[0,0,1],1],
+	      [[0,1,0],1],
+	      [[0,1,1],1],
+	      [[1,0,0],0],
+	      [[1,0,1],1],
+	      [[1,1,0],1],
+	      [[1,1,1],1]
+	    ]
+	},
+	{
+	  "inputVariables": ["x1","x2","x3"],
+	  "target": "x2",
+	  "transitionTable": [
+	      [[0,0,0],0],
+	      [[0,0,1],1],
+	      [[0,1,0],1],
+	      [[0,1,1],0],
+	      [[1,0,0],1],
+	      [[1,0,1],1],
+	      [[1,1,0],0],
+	      [[1,1,1],1]
+	    ]
+	},
+	{
+	  "inputVariables": ["x1","x2","x3"],
+	  "target": "x3",
+	  "transitionTable": [
+	      [[0,0,0],0],
+	      [[0,0,1],0],
+	      [[0,1,0],0],
+	      [[0,1,1],1],
+	      [[1,0,0],0],
+	      [[1,0,1],1],
+	      [[1,1,0],1],
+	      [[1,1,1],1]
+	    ]
+	}
+      ],
+    "variables": [
+	{
+	  "id": "x1",
+	  "name": "1",
+	  "states": ["low","high"]
+	},
+	{
+	  "id": "x2",
+	  "name": "2",
+	  "states": ["low","high"]
+	},
+	{
+	  "id": "x3",
+	  "name": "3",
+	  "states": ["low","high"]
+	}
+      ],
+    "version": "1.0"
+  }
+]

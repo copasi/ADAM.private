@@ -1,5 +1,75 @@
 #!/usr/bin/ruby
-require './Task.rb'
+require_relative 'Task.rb'
+
+ENV['propensities']=<<END
+[
+    {
+      "activation": 0.9,
+      "degradation": 0.9,
+      "name": "x1"
+    },
+    {
+      "activation": 0.9,
+      "degradation": 0.9,
+      "name": "x2"
+    },
+    {
+      "activation": 0.9,
+      "degradation": 0.9,
+      "name": "x3"
+    }
+]
+END
+
+ENV['controlNodes']=<<END
+[
+    {
+      "name": "n1",
+      "nodeIndex": 1,
+      "nodeValue": 0
+    }
+]
+END
+
+ENV['controlEdges']=<<END
+[
+    {
+      "edgeHead": 3,
+      "edgeTail": 2,
+      "edgeValue": 0,
+      "name": "e1"
+    }
+]
+END
+
+ENV['costFunction']=<<END
+[
+    {
+      "name": "desiredState",
+      "value": [
+	  {
+	    "name": "x1",
+	    "nodeIndex": 1,
+	    "nodeValue": 0,
+	    "nodeWeight": 1
+	  },
+	  {
+	    "name": "x2",
+	    "nodeIndex": 2,
+	    "nodeValue": 0,
+	    "nodeWeight": 1
+	  },
+	  {
+	    "name": "x3",
+	    "nodeIndex": 3,
+	    "nodeValue": 0,
+	    "nodeWeight": 1
+	  }
+	]
+    }
+]
+END
+
 param=ARGV[0]
 if param.nil? then param="help" end
 case param
@@ -22,7 +92,7 @@ case param
 			puts "============== TEST1/1 ==============="
 			task1=SDDS.new(test1,'./SDDS')
 			task1.run()
-			task1.render_output()
+			puts task1.render_output()
 			task1.clean_temp_files()
 		rescue StandardError=>e
 			STDERR.puts "ERROR: "+e.to_s
@@ -42,7 +112,7 @@ case param
 			begin
 				task=SDDS.new(json,'./SDDS')
 				task.run()
-				task.render_output()
+				puts task.render_output()
 				task.clean_temp_files()
 			rescue StandardError=>e
 				STDERR.puts "ERROR: "+e.to_s

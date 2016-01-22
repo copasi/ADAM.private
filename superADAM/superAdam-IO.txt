@@ -104,7 +104,7 @@ Control for SDDS
 Author in charge: David 
 
 INPUT
-Mandatory:
+Mandatory: PDSTable (PolynomialDynamicalSystemTable)
 Optional:
 
 OUTPUT
