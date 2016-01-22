@@ -1,55 +1,38 @@
 {
 	"manifest_version": "1.3",
 	"algo_name": "SDDS Control",
-	"algo_summary": "",
-	"algo_description": ".",
-	"algo_website": "http://compsysmed.org/Software/EARevEng/REACT.html",
-	"algo_keywords": ["reverse engineering", "cell biology"],
+	"algo_summary": "This module computes an optimal policy for a stochastic discrete dynamical system (SDDS).",
+	"algo_description": "This module computes an optimal policy for a SDDS.
+This will be an input for the SDDS module for simulation. SDDS will generate
+two trajectories: one without contro and another with the control
+policy. The control policy is given as binary vectors where a "0" entry
+means no control and an entry of "1" means control. For instance, if there
+are 2 control nodes and 3 control edges, then a control action is a
+binary vector of size 5, e.g. (0,1,0,1,1), (1,1,0,0,1), etc.",
+	"algo_website": "http://www.bsb.eurasipjournals.com/content/2012/1/5",
+	"algo_keywords": ["control", "simulation"],
 	"published_paper": {
-		"title": "An algebra-based method for inferring gene regulatory networks",
-		"url":"http://www.ncbi.nlm.nih.gov/pubmed/24669835"
+		"title": "Modeling stochasticity and variability in gene regulatory networks",
+		"url":"http://www.bsb.eurasipjournals.com/content/2012/1/5"
 	},
 	"algo_authors": [
 		{
-			"name": "Paola Vera-Licona",
-			"email": "veralicona@uchc.edu",
+			"name": "David Murrugarra",
+			"email": "murrugarra@uky.edu",
 			"profile_picture": "",
-			"personal_website": "http://compsysmed.org",
-			"organization": "Center for Quantitative Medicine, UConn Health",
-			"org_website": "http://cqm.uchc.edu/"
+			"personal_website": "http://www.math.uky.edu/~dmu228",
+			"organization": "University of kentucky",
+			"org_website": "http://www.math.uky.edu"
 		},
 		{
-			"name": "Abdul Jarrah",
-			"email": "ajarrah@aus.edu",
-			"profile_picture": "",
-			"personal_website": "https://www2.aus.edu/facultybios/profile.php?faculty=ajarrah",
-			"organization": "Department of Mathematics and Statistics, AUS",
-			"org_website": "http://www.aus.edu/info/200168/college_of_arts_and_sciences/290/department_of_mathematics_and_statistics/4"
-		},
-		{
-			"name": "Luis David Garcia-Puente",
-			"email": "lgarcia@shsu.edu",
-			"profile_picture": "",
-			"personal_website": "http://www.shsu.edu/~ldg005/",
-			"organization": "Department of Mathematics and Statistics, Sam Houston State University",
-			"org_website": "http://www.aus.edu/info/200168/college_of_arts_and_sciences/290/department_of_mathematics_and_statistics/4"
-		},
-		{
-			"name": "John J. McGee",
-			"email": "",
+			"name": "Boris Aguilar",
+			"email": "boaguilar@gmail.com",
 			"profile_picture": "",
 			"personal_website": "",
-			"organization": "Wolfram Alpha",
-			"org_website": "http://www.wolframalpha.com/"
+			"organization": "institute for Systems Biology",
+			"org_website": "https://www.systemsbiology.org/"
 		},
-		{
-			"name": "Reinhard Laubenbacher",
-			"email": "",
-			"profile_picture": "",
-			"personal_website": "http://facultydirectory.uchc.edu/profile?profileId=Laubenbacher-Reinhard",
-			"organization": "Center for Quantitative Medicine, UConn Health",
-			"org_website": "http://cqm.uchc.edu/"
-		}
+		},
 	],
 	"algo_packager": {
 		"name": "Thibauld Favre",
