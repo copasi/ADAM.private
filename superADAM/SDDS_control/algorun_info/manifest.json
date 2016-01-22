@@ -3,7 +3,7 @@
 	"algo_name": "SDDS Control",
 	"algo_summary": "This module computes an optimal policy for a stochastic discrete dynamical system (SDDS).",
 	"algo_description": "This module computes an optimal policy for a SDDS.
-This will be an input for the SDDS module for simulation. SDDS will generate
+The output will be an input for the SDDS module for simulation. SDDS will generate
 two trajectories: one without contro and another with the control
 policy. The control policy is given as binary vectors where a "0" entry
 means no control and an entry of "1" means control. For instance, if there
@@ -31,7 +31,6 @@ binary vector of size 5, e.g. (0,1,0,1,1), (1,1,0,0,1), etc.",
 			"personal_website": "",
 			"organization": "institute for Systems Biology",
 			"org_website": "https://www.systemsbiology.org/"
-		},
 		},
 	],
 	"algo_packager": {
