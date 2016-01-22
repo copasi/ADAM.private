@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 require_relative 'Task.rb'
+require 'pp'
 
 ENV['propensities']=<<END
 [
@@ -112,7 +113,7 @@ case param
 			begin
 				task=SDDS.new(json,'./SDDS')
 				task.run()
-				puts task.render_output()
+				puts JSON.pretty_generate(task.render_output())
 				task.clean_temp_files()
 			rescue StandardError=>e
 				STDERR.puts "ERROR: "+e.to_s
