@@ -1,6 +1,6 @@
 {
   "type": "AnnotatedGraph",
-  "description": "Sample Annotated Graph",
+  "description": "data output from cyclone",
   "nodes": [
     {
       "id": "node0",
