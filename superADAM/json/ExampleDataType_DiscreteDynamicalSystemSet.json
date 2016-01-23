@@ -7,7 +7,7 @@
                         "target": "CAP",
                         "functions": [
                             {
-				"inputVariables": ["CAP","CAP"],
+				"inputVariables": ["CAP"],
                                 "transitionTable": [
                                         [[0],0],
                                         [[1],1]
@@ -19,7 +19,7 @@
                         "target": "mRNA",
                         "functions": [
                             {
-                                "inputVariables": ["CAP","LacI","mRNA","mRNA"],
+                                "inputVariables": ["CAP","LacI","mRNA"],
                                 "transitionTable": [
                                         [[0,0,0],0],
                                         [[0,0,1],1],
@@ -41,7 +41,7 @@
                         "target": "LacY",
                         "functions": [
                             {
-                                "inputVariables": ["mRNA","LacY","LacY"],
+                                "inputVariables": ["mRNA","LacY"],
                                 "transitionTable": [
                                         [[0,0],0],
                                         [[0,1],1],
@@ -55,7 +55,7 @@
                         "target": "LacZ",
                         "functions": [
                             {
-                                "inputVariables": ["mRNA","LacZ","LacZ"],
+                                "inputVariables": ["mRNA","LacZ"],
                                 "transitionTable": [
                                         [[0,0],0],
                                         [[0,1],1],
@@ -69,7 +69,7 @@
                         "target": "LacI",
                         "functions": [
                             {
-                                "inputVariables": ["LacI","LacI"],
+                                "inputVariables": ["LacI"],
                                 "transitionTable": [
                                         [[0],0],
                                         [[1],1],

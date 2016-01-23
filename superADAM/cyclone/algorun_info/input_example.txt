@@ -1,6 +1,6 @@
 {
 	"description": "data input for cyclone",
-	"type": "PolynomialDynamicalSystemTable",
+	"type": "DiscreteDynamicalSystemSet",
 	"updateRules": [
 		{
 			"target": "CAP",

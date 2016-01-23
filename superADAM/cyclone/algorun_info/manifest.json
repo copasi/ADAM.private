@@ -32,7 +32,7 @@
 	"algo_output_stream": "output.txt",
 	"algo_parameters": {
 	},
-	"input_type": "superadam:PolynomialDynamicalSystemTable",
+	"input_type": "superadam:DiscreteDynamicalSystemSet",
     "output_type": "superadam:AnnotatedGraph",
 	"algo_image": "algorun/cyclone"
 }
