@@ -14,16 +14,16 @@ class BNReduction
 
 	def j2i_parse_json()
 		@parsed = JSON.parse(@json_data)
-		@karguments =  @parsed["task"]["method"]["arguments"]
-		@model_type = @parsed["task"]["input"][0]["type"]
-		@model_description = @parsed["task"]["input"][0]["description"]
+        @karguments =  @parsed["parameters"]
+		@model_type = @parsed["type"]
+		@model_description = @parsed["description"]
 		ks_length =  @karguments.length
 		i = 1
 		while i <= ks_length do
 			@ks[@karguments[i-1]["id"]] = @karguments[i-1]["value"]
 			i = i + 1
 		end
-		@x_variables = @parsed["task"]["input"][0]["updateRules"]
+		@x_variables = @parsed["updateRules"]
 		xs_length = @x_variables.length
 		i = 1
 		while i<= xs_length do
@@ -66,17 +66,6 @@ class BNReduction
 
 	def o2j_read_file(output_file)
 		i = 0
-
-		while i < @ks.length do
-			@param = Hash.new
-			@param["id"] = @ks.keys[i]
-			@param["value"] = @ks.values[i]
-			@parameters[i] = @param
-			i = i + 1
-		end
-		@steadystates["parameters"] = @parameters
-		i = 0
-
 		while i < @xs.length do
 			@idorder[i] = "x" + String(i+1)
 			i = i + 1
@@ -97,14 +86,10 @@ class BNReduction
 		@steadystates["value"] = @value
 		@final = Hash.new
 		@output = Hash.new
-		@output["type"] = @model_type
-		@output["description"] = @model_description
-		@output["parameters"] = @parsed["task"]["input"][0]["parameters"]
-		@output["updateRules"] = @parsed["task"]["input"][0]["updateRules"]
-		@output["variables"] = @parsed["task"]["input"][0]["variables"]
+        @output["type"] = "SteadyStates"
+		@output["description"] = "steady states of boolean dynamical system set"
 		@output["steadystates"] = @steadystates
-		@final["output"] = [@output]
-		@final_json = JSON.pretty_generate(@final)
+		@final_json = JSON.pretty_generate(@output)
 	end
 	
 	def get_final_json()
