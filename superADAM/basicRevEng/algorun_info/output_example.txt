@@ -1,7 +1,7 @@
 {
   "fieldCardinality": 5,
   "numberVariables": 5,
-  "type": "model",
+  "type": "PolynomialDynamicalSystemSet",
   "updateRules": [
       {
         "functions": [

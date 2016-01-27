@@ -52,5 +52,5 @@
         "name": "knockout experiment 1"
       }
     ],
-  "type": "timeSeries"
+  "type": "TimeSeries"
 }

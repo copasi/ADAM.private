@@ -32,6 +32,7 @@
 	"algo_output_stream": "stdout",
 	"algo_parameters": {
 	},
-	"input_type": "algorun:superadam",
+	"input_type": "superadam:TimeSeries",
+	"output_type": "superadam:PolynomialDynamicalSystemSet",
 	"algo_image": "algorun/basicreveng"
 }
