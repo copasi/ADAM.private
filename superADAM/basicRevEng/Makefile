@@ -6,7 +6,7 @@ TESTS = test1 test2 test3 test4
 # the port number  should be different for each type of container
 PORT = 31334
 COMMAND = ./src/find-pds
-CONTAINER_NAME = basic-reveng
+CONTAINER_NAME = basicreveng
 
 # see the following file for the available
 # make targets, or do 'make help'

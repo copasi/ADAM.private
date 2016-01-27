@@ -17,10 +17,11 @@ build:
 	docker build -t algorun/$(CONTAINER_NAME) .
 
 run:
-	docker run -p $(PORT):8765 --rm --name $(CONTAINER_NAME) algorun/$(CONTAINER_NAME)
+	docker run -d -p $(PORT):8765 --name $(CONTAINER_NAME) algorun/$(CONTAINER_NAME)
 
 stop:
 	docker stop $(CONTAINER_NAME)
+	docker rm $(CONTAINER_NAME)
 
 try:
 	open http://$$(docker-machine ip default):$(PORT)
