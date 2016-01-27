@@ -1,3 +1,5 @@
+load (getenv("ADAM_ROOT")|"superADAM/share/JSON.m2")
+
 newPackage(
     "PolynomialDynamicalSystems",
         Version => "1.0", 
