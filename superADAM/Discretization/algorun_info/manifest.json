@@ -32,8 +32,8 @@
     	"algo_output_stream": "JSON-ts-output.json",
 	"algo_parameters": {
 	},
-	"input_type": "TimeSeries",
-	"output_type": "TimeSeries",
+	"input_type": "superadam:TimeSeries",
+	"output_type": "superadam:TimeSeries",
 	"algo_image": "algorun/discretize"
 }
 

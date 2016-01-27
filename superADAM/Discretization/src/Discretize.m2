@@ -8,7 +8,7 @@
 --Output: Files named "JSON-ts-output.txt" with booleanized data.
 --********************* 
 
-loadPackage "PolynomialDynamicalSystems"
+load (getenv("ADAM_ROOT")|"superADAM/share/PolynomialDynamicalSystems.m2")
 needsPackage "Points"
 
 discretizeTS = method(Options=>{characteristic=>2})
