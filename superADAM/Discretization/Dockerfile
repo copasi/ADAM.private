@@ -14,7 +14,7 @@ ENV ADAM_ROOT /home/M2/adam/
 ENV PATH /home/M2:$ADAM_ROOT/superADAM/share:$PATH
 ADD ./algorun_info /home/algorithm/web/algorun_info/
 ADD ./src /home/algorithm/src/
-ADD ./share/ /home/M2/adam/superADAM/share/
+# ADD ./share/ /home/M2/adam/superADAM/share/
 
 # [Optional] Sign your image
 MAINTAINER Abdelrahman Hosny <abdelrahman.hosny@hotmail.com>

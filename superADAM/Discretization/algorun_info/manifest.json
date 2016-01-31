@@ -29,7 +29,7 @@
     },
 	"algo_exec": "/usr/bin/M2script discretize",
 	"algo_input_stream": "file",
-    	"algo_output_stream": "JSON-ts-output.json",
+    	"algo_output_stream": "Discretization-output.json",
 	"algo_parameters": {
 	},
 	"input_type": "superadam:TimeSeries",

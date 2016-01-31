@@ -22,5 +22,5 @@
           "name": "wildtype experiment 2"
 	   }
                   ],
-      "type": “TimeSeriesSet”
+      "type": "timeSeries"
       }
